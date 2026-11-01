@@ -102,9 +102,14 @@
     }
     if (b.manuale) testa.append(eEl("span", "badge b-manuale", "manuale"));
     testa.append(sel);
+    const bz = eEl("button", "zoom", g.schermo ? "✕ Chiudi" : "⤢ Schermo intero");
+    bz.type = "button"; bz.title = "Schermo intero (Esc per chiudere)";
+    bz.addEventListener("click", () => schermoIntero(g, !g.schermo));
+    testa.append(bz);
     const box = eEl("div", "grafico");
     box.setAttribute("role", "img");
     box.setAttribute("aria-label", `Grafico ${g.ticker} ${NOME_TF[tf]} con range ${fmt(b.bottom)}–${fmt(b.top)}`);
+    box.addEventListener("dblclick", () => schermoIntero(g, !g.schermo));
     const dati = eEl("div", "dati");
     const pos = posizione(b), ti = titoli[g.ticker];
     const voci = [
@@ -158,6 +163,21 @@
     g.chart = creaGrafico(box, b, barre, altro);
   }
   function osserva(g) { g.disegnato = false; if (g.chart) { g.chart.remove(); g.chart = null; } osservatore.observe(g.card); montaGrafico(g); }
+
+  // ── Schermo intero: la card diventa un overlay (Esc o ✕ per chiudere) ─────
+  function schermoIntero(g, on) {
+    for (const x of gruppi) if (x !== g && x.schermo) { x.schermo = false; x.card.classList.remove("schermo"); disegnaCard(x, x.tf); osserva(x); }
+    g.schermo = on;
+    g.card.classList.toggle("schermo", on);
+    document.body.classList.toggle("blocca", on);
+    disegnaCard(g, g.tf); osserva(g);
+    if (on) g.card.scrollTop = 0;
+  }
+  document.addEventListener("keydown", (e) => {
+    if (e.key !== "Escape") return;
+    const g = gruppi.find((x) => x.schermo);
+    if (g) schermoIntero(g, false);
+  });
 
   // ── Modifica a mano del range (salvata nel repo: data/override.json) ──────
   const b64 = (txt) => btoa(String.fromCharCode(...new TextEncoder().encode(txt)));

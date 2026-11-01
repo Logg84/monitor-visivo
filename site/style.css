@@ -68,3 +68,11 @@ button.link{background:none;border:0;padding:4px 0;color:var(--accento,#2563eb);
 button.primario{background:var(--accento,#2563eb);color:#fff;border:0;border-radius:6px;padding:5px 14px;cursor:pointer;font:inherit}
 button.primario:disabled{opacity:.6}
 .esito{font-size:.85em;color:var(--muto)}
+
+.zoom{margin-left:auto;background:none;border:1px solid var(--bordo);color:var(--muto);border-radius:6px;padding:3px 10px;cursor:pointer;font:inherit;font-size:.85em}
+.zoom:hover{color:var(--testo)}
+.card-testa .tf{margin-left:0}
+body.blocca{overflow:hidden}
+.card.schermo{position:fixed;inset:0;z-index:50;border-radius:0;border:0;padding:14px 16px;display:flex;flex-direction:column;overflow:auto}
+.card.schermo .grafico{flex:1 1 auto;height:auto;min-height:320px;margin:8px 0}
+.card.schermo .dati{flex:none}
