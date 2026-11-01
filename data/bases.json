@@ -1,4 +1,19 @@
 {
+ "ABF.L|1D": {
+  "aggiornato": "2026-11-01",
+  "ampiezza": 0.211,
+  "barre": 120,
+  "bottom": 1758.8057,
+  "calo": 0.3533,
+  "congelato_il": "2026-11-01",
+  "data_ultimo": "2026-10-30",
+  "inizio": "2026-05-13",
+  "stato": "in_range",
+  "swing_massimi": 9,
+  "swing_minimi": 7,
+  "top": 2130.0,
+  "ultimo": 1922.5
+ },
  "ABF.L|1W": {
   "aggiornato": "2026-11-01",
   "ampiezza": 0.2035,
@@ -13,6 +28,22 @@
   "swing_minimi": 3,
   "top": 2130.0,
   "ultimo": 1922.5
+ },
+ "ACN|1D": {
+  "aggiornato": "2026-11-01",
+  "ampiezza": 0.5859,
+  "barre": 86,
+  "bottom": 121.9829,
+  "calo": 0.6817,
+  "data_ultimo": "2026-10-30",
+  "inizio": "2026-06-30",
+  "stato": "uscito_sopra",
+  "swing_massimi": 4,
+  "swing_minimi": 3,
+  "top": 193.4481,
+  "ultimo": 258.24,
+  "uscita_data": "2026-10-01",
+  "uscito_il": "2026-11-01"
  },
  "ACN|1W": {
   "aggiornato": "2026-11-01",
@@ -45,6 +76,20 @@
   "top": 292.79,
   "ultimo": 250.23
  },
+ "ADBE|1W": {
+  "aggiornato": "2026-11-01",
+  "ampiezza": 0.4937,
+  "barre": 19,
+  "bottom": 195.16,
+  "calo": 0.6925,
+  "data_ultimo": "2026-10-30",
+  "inizio": "2026-06-19",
+  "stato": "rallenta",
+  "swing_massimi": 1,
+  "swing_minimi": 1,
+  "top": 291.52,
+  "ultimo": 250.23
+ },
  "ADS.DE|1D": {
   "aggiornato": "2026-11-01",
   "ampiezza": 0.229,
@@ -59,6 +104,36 @@
   "top": 157.85,
   "ultimo": 168.55,
   "uscita_data": "2026-05-27",
+  "uscito_il": "2026-11-01"
+ },
+ "ADS.DE|1W": {
+  "aggiornato": "2026-11-01",
+  "ampiezza": 0.4296,
+  "barre": 31,
+  "bottom": 129.6175,
+  "calo": 0.4851,
+  "data_ultimo": "2026-10-30",
+  "inizio": "2026-03-27",
+  "stato": "rallenta",
+  "swing_massimi": 1,
+  "swing_minimi": 3,
+  "top": 185.3,
+  "ultimo": 168.55
+ },
+ "AES|1D": {
+  "aggiornato": "2026-11-01",
+  "ampiezza": 0.1269,
+  "barre": 218,
+  "bottom": 12.8519,
+  "calo": 0.3293,
+  "data_ultimo": "2026-10-30",
+  "inizio": "2025-12-17",
+  "stato": "uscito_sopra",
+  "swing_massimi": 3,
+  "swing_minimi": 3,
+  "top": 14.4823,
+  "ultimo": 14.83,
+  "uscita_data": "2026-02-03",
   "uscito_il": "2026-11-01"
  },
  "AES|1W": {
@@ -77,6 +152,21 @@
   "uscita_data": "2026-02-06",
   "uscito_il": "2026-11-01"
  },
+ "AKAM|1D": {
+  "aggiornato": "2026-11-01",
+  "ampiezza": 0.4335,
+  "barre": 208,
+  "bottom": 85.1,
+  "calo": 0.3368,
+  "congelato_il": "2026-11-01",
+  "data_ultimo": "2026-10-30",
+  "inizio": "2026-01-02",
+  "stato": "in_range",
+  "swing_massimi": 5,
+  "swing_minimi": 8,
+  "top": 121.99,
+  "ultimo": 92.72
+ },
  "AKAM|1W": {
   "aggiornato": "2026-11-01",
   "ampiezza": 0.3774,
@@ -91,6 +181,22 @@
   "swing_minimi": 2,
   "top": 97.15,
   "ultimo": 92.72
+ },
+ "ALAB|1D": {
+  "aggiornato": "2026-11-01",
+  "ampiezza": 0.7533,
+  "barre": 149,
+  "bottom": 100.27,
+  "calo": 0.6019,
+  "data_ultimo": "2026-10-30",
+  "inizio": "2026-03-30",
+  "stato": "uscito_sopra",
+  "swing_massimi": 0,
+  "swing_minimi": 1,
+  "top": 175.8,
+  "ultimo": 258.7,
+  "uscita_data": "2026-04-21",
+  "uscito_il": "2026-11-01"
  },
  "ALAB|1W": {
   "aggiornato": "2026-11-01",
@@ -124,6 +230,22 @@
   "uscita_data": "2025-09-26",
   "uscito_il": "2026-11-01"
  },
+ "AON|1D": {
+  "aggiornato": "2026-11-01",
+  "ampiezza": 0.1937,
+  "barre": 20,
+  "bottom": 269.45,
+  "calo": 0.3357,
+  "data_ultimo": "2026-10-30",
+  "inizio": "2026-10-02",
+  "stato": "uscito_sopra",
+  "swing_massimi": 1,
+  "swing_minimi": 1,
+  "top": 321.64,
+  "ultimo": 321.67,
+  "uscita_data": null,
+  "uscito_il": "2026-11-01"
+ },
  "AON|1W": {
   "aggiornato": "2026-11-01",
   "ampiezza": 0.1264,
@@ -139,6 +261,20 @@
   "ultimo": 321.67,
   "uscita_data": null,
   "uscito_il": "2026-11-01"
+ },
+ "AOS|1D": {
+  "aggiornato": "2026-11-01",
+  "ampiezza": 0.1473,
+  "barre": 17,
+  "bottom": 55.0088,
+  "calo": 0.3421,
+  "data_ultimo": "2026-10-30",
+  "inizio": "2026-10-07",
+  "stato": "rallenta",
+  "swing_massimi": 1,
+  "swing_minimi": 1,
+  "top": 63.11,
+  "ultimo": 63.07
  },
  "AOS|1W": {
   "aggiornato": "2026-11-01",
@@ -156,6 +292,22 @@
   "uscita_data": "2026-06-26",
   "uscito_il": "2026-11-01"
  },
+ "APO|1D": {
+  "aggiornato": "2026-11-01",
+  "ampiezza": 0.1448,
+  "barre": 161,
+  "bottom": 99.4587,
+  "calo": 0.4282,
+  "data_ultimo": "2026-10-30",
+  "inizio": "2026-03-12",
+  "stato": "uscito_sopra",
+  "swing_massimi": 2,
+  "swing_minimi": 2,
+  "top": 113.8569,
+  "ultimo": 115.84,
+  "uscita_data": "2026-04-15",
+  "uscito_il": "2026-11-01"
+ },
  "APO|1W": {
   "aggiornato": "2026-11-01",
   "ampiezza": 0.3555,
@@ -170,6 +322,22 @@
   "swing_minimi": 3,
   "top": 140.1679,
   "ultimo": 115.84
+ },
+ "ARES|1D": {
+  "aggiornato": "2026-11-01",
+  "ampiezza": 0.1828,
+  "barre": 161,
+  "bottom": 93.2687,
+  "calo": 0.4997,
+  "data_ultimo": "2026-10-30",
+  "inizio": "2026-03-12",
+  "stato": "uscito_sopra",
+  "swing_massimi": 2,
+  "swing_minimi": 2,
+  "top": 110.3211,
+  "ultimo": 128.15,
+  "uscita_data": "2026-04-15",
+  "uscito_il": "2026-11-01"
  },
  "ARES|1W": {
   "aggiornato": "2026-11-01",
@@ -216,6 +384,22 @@
   "top": 21.26,
   "ultimo": 14.43
  },
+ "ARM|1D": {
+  "aggiornato": "2026-11-01",
+  "ampiezza": 0.3093,
+  "barre": 187,
+  "bottom": 104.55,
+  "calo": 0.4393,
+  "data_ultimo": "2026-10-30",
+  "inizio": "2026-02-03",
+  "stato": "uscito_sopra",
+  "swing_massimi": 3,
+  "swing_minimi": 3,
+  "top": 136.89,
+  "ultimo": 205.97,
+  "uscita_data": "2026-03-25",
+  "uscito_il": "2026-11-01"
+ },
  "ARM|1W": {
   "aggiornato": "2026-11-01",
   "ampiezza": 0.2562,
@@ -246,6 +430,22 @@
   "swing_minimi": 9,
   "top": 479.9351,
   "ultimo": 326.08
+ },
+ "AXON|1D": {
+  "aggiornato": "2026-11-01",
+  "ampiezza": 0.1745,
+  "barre": 141,
+  "bottom": 345.94,
+  "calo": 0.6028,
+  "data_ultimo": "2026-10-30",
+  "inizio": "2026-04-10",
+  "stato": "uscito_sopra",
+  "swing_massimi": 2,
+  "swing_minimi": 1,
+  "top": 406.31,
+  "ultimo": 427.77,
+  "uscita_data": "2026-05-07",
+  "uscito_il": "2026-11-01"
  },
  "AXON|1W": {
   "aggiornato": "2026-11-01",
@@ -295,6 +495,22 @@
   "uscita_data": "2026-06-25",
   "uscito_il": "2026-11-01"
  },
+ "BE|1D": {
+  "aggiornato": "2026-11-01",
+  "ampiezza": 0.583,
+  "barre": 218,
+  "bottom": 76.97,
+  "calo": 0.4594,
+  "data_ultimo": "2026-10-30",
+  "inizio": "2025-12-17",
+  "stato": "uscito_sopra",
+  "swing_massimi": 0,
+  "swing_minimi": 2,
+  "top": 121.84,
+  "ultimo": 203.17,
+  "uscita_data": "2026-01-09",
+  "uscito_il": "2026-11-01"
+ },
  "BE|1W": {
   "aggiornato": "2026-11-01",
   "ampiezza": 0.4415,
@@ -327,6 +543,21 @@
   "uscita_data": null,
   "uscito_il": "2026-11-01"
  },
+ "BRBY.L|1D": {
+  "aggiornato": "2026-11-01",
+  "ampiezza": 0.1278,
+  "barre": 33,
+  "bottom": 977.6,
+  "calo": 0.2872,
+  "congelato_il": "2026-11-01",
+  "data_ultimo": "2026-10-30",
+  "inizio": "2026-09-15",
+  "stato": "in_range",
+  "swing_massimi": 4,
+  "swing_minimi": 3,
+  "top": 1102.5,
+  "ultimo": 1053.0
+ },
  "BRBY.L|1W": {
   "aggiornato": "2026-11-01",
   "ampiezza": 0.7768,
@@ -341,6 +572,22 @@
   "swing_minimi": 3,
   "top": 1366.0,
   "ultimo": 1053.0
+ },
+ "BRO|1D": {
+  "aggiornato": "2026-11-01",
+  "ampiezza": 0.1809,
+  "barre": 118,
+  "bottom": 54.2544,
+  "calo": 0.5585,
+  "data_ultimo": "2026-10-30",
+  "inizio": "2026-05-13",
+  "stato": "uscito_sopra",
+  "swing_massimi": 2,
+  "swing_minimi": 3,
+  "top": 64.0717,
+  "ultimo": 69.76,
+  "uscita_data": "2026-07-01",
+  "uscito_il": "2026-11-01"
  },
  "BRO|1W": {
   "aggiornato": "2026-11-01",
@@ -373,6 +620,22 @@
   "top": 186.12,
   "ultimo": 178.82
  },
+ "BR|1W": {
+  "aggiornato": "2026-11-01",
+  "ampiezza": 0.1188,
+  "barre": 19,
+  "bottom": 136.7577,
+  "calo": 0.4719,
+  "data_ultimo": "2026-10-30",
+  "inizio": "2026-06-19",
+  "stato": "uscito_sopra",
+  "swing_massimi": 0,
+  "swing_minimi": 1,
+  "top": 153.0076,
+  "ultimo": 178.82,
+  "uscita_data": "2026-08-07",
+  "uscito_il": "2026-11-01"
+ },
  "BSX|1D": {
   "aggiornato": "2026-11-01",
   "ampiezza": 0.1065,
@@ -386,6 +649,22 @@
   "swing_minimi": 2,
   "top": 46.01,
   "ultimo": 41.98
+ },
+ "BTRW.L|1D": {
+  "aggiornato": "2026-11-01",
+  "ampiezza": 0.1041,
+  "barre": 116,
+  "bottom": 241.192,
+  "calo": 0.5642,
+  "data_ultimo": "2026-10-30",
+  "inizio": "2026-05-19",
+  "stato": "uscito_sopra",
+  "swing_massimi": 2,
+  "swing_minimi": 2,
+  "top": 266.2911,
+  "ultimo": 323.4,
+  "uscita_data": "2026-06-24",
+  "uscito_il": "2026-11-01"
  },
  "BTRW.L|1W": {
   "aggiornato": "2026-11-01",
@@ -402,6 +681,21 @@
   "ultimo": 323.4,
   "uscita_data": "2026-08-07",
   "uscito_il": "2026-11-01"
+ },
+ "BXP|1D": {
+  "aggiornato": "2026-11-01",
+  "ampiezza": 0.4534,
+  "barre": 150,
+  "bottom": 49.6362,
+  "calo": 0.3903,
+  "congelato_il": "2026-11-01",
+  "data_ultimo": "2026-10-30",
+  "inizio": "2026-03-27",
+  "stato": "in_range",
+  "swing_massimi": 10,
+  "swing_minimi": 6,
+  "top": 72.1423,
+  "ultimo": 62.8
  },
  "BXP|1W": {
   "aggiornato": "2026-11-01",
@@ -433,6 +727,22 @@
   "top": 149.32,
   "ultimo": 118.51
  },
+ "BX|1W": {
+  "aggiornato": "2026-11-01",
+  "ampiezza": 0.0754,
+  "barre": 33,
+  "bottom": 104.7313,
+  "calo": 0.4406,
+  "data_ultimo": "2026-10-30",
+  "inizio": "2026-03-13",
+  "stato": "uscito_sopra",
+  "swing_massimi": 0,
+  "swing_minimi": 1,
+  "top": 112.6269,
+  "ultimo": 118.51,
+  "uscita_data": "2026-04-17",
+  "uscito_il": "2026-11-01"
+ },
  "CARR|1D": {
   "aggiornato": "2026-11-01",
   "ampiezza": 0.0279,
@@ -449,6 +759,20 @@
   "uscita_data": "2026-01-09",
   "uscito_il": "2026-11-01"
  },
+ "CARR|1W": {
+  "aggiornato": "2026-11-01",
+  "ampiezza": 0.1417,
+  "barre": 49,
+  "bottom": 51.5936,
+  "calo": 0.3483,
+  "data_ultimo": "2026-10-30",
+  "inizio": "2025-11-21",
+  "stato": "rallenta",
+  "swing_massimi": 0,
+  "swing_minimi": 3,
+  "top": 58.9035,
+  "ultimo": 53.63
+ },
  "CDW|1D": {
   "aggiornato": "2026-11-01",
   "ampiezza": 0.6815,
@@ -463,6 +787,35 @@
   "swing_minimi": 2,
   "top": 165.2,
   "ultimo": 153.79
+ },
+ "CDW|1W": {
+  "aggiornato": "2026-11-01",
+  "ampiezza": 0.635,
+  "barre": 24,
+  "bottom": 100.9859,
+  "calo": 0.5893,
+  "data_ultimo": "2026-10-30",
+  "inizio": "2026-05-15",
+  "stato": "rallenta",
+  "swing_massimi": 4,
+  "swing_minimi": 1,
+  "top": 165.11,
+  "ultimo": 153.79
+ },
+ "CEG|1D": {
+  "aggiornato": "2026-11-01",
+  "ampiezza": 0.2721,
+  "barre": 85,
+  "bottom": 236.137,
+  "calo": 0.4122,
+  "congelato_il": "2026-11-01",
+  "data_ultimo": "2026-10-30",
+  "inizio": "2026-07-01",
+  "stato": "in_range",
+  "swing_massimi": 8,
+  "swing_minimi": 7,
+  "top": 300.4,
+  "ultimo": 262.38
  },
  "CEG|1W": {
   "aggiornato": "2026-11-01",
@@ -495,6 +848,20 @@
   "uscita_data": null,
   "uscito_il": "2026-11-01"
  },
+ "CNA.L|1D": {
+  "aggiornato": "2026-11-01",
+  "ampiezza": 0.0713,
+  "barre": 17,
+  "bottom": 145.8,
+  "calo": 0.3331,
+  "data_ultimo": "2026-10-30",
+  "inizio": "2026-10-07",
+  "stato": "rallenta",
+  "swing_massimi": 1,
+  "swing_minimi": 2,
+  "top": 156.2,
+  "ultimo": 152.7
+ },
  "CNA.L|1W": {
   "aggiornato": "2026-11-01",
   "ampiezza": 0.0238,
@@ -509,6 +876,22 @@
   "top": 150.55,
   "ultimo": 152.7,
   "uscita_data": null,
+  "uscito_il": "2026-11-01"
+ },
+ "CNC|1D": {
+  "aggiornato": "2026-11-01",
+  "ampiezza": 0.2308,
+  "barre": 149,
+  "bottom": 31.8,
+  "calo": 0.6036,
+  "data_ultimo": "2026-10-30",
+  "inizio": "2026-03-30",
+  "stato": "uscito_sopra",
+  "swing_massimi": 1,
+  "swing_minimi": 1,
+  "top": 39.14,
+  "ultimo": 68.45,
+  "uscita_data": "2026-04-23",
   "uscito_il": "2026-11-01"
  },
  "CNC|1W": {
@@ -574,6 +957,20 @@
   "uscita_data": "2026-10-22",
   "uscito_il": "2026-11-01"
  },
+ "COO|1W": {
+  "aggiornato": "2026-11-01",
+  "ampiezza": 0.1354,
+  "barre": 7,
+  "bottom": 53.91,
+  "calo": 0.5123,
+  "data_ultimo": "2026-10-30",
+  "inizio": "2026-09-11",
+  "stato": "rallenta",
+  "swing_massimi": 0,
+  "swing_minimi": 2,
+  "top": 61.21,
+  "ultimo": 59.55
+ },
  "CPRT|1W": {
   "aggiornato": "2026-11-01",
   "ampiezza": 0.0654,
@@ -587,6 +984,22 @@
   "swing_minimi": 1,
   "top": 29.0,
   "ultimo": 30.13,
+  "uscita_data": null,
+  "uscito_il": "2026-11-01"
+ },
+ "CRDA.L|1D": {
+  "aggiornato": "2026-11-01",
+  "ampiezza": 0.4445,
+  "barre": 156,
+  "bottom": 2517.1226,
+  "calo": 0.4934,
+  "data_ultimo": "2026-10-30",
+  "inizio": "2026-03-19",
+  "stato": "uscito_sopra",
+  "swing_massimi": 13,
+  "swing_minimi": 7,
+  "top": 3636.0,
+  "ultimo": 3644.0,
   "uscita_data": null,
   "uscito_il": "2026-11-01"
  },
@@ -606,6 +1019,22 @@
   "uscita_data": null,
   "uscito_il": "2026-11-01"
  },
+ "CRM|1D": {
+  "aggiornato": "2026-11-01",
+  "ampiezza": 0.3934,
+  "barre": 92,
+  "bottom": 149.8564,
+  "calo": 0.5867,
+  "data_ultimo": "2026-10-30",
+  "inizio": "2026-06-22",
+  "stato": "uscito_sopra",
+  "swing_massimi": 4,
+  "swing_minimi": 3,
+  "top": 208.8027,
+  "ultimo": 229.17,
+  "uscita_data": "2026-08-27",
+  "uscito_il": "2026-11-01"
+ },
  "CRM|1W": {
   "aggiornato": "2026-11-01",
   "ampiezza": 0.3781,
@@ -622,6 +1051,20 @@
   "uscita_data": "2026-08-28",
   "uscito_il": "2026-11-01"
  },
+ "CSGP|1D": {
+  "aggiornato": "2026-11-01",
+  "ampiezza": 0.2263,
+  "barre": 23,
+  "bottom": 26.95,
+  "calo": 0.7217,
+  "data_ultimo": "2026-10-30",
+  "inizio": "2026-09-29",
+  "stato": "rallenta",
+  "swing_massimi": 0,
+  "swing_minimi": 1,
+  "top": 33.05,
+  "ultimo": 30.17
+ },
  "CSGP|1W": {
   "aggiornato": "2026-11-01",
   "ampiezza": 0.2389,
@@ -635,6 +1078,22 @@
   "swing_minimi": 1,
   "top": 33.92,
   "ultimo": 30.17
+ },
+ "CTSH|1D": {
+  "aggiornato": "2026-11-01",
+  "ampiezza": 0.2148,
+  "barre": 86,
+  "bottom": 38.5042,
+  "calo": 0.5608,
+  "data_ultimo": "2026-10-30",
+  "inizio": "2026-06-30",
+  "stato": "uscito_sopra",
+  "swing_massimi": 2,
+  "swing_minimi": 1,
+  "top": 46.7757,
+  "ultimo": 65.11,
+  "uscita_data": "2026-07-28",
+  "uscito_il": "2026-11-01"
  },
  "CTSH|1W": {
   "aggiornato": "2026-11-01",
@@ -667,6 +1126,20 @@
   "top": 83.358,
   "ultimo": 68.29
  },
+ "DECK|1D": {
+  "aggiornato": "2026-11-01",
+  "ampiezza": 0.1272,
+  "barre": 33,
+  "bottom": 77.51,
+  "calo": 0.6526,
+  "data_ultimo": "2026-10-30",
+  "inizio": "2026-09-15",
+  "stato": "rallenta",
+  "swing_massimi": 1,
+  "swing_minimi": 3,
+  "top": 87.37,
+  "ultimo": 81.99
+ },
  "DECK|1W": {
   "aggiornato": "2026-11-01",
   "ampiezza": 0.0928,
@@ -696,6 +1169,22 @@
   "top": 1791.691,
   "ultimo": 1757.0
  },
+ "DGE.L|1W": {
+  "aggiornato": "2026-11-01",
+  "ampiezza": 0.1748,
+  "barre": 30,
+  "bottom": 1391.0709,
+  "calo": 0.6297,
+  "data_ultimo": "2026-10-30",
+  "inizio": "2026-04-03",
+  "stato": "uscito_sopra",
+  "swing_massimi": 3,
+  "swing_minimi": 1,
+  "top": 1634.2181,
+  "ultimo": 1757.0,
+  "uscita_data": "2026-08-07",
+  "uscito_il": "2026-11-01"
+ },
  "DG|1D": {
   "aggiornato": "2026-11-01",
   "ampiezza": 0.381,
@@ -711,6 +1200,38 @@
   "top": 139.11,
   "ultimo": 132.3
  },
+ "DG|1W": {
+  "aggiornato": "2026-11-01",
+  "ampiezza": 0.2755,
+  "barre": 77,
+  "bottom": 88.9379,
+  "calo": 0.6308,
+  "data_ultimo": "2026-10-30",
+  "inizio": "2025-05-09",
+  "stato": "uscito_sopra",
+  "swing_massimi": 4,
+  "swing_minimi": 3,
+  "top": 113.4411,
+  "ultimo": 132.3,
+  "uscita_data": "2025-12-05",
+  "uscito_il": "2026-11-01"
+ },
+ "DOC|1D": {
+  "aggiornato": "2026-11-01",
+  "ampiezza": 0.1525,
+  "barre": 214,
+  "bottom": 14.9494,
+  "calo": 0.26,
+  "data_ultimo": "2026-10-30",
+  "inizio": "2025-12-23",
+  "stato": "uscito_sopra",
+  "swing_massimi": 8,
+  "swing_minimi": 5,
+  "top": 17.2285,
+  "ultimo": 19.03,
+  "uscita_data": "2026-05-06",
+  "uscito_il": "2026-11-01"
+ },
  "DOC|1W": {
   "aggiornato": "2026-11-01",
   "ampiezza": 0.045,
@@ -725,6 +1246,22 @@
   "top": 15.8304,
   "ultimo": 19.03,
   "uscita_data": "2026-01-16",
+  "uscito_il": "2026-11-01"
+ },
+ "DOW|1D": {
+  "aggiornato": "2026-11-01",
+  "ampiezza": 0.1624,
+  "barre": 219,
+  "bottom": 22.0891,
+  "calo": 0.5736,
+  "data_ultimo": "2026-10-30",
+  "inizio": "2025-12-16",
+  "stato": "uscito_sopra",
+  "swing_massimi": 0,
+  "swing_minimi": 2,
+  "top": 25.6771,
+  "ultimo": 34.7,
+  "uscita_data": "2026-01-14",
   "uscito_il": "2026-11-01"
  },
  "DOW|1W": {
@@ -743,6 +1280,22 @@
   "uscita_data": "2026-02-06",
   "uscito_il": "2026-11-01"
  },
+ "DPZ|1D": {
+  "aggiornato": "2026-11-01",
+  "ampiezza": 0.1064,
+  "barre": 91,
+  "bottom": 281.2904,
+  "calo": 0.4453,
+  "data_ultimo": "2026-10-30",
+  "inizio": "2026-06-23",
+  "stato": "uscito_sopra",
+  "swing_massimi": 1,
+  "swing_minimi": 1,
+  "top": 311.2154,
+  "ultimo": 313.71,
+  "uscita_data": "2026-07-16",
+  "uscito_il": "2026-11-01"
+ },
  "DPZ|1W": {
   "aggiornato": "2026-11-01",
   "ampiezza": 0.0735,
@@ -756,6 +1309,22 @@
   "swing_minimi": 1,
   "top": 313.61,
   "ultimo": 313.71,
+  "uscita_data": null,
+  "uscito_il": "2026-11-01"
+ },
+ "DSY.PA|1D": {
+  "aggiornato": "2026-11-01",
+  "ampiezza": 0.5919,
+  "barre": 181,
+  "bottom": 15.748,
+  "calo": 0.6234,
+  "data_ultimo": "2026-10-30",
+  "inizio": "2026-02-16",
+  "stato": "uscito_sopra",
+  "swing_massimi": 9,
+  "swing_minimi": 12,
+  "top": 25.07,
+  "ultimo": 25.26,
   "uscita_data": null,
   "uscito_il": "2026-11-01"
  },
@@ -773,6 +1342,22 @@
   "top": 20.0501,
   "ultimo": 25.26,
   "uscita_data": "2026-08-07",
+  "uscito_il": "2026-11-01"
+ },
+ "DXCM|1D": {
+  "aggiornato": "2026-11-01",
+  "ampiezza": 0.3584,
+  "barre": 128,
+  "bottom": 57.56,
+  "calo": 0.5636,
+  "data_ultimo": "2026-10-30",
+  "inizio": "2026-04-29",
+  "stato": "uscito_sopra",
+  "swing_massimi": 4,
+  "swing_minimi": 3,
+  "top": 78.19,
+  "ultimo": 82.29,
+  "uscita_data": "2026-07-31",
   "uscito_il": "2026-11-01"
  },
  "DXCM|1W": {
@@ -805,6 +1390,38 @@
   "top": 100.01,
   "ultimo": 96.94
  },
+ "ECHO|1W": {
+  "aggiornato": "2026-11-01",
+  "ampiezza": 0.8622,
+  "barre": 72,
+  "bottom": 16.84,
+  "calo": 0.4608,
+  "data_ultimo": "2026-10-30",
+  "inizio": "2025-06-13",
+  "stato": "uscito_sopra",
+  "swing_massimi": 1,
+  "swing_minimi": 1,
+  "top": 31.36,
+  "ultimo": 96.94,
+  "uscita_data": "2025-08-29",
+  "uscito_il": "2026-11-01"
+ },
+ "EFX|1D": {
+  "aggiornato": "2026-11-01",
+  "ampiezza": 0.2864,
+  "barre": 22,
+  "bottom": 137.24,
+  "calo": 0.5237,
+  "data_ultimo": "2026-10-30",
+  "inizio": "2026-09-30",
+  "stato": "uscito_sopra",
+  "swing_massimi": 0,
+  "swing_minimi": 1,
+  "top": 176.54,
+  "ultimo": 184.6,
+  "uscita_data": "2026-10-22",
+  "uscito_il": "2026-11-01"
+ },
  "EFX|1W": {
   "aggiornato": "2026-11-01",
   "ampiezza": 0.3026,
@@ -821,6 +1438,20 @@
   "uscita_data": null,
   "uscito_il": "2026-11-01"
  },
+ "EIX|1D": {
+  "aggiornato": "2026-11-01",
+  "ampiezza": 0.1727,
+  "barre": 24,
+  "bottom": 50.637,
+  "calo": 0.3597,
+  "data_ultimo": "2026-10-30",
+  "inizio": "2026-09-28",
+  "stato": "rallenta",
+  "swing_massimi": 0,
+  "swing_minimi": 1,
+  "top": 59.38,
+  "ultimo": 58.79
+ },
  "EIX|1W": {
   "aggiornato": "2026-11-01",
   "ampiezza": 0.3867,
@@ -835,6 +1466,22 @@
   "swing_minimi": 3,
   "top": 61.4927,
   "ultimo": 58.79
+ },
+ "EL.PA|1D": {
+  "aggiornato": "2026-11-01",
+  "ampiezza": 0.1108,
+  "barre": 30,
+  "bottom": 139.0,
+  "calo": 0.5563,
+  "data_ultimo": "2026-10-30",
+  "inizio": "2026-09-18",
+  "stato": "uscito_sopra",
+  "swing_massimi": 2,
+  "swing_minimi": 4,
+  "top": 154.4,
+  "ultimo": 184.3,
+  "uscita_data": "2026-10-21",
+  "uscito_il": "2026-11-01"
  },
  "EL.PA|1W": {
   "aggiornato": "2026-11-01",
@@ -851,6 +1498,21 @@
   "ultimo": 184.3,
   "uscita_data": "2026-10-23",
   "uscito_il": "2026-11-01"
+ },
+ "ERIE|1D": {
+  "aggiornato": "2026-11-01",
+  "ampiezza": 0.3037,
+  "barre": 104,
+  "bottom": 204.6973,
+  "calo": 0.6087,
+  "congelato_il": "2026-11-01",
+  "data_ultimo": "2026-10-30",
+  "inizio": "2026-06-03",
+  "stato": "in_range",
+  "swing_massimi": 7,
+  "swing_minimi": 7,
+  "top": 266.8624,
+  "ultimo": 261.39
  },
  "ERIE|1W": {
   "aggiornato": "2026-11-01",
@@ -882,6 +1544,36 @@
   "top": 3108.0,
   "ultimo": 2987.0
  },
+ "EXPN.L|1W": {
+  "aggiornato": "2026-11-01",
+  "ampiezza": 0.265,
+  "barre": 4,
+  "bottom": 2457.0,
+  "calo": 0.3989,
+  "data_ultimo": "2026-10-30",
+  "inizio": "2026-10-02",
+  "stato": "rallenta",
+  "swing_massimi": 0,
+  "swing_minimi": 1,
+  "top": 3108.0,
+  "ultimo": 2987.0
+ },
+ "FDS|1D": {
+  "aggiornato": "2026-11-01",
+  "ampiezza": 0.3045,
+  "barre": 178,
+  "bottom": 187.4597,
+  "calo": 0.6113,
+  "data_ultimo": "2026-10-30",
+  "inizio": "2026-02-17",
+  "stato": "uscito_sopra",
+  "swing_massimi": 4,
+  "swing_minimi": 7,
+  "top": 244.5484,
+  "ultimo": 329.57,
+  "uscita_data": "2026-06-01",
+  "uscito_il": "2026-11-01"
+ },
  "FDS|1W": {
   "aggiornato": "2026-11-01",
   "ampiezza": 0.7222,
@@ -897,6 +1589,20 @@
   "top": 331.32,
   "ultimo": 329.57
  },
+ "FICO|1D": {
+  "aggiornato": "2026-11-01",
+  "ampiezza": 0.3896,
+  "barre": 22,
+  "bottom": 592.47,
+  "calo": 0.7513,
+  "data_ultimo": "2026-10-30",
+  "inizio": "2026-09-30",
+  "stato": "rallenta",
+  "swing_massimi": 1,
+  "swing_minimi": 2,
+  "top": 823.27,
+  "ultimo": 711.23
+ },
  "FICO|1W": {
   "aggiornato": "2026-11-01",
   "ampiezza": 0.233,
@@ -911,6 +1617,20 @@
   "top": 815.31,
   "ultimo": 711.23
  },
+ "FISV|1D": {
+  "aggiornato": "2026-11-01",
+  "ampiezza": 0.1456,
+  "barre": 20,
+  "bottom": 44.36,
+  "calo": 0.8134,
+  "data_ultimo": "2026-10-30",
+  "inizio": "2026-10-02",
+  "stato": "rallenta",
+  "swing_massimi": 1,
+  "swing_minimi": 1,
+  "top": 50.82,
+  "ultimo": 50.02
+ },
  "FISV|1W": {
   "aggiornato": "2026-11-01",
   "ampiezza": 0.124,
@@ -924,6 +1644,22 @@
   "swing_minimi": 1,
   "top": 49.86,
   "ultimo": 50.02,
+  "uscita_data": null,
+  "uscito_il": "2026-11-01"
+ },
+ "FIS|1D": {
+  "aggiornato": "2026-11-01",
+  "ampiezza": 0.1803,
+  "barre": 20,
+  "bottom": 32.44,
+  "calo": 0.622,
+  "data_ultimo": "2026-10-30",
+  "inizio": "2026-10-02",
+  "stato": "uscito_sopra",
+  "swing_massimi": 1,
+  "swing_minimi": 1,
+  "top": 38.29,
+  "ultimo": 38.55,
   "uscita_data": null,
   "uscito_il": "2026-11-01"
  },
@@ -943,6 +1679,21 @@
   "uscita_data": null,
   "uscito_il": "2026-11-01"
  },
+ "FME.DE|1D": {
+  "aggiornato": "2026-11-01",
+  "ampiezza": 0.3437,
+  "barre": 128,
+  "bottom": 33.3857,
+  "calo": 0.3384,
+  "congelato_il": "2026-11-01",
+  "data_ultimo": "2026-10-30",
+  "inizio": "2026-05-05",
+  "stato": "in_range",
+  "swing_massimi": 12,
+  "swing_minimi": 4,
+  "top": 44.86,
+  "ultimo": 40.4
+ },
  "FME.DE|1W": {
   "aggiornato": "2026-11-01",
   "ampiezza": 0.242,
@@ -957,6 +1708,22 @@
   "swing_minimi": 6,
   "top": 44.45,
   "ultimo": 40.4
+ },
+ "GDDY|1D": {
+  "aggiornato": "2026-11-01",
+  "ampiezza": 0.5299,
+  "barre": 92,
+  "bottom": 74.99,
+  "calo": 0.6502,
+  "data_ultimo": "2026-10-30",
+  "inizio": "2026-06-22",
+  "stato": "uscito_sopra",
+  "swing_massimi": 10,
+  "swing_minimi": 3,
+  "top": 114.73,
+  "ultimo": 117.24,
+  "uscita_data": null,
+  "uscito_il": "2026-11-01"
  },
  "GDDY|1W": {
   "aggiornato": "2026-11-01",
@@ -989,6 +1756,36 @@
   "top": 40.7749,
   "ultimo": 34.29
  },
+ "GIS|1W": {
+  "aggiornato": "2026-11-01",
+  "ampiezza": 0.0948,
+  "barre": 4,
+  "bottom": 31.4129,
+  "calo": 0.5282,
+  "data_ultimo": "2026-10-30",
+  "inizio": "2026-10-02",
+  "stato": "rallenta",
+  "swing_massimi": 0,
+  "swing_minimi": 1,
+  "top": 34.39,
+  "ultimo": 34.29
+ },
+ "GNRC|1D": {
+  "aggiornato": "2026-11-01",
+  "ampiezza": 0.3627,
+  "barre": 209,
+  "bottom": 136.37,
+  "calo": 0.3277,
+  "data_ultimo": "2026-10-30",
+  "inizio": "2025-12-31",
+  "stato": "uscito_sopra",
+  "swing_massimi": 2,
+  "swing_minimi": 1,
+  "top": 185.83,
+  "ultimo": 197.93,
+  "uscita_data": "2026-02-11",
+  "uscito_il": "2026-11-01"
+ },
  "GNRC|1W": {
   "aggiornato": "2026-11-01",
   "ampiezza": 0.2962,
@@ -1005,6 +1802,22 @@
   "uscita_data": "2025-08-01",
   "uscito_il": "2026-11-01"
  },
+ "GPC|1D": {
+  "aggiornato": "2026-11-01",
+  "ampiezza": 0.2898,
+  "barre": 114,
+  "bottom": 90.7668,
+  "calo": 0.3748,
+  "data_ultimo": "2026-10-30",
+  "inizio": "2026-05-19",
+  "stato": "uscito_sopra",
+  "swing_massimi": 0,
+  "swing_minimi": 3,
+  "top": 117.0687,
+  "ultimo": 120.9,
+  "uscita_data": "2026-07-02",
+  "uscito_il": "2026-11-01"
+ },
  "GPC|1W": {
   "aggiornato": "2026-11-01",
   "ampiezza": 0.0684,
@@ -1019,6 +1832,22 @@
   "top": 97.3919,
   "ultimo": 120.9,
   "uscita_data": "2026-06-12",
+  "uscito_il": "2026-11-01"
+ },
+ "GPN|1D": {
+  "aggiornato": "2026-11-01",
+  "ampiezza": 0.4226,
+  "barre": 99,
+  "bottom": 62.0556,
+  "calo": 0.4676,
+  "data_ultimo": "2026-10-30",
+  "inizio": "2026-06-10",
+  "stato": "uscito_sopra",
+  "swing_massimi": 4,
+  "swing_minimi": 2,
+  "top": 88.2801,
+  "ultimo": 96.84,
+  "uscita_data": "2026-08-13",
   "uscito_il": "2026-11-01"
  },
  "GPN|1W": {
@@ -1081,6 +1910,20 @@
   "top": 21.36,
   "ultimo": 21.28
  },
+ "HSY|1D": {
+  "aggiornato": "2026-11-01",
+  "ampiezza": 0.1144,
+  "barre": 22,
+  "bottom": 157.61,
+  "calo": 0.3225,
+  "data_ultimo": "2026-10-30",
+  "inizio": "2026-09-30",
+  "stato": "rallenta",
+  "swing_massimi": 2,
+  "swing_minimi": 2,
+  "top": 175.64,
+  "ultimo": 165.61
+ },
  "HSY|1W": {
   "aggiornato": "2026-11-01",
   "ampiezza": 0.2926,
@@ -1095,6 +1938,21 @@
   "swing_minimi": 3,
   "top": 193.45,
   "ultimo": 165.61
+ },
+ "ICG.L|1D": {
+  "aggiornato": "2026-11-01",
+  "ampiezza": 0.4085,
+  "barre": 155,
+  "bottom": 1462.5181,
+  "calo": 0.4026,
+  "congelato_il": "2026-11-01",
+  "data_ultimo": "2026-10-30",
+  "inizio": "2026-03-20",
+  "stato": "in_range",
+  "swing_massimi": 15,
+  "swing_minimi": 2,
+  "top": 2060.0,
+  "ultimo": 1855.0
  },
  "ICG.L|1W": {
   "aggiornato": "2026-11-01",
@@ -1126,6 +1984,22 @@
   "top": 575.98,
   "ultimo": 551.21
  },
+ "IFF|1D": {
+  "aggiornato": "2026-11-01",
+  "ampiezza": 0.1992,
+  "barre": 219,
+  "bottom": 63.1736,
+  "calo": 0.3778,
+  "data_ultimo": "2026-10-30",
+  "inizio": "2025-12-16",
+  "stato": "uscito_sopra",
+  "swing_massimi": 1,
+  "swing_minimi": 2,
+  "top": 75.7571,
+  "ultimo": 93.02,
+  "uscita_data": "2026-02-12",
+  "uscito_il": "2026-11-01"
+ },
  "IFF|1W": {
   "aggiornato": "2026-11-01",
   "ampiezza": 0.2642,
@@ -1140,6 +2014,22 @@
   "top": 73.6409,
   "ultimo": 93.02,
   "uscita_data": "2026-02-13",
+  "uscito_il": "2026-11-01"
+ },
+ "III.L|1D": {
+  "aggiornato": "2026-11-01",
+  "ampiezza": 0.1158,
+  "barre": 117,
+  "bottom": 2081.5659,
+  "calo": 0.533,
+  "data_ultimo": "2026-10-30",
+  "inizio": "2026-05-18",
+  "stato": "uscito_sopra",
+  "swing_massimi": 4,
+  "swing_minimi": 2,
+  "top": 2322.5159,
+  "ultimo": 2448.0,
+  "uscita_data": "2026-06-25",
   "uscito_il": "2026-11-01"
  },
  "III.L|1W": {
@@ -1173,6 +2063,21 @@
   "uscita_data": "2026-05-28",
   "uscito_il": "2026-11-01"
  },
+ "INVH|1D": {
+  "aggiornato": "2026-11-01",
+  "ampiezza": 0.2825,
+  "barre": 155,
+  "bottom": 23.5864,
+  "calo": 0.3087,
+  "congelato_il": "2026-11-01",
+  "data_ultimo": "2026-10-30",
+  "inizio": "2026-03-20",
+  "stato": "in_range",
+  "swing_massimi": 14,
+  "swing_minimi": 4,
+  "top": 30.2492,
+  "ultimo": 26.56
+ },
  "INVH|1W": {
   "aggiornato": "2026-11-01",
   "ampiezza": 0.28,
@@ -1203,6 +2108,20 @@
   "top": 38.5806,
   "ultimo": 36.37
  },
+ "IP|1W": {
+  "aggiornato": "2026-11-01",
+  "ampiezza": 0.301,
+  "barre": 24,
+  "bottom": 29.4795,
+  "calo": 0.4707,
+  "data_ultimo": "2026-10-30",
+  "inizio": "2026-05-15",
+  "stato": "rallenta",
+  "swing_massimi": 1,
+  "swing_minimi": 1,
+  "top": 38.3532,
+  "ultimo": 36.37
+ },
  "ISRG|1D": {
   "aggiornato": "2026-11-01",
   "ampiezza": 0.3622,
@@ -1218,6 +2137,35 @@
   "top": 452.29,
   "ultimo": 432.01
  },
+ "ISRG|1W": {
+  "aggiornato": "2026-11-01",
+  "ampiezza": 0.3401,
+  "barre": 14,
+  "bottom": 337.5,
+  "calo": 0.4333,
+  "data_ultimo": "2026-10-30",
+  "inizio": "2026-07-24",
+  "stato": "rallenta",
+  "swing_massimi": 1,
+  "swing_minimi": 2,
+  "top": 452.29,
+  "ultimo": 432.01
+ },
+ "KHC|1D": {
+  "aggiornato": "2026-11-01",
+  "ampiezza": 0.2591,
+  "barre": 154,
+  "bottom": 20.5046,
+  "calo": 0.3872,
+  "congelato_il": "2026-11-01",
+  "data_ultimo": "2026-10-30",
+  "inizio": "2026-03-23",
+  "stato": "in_range",
+  "swing_massimi": 6,
+  "swing_minimi": 7,
+  "top": 25.8173,
+  "ultimo": 24.34
+ },
  "KHC|1W": {
   "aggiornato": "2026-11-01",
   "ampiezza": 0.2216,
@@ -1232,6 +2180,22 @@
   "swing_minimi": 4,
   "top": 25.4728,
   "ultimo": 24.34
+ },
+ "KKR|1D": {
+  "aggiornato": "2026-11-01",
+  "ampiezza": 0.1202,
+  "barre": 161,
+  "bottom": 83.5569,
+  "calo": 0.4942,
+  "data_ultimo": "2026-10-30",
+  "inizio": "2026-03-12",
+  "stato": "uscito_sopra",
+  "swing_massimi": 2,
+  "swing_minimi": 1,
+  "top": 93.5981,
+  "ultimo": 94.39,
+  "uscita_data": "2026-04-13",
+  "uscito_il": "2026-11-01"
  },
  "KKR|1W": {
   "aggiornato": "2026-11-01",
@@ -1297,6 +2261,22 @@
   "uscita_data": "2025-08-29",
   "uscito_il": "2026-11-01"
  },
+ "LOW|1D": {
+  "aggiornato": "2026-11-01",
+  "ampiezza": 0.1621,
+  "barre": 19,
+  "bottom": 178.3698,
+  "calo": 0.3685,
+  "data_ultimo": "2026-10-30",
+  "inizio": "2026-10-05",
+  "stato": "uscito_sopra",
+  "swing_massimi": 1,
+  "swing_minimi": 1,
+  "top": 207.28,
+  "ultimo": 209.07,
+  "uscita_data": null,
+  "uscito_il": "2026-11-01"
+ },
  "LOW|1W": {
   "aggiornato": "2026-11-01",
   "ampiezza": 0.1059,
@@ -1329,6 +2309,20 @@
   "uscita_data": "2025-09-12",
   "uscito_il": "2026-11-01"
  },
+ "LULU|1D": {
+  "aggiornato": "2026-11-01",
+  "ampiezza": 0.1953,
+  "barre": 17,
+  "bottom": 91.88,
+  "calo": 0.7818,
+  "data_ultimo": "2026-10-30",
+  "inizio": "2026-10-07",
+  "stato": "rallenta",
+  "swing_massimi": 0,
+  "swing_minimi": 3,
+  "top": 109.82,
+  "ultimo": 107.24
+ },
  "LULU|1W": {
   "aggiornato": "2026-11-01",
   "ampiezza": 0.0482,
@@ -1344,6 +2338,20 @@
   "ultimo": 107.24,
   "uscita_data": "2026-10-30",
   "uscito_il": "2026-11-01"
+ },
+ "MAA|1D": {
+  "aggiornato": "2026-11-01",
+  "ampiezza": 0.0752,
+  "barre": 17,
+  "bottom": 112.6987,
+  "calo": 0.2862,
+  "data_ultimo": "2026-10-30",
+  "inizio": "2026-10-07",
+  "stato": "rallenta",
+  "swing_massimi": 1,
+  "swing_minimi": 2,
+  "top": 121.17,
+  "ultimo": 117.21
  },
  "MAA|1W": {
   "aggiornato": "2026-11-01",
@@ -1373,6 +2381,20 @@
   "top": 41.52,
   "ultimo": 40.68
  },
+ "MC.PA|1D": {
+  "aggiornato": "2026-11-01",
+  "ampiezza": 0.0522,
+  "barre": 20,
+  "bottom": 378.55,
+  "calo": 0.4781,
+  "data_ultimo": "2026-10-30",
+  "inizio": "2026-10-02",
+  "stato": "rallenta",
+  "swing_massimi": 2,
+  "swing_minimi": 4,
+  "top": 398.3,
+  "ultimo": 387.0
+ },
  "MC.PA|1W": {
   "aggiornato": "2026-11-01",
   "ampiezza": 0.0487,
@@ -1386,6 +2408,22 @@
   "swing_minimi": 1,
   "top": 397.0,
   "ultimo": 387.0
+ },
+ "MCD|1D": {
+  "aggiornato": "2026-11-01",
+  "ampiezza": 0.1148,
+  "barre": 17,
+  "bottom": 230.88,
+  "calo": 0.3098,
+  "data_ultimo": "2026-10-30",
+  "inizio": "2026-10-07",
+  "stato": "uscito_sopra",
+  "swing_massimi": 1,
+  "swing_minimi": 1,
+  "top": 257.38,
+  "ultimo": 258.12,
+  "uscita_data": null,
+  "uscito_il": "2026-11-01"
  },
  "MCD|1W": {
   "aggiornato": "2026-11-01",
@@ -1403,6 +2441,20 @@
   "uscita_data": null,
   "uscito_il": "2026-11-01"
  },
+ "MCHP|1D": {
+  "aggiornato": "2026-11-01",
+  "ampiezza": 0.3733,
+  "barre": 149,
+  "bottom": 59.4027,
+  "calo": 0.3658,
+  "data_ultimo": "2026-10-30",
+  "inizio": "2026-03-30",
+  "stato": "rallenta",
+  "swing_massimi": 0,
+  "swing_minimi": 1,
+  "top": 81.5773,
+  "ultimo": 77.34
+ },
  "MCHP|1W": {
   "aggiornato": "2026-11-01",
   "ampiezza": 0.3317,
@@ -1419,6 +2471,21 @@
   "uscita_data": "2026-01-09",
   "uscito_il": "2026-11-01"
  },
+ "MELI|1D": {
+  "aggiornato": "2026-11-01",
+  "ampiezza": 0.2972,
+  "barre": 116,
+  "bottom": 1546.8101,
+  "calo": 0.4082,
+  "congelato_il": "2026-11-01",
+  "data_ultimo": "2026-10-30",
+  "inizio": "2026-05-15",
+  "stato": "in_range",
+  "swing_massimi": 9,
+  "swing_minimi": 6,
+  "top": 2006.58,
+  "ultimo": 1624.53
+ },
  "MELI|1W": {
   "aggiornato": "2026-11-01",
   "ampiezza": 0.279,
@@ -1433,6 +2500,20 @@
   "swing_minimi": 3,
   "top": 1978.36,
   "ultimo": 1624.53
+ },
+ "MKC|1D": {
+  "aggiornato": "2026-11-01",
+  "ampiezza": 0.1153,
+  "barre": 21,
+  "bottom": 43.6752,
+  "calo": 0.4558,
+  "data_ultimo": "2026-10-30",
+  "inizio": "2026-10-01",
+  "stato": "rallenta",
+  "swing_massimi": 1,
+  "swing_minimi": 2,
+  "top": 48.71,
+  "ultimo": 47.29
  },
  "MKC|1W": {
   "aggiornato": "2026-11-01",
@@ -1462,6 +2543,22 @@
   "top": 912.7055,
   "ultimo": 1211.63,
   "uscita_data": "2025-10-17",
+  "uscito_il": "2026-11-01"
+ },
+ "MRK.DE|1D": {
+  "aggiornato": "2026-11-01",
+  "ampiezza": 0.1527,
+  "barre": 156,
+  "bottom": 100.7789,
+  "calo": 0.4046,
+  "data_ultimo": "2026-10-30",
+  "inizio": "2026-03-23",
+  "stato": "uscito_sopra",
+  "swing_massimi": 3,
+  "swing_minimi": 2,
+  "top": 116.1702,
+  "ultimo": 151.3,
+  "uscita_data": "2026-05-13",
   "uscito_il": "2026-11-01"
  },
  "MRK.DE|1W": {
@@ -1510,6 +2607,22 @@
   "top": 490.0,
   "ultimo": 470.3
  },
+ "MRVL|1D": {
+  "aggiornato": "2026-11-01",
+  "ampiezza": 0.1169,
+  "barre": 186,
+  "bottom": 73.6588,
+  "calo": 0.4132,
+  "data_ultimo": "2026-10-30",
+  "inizio": "2026-02-04",
+  "stato": "uscito_sopra",
+  "swing_massimi": 3,
+  "swing_minimi": 2,
+  "top": 82.2705,
+  "ultimo": 196.4,
+  "uscita_data": "2026-03-06",
+  "uscito_il": "2026-11-01"
+ },
  "MRVL|1W": {
   "aggiornato": "2026-11-01",
   "ampiezza": 0.7996,
@@ -1542,6 +2655,22 @@
   "uscita_data": "2026-08-21",
   "uscito_il": "2026-11-01"
  },
+ "NBIS|1D": {
+  "aggiornato": "2026-11-01",
+  "ampiezza": 0.529,
+  "barre": 185,
+  "bottom": 73.87,
+  "calo": 0.4547,
+  "data_ultimo": "2026-10-30",
+  "inizio": "2026-02-05",
+  "stato": "uscito_sopra",
+  "swing_massimi": 3,
+  "swing_minimi": 2,
+  "top": 112.95,
+  "ultimo": 154.14,
+  "uscita_data": "2026-03-16",
+  "uscito_il": "2026-11-01"
+ },
  "NBIS|1W": {
   "aggiornato": "2026-11-01",
   "ampiezza": 0.3651,
@@ -1558,6 +2687,22 @@
   "uscita_data": "2025-06-06",
   "uscito_il": "2026-11-01"
  },
+ "NCLH|1D": {
+  "aggiornato": "2026-11-01",
+  "ampiezza": 0.1374,
+  "barre": 30,
+  "bottom": 14.12,
+  "calo": 0.5143,
+  "data_ultimo": "2026-10-30",
+  "inizio": "2026-09-18",
+  "stato": "uscito_sopra",
+  "swing_massimi": 2,
+  "swing_minimi": 2,
+  "top": 16.06,
+  "ultimo": 17.57,
+  "uscita_data": "2026-10-29",
+  "uscito_il": "2026-11-01"
+ },
  "NCLH|1W": {
   "aggiornato": "2026-11-01",
   "ampiezza": 0.1027,
@@ -1572,6 +2717,22 @@
   "top": 15.57,
   "ultimo": 17.57,
   "uscita_data": "2026-10-30",
+  "uscito_il": "2026-11-01"
+ },
+ "NKE|1D": {
+  "aggiornato": "2026-11-01",
+  "ampiezza": 0.1343,
+  "barre": 20,
+  "bottom": 33.87,
+  "calo": 0.5739,
+  "data_ultimo": "2026-10-30",
+  "inizio": "2026-10-02",
+  "stato": "uscito_sopra",
+  "swing_massimi": 1,
+  "swing_minimi": 1,
+  "top": 38.42,
+  "ultimo": 38.67,
+  "uscita_data": null,
   "uscito_il": "2026-11-01"
  },
  "NKE|1W": {
@@ -1604,6 +2765,20 @@
   "top": 565.41,
   "ultimo": 557.54
  },
+ "NVR|1D": {
+  "aggiornato": "2026-11-01",
+  "ampiezza": 0.1667,
+  "barre": 116,
+  "bottom": 5563.6201,
+  "calo": 0.4394,
+  "data_ultimo": "2026-10-30",
+  "inizio": "2026-05-15",
+  "stato": "rallenta",
+  "swing_massimi": 1,
+  "swing_minimi": 1,
+  "top": 6490.9302,
+  "ultimo": 5958.5601
+ },
  "NVR|1W": {
   "aggiornato": "2026-11-01",
   "ampiezza": 0.2274,
@@ -1619,6 +2794,22 @@
   "top": 6828.6201,
   "ultimo": 5958.5601
  },
+ "NXPI|1D": {
+  "aggiornato": "2026-11-01",
+  "ampiezza": 0.2047,
+  "barre": 149,
+  "bottom": 185.9199,
+  "calo": 0.3341,
+  "data_ultimo": "2026-10-30",
+  "inizio": "2026-03-30",
+  "stato": "uscito_sopra",
+  "swing_massimi": 0,
+  "swing_minimi": 1,
+  "top": 223.9789,
+  "ultimo": 259.61,
+  "uscita_data": "2026-04-23",
+  "uscito_il": "2026-11-01"
+ },
  "NXPI|1W": {
   "aggiornato": "2026-11-01",
   "ampiezza": 0.3012,
@@ -1633,6 +2824,22 @@
   "top": 242.1254,
   "ultimo": 259.61,
   "uscita_data": "2026-05-01",
+  "uscito_il": "2026-11-01"
+ },
+ "ON|1D": {
+  "aggiornato": "2026-11-01",
+  "ampiezza": 0.2635,
+  "barre": 218,
+  "bottom": 53.33,
+  "calo": 0.376,
+  "data_ultimo": "2026-10-30",
+  "inizio": "2025-12-17",
+  "stato": "uscito_sopra",
+  "swing_massimi": 3,
+  "swing_minimi": 3,
+  "top": 67.38,
+  "ultimo": 71.67,
+  "uscita_data": "2026-02-11",
   "uscito_il": "2026-11-01"
  },
  "ON|1W": {
@@ -1666,6 +2873,34 @@
   "top": 161.9211,
   "ultimo": 130.67
  },
+ "ORCL|1W": {
+  "aggiornato": "2026-11-01",
+  "ampiezza": 0.3808,
+  "barre": 14,
+  "bottom": 114.5663,
+  "calo": 0.6232,
+  "data_ultimo": "2026-10-30",
+  "inizio": "2026-07-24",
+  "stato": "rallenta",
+  "swing_massimi": 1,
+  "swing_minimi": 2,
+  "top": 158.1949,
+  "ultimo": 130.67
+ },
+ "PAH3.DE|1D": {
+  "aggiornato": "2026-11-01",
+  "ampiezza": 0.047,
+  "barre": 19,
+  "bottom": 24.46,
+  "calo": 0.3723,
+  "data_ultimo": "2026-10-30",
+  "inizio": "2026-10-05",
+  "stato": "rallenta",
+  "swing_massimi": 3,
+  "swing_minimi": 3,
+  "top": 25.61,
+  "ultimo": 25.6
+ },
  "PAH3.DE|1W": {
   "aggiornato": "2026-11-01",
   "ampiezza": 0.0228,
@@ -1697,6 +2932,34 @@
   "ultimo": 112.12,
   "uscita_data": "2026-06-01",
   "uscito_il": "2026-11-01"
+ },
+ "PAYX|1W": {
+  "aggiornato": "2026-11-01",
+  "ampiezza": 0.5194,
+  "barre": 29,
+  "bottom": 82.7699,
+  "calo": 0.4495,
+  "data_ultimo": "2026-10-30",
+  "inizio": "2026-04-10",
+  "stato": "rallenta",
+  "swing_massimi": 1,
+  "swing_minimi": 4,
+  "top": 125.7593,
+  "ultimo": 112.12
+ },
+ "PCG|1D": {
+  "aggiornato": "2026-11-01",
+  "ampiezza": 0.1201,
+  "barre": 24,
+  "bottom": 11.9009,
+  "calo": 0.4392,
+  "data_ultimo": "2026-10-30",
+  "inizio": "2026-09-28",
+  "stato": "rallenta",
+  "swing_massimi": 2,
+  "swing_minimi": 1,
+  "top": 13.33,
+  "ultimo": 13.18
  },
  "PCG|1W": {
   "aggiornato": "2026-11-01",
@@ -1730,6 +2993,20 @@
   "uscita_data": "2025-06-13",
   "uscito_il": "2026-11-01"
  },
+ "PODD|1D": {
+  "aggiornato": "2026-11-01",
+  "ampiezza": 0.1689,
+  "barre": 22,
+  "bottom": 130.47,
+  "calo": 0.6302,
+  "data_ultimo": "2026-10-30",
+  "inizio": "2026-09-30",
+  "stato": "rallenta",
+  "swing_massimi": 1,
+  "swing_minimi": 2,
+  "top": 152.5,
+  "ultimo": 149.68
+ },
  "PODD|1W": {
   "aggiornato": "2026-11-01",
   "ampiezza": 0.1315,
@@ -1761,11 +3038,27 @@
   "top": 124.5553,
   "ultimo": 119.52
  },
+ "PPG|1W": {
+  "aggiornato": "2026-11-01",
+  "ampiezza": 0.2103,
+  "barre": 51,
+  "bottom": 93.7954,
+  "calo": 0.3306,
+  "data_ultimo": "2026-10-30",
+  "inizio": "2025-11-07",
+  "stato": "uscito_sopra",
+  "swing_massimi": 0,
+  "swing_minimi": 1,
+  "top": 113.5185,
+  "ultimo": 119.52,
+  "uscita_data": "2026-02-06",
+  "uscito_il": "2026-11-01"
+ },
  "PRU.L|1W": {
   "aggiornato": "2026-11-01",
   "ampiezza": 0.3233,
   "barre": 75,
-  "bottom": 826.1897,
+  "bottom": 826.1898,
   "calo": 0.3971,
   "data_ultimo": "2026-10-30",
   "inizio": "2025-05-23",
@@ -1805,6 +3098,36 @@
   "uscita_data": "2026-09-28",
   "uscito_il": "2026-11-01"
  },
+ "PSN.L|1W": {
+  "aggiornato": "2026-11-01",
+  "ampiezza": 0.2411,
+  "barre": 19,
+  "bottom": 1031.3356,
+  "calo": 0.3946,
+  "data_ultimo": "2026-10-30",
+  "inizio": "2026-06-19",
+  "stato": "rallenta",
+  "swing_massimi": 1,
+  "swing_minimi": 3,
+  "top": 1280.0,
+  "ultimo": 1245.5
+ },
+ "PYPL|1D": {
+  "aggiornato": "2026-11-01",
+  "ampiezza": 0.3208,
+  "barre": 180,
+  "bottom": 38.7383,
+  "calo": 0.5734,
+  "data_ultimo": "2026-10-30",
+  "inizio": "2026-02-12",
+  "stato": "uscito_sopra",
+  "swing_massimi": 7,
+  "swing_minimi": 6,
+  "top": 51.1645,
+  "ultimo": 57.01,
+  "uscita_data": "2026-07-15",
+  "uscito_il": "2026-11-01"
+ },
  "PYPL|1W": {
   "aggiornato": "2026-11-01",
   "ampiezza": 0.1693,
@@ -1835,6 +3158,36 @@
   "top": 154.5846,
   "ultimo": 164.79,
   "uscita_data": "2026-04-30",
+  "uscito_il": "2026-11-01"
+ },
+ "QCOM|1W": {
+  "aggiornato": "2026-11-01",
+  "ampiezza": 0.396,
+  "barre": 30,
+  "bottom": 125.6495,
+  "calo": 0.3878,
+  "data_ultimo": "2026-10-30",
+  "inizio": "2026-04-03",
+  "stato": "rallenta",
+  "swing_massimi": 0,
+  "swing_minimi": 1,
+  "top": 175.404,
+  "ultimo": 164.79
+ },
+ "RBLX|1D": {
+  "aggiornato": "2026-11-01",
+  "ampiezza": 0.168,
+  "barre": 56,
+  "bottom": 35.54,
+  "calo": 0.7489,
+  "data_ultimo": "2026-10-30",
+  "inizio": "2026-08-12",
+  "stato": "uscito_sopra",
+  "swing_massimi": 1,
+  "swing_minimi": 3,
+  "top": 41.51,
+  "ultimo": 42.99,
+  "uscita_data": "2026-09-04",
   "uscito_il": "2026-11-01"
  },
  "RBLX|1W": {
@@ -1883,6 +3236,20 @@
   "uscita_data": "2025-07-18",
   "uscito_il": "2026-11-01"
  },
+ "RNO.PA|1D": {
+  "aggiornato": "2026-11-01",
+  "ampiezza": 0.1414,
+  "barre": 20,
+  "bottom": 24.68,
+  "calo": 0.4696,
+  "data_ultimo": "2026-10-30",
+  "inizio": "2026-10-02",
+  "stato": "rallenta",
+  "swing_massimi": 1,
+  "swing_minimi": 2,
+  "top": 28.17,
+  "ultimo": 27.65
+ },
  "RNO.PA|1W": {
   "aggiornato": "2026-11-01",
   "ampiezza": 0.1179,
@@ -1899,6 +3266,20 @@
   "uscita_data": null,
   "uscito_il": "2026-11-01"
  },
+ "ROL|1D": {
+  "aggiornato": "2026-11-01",
+  "ampiezza": 0.1893,
+  "barre": 19,
+  "bottom": 29.69,
+  "calo": 0.5423,
+  "data_ultimo": "2026-10-30",
+  "inizio": "2026-10-05",
+  "stato": "rallenta",
+  "swing_massimi": 3,
+  "swing_minimi": 1,
+  "top": 35.31,
+  "ultimo": 34.66
+ },
  "ROL|1W": {
   "aggiornato": "2026-11-01",
   "ampiezza": 0.1595,
@@ -1912,6 +3293,22 @@
   "swing_minimi": 1,
   "top": 34.82,
   "ultimo": 34.66
+ },
+ "ROP|1D": {
+  "aggiornato": "2026-11-01",
+  "ampiezza": 0.1946,
+  "barre": 178,
+  "bottom": 313.1525,
+  "calo": 0.4651,
+  "data_ultimo": "2026-10-30",
+  "inizio": "2026-02-17",
+  "stato": "uscito_sopra",
+  "swing_massimi": 8,
+  "swing_minimi": 5,
+  "top": 374.0788,
+  "ultimo": 466.6,
+  "uscita_data": "2026-07-28",
+  "uscito_il": "2026-11-01"
  },
  "ROP|1W": {
   "aggiornato": "2026-11-01",
@@ -1927,6 +3324,22 @@
   "top": 438.14,
   "ultimo": 466.6,
   "uscita_data": null,
+  "uscito_il": "2026-11-01"
+ },
+ "RTO.L|1D": {
+  "aggiornato": "2026-11-01",
+  "ampiezza": 0.0692,
+  "barre": 21,
+  "bottom": 296.1,
+  "calo": 0.4157,
+  "data_ultimo": "2026-10-30",
+  "inizio": "2026-10-01",
+  "stato": "uscito_sopra",
+  "swing_massimi": 0,
+  "swing_minimi": 2,
+  "top": 316.6,
+  "ultimo": 350.1,
+  "uscita_data": "2026-10-22",
   "uscito_il": "2026-11-01"
  },
  "RTO.L|1W": {
@@ -1959,6 +3372,22 @@
   "top": 68.18,
   "ultimo": 67.88
  },
+ "SGRO.L|1D": {
+  "aggiornato": "2026-11-01",
+  "ampiezza": 0.1743,
+  "barre": 150,
+  "bottom": 639.1333,
+  "calo": 0.3239,
+  "data_ultimo": "2026-10-30",
+  "inizio": "2026-03-27",
+  "stato": "uscito_sopra",
+  "swing_massimi": 5,
+  "swing_minimi": 3,
+  "top": 750.5217,
+  "ultimo": 912.2,
+  "uscita_data": "2026-06-24",
+  "uscito_il": "2026-11-01"
+ },
  "SGRO.L|1W": {
   "aggiornato": "2026-11-01",
   "ampiezza": 0.0905,
@@ -1973,6 +3402,22 @@
   "top": 664.9213,
   "ultimo": 912.2,
   "uscita_data": "2025-10-24",
+  "uscito_il": "2026-11-01"
+ },
+ "SHL.DE|1D": {
+  "aggiornato": "2026-11-01",
+  "ampiezza": 0.0754,
+  "barre": 120,
+  "bottom": 33.4,
+  "calo": 0.4003,
+  "data_ultimo": "2026-10-30",
+  "inizio": "2026-05-15",
+  "stato": "uscito_sopra",
+  "swing_massimi": 7,
+  "swing_minimi": 7,
+  "top": 35.92,
+  "ultimo": 42.89,
+  "uscita_data": "2026-07-29",
   "uscito_il": "2026-11-01"
  },
  "SHL.DE|1W": {
@@ -1991,6 +3436,22 @@
   "uscita_data": "2026-07-31",
   "uscito_il": "2026-11-01"
  },
+ "SMCI|1D": {
+  "aggiornato": "2026-11-01",
+  "ampiezza": 0.4213,
+  "barre": 155,
+  "bottom": 20.53,
+  "calo": 0.8031,
+  "data_ultimo": "2026-10-30",
+  "inizio": "2026-03-20",
+  "stato": "uscito_sopra",
+  "swing_massimi": 2,
+  "swing_minimi": 3,
+  "top": 29.18,
+  "ultimo": 32.95,
+  "uscita_data": "2026-05-06",
+  "uscito_il": "2026-11-01"
+ },
  "SMCI|1W": {
   "aggiornato": "2026-11-01",
   "ampiezza": 0.4165,
@@ -2006,6 +3467,20 @@
   "ultimo": 32.95,
   "uscita_data": "2026-05-08",
   "uscito_il": "2026-11-01"
+ },
+ "SNPS|1D": {
+  "aggiornato": "2026-11-01",
+  "ampiezza": 0.387,
+  "barre": 33,
+  "bottom": 367.7,
+  "calo": 0.4302,
+  "data_ultimo": "2026-10-30",
+  "inizio": "2026-09-15",
+  "stato": "rallenta",
+  "swing_massimi": 1,
+  "swing_minimi": 3,
+  "top": 509.99,
+  "ultimo": 467.61
  },
  "SNPS|1W": {
   "aggiornato": "2026-11-01",
@@ -2037,6 +3512,22 @@
   "top": 7649.4736,
   "ultimo": 7475.0
  },
+ "SPX.L|1W": {
+  "aggiornato": "2026-11-01",
+  "ampiezza": 0.091,
+  "barre": 75,
+  "bottom": 5713.2588,
+  "calo": 0.537,
+  "data_ultimo": "2026-10-30",
+  "inizio": "2025-05-23",
+  "stato": "uscito_sopra",
+  "swing_massimi": 0,
+  "swing_minimi": 1,
+  "top": 6233.1001,
+  "ultimo": 7475.0,
+  "uscita_data": "2025-08-15",
+  "uscito_il": "2026-11-01"
+ },
  "STJ.L|1D": {
   "aggiornato": "2026-11-01",
   "ampiezza": 0.098,
@@ -2050,6 +3541,22 @@
   "swing_minimi": 1,
   "top": 1120.0,
   "ultimo": 1040.0
+ },
+ "STMPA.PA|1D": {
+  "aggiornato": "2026-11-01",
+  "ampiezza": 0.1332,
+  "barre": 216,
+  "bottom": 21.9265,
+  "calo": 0.4894,
+  "data_ultimo": "2026-10-30",
+  "inizio": "2025-12-24",
+  "stato": "uscito_sopra",
+  "swing_massimi": 3,
+  "swing_minimi": 2,
+  "top": 24.8468,
+  "ultimo": 41.88,
+  "uscita_data": "2026-02-09",
+  "uscito_il": "2026-11-01"
  },
  "STMPA.PA|1W": {
   "aggiornato": "2026-11-01",
@@ -2065,6 +3572,22 @@
   "top": 22.1648,
   "ultimo": 41.88,
   "uscita_data": "2026-01-02",
+  "uscito_il": "2026-11-01"
+ },
+ "SWKS|1D": {
+  "aggiornato": "2026-11-01",
+  "ampiezza": 0.2124,
+  "barre": 149,
+  "bottom": 52.0477,
+  "calo": 0.5345,
+  "data_ultimo": "2026-10-30",
+  "inizio": "2026-03-30",
+  "stato": "uscito_sopra",
+  "swing_massimi": 1,
+  "swing_minimi": 1,
+  "top": 63.1017,
+  "ultimo": 87.58,
+  "uscita_data": "2026-04-30",
   "uscito_il": "2026-11-01"
  },
  "SWKS|1W": {
@@ -2098,6 +3621,38 @@
   "top": 1175.91,
   "ultimo": 1146.8101
  },
+ "TDG|1W": {
+  "aggiornato": "2026-11-01",
+  "ampiezza": 0.0491,
+  "barre": 6,
+  "bottom": 1086.05,
+  "calo": 0.2779,
+  "data_ultimo": "2026-10-30",
+  "inizio": "2026-09-18",
+  "stato": "uscito_sopra",
+  "swing_massimi": 0,
+  "swing_minimi": 2,
+  "top": 1139.34,
+  "ultimo": 1146.8101,
+  "uscita_data": null,
+  "uscito_il": "2026-11-01"
+ },
+ "TECH|1D": {
+  "aggiornato": "2026-11-01",
+  "ampiezza": 0.3623,
+  "barre": 116,
+  "bottom": 43.1722,
+  "calo": 0.4786,
+  "data_ultimo": "2026-10-30",
+  "inizio": "2026-05-15",
+  "stato": "uscito_sopra",
+  "swing_massimi": 2,
+  "swing_minimi": 1,
+  "top": 58.8149,
+  "ultimo": 72.66,
+  "uscita_data": "2026-06-25",
+  "uscito_il": "2026-11-01"
+ },
  "TECH|1W": {
   "aggiornato": "2026-11-01",
   "ampiezza": 0.3406,
@@ -2114,6 +3669,22 @@
   "uscita_data": "2026-06-26",
   "uscito_il": "2026-11-01"
  },
+ "TEP.PA|1D": {
+  "aggiornato": "2026-11-01",
+  "ampiezza": 0.2987,
+  "barre": 154,
+  "bottom": 42.9141,
+  "calo": 0.5976,
+  "data_ultimo": "2026-10-30",
+  "inizio": "2026-03-25",
+  "stato": "uscito_sopra",
+  "swing_massimi": 1,
+  "swing_minimi": 2,
+  "top": 55.7312,
+  "ultimo": 80.3,
+  "uscita_data": "2026-05-05",
+  "uscito_il": "2026-11-01"
+ },
  "TEP.PA|1W": {
   "aggiornato": "2026-11-01",
   "ampiezza": 0.8282,
@@ -2128,6 +3699,22 @@
   "swing_minimi": 2,
   "top": 80.58,
   "ultimo": 80.3
+ },
+ "TGT|1D": {
+  "aggiornato": "2026-11-01",
+  "ampiezza": 0.4623,
+  "barre": 214,
+  "bottom": 91.7725,
+  "calo": 0.4341,
+  "data_ultimo": "2026-10-30",
+  "inizio": "2025-12-23",
+  "stato": "uscito_sopra",
+  "swing_massimi": 9,
+  "swing_minimi": 2,
+  "top": 134.1999,
+  "ultimo": 154.38,
+  "uscita_data": "2026-06-24",
+  "uscito_il": "2026-11-01"
  },
  "TGT|1W": {
   "aggiornato": "2026-11-01",
@@ -2159,6 +3746,36 @@
   "top": 115.26,
   "ultimo": 118.25,
   "uscita_data": "2026-10-22",
+  "uscito_il": "2026-11-01"
+ },
+ "TRI|1W": {
+  "aggiornato": "2026-11-01",
+  "ampiezza": 0.5777,
+  "barre": 19,
+  "bottom": 78.0698,
+  "calo": 0.6099,
+  "data_ultimo": "2026-10-30",
+  "inizio": "2026-06-19",
+  "stato": "rallenta",
+  "swing_massimi": 1,
+  "swing_minimi": 2,
+  "top": 123.17,
+  "ultimo": 118.25
+ },
+ "TRMB|1D": {
+  "aggiornato": "2026-11-01",
+  "ampiezza": 0.1412,
+  "barre": 94,
+  "bottom": 48.87,
+  "calo": 0.4267,
+  "data_ultimo": "2026-10-30",
+  "inizio": "2026-06-17",
+  "stato": "uscito_sopra",
+  "swing_massimi": 2,
+  "swing_minimi": 3,
+  "top": 55.77,
+  "ultimo": 64.94,
+  "uscita_data": "2026-07-28",
   "uscito_il": "2026-11-01"
  },
  "TRMB|1W": {
@@ -2207,6 +3824,22 @@
   "top": 36.18,
   "ultimo": 33.94
  },
+ "TSCO|1W": {
+  "aggiornato": "2026-11-01",
+  "ampiezza": 0.0665,
+  "barre": 21,
+  "bottom": 29.5757,
+  "calo": 0.5096,
+  "data_ultimo": "2026-10-30",
+  "inizio": "2026-06-05",
+  "stato": "uscito_sopra",
+  "swing_massimi": 1,
+  "swing_minimi": 2,
+  "top": 31.5421,
+  "ultimo": 33.94,
+  "uscita_data": "2026-08-07",
+  "uscito_il": "2026-11-01"
+ },
  "TSN|1D": {
   "aggiornato": "2026-11-01",
   "ampiezza": 0.1308,
@@ -2220,6 +3853,22 @@
   "swing_minimi": 2,
   "top": 57.07,
   "ultimo": 57.04
+ },
+ "TYL|1D": {
+  "aggiornato": "2026-11-01",
+  "ampiezza": 0.4257,
+  "barre": 92,
+  "bottom": 275.27,
+  "calo": 0.5744,
+  "data_ultimo": "2026-10-30",
+  "inizio": "2026-06-22",
+  "stato": "uscito_sopra",
+  "swing_massimi": 5,
+  "swing_minimi": 5,
+  "top": 392.45,
+  "ultimo": 394.3,
+  "uscita_data": null,
+  "uscito_il": "2026-11-01"
  },
  "TYL|1W": {
   "aggiornato": "2026-11-01",
@@ -2237,6 +3886,20 @@
   "uscita_data": null,
   "uscito_il": "2026-11-01"
  },
+ "T|1D": {
+  "aggiornato": "2026-11-01",
+  "ampiezza": 0.1401,
+  "barre": 85,
+  "bottom": 19.9835,
+  "calo": 0.2889,
+  "data_ultimo": "2026-10-30",
+  "inizio": "2026-07-01",
+  "stato": "rallenta",
+  "swing_massimi": 0,
+  "swing_minimi": 1,
+  "top": 22.7825,
+  "ultimo": 21.41
+ },
  "T|1W": {
   "aggiornato": "2026-11-01",
   "ampiezza": 0.2832,
@@ -2251,6 +3914,21 @@
   "swing_minimi": 2,
   "top": 25.7687,
   "ultimo": 21.41
+ },
+ "UHS|1D": {
+  "aggiornato": "2026-11-01",
+  "ampiezza": 0.3342,
+  "barre": 93,
+  "bottom": 141.0042,
+  "calo": 0.42,
+  "congelato_il": "2026-11-01",
+  "data_ultimo": "2026-10-30",
+  "inizio": "2026-06-18",
+  "stato": "in_range",
+  "swing_massimi": 8,
+  "swing_minimi": 3,
+  "top": 188.13,
+  "ultimo": 176.05
  },
  "UHS|1W": {
   "aggiornato": "2026-11-01",
@@ -2281,6 +3959,38 @@
   "swing_minimi": 8,
   "top": 115.8725,
   "ultimo": 108.25
+ },
+ "UPS|1W": {
+  "aggiornato": "2026-11-01",
+  "ampiezza": 0.176,
+  "barre": 55,
+  "bottom": 77.7622,
+  "calo": 0.5182,
+  "data_ultimo": "2026-10-30",
+  "inizio": "2025-10-10",
+  "stato": "uscito_sopra",
+  "swing_massimi": 1,
+  "swing_minimi": 1,
+  "top": 91.4484,
+  "ultimo": 108.25,
+  "uscita_data": "2025-12-12",
+  "uscito_il": "2026-11-01"
+ },
+ "WDAY|1D": {
+  "aggiornato": "2026-11-01",
+  "ampiezza": 0.1634,
+  "barre": 141,
+  "bottom": 112.5,
+  "calo": 0.5981,
+  "data_ultimo": "2026-10-30",
+  "inizio": "2026-04-10",
+  "stato": "uscito_sopra",
+  "swing_massimi": 3,
+  "swing_minimi": 3,
+  "top": 130.88,
+  "ultimo": 197.82,
+  "uscita_data": "2026-05-29",
+  "uscito_il": "2026-11-01"
  },
  "WDAY|1W": {
   "aggiornato": "2026-11-01",
@@ -2329,6 +4039,36 @@
   "top": 2615.8064,
   "ultimo": 2556.0
  },
+ "WEIR.L|1W": {
+  "aggiornato": "2026-11-01",
+  "ampiezza": 0.2246,
+  "barre": 20,
+  "bottom": 2323.8279,
+  "calo": 0.3401,
+  "data_ultimo": "2026-10-30",
+  "inizio": "2026-06-12",
+  "stato": "rallenta",
+  "swing_massimi": 1,
+  "swing_minimi": 2,
+  "top": 2845.7893,
+  "ultimo": 2556.0
+ },
+ "WKL.AS|1D": {
+  "aggiornato": "2026-11-01",
+  "ampiezza": 0.1573,
+  "barre": 122,
+  "bottom": 54.854,
+  "calo": 0.6785,
+  "data_ultimo": "2026-10-30",
+  "inizio": "2026-05-13",
+  "stato": "uscito_sopra",
+  "swing_massimi": 3,
+  "swing_minimi": 2,
+  "top": 63.4808,
+  "ultimo": 87.0,
+  "uscita_data": "2026-07-27",
+  "uscito_il": "2026-11-01"
+ },
  "WKL.AS|1W": {
   "aggiornato": "2026-11-01",
   "ampiezza": 0.0958,
@@ -2343,6 +4083,22 @@
   "top": 61.5695,
   "ultimo": 87.0,
   "uscita_data": "2026-07-31",
+  "uscito_il": "2026-11-01"
+ },
+ "WPP.L|1D": {
+  "aggiornato": "2026-11-01",
+  "ampiezza": 0.3098,
+  "barre": 154,
+  "bottom": 224.7923,
+  "calo": 0.7482,
+  "data_ultimo": "2026-10-30",
+  "inizio": "2026-03-23",
+  "stato": "uscito_sopra",
+  "swing_massimi": 7,
+  "swing_minimi": 2,
+  "top": 294.4426,
+  "ultimo": 405.6,
+  "uscita_data": "2026-07-28",
   "uscito_il": "2026-11-01"
  },
  "WPP.L|1W": {
@@ -2361,6 +4117,22 @@
   "uscita_data": "2026-08-07",
   "uscito_il": "2026-11-01"
  },
+ "WY|1D": {
+  "aggiornato": "2026-11-01",
+  "ampiezza": 0.0731,
+  "barre": 20,
+  "bottom": 18.47,
+  "calo": 0.4106,
+  "data_ultimo": "2026-10-30",
+  "inizio": "2026-10-02",
+  "stato": "uscito_sopra",
+  "swing_massimi": 3,
+  "swing_minimi": 3,
+  "top": 19.82,
+  "ultimo": 20.35,
+  "uscita_data": null,
+  "uscito_il": "2026-11-01"
+ },
  "WY|1W": {
   "aggiornato": "2026-11-01",
   "ampiezza": 0.0617,
@@ -2377,6 +4149,21 @@
   "uscita_data": null,
   "uscito_il": "2026-11-01"
  },
+ "XYZ|1D": {
+  "aggiornato": "2026-11-01",
+  "ampiezza": 0.7285,
+  "barre": 180,
+  "bottom": 49.09,
+  "calo": 0.5037,
+  "congelato_il": "2026-11-01",
+  "data_ultimo": "2026-10-30",
+  "inizio": "2026-02-12",
+  "stato": "in_range",
+  "swing_massimi": 18,
+  "swing_minimi": 4,
+  "top": 84.85,
+  "ultimo": 76.22
+ },
  "XYZ|1W": {
   "aggiornato": "2026-11-01",
   "ampiezza": 0.6781,
@@ -2392,6 +4179,21 @@
   "top": 83.57,
   "ultimo": 76.22
  },
+ "ZAL.DE|1D": {
+  "aggiornato": "2026-11-01",
+  "ampiezza": 0.5845,
+  "barre": 123,
+  "bottom": 19.085,
+  "calo": 0.5212,
+  "congelato_il": "2026-11-01",
+  "data_ultimo": "2026-10-30",
+  "inizio": "2026-05-12",
+  "stato": "in_range",
+  "swing_massimi": 9,
+  "swing_minimi": 6,
+  "top": 30.24,
+  "ultimo": 26.72
+ },
  "ZAL.DE|1W": {
   "aggiornato": "2026-11-01",
   "ampiezza": 0.4616,
@@ -2406,6 +4208,22 @@
   "swing_minimi": 3,
   "top": 28.26,
   "ultimo": 26.72
+ },
+ "ZBRA|1D": {
+  "aggiornato": "2026-11-01",
+  "ampiezza": 0.2381,
+  "barre": 149,
+  "bottom": 199.3,
+  "calo": 0.5267,
+  "data_ultimo": "2026-10-30",
+  "inizio": "2026-03-30",
+  "stato": "uscito_sopra",
+  "swing_massimi": 2,
+  "swing_minimi": 3,
+  "top": 246.76,
+  "ultimo": 361.26,
+  "uscita_data": "2026-05-14",
+  "uscito_il": "2026-11-01"
  },
  "ZBRA|1W": {
   "aggiornato": "2026-11-01",
