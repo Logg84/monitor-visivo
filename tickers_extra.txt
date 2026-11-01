@@ -1,0 +1,5 @@
+# Titoli aggiunti a mano, oltre a quelli del vecchio portale.
+RBLX   # esempio: discesa che rallenta
+WKL.AS # esempio: base già superata al rialzo
+TYL    # esempio: base superata (già nel vecchio portale)
+ADBE   # esempio: cambio trend dopo la discesa

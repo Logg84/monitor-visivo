@@ -24,6 +24,14 @@ def main() -> int:
         return 1
     tickers = bio.candidati_dal_vecchio_portale(repo, token)
     print(f"Candidati dal vecchio portale: {len(tickers)}")
+    # Titoli extra a mano (una riga per ticker, # per i commenti): servono per
+    # provare casi che il vecchio portale non ha in watchlist.
+    extra_file = ROOT / "tickers_extra.txt"
+    if extra_file.exists():
+        extra = [r.split("#")[0].strip().upper() for r in extra_file.read_text().splitlines()]
+        extra = [t for t in extra if t]
+        tickers = sorted(dict.fromkeys(tickers + extra))
+        print(f"Titoli extra a mano: {len(extra)}")
     prezzi = bio.scarica_giornalieri(tickers)
     print(f"Prezzi scaricati: {len(prezzi)}/{len(tickers)}")
     if len(prezzi) < max(1, len(tickers) // 2):
