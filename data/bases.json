@@ -2242,6 +2242,32 @@
   "top": 248.7425,
   "ultimo": 164.79
  },
+ "RBLX|1D": {
+  "aggiornato": "2026-11-01",
+  "ampiezza": 0.5326,
+  "barre": 56,
+  "bottom": 35.54,
+  "calo": 0.7489,
+  "congelato_il": "2026-11-01",
+  "data_ultimo": "2026-10-30",
+  "inizio": "2026-08-12",
+  "stato": "in_range",
+  "top": 54.47,
+  "ultimo": 42.99
+ },
+ "RBLX|1W": {
+  "aggiornato": "2026-11-01",
+  "ampiezza": 0.4857,
+  "barre": 13,
+  "bottom": 35.6,
+  "calo": 0.7366,
+  "congelato_il": "2026-11-01",
+  "data_ultimo": "2026-10-30",
+  "inizio": "2026-07-31",
+  "stato": "in_range",
+  "top": 52.89,
+  "ultimo": 42.99
+ },
  "RHM.DE|1D": {
   "aggiornato": "2026-11-01",
   "ampiezza": 0.1771,
@@ -2819,6 +2845,32 @@
   "stato": "in_range",
   "top": 2845.7893,
   "ultimo": 2556.0
+ },
+ "WKL.AS|1D": {
+  "aggiornato": "2026-11-01",
+  "ampiezza": 0.6075,
+  "barre": 122,
+  "bottom": 54.854,
+  "calo": 0.6785,
+  "congelato_il": "2026-11-01",
+  "data_ultimo": "2026-10-30",
+  "inizio": "2026-05-13",
+  "stato": "in_range",
+  "top": 88.18,
+  "ultimo": 87.0
+ },
+ "WKL.AS|1W": {
+  "aggiornato": "2026-11-01",
+  "ampiezza": 0.5694,
+  "barre": 18,
+  "bottom": 56.1873,
+  "calo": 0.6669,
+  "congelato_il": "2026-11-01",
+  "data_ultimo": "2026-10-30",
+  "inizio": "2026-06-26",
+  "stato": "in_range",
+  "top": 88.18,
+  "ultimo": 87.0
  },
  "WPP.L|1W": {
   "aggiornato": "2026-11-01",
