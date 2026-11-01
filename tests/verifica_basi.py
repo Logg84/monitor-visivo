@@ -155,14 +155,20 @@ st2["BBB|1W"].update(stato="uscito_sotto", uscito_il="2026-06-01")
 engine.aggiorna(st2, "BBB", "1W", giu, oggi)
 check("uscito_sotto senza nuova base da oltre 90 giorni → sparisce", "BBB|1W" not in st2)
 
-# un solo timeframe per titolo: tiene il più avanzato, a parità il settimanale
+# settimanale e giornaliero indipendenti: l'uscita dal giornaliero avvisa anche
+# se il settimanale è ancora in range
 st3 = {}
 w = base_ok
 d = pd.Series(base_ok.values, index=idx(len(base_ok), freq="B"))
 ev = engine.aggiorna_titolo(st3, "CCC", {"1W": w, "1D": d}, oggi)
-tf_tenuti = [k.split("|")[1] for k in st3 if k.startswith("CCC|")]
-check("stessa base su settimanale e giornaliero → resta UNO solo (settimanale)", tf_tenuti == ["1W"])
-check("un solo evento nuova_base (non due)", [e["tipo"] for e in ev].count("nuova_base") == 1)
+check("stessa base su settimanale e giornaliero → entrambi tracciati",
+      sorted(k.split("|")[1] for k in st3 if k.startswith("CCC|")) == ["1D", "1W"])
+check("due eventi nuova_base (uno per timeframe)", [e["tipo"] for e in ev].count("nuova_base") == 2)
+top_d = st3["CCC|1D"]["top"]
+d_su = pd.concat([d, pd.Series([top_d * 1.05], index=[d.index[-1] + pd.offsets.BDay(1)])])
+ev = engine.aggiorna_titolo(st3, "CCC", {"1W": w, "1D": d_su}, oggi)
+check("uscita dal range giornaliero con il settimanale ancora in range → alert uscita_sopra 1D",
+      [(e["tipo"], e["tf"]) for e in ev] == [("uscita_sopra", "1D")] and st3["CCC|1W"]["stato"] == "in_range")
 
 # salvataggio/ricarico
 with tempfile.TemporaryDirectory() as tmp:

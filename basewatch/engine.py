@@ -11,7 +11,8 @@ congelato_il, ultimo, aggiornato}. Regole:
     informativo 'rientro') o non riprende a scendere sotto il bottom (→ si riparte
     da zero); uscito_sotto: rientro → in_range, oppure sparisce quando nasce una
     base nuova o dopo 90 giorni;
-  - un solo timeframe per titolo (vedi aggiorna_titolo).
+  - settimanale e giornaliero sono tracciati in modo INDIPENDENTE (alert per entrambi);
+    la galleria mostra un solo timeframe per titolo, scelto in visualizzazione.
 Gli alert sono solo le USCITE (richiesta di Marco): chiusura giornaliera
 fuori dal range, mai il semplice tocco.
 """
@@ -130,28 +131,17 @@ def aggiorna(stato: dict, ticker: str, tf: str, close: pd.Series,
     return ev
 
 
-_ORDINE = {"in_range": 3, "uscito_sopra": 2, "uscito_sotto": 2, "rallenta": 1}
-
-
 def aggiorna_titolo(stato: dict, ticker: str, serie: dict[str, pd.Series],
                     oggi: dt.date) -> list[dict]:
-    """Un SOLO timeframe per titolo (richiesta di Marco): si valutano settimanale
-    e giornaliero e si tiene quello con lo stato più avanzato (in_range >
-    uscito > rallenta); a parità, il settimanale. Gli eventi del timeframe
-    scartato non vengono emessi."""
-    per_tf: dict[str, list[dict]] = {}
+    """Aggiorna OGNI timeframe in modo indipendente (settimanale e giornaliero):
+    un titolo uscito dal range giornaliero può essere ancora nel range
+    settimanale e gli alert devono arrivare per entrambi (decisione di Marco,
+    1/11/2026). Un solo timeframe per titolo si vede solo nella galleria."""
+    eventi: list[dict] = []
     for tf in TF_LISTA:
         if tf in serie:
-            per_tf[tf] = aggiorna(stato, ticker, tf, serie[tf], oggi)
-    presenti = [tf for tf in TF_LISTA if _chiavi(ticker, tf) in stato]
-    if len(presenti) <= 1:
-        return [e for tf in presenti for e in per_tf.get(tf, [])]
-    tieni = max(presenti, key=lambda tf: (_ORDINE.get(stato[_chiavi(ticker, tf)]["stato"], 0),
-                                          -TF_LISTA.index(tf)))
-    for tf in presenti:
-        if tf != tieni:
-            stato.pop(_chiavi(ticker, tf), None)
-    return per_tf.get(tieni, [])
+            eventi += aggiorna(stato, ticker, tf, serie[tf], oggi)
+    return eventi
 
 
 def messaggio(e: dict) -> str:
