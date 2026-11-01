@@ -4,76 +4,123 @@ basewatch/detect.py — riconoscimento di una zona di accumulo SOLO dal prezzo.
 Nessun indicatore: lavora sulle CHIUSURE di barre già chiuse. L'ingresso del
 titolo nell'elenco (discesa, fondamentali, POC/VWAP) lo decide il vecchio
 portale: qui si guarda solo se la discesa si è fermata e il prezzo oscilla in
-un range.
+un range (anche con pendenza: wedge, flag, rounding).
 
 Definizione (parametri per timeframe in TF_PARAMS, da tarare sui casi reali):
   - minimo = chiusura più bassa nella finestra `lookback`;
+  - il range parte dal minimo e finisce alla prima barra di RIPARTENZA
+    IMPULSIVA: una chiusura oltre il massimo corrente di più di 3 volte la
+    variazione tipica della base (e ≥ 4%). Così le barre di rottura non
+    allargano il range (caso WKL), mentre una risalita graduale dal minimo
+    resta parte della base (caso ADBE);
   - «rallenta»: dal minimo sono passate almeno `min_bars // 2` barre senza un
-    nuovo minimo di chiusura;
-  - «in range»: almeno `min_bars` barre dal minimo, e l'ampiezza del range
-    (massimo / minimo − 1) non supera `width_max`;
-  - il calo precedente (massimo → minimo) è almeno `dd_min`;
-  - bottom = chiusura minima, top = chiusura massima dal minimo a ieri.
-Range CONGELATO una volta riconosciuto (vedi engine.py): top e bottom non si
-ricalcolano più, così non si spostano mentre il prezzo li attraversa.
+    nuovo minimo;
+  - «in_range»: almeno `min_bars` barre dal minimo, ampiezza (massimo/minimo −1)
+    sotto `width_max` e struttura a 4 SWING: almeno 2 minimi locali dentro la
+    ZONA DI BOTTOM (il 40% più basso del range, non il minimo esatto) e almeno
+    2 massimi locali sopra di essa (regola Casario/Rea dei 4 swing);
+  - calo precedente (massimo → minimo) almeno `dd_min`;
+  - «uscito_sopra»: l'ultima chiusura è oltre il top.
+Range CONGELATO una volta riconosciuto (vedi engine.py).
 """
 from __future__ import annotations
 
+import numpy as np
 import pandas as pd
 
 TF_PARAMS = {
-    #       barre minime nel range, finestra del minimo, ampiezza max, calo min
-    "1W": {"min_bars": 8,  "lookback": 78,  "width_max": 1.00, "dd_min": 0.25, "pre": 156},
-    "1D": {"min_bars": 30, "lookback": 220, "width_max": 0.80, "dd_min": 0.25, "pre": 500},
+    "1W": {"min_bars": 8,  "lookback": 78,  "width_max": 1.00, "dd_min": 0.25,
+           "pre": 156, "min_range": 4,  "k": 2},
+    "1D": {"min_bars": 30, "lookback": 220, "width_max": 0.80, "dd_min": 0.25,
+           "pre": 500, "min_range": 15, "k": 3},
 }
+K_IMPULSO = 3.0               # salto = K × variazione tipica della base
+MIN_SALTO = 0.04              # e comunque almeno +4% oltre il massimo
+ZONA_BOTTOM = 0.40            # frazione bassa del range che conta come «zona di bottom»
+
+
+def _fine_range(v: np.ndarray, low_pos: int, min_range: int) -> int | None:
+    """Indice (in v) della prima barra di RIPARTENZA IMPULSIVA, o None.
+    Una barra è impulsiva se chiude oltre il massimo corrente di più di
+    K volte la variazione tipica (mediana dei |rendimenti|) del range fin lì,
+    e almeno del MIN_SALTO. Una risalita graduale dal minimo (caso ADBE) fa
+    parte della base; un salto netto (caso WKL) la chiude."""
+    mx = v[low_pos]
+    for i in range(low_pos + 1, len(v)):
+        n = i - low_pos
+        if n >= min_range:
+            rend = np.abs(np.diff(v[low_pos:i])) / v[low_pos:i - 1]
+            tipico = float(np.median(rend)) if len(rend) else 0.0
+            salto = v[i] / mx - 1
+            if salto > max(K_IMPULSO * tipico, MIN_SALTO):
+                return i
+        mx = max(mx, v[i])
+    return None
+
+
+def conta_swing(seg: np.ndarray, k: int) -> tuple[int, int]:
+    """(minimi locali nella zona di bottom, massimi locali sopra la zona) sulle
+    chiusure del range. Pivot = chiusura estrema entro ±k barre; la prima barra
+    (il minimo) conta come minimo."""
+    if len(seg) < 3:
+        return 0, 0
+    lo, hi = float(seg.min()), float(seg.max())
+    soglia = lo + ZONA_BOTTOM * (hi - lo)
+    minimi = massimi = 0
+    for i in range(len(seg)):
+        a, b = max(0, i - k), min(len(seg), i + k + 1)
+        finestra = seg[a:b]
+        if seg[i] == finestra.min() and (i == 0 or i >= k) and seg[i] <= soglia:
+            minimi += 1
+        if seg[i] == finestra.max() and i >= k and i + k < len(seg) and seg[i] > soglia:
+            massimi += 1
+    return minimi, massimi
 
 
 def rileva(close: pd.Series, tf: str) -> dict | None:
     """Stato del titolo su un timeframe, o None se non c'è nessuna base.
 
     `close` = chiusure di barre CHIUSE, ordinate per data. Ritorna
-    {stato: 'rallenta'|'in_range'|'uscito_sopra', bottom, top, inizio,
-     barre, ampiezza, calo, ultimo}.
+    {stato: 'rallenta'|'in_range'|'uscito_sopra', bottom, top, inizio, barre,
+     ampiezza, calo, ultimo, swing_minimi, swing_massimi[, uscita_data]}.
     """
     p = TF_PARAMS[tf]
     c = close.dropna().astype(float)
     if len(c) < p["lookback"] // 2:
         return None
     win = c.iloc[-p["lookback"]:]
-    low_pos = int(win.values.argmin())            # primo minimo della finestra
-    since = len(win) - 1 - low_pos
+    v = win.values
+    low_pos = int(v.argmin())
+    since = len(v) - 1 - low_pos
     if since < p["min_bars"] // 2 or since < 2:
         return None                               # il minimo è troppo recente
     low_date = win.index[low_pos]
-    ultimo = float(win.iloc[-1])
+    ultimo = float(v[-1])
 
-    # Range sulle barre CONFERMATE (tutte tranne l'ultima): l'ultima chiusura
-    # si confronta col range, non lo allarga.
-    seg = win.iloc[low_pos:-1]
+    fine = _fine_range(v, low_pos, p["min_range"])
+    uscita_data = str(win.index[fine])[:10] if fine is not None else None
+    seg = v[low_pos:(fine if fine is not None else len(v) - 1)]
     if len(seg) < 2:
         return None
     bottom, top = float(seg.min()), float(seg.max())
     if bottom <= 0:
         return None
     ampiezza = top / bottom - 1
-
-    # Calo che precede il minimo: massimo di chiusura nelle `pre` barre prima.
     prima = c.loc[:low_date].iloc[-p["pre"]:]
     calo = 1 - bottom / float(prima.max())
-    if calo < p["dd_min"]:
-        return None
-    if ampiezza > p["width_max"]:
-        return None                               # rimbalzo a V, non una base
+    if calo < p["dd_min"] or ampiezza > p["width_max"]:
+        return None                               # niente calo, o rimbalzo a V
+    if ultimo < bottom:
+        return None                               # nuovo minimo: base annullata
 
+    mi, ma = conta_swing(seg, p["k"])
     base = {"bottom": round(bottom, 4), "top": round(top, 4),
             "inizio": str(low_date)[:10], "barre": int(since),
             "ampiezza": round(ampiezza, 4), "calo": round(calo, 4),
-            "ultimo": round(ultimo, 4)}
+            "ultimo": round(ultimo, 4), "swing_minimi": mi, "swing_massimi": ma}
     if ultimo > top:
-        return {**base, "stato": "uscito_sopra"}
-    if ultimo < bottom:
-        return None                               # nuovo minimo: base annullata
-    if since >= p["min_bars"]:
+        return {**base, "stato": "uscito_sopra", "uscita_data": uscita_data}
+    if since >= p["min_bars"] and mi >= 2 and ma >= 2:
         return {**base, "stato": "in_range"}
     return {**base, "stato": "rallenta"}
 

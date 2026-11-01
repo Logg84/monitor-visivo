@@ -24,14 +24,6 @@ def main() -> int:
         return 1
     tickers = bio.candidati_dal_vecchio_portale(repo, token)
     print(f"Candidati dal vecchio portale: {len(tickers)}")
-    # Titoli extra a mano (una riga per ticker, # per i commenti): servono per
-    # provare casi che il vecchio portale non ha in watchlist.
-    extra_file = ROOT / "tickers_extra.txt"
-    if extra_file.exists():
-        extra = [r.split("#")[0].strip().upper() for r in extra_file.read_text().splitlines()]
-        extra = [t for t in extra if t]
-        tickers = sorted(dict.fromkeys(tickers + extra))
-        print(f"Titoli extra a mano: {len(extra)}")
     prezzi = bio.scarica_giornalieri(tickers)
     print(f"Prezzi scaricati: {len(prezzi)}/{len(tickers)}")
     if len(prezzi) < max(1, len(tickers) // 2):
@@ -43,11 +35,12 @@ def main() -> int:
     for t, d in prezzi.items():
         giorn = detect.barre_chiuse_giornaliere(d, adesso)
         sett = detect.settimanali_chiuse(giorn, adesso)
+        try:
+            eventi += engine.aggiorna_titolo(
+                stato, t, {"1W": sett["Close"], "1D": giorn["Close"]}, oggi)
+        except Exception as e:
+            print(f"⚠️ {t}: {type(e).__name__}: {e}")
         for tf, df in (("1W", sett), ("1D", giorn)):
-            try:
-                eventi += engine.aggiorna(stato, t, tf, df["Close"], oggi)
-            except Exception as e:
-                print(f"⚠️ {t} {tf}: {type(e).__name__}: {e}")
             if f"{t}|{tf}" in stato:
                 serie.setdefault(t, {})[tf] = bio.serie_grafico(df, BARRE_GRAFICO[tf])
     # titoli usciti dall'elenco del vecchio portale: si tolgono

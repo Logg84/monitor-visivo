@@ -19,121 +19,173 @@ def check(nome, ok):
         raise SystemExit("CHECK FALLITO: " + nome)
 
 
-def serie(tratti, freq="W-FRI", start="2021-01-01", seed=1):
-    """tratti = [(n_barre, da, a, rumore%)]: tratti lineari con rumore."""
-    rng = np.random.default_rng(seed)
-    v = []
-    for n, a, b, r in tratti:
-        base = np.linspace(a, b, n)
-        v += list(base * (1 + rng.normal(0, r / 100, n)))
-    idx = pd.date_range(start, periods=len(v), freq=freq)
-    return pd.Series(v, index=idx)
+def idx(n, start="2021-01-01", freq="W-FRI"):
+    return pd.date_range(start, periods=n, freq=freq)
 
 
-# decina di barre di salita, calo forte, poi range piatto
-sali = (60, 60, 120, 1.0)
-cala = (60, 120, 50, 1.0)
+def lineare(da, a, n):
+    return list(np.linspace(da, a, n))
 
-# 1) WKL-like: calo −58% e range piatto 20 barre → in_range
-s = serie([sali, cala, (20, 50, 53, 3.0)])
+
+def range_oscillante(centro, ampiezza, n, cicli=3, deriva=0.0):
+    """Range con oscillazioni regolari (swing veri) e deriva opzionale (wedge/flag)."""
+    t = np.arange(n)
+    return list(centro + deriva * t + ampiezza * np.sin(2 * np.pi * cicli * t / n - np.pi / 2))
+
+
+def costruisci(tratti, freq="W-FRI"):
+    v = [x for t in tratti for x in t]
+    return pd.Series(v, index=idx(len(v), freq=freq))
+
+
+sali = lineare(60, 120, 60)
+cala = lineare(120, 50, 60)
+
+# 1) Base classica: calo −58% poi range oscillante con 3 cicli → in_range
+s = costruisci([sali, cala, range_oscillante(54, 6, 30)])
 r = detect.rileva(s, "1W")
-check("calo forte + 20 barre di range → in_range", r and r["stato"] == "in_range")
-check("bottom = chiusura minima del range, top = massima", r["bottom"] <= 53 and r["top"] >= 49)
-check("barre dal minimo ≥ 8 e calo ≥ 25%", r["barre"] >= 8 and r["calo"] >= 0.25)
+check("calo + range oscillante (3 cicli) → in_range", r and r["stato"] == "in_range")
+check("4 swing: ≥2 minimi nella zona di bottom e ≥2 massimi sopra",
+      r["swing_minimi"] >= 2 and r["swing_massimi"] >= 2)
 
-# 2) RBLX-like: minimo di 5 barre fa, poi oscillazione → rallenta (non ancora range)
-s2 = serie([sali, cala])
-minimo = float(s2.min()) * 0.97
-idx = pd.date_range(s2.index[-1] + pd.Timedelta(weeks=1), periods=5, freq="W-FRI")
-s2.iloc[-1] = minimo
-s2 = pd.concat([s2, pd.Series([minimo * 1.03, minimo * 1.05, minimo * 1.02, minimo * 1.06, minimo * 1.04], index=idx)])
+# 2) Range con pendenza (wedge/flag) accettato
+s2 = costruisci([sali, cala, range_oscillante(52, 5, 30, deriva=0.12)])
 r2 = detect.rileva(s2, "1W")
-check("minimo di 5 barre fa → rallenta", r2 and r2["stato"] == "rallenta")
+check("range con pendenza (wedge/flag) → riconosciuto lo stesso", r2 and r2["stato"] in ("in_range", "rallenta"))
 
-# 3) discesa che continua: nessun rallentamento
-s3 = serie([sali, (80, 120, 40, 0.5)])
-check("discesa che continua → nessuna base", detect.rileva(s3, "1W") is None)
+# 3) Troppo pochi swing: una sola oscillazione → resta 'rallenta', non in_range
+s3 = costruisci([sali, cala, range_oscillante(54, 6, 30, cicli=1)])
+r3 = detect.rileva(s3, "1W")
+check("un solo ciclo (meno di 4 swing) → non in_range", r3 is None or r3["stato"] != "in_range")
 
-# 4) rimbalzo a V (range troppo largo)
-s4 = serie([sali, cala, (20, 50, 130, 1.0)])
-check("rimbalzo a V (ampiezza > 100%) → nessuna base", detect.rileva(s4, "1W") is None)
+# 4) Rallentamento: minimo di 5 barre fa → rallenta
+s4 = costruisci([sali, cala, [49, 51, 50, 52, 51, 52]])
+r4 = detect.rileva(s4, "1W")
+check("minimo di 5 barre fa → rallenta", r4 and r4["stato"] == "rallenta")
 
-# 5) niente calo precedente: andamento piatto da sempre
-s5 = serie([(120, 100, 105, 3.0)])
-check("nessun calo ≥ 25% prima → nessuna base", detect.rileva(s5, "1W") is None)
+# 5) Discesa che continua, rimbalzo a V, nessun calo → nessuna base
+check("discesa che continua → nessuna base",
+      detect.rileva(costruisci([sali, lineare(120, 40, 80)]), "1W") is None)
+check("rimbalzo a V (ampiezza > 100%) → nessuna base",
+      detect.rileva(costruisci([sali, cala, lineare(50, 130, 20)]), "1W") is None)
+check("nessun calo ≥ 25% prima → nessuna base",
+      detect.rileva(costruisci([range_oscillante(100, 4, 120, cicli=6)]), "1W") is None)
 
-# 6) uscita sopra: ultima chiusura oltre il top
-s6 = s.copy()
-s6.iloc[-1] = float(s.iloc[:-1].iloc[-20:].max()) * 1.08
+# 6) WKL-like: range piatto poi SALTO netto → il range NON include le barre di rottura
+rng = range_oscillante(60, 6, 30)
+s6 = costruisci([sali, cala, rng, [78, 84, 88]])
 r6 = detect.rileva(s6, "1W")
-check("chiusura oltre il top → uscito_sopra", r6 and r6["stato"] == "uscito_sopra")
+check("range + salto netto → uscito_sopra", r6 and r6["stato"] == "uscito_sopra")
+check("top = massimo del range PRIMA del salto (le barre di rottura non lo allargano)",
+      r6["top"] <= max(rng) + 1e-9 and r6["top"] < 70)
 
-# 7) nessun look-ahead: l'ultima barra non allarga il range
-check("top = massimo delle chiusure dal minimo a IERI (l'ultima barra non lo allarga)",
-      r6["top"] == round(float(s6.loc[r6["inizio"]:].iloc[:-1].max()), 4)
-      and float(s6.iloc[-1]) > r6["top"])
+# 7) ADBE-like: risalita graduale dal minimo = parte della base (nessuna uscita)
+s7 = costruisci([sali, cala, lineare(50, 80, 20), range_oscillante(72, 8, 24, cicli=3)])
+r7 = detect.rileva(s7, "1W")
+check("risalita graduale + oscillazione → ancora base, non uscita", r7 and r7["stato"] in ("in_range", "rallenta"))
+check("il range comprende la risalita (top ≥ 78)", r7["top"] >= 78)
 
-# ── Motore: stato congelato ed eventi ────────────────────────────────────
+# 8) TYL-like: ultima chiusura appena oltre il top → uscito_sopra fresco
+s8 = costruisci([sali, cala, rng]).copy()
+s8.iloc[-1] = float(max(rng)) * 1.01
+r8 = detect.rileva(s8, "1W")
+check("chiusura appena oltre il top → uscito_sopra", r8 and r8["stato"] == "uscito_sopra")
+
+# ── Motore ───────────────────────────────────────────────────────────────
 oggi = dt.date(2026, 11, 2)
+base_ok = costruisci([sali, cala, rng])
 stato = {}
-ev = engine.aggiorna(stato, "AAA", "1W", s, oggi)
+ev = engine.aggiorna(stato, "AAA", "1W", base_ok, oggi)
 check("primo giro: evento nuova_base e stato in_range congelato",
       [e["tipo"] for e in ev] == ["nuova_base"] and stato["AAA|1W"]["stato"] == "in_range"
       and stato["AAA|1W"]["congelato_il"] == str(oggi))
 top0, bot0 = stato["AAA|1W"]["top"], stato["AAA|1W"]["bottom"]
 
-# barra nuova dentro il range: nessun evento, top/bottom invariati
-s_dentro = pd.concat([s, pd.Series([(top0 + bot0) / 2], index=[s.index[-1] + pd.Timedelta(weeks=1)])])
-ev = engine.aggiorna(stato, "AAA", "1W", s_dentro, oggi)
+
+def aggiungi(serie_, *valori):
+    n0 = len(serie_)
+    return pd.concat([serie_, pd.Series(valori, index=idx(n0 + len(valori))[n0:])])
+
+
+dentro = aggiungi(base_ok, (top0 + bot0) / 2)
+ev = engine.aggiorna(stato, "AAA", "1W", dentro, oggi)
 check("barra dentro il range: nessun evento, range congelato invariato",
       ev == [] and stato["AAA|1W"]["top"] == top0 and stato["AAA|1W"]["bottom"] == bot0)
 
-# uscita sopra: UN evento, poi non si ripete
-s_su = pd.concat([s_dentro, pd.Series([top0 * 1.05], index=[s_dentro.index[-1] + pd.Timedelta(weeks=1)])])
-ev = engine.aggiorna(stato, "AAA", "1W", s_su, oggi)
-check("chiusura sopra il top → evento uscita_sopra", [e["tipo"] for e in ev] == ["uscita_sopra"])
-ev2 = engine.aggiorna(stato, "AAA", "1W", s_su, oggi)
-check("stesso dato rielaborato: nessun secondo alert", ev2 == [])
-ev3 = engine.aggiorna(stato, "AAA", "1W",
-                      pd.concat([s_su, pd.Series([top0 * 1.2], index=[s_su.index[-1] + pd.Timedelta(weeks=1)])]), oggi)
-check("anche con barre successive: nessun nuovo alert", ev3 == [])
+su = aggiungi(dentro, top0 * 1.05)
+ev = engine.aggiorna(stato, "AAA", "1W", su, oggi)
+check("chiusura sopra il top → UNA sola uscita_sopra", [e["tipo"] for e in ev] == ["uscita_sopra"])
+check("rielaborando lo stesso dato: nessun secondo alert", engine.aggiorna(stato, "AAA", "1W", su, oggi) == [])
+piu_su = aggiungi(su, top0 * 1.2)
+check("barre successive più alte: nessun nuovo alert, stato resta uscito_sopra",
+      engine.aggiorna(stato, "AAA", "1W", piu_su, oggi) == [] and stato["AAA|1W"]["stato"] == "uscito_sopra")
 
-# uscita sotto
+# l'uscito NON sparisce col tempo (WKL: resta segnalato come uscito)
+stato["AAA|1W"]["uscito_il"] = "2026-01-01"
+engine.aggiorna(stato, "AAA", "1W", piu_su, oggi)
+check("uscito_sopra resta finché non c'è rientro o ripresa di discesa", "AAA|1W" in stato)
+
+# rientro nel range → di nuovo in_range, evento informativo
+rientro = aggiungi(piu_su, (top0 + bot0) / 2)
+ev = engine.aggiorna(stato, "AAA", "1W", rientro, oggi)
+check("rientro nel range: torna in_range con evento 'rientro' (non è un alert)",
+      [e["tipo"] for e in ev] == ["rientro"] and stato["AAA|1W"]["stato"] == "in_range"
+      and stato["AAA|1W"]["top"] == top0)
+
+# ripresa di discesa dopo uscito_sopra → si riparte da zero
+st_r = {}
+engine.aggiorna(st_r, "RRR", "1W", base_ok, oggi)
+engine.aggiorna(st_r, "RRR", "1W", aggiungi(base_ok, top0 * 1.05), oggi)
+engine.aggiorna(st_r, "RRR", "1W", aggiungi(aggiungi(base_ok, top0 * 1.05), bot0 * 0.9), oggi)
+check("uscito_sopra poi chiusura sotto il bottom (ripresa di discesa) → stato azzerato",
+      "RRR|1W" not in st_r)
+
+# uscita sotto e rientro (spring)
 st2 = {}
-engine.aggiorna(st2, "BBB", "1W", s, oggi)
-s_giu = pd.concat([s, pd.Series([st2["BBB|1W"]["bottom"] * 0.95], index=[s.index[-1] + pd.Timedelta(weeks=1)])])
-ev = engine.aggiorna(st2, "BBB", "1W", s_giu, oggi)
-check("chiusura sotto il bottom → evento uscita_sotto",
+engine.aggiorna(st2, "BBB", "1W", base_ok, oggi)
+giu = aggiungi(base_ok, bot0 * 0.95)
+ev = engine.aggiorna(st2, "BBB", "1W", giu, oggi)
+check("chiusura sotto il bottom → UNA uscita_sotto",
       [e["tipo"] for e in ev] == ["uscita_sotto"] and st2["BBB|1W"]["stato"] == "uscito_sotto")
+check("stesso dato rielaborato: nessun secondo alert", engine.aggiorna(st2, "BBB", "1W", giu, oggi) == [])
+ev = engine.aggiorna(st2, "BBB", "1W", aggiungi(giu, (top0 + bot0) / 2), oggi)
+check("uscito sotto e poi rientro nel range (spring) → in_range, evento 'rientro'",
+      [e["tipo"] for e in ev] == ["rientro"] and st2["BBB|1W"]["stato"] == "in_range")
+st2["BBB|1W"].update(stato="uscito_sotto", uscito_il="2026-06-01")
+engine.aggiorna(st2, "BBB", "1W", giu, oggi)
+check("uscito_sotto senza nuova base da oltre 90 giorni → sparisce", "BBB|1W" not in st2)
 
-# pulizia dopo 20 giorni
-st2["BBB|1W"]["uscito_il"] = "2026-09-01"
-engine.aggiorna(st2, "BBB", "1W", s_giu, oggi)
-check("uscito da oltre 20 giorni: lo stato si pulisce", "BBB|1W" not in st2 or st2["BBB|1W"]["stato"] != "uscito_sotto")
+# un solo timeframe per titolo: tiene il più avanzato, a parità il settimanale
+st3 = {}
+w = base_ok
+d = pd.Series(base_ok.values, index=idx(len(base_ok), freq="B"))
+ev = engine.aggiorna_titolo(st3, "CCC", {"1W": w, "1D": d}, oggi)
+tf_tenuti = [k.split("|")[1] for k in st3 if k.startswith("CCC|")]
+check("stessa base su settimanale e giornaliero → resta UNO solo (settimanale)", tf_tenuti == ["1W"])
+check("un solo evento nuova_base (non due)", [e["tipo"] for e in ev].count("nuova_base") == 1)
 
 # salvataggio/ricarico
 with tempfile.TemporaryDirectory() as tmp:
     p = Path(tmp) / "bases.json"
     engine.salva_stato(stato, p)
     check("stato salvato e ricaricato identico", engine.carica_stato(p) == stato)
-    check("file assente o corrotto → stato vuoto", engine.carica_stato(Path(tmp) / "x.json") == {})
+    check("file assente → stato vuoto", engine.carica_stato(Path(tmp) / "x.json") == {})
     p.write_text("{rotto")
     check("JSON corrotto → stato vuoto, nessun crash", engine.carica_stato(p) == {})
 
 # ── Barre chiuse ─────────────────────────────────────────────────────────
-gg = pd.bdate_range("2026-10-26", "2026-10-30")          # lun–ven
-d = pd.DataFrame({"Open": 1, "High": 1, "Low": 1, "Close": np.arange(len(gg), dtype=float) + 1}, index=gg)
-mer = pd.Timestamp("2026-10-28 23:00", tz="UTC")
-w = detect.settimanali_chiuse(d.iloc[:3], mer)
-check("settimana in corso (mercoledì): barra settimanale NON ancora chiusa", len(w) == 0)
-w = detect.settimanali_chiuse(d, pd.Timestamp("2026-10-30 23:00", tz="UTC"))
-check("venerdì a mercato chiuso: settimana chiusa", len(w) == 1 and float(w["Close"].iloc[-1]) == 5.0)
-d2 = pd.concat([d, d.iloc[:1].set_index(pd.DatetimeIndex(["2026-11-02"]))])
-w = detect.settimanali_chiuse(d2, pd.Timestamp("2026-11-02 12:00", tz="UTC"))
-check("lunedì dopo: la settimana precedente è chiusa, la nuova no", len(w) == 1)
-g = detect.barre_chiuse_giornaliere(d, pd.Timestamp("2026-10-30 15:00", tz="UTC"))
-check("oggi alle 15:00 UTC: barra giornaliera di oggi scartata (parziale)", len(g) == len(d) - 1)
-g = detect.barre_chiuse_giornaliere(d, pd.Timestamp("2026-10-30 22:30", tz="UTC"))
-check("oggi alle 22:30 UTC: barra giornaliera valida", len(g) == len(d))
+gg = pd.bdate_range("2026-10-26", "2026-10-30")
+dd = pd.DataFrame({"Open": 1, "High": 1, "Low": 1, "Close": np.arange(len(gg), dtype=float) + 1}, index=gg)
+check("settimana in corso (mercoledì): barra settimanale NON chiusa",
+      len(detect.settimanali_chiuse(dd.iloc[:3], pd.Timestamp("2026-10-28 23:00", tz="UTC"))) == 0)
+w5 = detect.settimanali_chiuse(dd, pd.Timestamp("2026-10-30 23:00", tz="UTC"))
+check("venerdì a mercato chiuso: settimana chiusa", len(w5) == 1 and float(w5["Close"].iloc[-1]) == 5.0)
+d2 = pd.concat([dd, dd.iloc[:1].set_index(pd.DatetimeIndex(["2026-11-02"]))])
+check("lunedì dopo: settimana precedente chiusa, la nuova no",
+      len(detect.settimanali_chiuse(d2, pd.Timestamp("2026-11-02 12:00", tz="UTC"))) == 1)
+check("oggi alle 15:00 UTC: barra giornaliera di oggi scartata (parziale)",
+      len(detect.barre_chiuse_giornaliere(dd, pd.Timestamp("2026-10-30 15:00", tz="UTC"))) == len(dd) - 1)
+check("oggi alle 22:30 UTC: barra giornaliera valida",
+      len(detect.barre_chiuse_giornaliere(dd, pd.Timestamp("2026-10-30 22:30", tz="UTC"))) == len(dd))
 
 print("\nTUTTI I CHECK PASSATI (verifica_basi)")
