@@ -90,6 +90,37 @@
   "top": 291.52,
   "ultimo": 250.23
  },
+ "ADS.DE|1D": {
+  "aggiornato": "2026-11-01",
+  "ampiezza": 0.229,
+  "barre": 147,
+  "bottom": 128.4396,
+  "calo": 0.4981,
+  "data_ultimo": "2026-10-30",
+  "inizio": "2026-04-07",
+  "prima_vista": true,
+  "stato": "uscito_sopra",
+  "swing_massimi": 3,
+  "swing_minimi": 3,
+  "top": 157.85,
+  "ultimo": 168.55,
+  "uscita_data": "2026-05-27",
+  "uscito_il": "2026-11-01"
+ },
+ "ADS.DE|1W": {
+  "aggiornato": "2026-11-01",
+  "ampiezza": 0.4296,
+  "barre": 31,
+  "bottom": 129.6175,
+  "calo": 0.4851,
+  "data_ultimo": "2026-10-30",
+  "inizio": "2026-03-27",
+  "stato": "rallenta",
+  "swing_massimi": 1,
+  "swing_minimi": 3,
+  "top": 185.3,
+  "ultimo": 168.55
+ },
  "AES|1D": {
   "aggiornato": "2026-11-01",
   "ampiezza": 0.1269,
