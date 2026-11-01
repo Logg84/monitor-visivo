@@ -262,6 +262,7 @@
   function visibile(g, filtro, cerca) {
     if (cerca && !g.ticker.toLowerCase().includes(cerca)) return false;
     const b = g.tfs[g.tf];
+    if (cerca) return !storica(b);          // cercando un ticker si ignora il filtro di stato
     if (filtro === "tutte") return !storica(b);
     if (filtro === "attive") return attiva(b);
     if (filtro === "uscite") return !attiva(b) && !storica(b);
