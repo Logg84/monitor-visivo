@@ -1765,7 +1765,7 @@
   "aggiornato": "2026-11-01",
   "ampiezza": 0.3233,
   "barre": 75,
-  "bottom": 826.1898,
+  "bottom": 826.1897,
   "calo": 0.3971,
   "data_ultimo": "2026-10-30",
   "inizio": "2025-05-23",
@@ -1835,6 +1835,22 @@
   "top": 154.5846,
   "ultimo": 164.79,
   "uscita_data": "2026-04-30",
+  "uscito_il": "2026-11-01"
+ },
+ "RBLX|1W": {
+  "aggiornato": "2026-11-01",
+  "ampiezza": 0.0823,
+  "barre": 13,
+  "bottom": 35.6,
+  "calo": 0.7366,
+  "data_ultimo": "2026-10-30",
+  "inizio": "2026-07-31",
+  "stato": "uscito_sopra",
+  "swing_massimi": 0,
+  "swing_minimi": 1,
+  "top": 38.53,
+  "ultimo": 42.99,
+  "uscita_data": "2026-09-04",
   "uscito_il": "2026-11-01"
  },
  "RHM.DE|1D": {
@@ -2312,6 +2328,22 @@
   "swing_minimi": 4,
   "top": 2615.8064,
   "ultimo": 2556.0
+ },
+ "WKL.AS|1W": {
+  "aggiornato": "2026-11-01",
+  "ampiezza": 0.0958,
+  "barre": 18,
+  "bottom": 56.1873,
+  "calo": 0.6669,
+  "data_ultimo": "2026-10-30",
+  "inizio": "2026-06-26",
+  "stato": "uscito_sopra",
+  "swing_massimi": 0,
+  "swing_minimi": 1,
+  "top": 61.5695,
+  "ultimo": 87.0,
+  "uscita_data": "2026-07-31",
+  "uscito_il": "2026-11-01"
  },
  "WPP.L|1W": {
   "aggiornato": "2026-11-01",
