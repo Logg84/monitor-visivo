@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Basi di accumulo</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="top">
+  <div class="titolo">
+    <h1>Basi di accumulo</h1>
+    <p id="sottotitolo" class="muted">Caricamento…</p>
+  </div>
+  <div id="riepilogo" class="chips"></div>
+</header>
+
+<section class="controlli" aria-label="Filtri">
+  <label>Mostra
+    <select id="f-stato">
+      <option value="attive">Basi attive (in range + rallenta)</option>
+      <option value="in_range">Solo in range</option>
+      <option value="rallenta">Solo rallenta</option>
+      <option value="uscite">Uscite osservate</option>
+      <option value="tutte">Tutte</option>
+    </select>
+  </label>
+  <label>Ordina per
+    <select id="f-ordine">
+      <option value="stato">Più avanzate prima</option>
+      <option value="posizione">Più vicine al bottom</option>
+      <option value="durata">Più durature</option>
+      <option value="ticker">Ticker A–Z</option>
+    </select>
+  </label>
+  <label>Cerca
+    <input id="f-cerca" type="search" placeholder="Ticker" autocomplete="off">
+  </label>
+  <span id="conteggio" class="muted"></span>
+</section>
+
+<main id="griglia" class="griglia" aria-live="polite"></main>
+
+<details class="storiche" id="storiche">
+  <summary>Già usciti alla prima vista <span id="n-storiche"></span></summary>
+  <p class="muted">Titoli che erano già usciti dal range quando il sistema li ha visti la prima volta: restano in elenco finché non rientrano nel range o riprendono a scendere. Nessun alert per questi.</p>
+  <div class="tabella-wrap"><table id="tab-storiche"></table></div>
+</details>
+
+<footer class="piede">
+  Solo informazione sui prezzi di chiusura: non è un ordine né una consulenza. Il range si congela al riconoscimento e l'alert scatta alla chiusura di barra fuori dal range.
+  Grafici: <a href="https://www.tradingview.com/" target="_blank" rel="noopener">TradingView Lightweight Charts™</a>.
+</footer>
+
+<script src="vendor/lightweight-charts.standalone.production.js"></script>
+<script src="app.js"></script>
+</body>
+</html>

@@ -127,6 +127,7 @@ def aggiorna(stato: dict, ticker: str, tf: str, close: pd.Series,
         ev.append(evento("nuova_base", r))
     elif r["stato"] == "uscito_sopra":
         r["uscito_il"] = str(oggi)                # già uscito alla prima vista: nessun alert
+        r["prima_vista"] = True                   # uscita NON osservata da noi (storica)
     stato[k] = r
     return ev
 

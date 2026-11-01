@@ -12,7 +12,8 @@ import pandas as pd  # noqa: E402
 from basewatch import detect, engine, io as bio  # noqa: E402
 
 DATA = ROOT / "data"
-BARRE_GRAFICO = {"1W": 260, "1D": 400}
+BARRE_GRAFICO = {"1W": 130, "1D": 260}
+SITO = ROOT / "site" / "data"      # servito da Cloudflare Pages
 
 
 def main() -> int:
@@ -49,14 +50,17 @@ def main() -> int:
         except Exception as e:
             print(f"⚠️ {t}: {type(e).__name__}: {e}")
         for tf, df in (("1W", sett), ("1D", giorn)):
-            if f"{t}|{tf}" in stato:
+            b = stato.get(f"{t}|{tf}")
+            # il grafico serve per le basi attive e per le uscite osservate da noi;
+            # le uscite «storiche» (già uscite alla prima vista) restano solo in tabella.
+            if b and (b["stato"] in ("rallenta", "in_range") or not b.get("prima_vista")):
                 serie.setdefault(t, {})[tf] = bio.serie_grafico(df, BARRE_GRAFICO[tf])
     # titoli usciti dall'elenco del vecchio portale: si tolgono
     for k in [k for k in stato if k.split("|")[0] not in prezzi]:
         stato.pop(k)
 
     engine.salva_stato(stato, DATA / "bases.json")
-    sito = DATA / "site"
+    sito = SITO
     sito.mkdir(parents=True, exist_ok=True)
     (sito / "index.json").write_text(json.dumps(
         {"aggiornato": adesso.isoformat(timespec="seconds"),

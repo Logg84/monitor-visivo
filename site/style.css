@@ -1,0 +1,61 @@
+:root {
+  --bg: #0e1116; --superficie: #151a22; --bordo: #263040; --testo: #e6edf3; --muto: #8b98a9;
+  --accento: #4c8dff; --verde: #2ea66f; --rosso: #e0524d; --ambra: #d9a23b; --grigio: #6b7686;
+  --griglia-chart: #1d2531;
+}
+@media (prefers-color-scheme: light) {
+  :root {
+    --bg: #f5f7fa; --superficie: #ffffff; --bordo: #d8dee6; --testo: #1b2430; --muto: #5d6b7c;
+    --accento: #2563eb; --verde: #1b8a58; --rosso: #c63a35; --ambra: #a8741a; --grigio: #8793a3;
+    --griglia-chart: #eef1f5;
+  }
+}
+* { box-sizing: border-box; }
+html { background: var(--bg); }
+body { margin: 0; padding: 0 16px 40px; color: var(--testo); background: var(--bg);
+  font: 15px/1.45 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; }
+.muted { color: var(--muto); }
+.top { display: flex; flex-wrap: wrap; gap: 12px 24px; align-items: end; justify-content: space-between;
+  max-width: 1500px; margin: 0 auto; padding: 22px 0 10px; }
+h1 { margin: 0; font-size: 24px; letter-spacing: -.01em; }
+.top p { margin: 2px 0 0; font-size: 13px; }
+.chips { display: flex; flex-wrap: wrap; gap: 8px; }
+.chip { border: 1px solid var(--bordo); background: var(--superficie); border-radius: 999px;
+  padding: 4px 12px; font-size: 13px; }
+.chip b { font-variant-numeric: tabular-nums; }
+.controlli { display: flex; flex-wrap: wrap; gap: 12px 18px; align-items: end; max-width: 1500px;
+  margin: 0 auto; padding: 8px 0 16px; }
+.controlli label { display: grid; gap: 4px; font-size: 12px; color: var(--muto); }
+select, input[type=search] { background: var(--superficie); color: var(--testo); border: 1px solid var(--bordo);
+  border-radius: 8px; padding: 8px 10px; font: inherit; min-width: 190px; }
+select:focus-visible, input:focus-visible, button:focus-visible, summary:focus-visible { outline: 2px solid var(--accento); outline-offset: 2px; }
+.griglia { max-width: 1500px; margin: 0 auto; display: grid; gap: 14px;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 440px), 1fr)); }
+.card { background: var(--superficie); border: 1px solid var(--bordo); border-radius: 12px; padding: 12px 14px 12px; }
+.card-testa { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+.ticker { font-weight: 700; font-size: 18px; letter-spacing: .01em; }
+.badge { font-size: 12px; font-weight: 600; padding: 2px 9px; border-radius: 999px; border: 1px solid currentColor; }
+.b-in_range { color: var(--verde); } .b-rallenta { color: var(--ambra); }
+.b-uscito_sopra { color: var(--accento); } .b-uscito_sotto { color: var(--rosso); }
+.tf { margin-left: auto; display: inline-flex; border: 1px solid var(--bordo); border-radius: 8px; overflow: hidden; }
+.tf button { background: transparent; color: var(--muto); border: 0; padding: 4px 11px; font: inherit; font-size: 13px; cursor: pointer; }
+.tf button[aria-pressed=true] { background: var(--accento); color: #fff; }
+.tf button:disabled { opacity: .35; cursor: default; }
+.grafico { height: 270px; margin: 8px -4px 6px; }
+.dati { display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: 6px 12px; font-size: 13px; }
+.dati div { display: grid; }
+.dati span { color: var(--muto); font-size: 11.5px; }
+.dati b { font-variant-numeric: tabular-nums; font-weight: 600; }
+.nota { margin: 8px 0 0; font-size: 12.5px; color: var(--muto); }
+.vuoto { grid-column: 1 / -1; text-align: center; padding: 40px 10px; color: var(--muto); }
+.storiche { max-width: 1500px; margin: 26px auto 0; border: 1px solid var(--bordo); border-radius: 12px;
+  background: var(--superficie); padding: 10px 14px; }
+.storiche summary { cursor: pointer; font-weight: 600; }
+.tabella-wrap { overflow-x: auto; }
+table { border-collapse: collapse; width: 100%; font-size: 13px; font-variant-numeric: tabular-nums; }
+th, td { text-align: left; padding: 6px 10px; border-bottom: 1px solid var(--bordo); white-space: nowrap; }
+th { color: var(--muto); font-weight: 500; font-size: 12px; }
+.piede { max-width: 1500px; margin: 26px auto 0; font-size: 12px; color: var(--muto); }
+.piede a { color: var(--muto); }
+@media (max-width: 520px) { .grafico { height: 230px; } select, input[type=search] { min-width: 150px; } }
+@media (prefers-reduced-motion: reduce) { * { transition: none !important; animation: none !important; } }

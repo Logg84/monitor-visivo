@@ -3,7 +3,7 @@ name: bases
 # Giro giornaliero dopo la chiusura di Wall Street (20:00 UTC d'estate, 21:00
 # d'inverno): legge i candidati dal vecchio portale, scarica i prezzi,
 # aggiorna lo stato delle basi e manda l'alert Telegram SOLO per le uscite dal
-# range. Scrive data/bases.json e data/site/*.json per il sito.
+# range. Scrive data/bases.json (stato) e site/data/*.json (per il sito).
 on:
   schedule:
     - cron: "30 22 * * 1-5"
@@ -40,7 +40,7 @@ jobs:
         run: |
           git config user.name "basewatch-bot"
           git config user.email "basewatch-bot@users.noreply.github.com"
-          git add data/
+          git add data/ site/data/
           git diff --cached --quiet || git commit -m "chore: stato basi"
           for i in 1 2 3 4 5; do
             git push && exit 0
