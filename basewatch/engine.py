@@ -50,7 +50,7 @@ def _chiavi(ticker: str, tf: str) -> str:
 
 
 def aggiorna(stato: dict, ticker: str, tf: str, close: pd.Series,
-             oggi: dt.date) -> list[dict]:
+             oggi: dt.date, ov: dict | None = None) -> list[dict]:
     """Aggiorna lo stato di (ticker, tf) con le chiusure di barre CHIUSE.
     Ritorna la lista di eventi nuovi (dict) generati in questo giro."""
     k = _chiavi(ticker, tf)
@@ -69,6 +69,31 @@ def aggiorna(stato: dict, ticker: str, tf: str, close: pd.Series,
 
     def aggiorna_prezzo(b: dict) -> None:
         b.update(ultimo=round(ultimo, 4), aggiornato=str(oggi), data_ultimo=data_ult)
+
+    # 0) Range modificato a mano (data/override.json, scritto dal sito): vince sul
+    #    calcolo automatico. Quando i valori cambiano, lo stato si riallinea al
+    #    prezzo SENZA alert (nessuna uscita «osservata»); da lì valgono le regole normali.
+    if ov and ov.get("top") and ov.get("bottom") and float(ov["top"]) > float(ov["bottom"]) > 0:
+        top, bottom = round(float(ov["top"]), 4), round(float(ov["bottom"]), 4)
+        sig = [top, bottom]
+        if not prec or prec.get("manuale") != sig:
+            if not prec and not (bottom <= ultimo <= top):
+                return ev                          # nessuna base in corso e prezzo già fuori: niente da armare
+            b = dict(prec or {})
+            inizio = b.get("inizio") or str(c.iloc[-detect.TF_PARAMS[tf]["lookback"]:].idxmin())[:10]
+            nuovo = ("in_range" if bottom <= ultimo <= top
+                     else "uscito_sopra" if ultimo > top else "uscito_sotto")
+            for x in ("uscito_il", "rientro_il", "prima_vista", "uscita_data"):
+                b.pop(x, None)
+            b.update(stato=nuovo, bottom=bottom, top=top, inizio=inizio, manuale=sig,
+                     ampiezza=round(top / bottom - 1, 4), congelato_il=str(oggi),
+                     barre=int((c.index >= pd.Timestamp(inizio)).sum()) - 1)
+            if nuovo != "in_range":
+                b.update(uscito_il=str(oggi), prima_vista=True)
+            aggiorna_prezzo(b)
+            stato[k] = b
+            return ev
+        prec = stato.get(k)
 
     stato_prec = prec.get("stato") if prec else None
 
@@ -133,7 +158,7 @@ def aggiorna(stato: dict, ticker: str, tf: str, close: pd.Series,
 
 
 def aggiorna_titolo(stato: dict, ticker: str, serie: dict[str, pd.Series],
-                    oggi: dt.date) -> list[dict]:
+                    oggi: dt.date, overrides: dict | None = None) -> list[dict]:
     """Aggiorna OGNI timeframe in modo indipendente (settimanale e giornaliero):
     un titolo uscito dal range giornaliero può essere ancora nel range
     settimanale e gli alert devono arrivare per entrambi (decisione di Marco,
@@ -141,7 +166,8 @@ def aggiorna_titolo(stato: dict, ticker: str, serie: dict[str, pd.Series],
     eventi: list[dict] = []
     for tf in TF_LISTA:
         if tf in serie:
-            eventi += aggiorna(stato, ticker, tf, serie[tf], oggi)
+            eventi += aggiorna(stato, ticker, tf, serie[tf], oggi,
+                               (overrides or {}).get(_chiavi(ticker, tf)))
     return eventi
 
 

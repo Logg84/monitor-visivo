@@ -170,6 +170,29 @@ ev = engine.aggiorna_titolo(st3, "CCC", {"1W": w, "1D": d_su}, oggi)
 check("uscita dal range giornaliero con il settimanale ancora in range → alert uscita_sopra 1D",
       [(e["tipo"], e["tf"]) for e in ev] == [("uscita_sopra", "1D")] and st3["CCC|1W"]["stato"] == "in_range")
 
+# range modificato a mano
+w_o = w.copy()
+ult = float(w_o.iloc[-1])
+st_o = {}
+engine.aggiorna_titolo(st_o, "OVR", {"1W": w_o}, oggi)
+ov = {"OVR|1W": {"top": ult * 1.10, "bottom": ult * 0.90}}
+ev = engine.aggiorna_titolo(st_o, "OVR", {"1W": w_o}, oggi, ov)
+check("override: range sostituito, stato in_range, nessun alert",
+      ev == [] and st_o["OVR|1W"]["stato"] == "in_range" and abs(st_o["OVR|1W"]["top"] - ult * 1.10) < 1e-3
+      and st_o["OVR|1W"]["manuale"])
+w_fuori = pd.concat([w_o, pd.Series([ult * 1.2], index=[w_o.index[-1] + pd.offsets.Week(weekday=4)])])
+ev = engine.aggiorna_titolo(st_o, "OVR", {"1W": w_fuori}, oggi, ov)
+check("override: chiusura fuori dal range manuale → alert uscita_sopra",
+      [e["tipo"] for e in ev] == ["uscita_sopra"] and st_o["OVR|1W"]["stato"] == "uscito_sopra")
+ov2 = {"OVR|1W": {"top": ult * 1.5, "bottom": ult * 0.9}}
+ev = engine.aggiorna_titolo(st_o, "OVR", {"1W": w_fuori}, oggi, ov2)
+check("override cambiato dopo l'uscita: si riallinea senza alert e torna in_range",
+      ev == [] and st_o["OVR|1W"]["stato"] == "in_range")
+st_z = {}
+engine.aggiorna_titolo(st_z, "ZZZ", {"1W": w_o}, oggi, {"ZZZ|1W": {"top": 1, "bottom": 5}})
+check("override non valido (top<bottom) ignorato: resta il calcolo automatico",
+      "ZZZ|1W" in st_z and "manuale" not in st_z["ZZZ|1W"])
+
 # salvataggio/ricarico
 with tempfile.TemporaryDirectory() as tmp:
     p = Path(tmp) / "bases.json"

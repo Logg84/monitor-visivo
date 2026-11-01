@@ -11,7 +11,18 @@
   const pct = (x, d = 0) => (x == null ? "–" : (x * 100).toLocaleString("it-IT", { maximumFractionDigits: d }) + "%");
   const eEl = (tag, cls, txt) => { const e = document.createElement(tag); if (cls) e.className = cls; if (txt != null) e.textContent = txt; return e; };
 
-  let basi = [], serie = {}, gruppi = [];
+  const REPO = "Logg84/monitor-visivo", FILE_OVERRIDE = "data/override.json";
+  let basi = [], titoli = {}, gruppi = [];
+  const cacheSerie = new Map();
+  const nomeFile = (t) => [...t].map((c) => (/[A-Za-z0-9\-_.]/.test(c) ? c : "_")).join("");
+  const leggiToken = () => { try { return localStorage.getItem("bw_token") || ""; } catch (e) { return ""; } };
+  async function serieDi(ticker) {
+    if (!cacheSerie.has(ticker)) {
+      cacheSerie.set(ticker, fetch(`data/serie/${nomeFile(ticker)}.json`, { cache: "no-cache" })
+        .then((r) => (r.ok ? r.json() : null)).catch(() => null));
+    }
+    return cacheSerie.get(ticker);
+  }
   const grafici = new Map();            // elemento card → { chart, ro }
 
   // ── Rettangolo del range (primitive di Lightweight Charts) ─────────────
@@ -36,7 +47,7 @@
     }
   }
 
-  function creaGrafico(box, b, barre) {
+  function creaGrafico(box, b, barre, altro) {
     const colTesto = css("--muto"), colGriglia = css("--griglia-chart"), colBordo = css("--bordo");
     const chart = LW.createChart(box, {
       autoSize: true,
@@ -56,6 +67,13 @@
     candele.attachPrimitive(new Rettangolo(b.inizio, b.top, b.bottom, colore));
     candele.createPriceLine({ price: b.top, color: css("--verde"), lineWidth: 1, lineStyle: 2, axisLabelVisible: true, title: "top" });
     candele.createPriceLine({ price: b.bottom, color: css("--rosso"), lineWidth: 1, lineStyle: 2, axisLabelVisible: true, title: "bottom" });
+    if (altro) {   // riferimenti dell'altro timeframe: stesse soglie viste da qui
+      const t = altro.tf === "1W" ? "sett." : "giorn.";
+      for (const [prezzo, nome] of [[altro.b.top, "top " + t], [altro.b.bottom, "bottom " + t]]) {
+        candele.createPriceLine({ price: prezzo, color: css("--altro"), lineWidth: 1, lineStyle: 1,
+                                  axisLabelVisible: true, title: nome });
+      }
+    }
     chart.timeScale().fitContent();
     return chart;
   }
@@ -82,12 +100,13 @@
       bt.addEventListener("click", () => { g.tf = t; disegnaCard(g, t); osserva(g); });
       sel.append(bt);
     }
+    if (b.manuale) testa.append(eEl("span", "badge b-manuale", "manuale"));
     testa.append(sel);
     const box = eEl("div", "grafico");
     box.setAttribute("role", "img");
     box.setAttribute("aria-label", `Grafico ${g.ticker} ${NOME_TF[tf]} con range ${fmt(b.bottom)}–${fmt(b.top)}`);
     const dati = eEl("div", "dati");
-    const pos = posizione(b);
+    const pos = posizione(b), ti = titoli[g.ticker];
     const voci = [
       ["Range", `${fmt(b.bottom)} – ${fmt(b.top)}`],
       ["Ampiezza", pct(b.ampiezza)],
@@ -95,6 +114,9 @@
       ["Ultima chiusura", fmt(b.ultimo)],
       ["Posizione nel range", pos == null ? "–" : pct(pos)],
       ["Swing (min/max)", `${b.swing_minimi ?? "–"} / ${b.swing_massimi ?? "–"}`],
+      ["ATH", ti ? `${fmt(ti.ath)} (${ti.ath_data})` : "–"],
+      ["Distanza da ATH", ti ? pct(ti.dist_ath, 1) : "–"],
+      ["Calo prima della base", pct(b.calo)],
     ];
     for (const [k, v] of voci) { const d = eEl("div"); d.append(eEl("span", null, k), eEl("b", null, v)); dati.append(d); }
     const nota = eEl("p", "nota");
@@ -103,8 +125,14 @@
       : b.stato === "rallenta"
         ? "La discesa rallenta ma la struttura a 4 swing non è ancora completa: il range non è congelato."
         : `Uscito il ${b.uscito_il ?? "—"}. Si rivaluta solo se rientra nel range o riprende a scendere.`;
-    if (g.tfs["1W"] && g.tfs["1D"]) nota.textContent += ` Presente anche sul ${tf === "1W" ? "giornaliero" : "settimanale"} (${NOME_STATO[g.tfs[tf === "1W" ? "1D" : "1W"].stato].toLowerCase()}).`;
-    card.append(testa, box, dati, nota);
+    const ta = tf === "1W" ? "1D" : "1W", ba = g.tfs[ta];
+    if (ba && !storica(ba)) nota.textContent += ` Sul ${ta === "1W" ? "settimanale" : "giornaliero"}: ${NOME_STATO[ba.stato].toLowerCase()}, range ${fmt(ba.bottom)}–${fmt(ba.top)} (linee blu nel grafico).`;
+    if (b.manuale) nota.textContent += " Range corretto a mano.";
+    const az = eEl("div", "azioni");
+    const bm = eEl("button", "link", "✎ Modifica range"); bm.type = "button";
+    bm.addEventListener("click", () => pannelloModifica(g, tf, az));
+    az.append(bm);
+    card.append(testa, box, dati, nota, az);
     g.box = box;
   }
 
@@ -117,15 +145,80 @@
     }
   }, { rootMargin: "300px" });
 
-  function montaGrafico(g) {
-    const b = g.tfs[g.tf];
-    const barre = serie[g.ticker] && serie[g.ticker][g.tf];
+  async function montaGrafico(g) {
+    const b = g.tfs[g.tf], tf = g.tf, box = g.box;
     g.disegnato = true;
-    if (!barre || !barre.length) { g.box.replaceChildren(eEl("p", "nota", "Grafico non disponibile per questo titolo.")); return; }
+    const dati = await serieDi(g.ticker);
+    if (g.tf !== tf || g.box !== box) return;          // nel frattempo la card è cambiata
+    const barre = dati && dati[tf];
+    if (!barre || !barre.length) { box.replaceChildren(eEl("p", "nota", "Grafico non disponibile per questo titolo.")); return; }
     if (g.chart) { g.chart.remove(); g.chart = null; }
-    g.chart = creaGrafico(g.box, b, barre);
+    const ta = tf === "1W" ? "1D" : "1W", ba = g.tfs[ta];
+    const altro = ba && !storica(ba) ? { tf: ta, b: ba } : null;
+    g.chart = creaGrafico(box, b, barre, altro);
   }
   function osserva(g) { g.disegnato = false; if (g.chart) { g.chart.remove(); g.chart = null; } osservatore.observe(g.card); montaGrafico(g); }
+
+  // ── Modifica a mano del range (salvata nel repo: data/override.json) ──────
+  const b64 = (txt) => btoa(String.fromCharCode(...new TextEncoder().encode(txt)));
+  const deb64 = (b) => new TextDecoder().decode(Uint8Array.from(atob(b.replace(/\n/g, "")), (c) => c.charCodeAt(0)));
+
+  async function salvaOverride(chiave, valori, token) {
+    const url = `https://api.github.com/repos/${REPO}/contents/${FILE_OVERRIDE}`;
+    const h = { Authorization: `Bearer ${token}`, Accept: "application/vnd.github+json" };
+    for (let tentativo = 0; tentativo < 2; tentativo++) {
+      let sha, attuale = {};
+      const r = await fetch(url, { headers: h, cache: "no-store" });
+      if (r.ok) { const j = await r.json(); sha = j.sha; try { attuale = JSON.parse(deb64(j.content)); } catch (e) { attuale = {}; } }
+      else if (r.status !== 404) throw new Error(r.status === 401 || r.status === 403 ? "token non valido o senza permesso di scrittura" : `GitHub ${r.status}`);
+      attuale[chiave] = valori;
+      const p = await fetch(url, { method: "PUT", headers: h, body: JSON.stringify({
+        message: `override range ${chiave}`, content: b64(JSON.stringify(attuale, null, 1) + "\n"), sha }) });
+      if (p.ok) return;
+      if (p.status !== 409 && p.status !== 422) throw new Error(p.status === 401 || p.status === 403 ? "token non valido o senza permesso di scrittura" : `GitHub ${p.status}`);
+    }
+    throw new Error("conflitto di salvataggio, riprova");
+  }
+
+  function pannelloModifica(g, tf, contenitore) {
+    const b = g.tfs[tf];
+    contenitore.replaceChildren();
+    const form = eEl("form", "modifica");
+    const campo = (nome, val) => {
+      const l = eEl("label", null, nome + " ");
+      const i = eEl("input"); i.type = "number"; i.step = "any"; i.value = val; i.required = true;
+      l.append(i); form.append(l); return i;
+    };
+    const iTop = campo("Top", b.top), iBot = campo("Bottom", b.bottom);
+    const salva = eEl("button", "primario", "Salva"); salva.type = "submit";
+    const annulla = eEl("button", "link", "Annulla"); annulla.type = "button";
+    const esito = eEl("span", "esito");
+    annulla.addEventListener("click", () => disegnaCard(g, tf) || osserva(g));
+    form.addEventListener("submit", async (ev) => {
+      ev.preventDefault();
+      const top = parseFloat(iTop.value), bottom = parseFloat(iBot.value);
+      if (!(top > bottom && bottom > 0)) { esito.textContent = "Il top deve essere maggiore del bottom."; return; }
+      let token = leggiToken();
+      if (!token) {
+        token = (prompt("Token GitHub (fine-grained, solo repo monitor-visivo, Contents: Read and write).\nResta salvato solo in questo browser:") || "").trim();
+        if (!token) return;
+      }
+      salva.disabled = true; esito.textContent = "Salvataggio…";
+      try {
+        await salvaOverride(`${g.ticker}|${tf}`, { top, bottom }, token);
+        try { localStorage.setItem("bw_token", token); } catch (e) { /* senza storage va richiesto ogni volta */ }
+        Object.assign(b, { top, bottom, manuale: [top, bottom], ampiezza: top / bottom - 1 });
+        disegnaCard(g, tf); osserva(g);
+        g.card.querySelector(".azioni").append(eEl("span", "esito", "Salvato. Il motore lo applica al prossimo giro (circa 2 minuti): fino ad allora vale solo qui."));
+      } catch (e) {
+        esito.textContent = "Non salvato: " + e.message;
+        if (/token/.test(e.message)) { try { localStorage.removeItem("bw_token"); } catch (x) { /* nulla */ } }
+        salva.disabled = false;
+      }
+    });
+    form.append(salva, annulla, esito);
+    contenitore.append(form);
+  }
 
   // ── Raggruppamento, filtri, ordine ──────────────────────────────────────
   function raggruppa() {
@@ -201,9 +294,9 @@
 
   async function carica() {
     try {
-      const [i, s] = await Promise.all([fetch("data/index.json", { cache: "no-cache" }), fetch("data/serie.json", { cache: "no-cache" })]);
-      if (!i.ok || !s.ok) throw new Error(`HTTP ${i.status}/${s.status}`);
-      const idx = await i.json(); serie = await s.json(); basi = idx.basi || [];
+      const i = await fetch("data/index.json", { cache: "no-cache" });
+      if (!i.ok) throw new Error(`HTTP ${i.status}`);
+      const idx = await i.json(); basi = idx.basi || []; titoli = idx.titoli || {};
       const quando = new Date(idx.aggiornato);
       $("sottotitolo").textContent = `Aggiornato ${quando.toLocaleString("it-IT", { dateStyle: "medium", timeStyle: "short" })} · ${basi.length} stati su ${new Set(basi.map((b) => b.chiave.split("|")[0])).size} titoli`;
     } catch (e) {

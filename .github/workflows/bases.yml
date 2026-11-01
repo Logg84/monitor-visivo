@@ -7,6 +7,8 @@ name: bases
 on:
   schedule:
     - cron: "30 22 * * 1-5"
+  push:                      # un range corretto a mano dal sito rilancia il giro
+    paths: ["data/override.json"]
   workflow_dispatch:
 
 permissions:

@@ -22,7 +22,7 @@ def candidati_dal_vecchio_portale(repo: str, token: str, path: str = "data/watch
     return sorted(dict.fromkeys(out))
 
 
-def scarica_giornalieri(tickers: list[str], anni: int = 6, blocco: int = 60) -> dict[str, pd.DataFrame]:
+def scarica_giornalieri(tickers: list[str], anni: int = 20, blocco: int = 60) -> dict[str, pd.DataFrame]:
     """{ticker: DataFrame OHLC giornaliero rettificato}. Un titolo che fallisce
     viene saltato (non ferma gli altri)."""
     import yfinance as yf
@@ -72,3 +72,8 @@ def serie_grafico(df: pd.DataFrame, n: int) -> list[dict]:
     return [{"t": str(i)[:10], "o": round(float(r.Open), 4), "h": round(float(r.High), 4),
              "l": round(float(r.Low), 4), "c": round(float(r.Close), 4)}
             for i, r in d.iterrows()]
+
+
+def nome_file(ticker: str) -> str:
+    """Nome file sicuro per un ticker (stesso schema usato da site/app.js)."""
+    return "".join(ch if ch.isalnum() or ch in "-_." else "_" for ch in ticker)
