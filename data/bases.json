@@ -1532,17 +1532,21 @@
  },
  "EXPN.L|1D": {
   "aggiornato": "2026-11-01",
-  "ampiezza": 0.3088,
+  "ampiezza": 0.3097,
   "barre": 181,
   "bottom": 2374.6655,
   "calo": 0.419,
   "congelato_il": "2026-11-01",
   "data_ultimo": "2026-10-30",
   "inizio": "2026-02-11",
+  "manuale": [
+   3110.0,
+   2374.6655
+  ],
   "stato": "in_range",
   "swing_massimi": 15,
   "swing_minimi": 12,
-  "top": 3108.0,
+  "top": 3110.0,
   "ultimo": 2987.0
  },
  "EXPN.L|1W": {
@@ -3059,7 +3063,7 @@
   "aggiornato": "2026-11-01",
   "ampiezza": 0.3233,
   "barre": 75,
-  "bottom": 826.1897,
+  "bottom": 826.1898,
   "calo": 0.3971,
   "data_ultimo": "2026-10-30",
   "inizio": "2025-05-23",
