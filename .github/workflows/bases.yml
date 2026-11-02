@@ -10,6 +10,11 @@ on:
   push:                      # un range corretto a mano dal sito rilancia il giro
     paths: ["data/override.json"]
   workflow_dispatch:
+    inputs:
+      test_email:
+        description: "Solo prova di invio email (non fa il giro)"
+        type: boolean
+        default: false
 
 permissions:
   contents: write
@@ -44,6 +49,7 @@ jobs:
           SMTP_PASSWORD: ${{ secrets.SMTP_PASSWORD }}
           EMAIL_TO: ${{ secrets.EMAIL_TO }}
           SITO_URL: ${{ vars.SITO_URL }}
+          TEST_EMAIL: ${{ inputs.test_email }}
         run: python scripts/run.py
       - name: Commit stato
         run: |

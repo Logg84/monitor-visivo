@@ -17,6 +17,11 @@ SITO = ROOT / "site" / "data"      # servito da Cloudflare Pages
 
 
 def main() -> int:
+    if os.environ.get("TEST_EMAIL") == "true":      # prova di invio da Actions → Run workflow → test_email
+        ok = bio.invia_email("Basewatch: email di prova", "Se leggi questo messaggio le email di basewatch funzionano.\n"
+                             + os.environ.get("SITO_URL", ""))
+        print(f"Email di prova: {'inviata' if ok else 'NON inviata (controlla i secret SMTP_USER, SMTP_PASSWORD, EMAIL_TO)'}")
+        return 0 if ok else 1
     adesso = pd.Timestamp.now(tz="UTC")
     oggi = adesso.date()
     repo, token = os.environ.get("OLD_REPO"), os.environ.get("OLD_REPO_TOKEN")
