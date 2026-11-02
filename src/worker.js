@@ -83,7 +83,7 @@ export default {
       r = await fetch(String(env.AI_BASE_URL).replace(/\/$/, "") + "/chat/completions", {
         method: "POST",
         headers: { Authorization: `Bearer ${env.AI_KEY}`, "content-type": "application/json" },
-        body: JSON.stringify({ model: env.AI_MODEL, temperature: 0.3, max_tokens: 2500,
+        body: JSON.stringify({ model: env.AI_MODEL, temperature: 0.3, max_tokens: 8000,
           messages: [{ role: "system", content: SYSTEM }, { role: "user", content: prompt }] }),
       });
     } catch (e) { return json({ errore: "motore AI non raggiungibile" }, 502); }
