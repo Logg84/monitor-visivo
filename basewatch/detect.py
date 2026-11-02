@@ -10,7 +10,8 @@ Definizione (parametri per timeframe in TF_PARAMS, da tarare sui casi reali):
   - minimo = chiusura più bassa nella finestra `lookback`;
   - il range parte dal minimo e finisce alla prima barra di RIPARTENZA
     IMPULSIVA: una chiusura oltre il massimo corrente di più di 3 volte la
-    variazione tipica della base (e ≥ 4%). Così le barre di rottura non
+    variazione tipica (la maggiore tra quella della base e quella delle barre
+    PRIMA del minimo: al cambio di trend le oscillazioni sono anomale) e ≥ 4%. Così le barre di rottura non
     allargano il range (caso WKL), mentre una risalita graduale dal minimo
     resta parte della base (caso ADBE);
   - «rallenta»: dal minimo sono passate almeno `min_bars // 2` barre senza un
@@ -30,16 +31,17 @@ import pandas as pd
 
 TF_PARAMS = {
     "1W": {"min_bars": 8,  "lookback": 78,  "width_max": 1.00, "dd_min": 0.25,
-           "pre": 156, "min_range": 4,  "k": 2},
+           "pre": 156, "min_range": 4,  "k": 2, "vol_pre": 13},
     "1D": {"min_bars": 30, "lookback": 220, "width_max": 0.80, "dd_min": 0.25,
-           "pre": 500, "min_range": 15, "k": 3},
+           "pre": 500, "min_range": 15, "k": 3, "vol_pre": 60},
 }
 K_IMPULSO = 3.0               # salto = K × variazione tipica della base
+VOL_PESO = 0.65              # peso della volatilità pre-minimo (tarato su RBLX/WKL/TYL/ADBE, 2/11/2026)
 MIN_SALTO = 0.04              # e comunque almeno +4% oltre il massimo
 ZONA_BOTTOM = 0.40            # frazione bassa del range che conta come «zona di bottom»
 
 
-def _fine_range(v: np.ndarray, low_pos: int, min_range: int) -> int | None:
+def _fine_range(v: np.ndarray, low_pos: int, min_range: int, vol_ref: float = 0.0) -> int | None:
     """Indice (in v) della prima barra di RIPARTENZA IMPULSIVA, o None.
     Una barra è impulsiva se chiude oltre il massimo corrente di più di
     K volte la variazione tipica (mediana dei |rendimenti|) del range fin lì,
@@ -51,6 +53,7 @@ def _fine_range(v: np.ndarray, low_pos: int, min_range: int) -> int | None:
         if n >= min_range:
             rend = np.abs(np.diff(v[low_pos:i])) / v[low_pos:i - 1]
             tipico = float(np.median(rend)) if len(rend) else 0.0
+            tipico = max(tipico, VOL_PESO * vol_ref)      # al cambio di trend le oscillazioni sono anomale: conta anche la volatilità di prima
             salto = v[i] / mx - 1
             if salto > max(K_IMPULSO * tipico, MIN_SALTO):
                 return i
@@ -97,7 +100,9 @@ def rileva(close: pd.Series, tf: str) -> dict | None:
     low_date = win.index[low_pos]
     ultimo = float(v[-1])
 
-    fine = _fine_range(v, low_pos, p["min_range"])
+    pre_v = c.loc[:low_date].iloc[-(p["vol_pre"] + 1):].values
+    vol_ref = float(np.median(np.abs(np.diff(pre_v)) / pre_v[:-1])) if len(pre_v) > 3 else 0.0
+    fine = _fine_range(v, low_pos, p["min_range"], vol_ref)
     uscita_data = str(win.index[fine])[:10] if fine is not None else None
     seg = v[low_pos:(fine if fine is not None else len(v) - 1)]
     if len(seg) < 2:
