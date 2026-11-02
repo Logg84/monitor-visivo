@@ -76,3 +76,9 @@ body.blocca{overflow:hidden}
 .card.schermo{position:fixed;inset:0;z-index:50;border-radius:0;border:0;padding:14px 16px;display:flex;flex-direction:column;overflow:auto}
 .card.schermo .grafico{flex:1 1 auto;height:auto;min-height:320px;margin:8px 0}
 .card.schermo .dati{flex:none}
+
+.ai{margin-top:10px;padding:10px 12px;border:1px solid var(--bordo);border-radius:8px;font-size:.92em}
+.ai h4{margin:10px 0 2px;font-size:.78em;letter-spacing:.06em;color:var(--muto)}
+.ai h4:first-child{margin-top:0}
+.ai p{margin:0 0 6px}
+.ai .avviso{margin-top:10px;font-size:.8em;color:var(--muto)}

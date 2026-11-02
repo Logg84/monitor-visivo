@@ -89,6 +89,28 @@ def main() -> int:
         (cartella / (bio.nome_file(t) + ".json")).write_text("{\n" + corpo + "\n}\n", encoding="utf-8")
     (sito / "serie.json").unlink(missing_ok=True)
 
+    # Fondamentali per il riassunto AI: solo titoli con una card visibile, rinnovati
+    # al massimo una volta ogni 7 giorni (Yahoo è lento e i bilanci cambiano di rado).
+    fond_dir = sito / "fond"
+    fond_dir.mkdir(exist_ok=True)
+    visibili = {k.split("|")[0] for k, v in stato.items() if not v.get("prima_vista")}
+    for f in fond_dir.glob("*.json"):
+        if f.stem not in {bio.nome_file(t) for t in visibili}:
+            f.unlink()
+    nuovi = 0
+    for t in sorted(visibili):
+        fp = fond_dir / (bio.nome_file(t) + ".json")
+        try:
+            vecchio = json.loads(fp.read_text(encoding="utf-8"))
+            if (oggi - pd.Timestamp(vecchio["aggiornato"]).date()).days < 7 and vecchio.get("dati"):
+                continue
+        except Exception:
+            pass
+        dati = bio.fondamentali(t)
+        fp.write_text(json.dumps({"aggiornato": str(oggi), "dati": dati}, indent=1, ensure_ascii=False, sort_keys=True), encoding="utf-8")
+        nuovi += 1
+    print(f"Fondamentali aggiornati: {nuovi}/{len(visibili)}")
+
     uscite = [e for e in eventi if e["tipo"].startswith("uscita")]
     for e in uscite:
         ok = bio.invia_telegram(engine.messaggio(e))

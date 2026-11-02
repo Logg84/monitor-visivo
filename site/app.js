@@ -137,7 +137,11 @@
     const bm = eEl("button", "link", "✎ Modifica range"); bm.type = "button";
     bm.addEventListener("click", () => pannelloModifica(g, tf, az));
     az.append(bm);
+    const ba_ = eEl("button", "link", "🧠 Analisi AI"); ba_.type = "button";
+    ba_.addEventListener("click", () => analisiAI(g));
+    az.append(ba_);
     card.append(testa, box, dati, nota, az);
+    if (g.ai) card.append(pannelloAI(g.ai));
     g.box = box;
   }
 
@@ -163,6 +167,42 @@
     g.chart = creaGrafico(box, b, barre, altro);
   }
   function osserva(g) { g.disegnato = false; if (g.chart) { g.chart.remove(); g.chart = null; } osservatore.observe(g.card); montaGrafico(g); }
+
+  // ── Analisi AI (tecnica + fondamentale), generata su richiesta dal Worker ──
+  const AVVISO_AI = "Testo generato automaticamente da un modello linguistico a partire dai soli dati del portale (prezzi di chiusura e fondamentali Yahoo Finance): può contenere errori, non include notizie. Non è un consiglio di investimento né un ordine: la decisione di aprire un trade è solo tua.";
+  function pannelloAI(ai) {
+    const box = eEl("div", "ai");
+    if (ai.caricamento) { box.append(eEl("p", "nota", "Analisi in corso…")); return box; }
+    if (ai.errore) { box.append(eEl("p", "esito", "Analisi non disponibile: " + ai.errore)); return box; }
+    for (const par of ai.testo.split(/\n{2,}|\n(?=[A-ZÀ-Ü' ]{6,}\s*$)/m).filter((x) => x.trim())) {
+      const righe = par.trim().split("\n");
+      if (/^[A-ZÀ-Ü' ]{6,}$/.test(righe[0].trim())) { box.append(eEl("h4", null, righe.shift().trim())); }
+      if (righe.length) box.append(eEl("p", null, righe.join(" ").trim()));
+    }
+    box.append(eEl("p", "avviso", AVVISO_AI + (ai.fondamentali ? "" : " Fondamentali non disponibili per questo titolo.")));
+    return box;
+  }
+  async function analisiAI(g) {
+    let codice = "";
+    try { codice = localStorage.getItem("bw_codice") || ""; } catch (e) { /* senza storage */ }
+    if (!codice) {
+      codice = (prompt("Codice di accesso all'analisi AI (lo imposti tu nei secret Cloudflare):") || "").trim();
+      if (!codice) return;
+    }
+    g.ai = { caricamento: true }; disegnaCard(g, g.tf); osserva(g);
+    try {
+      const r = await fetch("/api/analisi", { method: "POST", headers: { "content-type": "application/json", "x-codice": codice },
+                                              body: JSON.stringify({ ticker: g.ticker }) });
+      const j = await r.json().catch(() => ({}));
+      if (!r.ok) {
+        if (r.status === 401) { try { localStorage.removeItem("bw_codice"); } catch (e) { /* nulla */ } }
+        throw new Error(j.errore || `errore ${r.status}`);
+      }
+      try { localStorage.setItem("bw_codice", codice); } catch (e) { /* nulla */ }
+      g.ai = j;
+    } catch (e) { g.ai = { errore: e.message }; }
+    disegnaCard(g, g.tf); osserva(g);
+  }
 
   // ── Schermo intero: la card diventa un overlay (Esc o ✕ per chiudere) ─────
   function schermoIntero(g, on) {

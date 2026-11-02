@@ -30,7 +30,9 @@ jobs:
           cache: pip
       - run: pip install -r requirements.txt
       - name: Test sintetici
-        run: python tests/verifica_basi.py
+        run: |
+          python tests/verifica_basi.py
+          node tests/verifica_worker.mjs
       - name: Giro basi
         env:
           OLD_REPO: ${{ secrets.OLD_REPO }}

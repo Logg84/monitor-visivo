@@ -77,3 +77,36 @@ def serie_grafico(df: pd.DataFrame, n: int) -> list[dict]:
 def nome_file(ticker: str) -> str:
     """Nome file sicuro per un ticker (stesso schema usato da site/app.js)."""
     return "".join(ch if ch.isalnum() or ch in "-_." else "_" for ch in ticker)
+
+
+CHIAVI_FOND = ["longName", "sector", "industry", "currency", "marketCap", "trailingPE", "forwardPE",
+               "priceToBook", "enterpriseToEbitda", "profitMargins", "operatingMargins", "grossMargins",
+               "returnOnEquity", "returnOnAssets", "revenueGrowth", "earningsGrowth", "debtToEquity",
+               "currentRatio", "quickRatio", "totalDebt", "totalCash", "freeCashflow", "operatingCashflow",
+               "dividendYield", "payoutRatio", "beta", "fiftyTwoWeekHigh", "fiftyTwoWeekLow",
+               "targetMeanPrice", "recommendationKey", "numberOfAnalystOpinions"]
+
+
+def fondamentali(ticker: str) -> dict:
+    """Dati fondamentali essenziali da Yahoo Finance (info + bilancio annuale).
+    Ritorna {} se non disponibili: l'AI lo dichiara e non inventa."""
+    import yfinance as yf
+    out: dict = {}
+    try:
+        tk = yf.Ticker(ticker)
+        info = tk.info or {}
+        for k in CHIAVI_FOND:
+            v = info.get(k)
+            if v is not None and v == v:          # esclude None e NaN
+                out[k] = round(v, 4) if isinstance(v, float) else v
+        fin = tk.financials
+        righe = {}
+        for nome, chiave in (("Total Revenue", "ricavi"), ("Operating Income", "utile_operativo"),
+                             ("Net Income", "utile_netto")):
+            if fin is not None and nome in fin.index:
+                righe[chiave] = {str(c)[:4]: float(v) for c, v in fin.loc[nome].items() if v == v}
+        if righe:
+            out["bilancio_annuale"] = righe
+    except Exception as e:
+        print(f"⚠️ fondamentali {ticker}: {type(e).__name__}: {e}")
+    return out

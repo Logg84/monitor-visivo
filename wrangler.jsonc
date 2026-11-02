@@ -1,5 +1,11 @@
 {
   "name": "monitor-visivo",
+  "main": "src/worker.js",
   "compatibility_date": "2026-11-01",
-  "assets": { "directory": "./site" }
+  "assets": { "directory": "./site", "binding": "ASSETS", "run_worker_first": ["/api/*"] },
+  // Variabili non segrete (i secret AI_KEY e ACCESS_CODE si impostano nella dashboard Cloudflare).
+  "vars": {
+    "AI_BASE_URL": "https://api.groq.com/openai/v1",
+    "AI_MODEL": "openai/gpt-oss-120b"
+  }
 }
