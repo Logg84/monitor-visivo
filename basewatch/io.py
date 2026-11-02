@@ -79,7 +79,7 @@ def nome_file(ticker: str) -> str:
     return "".join(ch if ch.isalnum() or ch in "-_." else "_" for ch in ticker)
 
 
-CHIAVI_FOND = ["longName", "sector", "industry", "currency", "marketCap", "trailingPE", "forwardPE",
+CHIAVI_FOND = ["longName", "sector", "industry", "currency", "financialCurrency", "ebitda", "marketCap", "trailingPE", "forwardPE",
                "priceToBook", "enterpriseToEbitda", "profitMargins", "operatingMargins", "grossMargins",
                "returnOnEquity", "returnOnAssets", "revenueGrowth", "earningsGrowth", "debtToEquity",
                "currentRatio", "quickRatio", "totalDebt", "totalCash", "freeCashflow", "operatingCashflow",
@@ -99,6 +99,10 @@ def fondamentali(ticker: str) -> dict:
             v = info.get(k)
             if v is not None and v == v:          # esclude None e NaN
                 out[k] = round(v, 4) if isinstance(v, float) else v
+        if out.get("totalDebt") is not None and out.get("totalCash") is not None:
+            out["debito_netto"] = round(out["totalDebt"] - out["totalCash"], 0)
+            if out.get("ebitda"):
+                out["debito_netto_su_ebitda"] = round(out["debito_netto"] / out["ebitda"], 2)
         fin = tk.financials
         righe = {}
         for nome, chiave in (("Total Revenue", "ricavi"), ("Operating Income", "utile_operativo"),

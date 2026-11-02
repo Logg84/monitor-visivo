@@ -12,6 +12,10 @@ const SYSTEM = `Sei un assistente che riassume in italiano, in prosa chiara e di
 - Usa SOLO i dati forniti. Non inventare numeri, notizie, eventi, date o dividendi. Se un dato manca, dillo.
 - Non dare MAI indicazioni operative (compra/vendi/target di prezzo). La decisione di aprire un trade spetta sempre e solo all'utente.
 - Niente previsioni non supportate dai numeri. Se i segnali sono in conflitto o ambigui, dillo.
+- VALUTE E UNITÀ: i prezzi e i livelli tecnici sono nella valuta di quotazione (se è GBp sono PENCE, non sterline). I dati di bilancio sono nella valuta di rendicontazione indicata nei dati (può essere diversa, es. USD per un titolo quotato a Londra): non chiamare mai «pence» o «sterline» un importo di bilancio e non confrontare direttamente prezzi e importi di bilancio.
+- BILANCIO: gli anni indicati sono anni di chiusura dell'esercizio e sono dati CONSUNTIVI. Non esistono previsioni nei dati: non scrivere «previsione», «stima» o «atteso» per ricavi e utili. P/E e rapporti «forward» sono l'unica componente prospettica, e provengono da Yahoo.
+- GIUDIZI: valuta liquidità e indebitamento con le metriche fornite (current ratio sotto 1 NON è «adeguato»; per il debito preferisci debito netto/EBITDA se presente) e senza soglie inventate. Ricorda che le soglie dipendono dal settore e dillo. Se un dato contraddice il giudizio che stavi per dare, correggi il giudizio.
+- Chiama «tensione» solo una contraddizione reale tra segnali, non una situazione normale (es. prezzo vicino al top del range e lontano dall'ATH non è una contraddizione). Se un range è indicato «corretto a mano», specificalo: l'ha deciso l'utente.
 - Niente markdown, niente elenchi puntati: solo paragrafi con questi titoli in maiuscolo, ciascuno su una riga: TECNICA, FONDAMENTALE, PUNTI DI ATTENZIONE, COSA CAMBIEREBBE IL QUADRO.
 - Se ricevi immagini dei grafici (candele; area colorata = range riconosciuto con linee top/bottom; linee blu = range dell'altro timeframe), guardale davvero: descrivi la struttura che vedi (discesa, rallentamento, oscillazioni, eventuale wedge/flag, ultimi movimenti rispetto al range). I livelli di prezzo precisi vengono SEMPRE dai numeri forniti, non dalla lettura dell'immagine; se immagine e numeri non coincidono, fidati dei numeri e segnalalo. I volumi non sono disponibili: non commentarli.
 - TECNICA: discesa precedente, base/range (top, bottom, ampiezza, durata, swing), posizione del prezzo nel range, distanza dall'ATH, e cosa dicono i due timeframe se presenti entrambi.
@@ -31,6 +35,36 @@ function uguali(a, b) {                       // confronto a tempo quasi costant
 
 const nomeFile = (t) => [...t].map((c) => (/[A-Za-z0-9\-_.]/.test(c) ? c : "_")).join("");
 
+const MONETARI = ["marketCap", "totalDebt", "totalCash", "freeCashflow", "operatingCashflow", "ebitda", "debito_netto"];
+const PERCENTUALI = ["profitMargins", "operatingMargins", "grossMargins", "returnOnEquity", "returnOnAssets", "revenueGrowth", "earningsGrowth", "dividendYield", "payoutRatio"];
+
+function importo(v, valuta) {
+  const a = Math.abs(v);
+  const u = a >= 1e9 ? [v / 1e9, " mld"] : a >= 1e6 ? [v / 1e6, " mln"] : [v, ""];
+  return `${u[0].toFixed(2)}${u[1]} ${valuta}`;
+}
+
+/** Fondamentali in testo già formattato (unità e valute esplicite): l'AI non deve «indovinare». */
+export function descriviFond(f) {
+  const vf = f.financialCurrency || "valuta di rendicontazione non indicata";
+  const out = [`Valuta di quotazione: ${f.currency || "n.d."} · valuta di rendicontazione del bilancio: ${vf}`];
+  for (const k of ["longName", "sector", "industry"]) if (f[k]) out.push(`${k}: ${f[k]} (classificazione Yahoo, può essere approssimativa)`);
+  for (const [k, v] of Object.entries(f)) {
+    if (["longName", "sector", "industry", "currency", "financialCurrency", "bilancio_annuale"].includes(k)) continue;
+    if (typeof v !== "number") { out.push(`${k}: ${v}`); continue; }
+    if (MONETARI.includes(k)) out.push(`${k}: ${importo(v, vf)}`);
+    else if (PERCENTUALI.includes(k)) out.push(`${k}: ${(v * 100).toFixed(1)}%`);
+    else if (k === "debtToEquity") out.push(`debtToEquity: ${v.toFixed(1)}% (debito/patrimonio netto, Yahoo lo esprime in percentuale)`);
+    else out.push(`${k}: ${Math.round(v * 100) / 100}`);
+  }
+  const b = f.bilancio_annuale || {};
+  for (const [nome, anni] of Object.entries(b)) {
+    const righe = Object.keys(anni).sort().map((a) => `${a}: ${importo(anni[a], vf)}`);
+    out.push(`${nome} (esercizi chiusi, consuntivi, anno = anno di chiusura dell'esercizio): ${righe.join("; ")}`);
+  }
+  return out.join("\n");
+}
+
 export function costruisciPrompt(ticker, stati, titolo, fond) {
   const tfNome = { "1W": "settimanale", "1D": "giornaliero" };
   const righe = stati.map((b) => {
@@ -41,9 +75,9 @@ export function costruisciPrompt(ticker, stati, titolo, fond) {
       `; swing minimi/massimi ${b.swing_minimi ?? "n.d."}/${b.swing_massimi ?? "n.d."}; calo prima della base ${Math.round((b.calo ?? 0) * 100)}%`;
   });
   const ath = titolo ? `ATH ${titolo.ath} del ${titolo.ath_data}; distanza dall'ATH ${(titolo.dist_ath * 100).toFixed(1)}%` : "ATH non disponibile";
-  const f = fond ? JSON.stringify(fond) : "NON DISPONIBILI per questo titolo: dichiaralo nella sezione FONDAMENTALE e non inventare nulla.";
+  const f = fond ? descriviFond(fond) : "NON DISPONIBILI per questo titolo: dichiaralo nella sezione FONDAMENTALE e non inventare nulla.";
   return `Titolo: ${ticker}\n\nDATI TECNICI (solo prezzi di chiusura):\n${righe.join("\n")}\n${ath}\n\n` +
-    `DATI FONDAMENTALI (da Yahoo Finance, importi nella valuta del titolo):\n${f}`;
+    `DATI FONDAMENTALI (da Yahoo Finance):\n${f}`;
 }
 
 async function leggi(env, base, path) {

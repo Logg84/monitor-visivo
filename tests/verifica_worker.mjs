@@ -5,7 +5,7 @@ import worker, { costruisciPrompt } from "../src/worker.js";
 const index = { aggiornato: "2026-11-02T20:00:00+00:00",
   titoli: { AAA: { ath: 200, ath_data: "2021-11-05", dist_ath: -0.6, ultimo: 80 } },
   basi: [{ chiave: "AAA|1D", stato: "in_range", bottom: 60, top: 90, ampiezza: 0.5, barre: 100, ultimo: 80, swing_minimi: 3, swing_massimi: 3, calo: 0.4 }] };
-const fond = { aggiornato: "2026-11-02", dati: { trailingPE: 12, profitMargins: 0.2 } };
+const fond = { aggiornato: "2026-11-02", dati: { trailingPE: 12, profitMargins: 0.2, currency: "GBp", financialCurrency: "USD", totalDebt: 5.5e9, bilancio_annuale: { ricavi: { 2025: 7.5e9, 2024: 7.1e9 } } } };
 let chiamateAI = 0, ultimoPrompt = "", ultimoContenuto = null;
 const env = {
   ACCESS_CODE: "segreto", AI_VISION: "true", AI_KEY: "k", AI_BASE_URL: "https://ai.test/v1", AI_MODEL: "m",
@@ -33,7 +33,7 @@ assert.equal(chiamateAI, 0); ok("nessuna chiamata AI per richieste rifiutate");
 const r = await post({ ticker: "AAA" });
 const j = await r.json();
 assert.equal(r.status, 200); assert.equal(j.testo, "TECNICA\nok"); assert.equal(j.fondamentali, true); ok("richiesta valida → testo");
-assert.ok(ultimoPrompt.includes("range 60–90") && ultimoPrompt.includes("ATH 200") && ultimoPrompt.includes("trailingPE")); ok("il prompt contiene range, ATH e fondamentali");
+assert.ok(ultimoPrompt.includes("range 60–90") && ultimoPrompt.includes("ATH 200") && ultimoPrompt.includes("trailingPE") && ultimoPrompt.includes("5.50 mld USD") && ultimoPrompt.includes("2025: 7.50 mld USD") && ultimoPrompt.includes("profitMargins: 20.0%") && ultimoPrompt.includes("GBp")); ok("il prompt contiene range, ATH e fondamentali");
 const png = "data:image/png;base64,iVBORw0KGgo=";
 await post({ ticker: "AAA", rigenera: true, immagini: [{ tf: "1D", img: png }, { tf: "1W", img: png }, { tf: "1D", img: png }, { tf: "1D", img: "javascript:alert(1)" }] });
 assert.ok(Array.isArray(ultimoContenuto) && ultimoContenuto.length === 3 && ultimoContenuto[1].type === "image_url"); ok("max 2 immagini valide allegate");

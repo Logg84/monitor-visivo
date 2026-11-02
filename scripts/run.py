@@ -102,12 +102,12 @@ def main() -> int:
         fp = fond_dir / (bio.nome_file(t) + ".json")
         try:
             vecchio = json.loads(fp.read_text(encoding="utf-8"))
-            if (oggi - pd.Timestamp(vecchio["aggiornato"]).date()).days < 7 and vecchio.get("dati"):
+            if (oggi - pd.Timestamp(vecchio["aggiornato"]).date()).days < 7 and vecchio.get("dati") and vecchio.get("v") == 2:
                 continue
         except Exception:
             pass
         dati = bio.fondamentali(t)
-        fp.write_text(json.dumps({"aggiornato": str(oggi), "dati": dati}, indent=1, ensure_ascii=False, sort_keys=True), encoding="utf-8")
+        fp.write_text(json.dumps({"v": 2, "aggiornato": str(oggi), "dati": dati}, indent=1, ensure_ascii=False, sort_keys=True), encoding="utf-8")
         nuovi += 1
     print(f"Fondamentali aggiornati: {nuovi}/{len(visibili)}")
 
