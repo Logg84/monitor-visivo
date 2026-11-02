@@ -8,7 +8,7 @@ const index = { aggiornato: "2026-11-02T20:00:00+00:00",
 const fond = { aggiornato: "2026-11-02", dati: { trailingPE: 12, profitMargins: 0.2 } };
 let chiamateAI = 0, ultimoPrompt = "", ultimoContenuto = null;
 const env = {
-  ACCESS_CODE: "segreto", AI_KEY: "k", AI_BASE_URL: "https://ai.test/v1", AI_MODEL: "m",
+  ACCESS_CODE: "segreto", AI_VISION: "true", AI_KEY: "k", AI_BASE_URL: "https://ai.test/v1", AI_MODEL: "m",
   ASSETS: { fetch: async (req) => {
     const p = new URL(req.url).pathname;
     if (p === "/data/index.json") return new Response(JSON.stringify(index));
@@ -41,6 +41,11 @@ await post({ ticker: "AAA", rigenera: true, immagini: [{ tf: "1D", img: "https:/
 assert.equal(typeof ultimoContenuto, "string"); ok("immagini non in data URL scartate");
 const p2 = costruisciPrompt("BBB", index.basi, null, null);
 assert.ok(p2.includes("NON DISPONIBILI") && p2.includes("ATH non disponibile")); ok("senza fondamentali/ATH lo dichiara");
+await post({ ticker: "AAA", rigenera: true, immagini: [{ tf: "1D", img: png }] });
+env.AI_VISION = "false";
+await post({ ticker: "AAA", rigenera: true, immagini: [{ tf: "1D", img: png }] });
+assert.equal(typeof ultimoContenuto, "string"); ok("modello senza visione: le immagini non vengono inviate");
+env.AI_VISION = "true";
 const env2 = { ...env, AI_KEY: "" };
 assert.equal((await worker.fetch(new Request("https://x.dev/api/analisi", { method: "POST", body: "{}" }), env2, ctx)).status, 503); ok("senza chiave → 503");
 const st = await worker.fetch(new Request("https://x.dev/data/index.json"), env, ctx);

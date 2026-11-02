@@ -78,7 +78,7 @@ export default {
 
     const ff = await leggi(env, base, `/data/fond/${nomeFile(ticker)}.json`);
     // Immagini dei grafici (max 2: settimanale e giornaliero), solo JPEG/PNG in data URL, dimensione limitata.
-    const immagini = (Array.isArray(body.immagini) ? body.immagini : []).slice(0, 2)
+    const immagini = (String(env.AI_VISION) !== "true" ? [] : Array.isArray(body.immagini) ? body.immagini : []).slice(0, 2)
       .filter((i) => i && typeof i.img === "string" && i.img.length < 1_500_000 && /^data:image\/(jpeg|png);base64,[A-Za-z0-9+/=]+$/.test(i.img));
     const fond = ff && ff.dati && Object.keys(ff.dati).length ? ff.dati : null;
     let prompt = costruisciPrompt(ticker, stati, (idx.titoli || {})[ticker], fond);
@@ -92,7 +92,7 @@ export default {
       r = await fetch(String(env.AI_BASE_URL).replace(/\/$/, "") + "/chat/completions", {
         method: "POST",
         headers: { Authorization: `Bearer ${env.AI_KEY}`, "content-type": "application/json" },
-        body: JSON.stringify({ model: env.AI_MODEL, temperature: 0.3, max_tokens: 8000,
+        body: JSON.stringify({ model: env.AI_MODEL, temperature: 0.3, max_tokens: Number(env.AI_MAX_TOKENS) || 4000,
           messages: [{ role: "system", content: SYSTEM }, { role: "user", content: contenuto }] }),
       });
     } catch (e) { return json({ errore: "motore AI non raggiungibile" }, 502); }
