@@ -99,7 +99,7 @@ export default {
     if (!r.ok) {
       let dettaglio = "";
       try { dettaglio = (await r.text()).replace(/\s+/g, " ").slice(0, 300); } catch (e) { /* nessun dettaglio */ }
-      return json({ errore: `motore AI: errore ${r.status}${dettaglio ? " — " + dettaglio : ""}` }, 502);
+      return json({ errore: `motore AI: errore ${r.status}${dettaglio ? " — " + dettaglio : ""} [chiave in uso: …${String(env.AI_KEY).slice(-4)}]` }, 502);
     }
     let testo = "";
     try { testo = ((await r.json()).choices?.[0]?.message?.content || "").trim(); } catch (e) { /* vuoto */ }
