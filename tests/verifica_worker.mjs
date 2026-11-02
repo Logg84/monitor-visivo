@@ -19,7 +19,7 @@ const env = {
 globalThis.fetch = async (url, init) => {
   chiamateAI++; ultimoContenuto = JSON.parse(init.body).messages[1].content; ultimoPrompt = typeof ultimoContenuto === "string" ? ultimoContenuto : ultimoContenuto[0].text;
   assert.equal(init.headers.Authorization, "Bearer k");
-  return new Response(JSON.stringify({ choices: [{ message: { content: "TECNICA\nok" } }] }));
+  return new Response(JSON.stringify({ choices: [{ message: { content: "<think>ragiono</think>TECNICA\nok" } }] }));
 };
 const ctx = { waitUntil() {} };
 const post = (body, codice = "segreto", method = "POST") => worker.fetch(new Request("https://x.dev/api/analisi", {

@@ -102,7 +102,7 @@ export default {
       return json({ errore: `motore AI: errore ${r.status}${dettaglio ? " — " + dettaglio : ""} [chiave in uso: …${String(env.AI_KEY).slice(-4)}]` }, 502);
     }
     let testo = "";
-    try { testo = ((await r.json()).choices?.[0]?.message?.content || "").trim(); } catch (e) { /* vuoto */ }
+    try { testo = ((await r.json()).choices?.[0]?.message?.content || "").replace(/<think>[\s\S]*?<\/think>/g, "").trim(); } catch (e) { /* vuoto */ }
     if (!testo) return json({ errore: "il motore AI non ha restituito testo" }, 502);
 
     const esito = { testo, aggiornato: idx.aggiornato, fondamentali: Boolean(fond), immagini: immagini.length };
