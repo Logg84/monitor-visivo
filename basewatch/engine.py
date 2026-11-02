@@ -180,3 +180,13 @@ def messaggio(e: dict) -> str:
     return (f"{freccia}\n{e['ticker']} ({tf}) — chiusura {e['chiusura']} · "
             f"range {e['bottom']} – {e['top']}\n"
             "Solo informazione sui prezzi: non è un ordine né un consiglio.")
+
+
+def email_uscite(uscite: list[dict], sito: str = "") -> tuple[str, str]:
+    """(oggetto, testo) di UNA email riepilogativa con tutte le uscite del giro."""
+    n = len(uscite)
+    oggetto = f"Basewatch: {n} uscita dal range" if n == 1 else f"Basewatch: {n} uscite dal range"
+    corpo = "\n\n".join(messaggio(e) for e in uscite)
+    if sito:
+        corpo += f"\n\nGrafici e analisi: {sito}"
+    return oggetto, corpo

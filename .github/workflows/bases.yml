@@ -33,12 +33,17 @@ jobs:
         run: |
           python tests/verifica_basi.py
           node tests/verifica_worker.mjs
+          node tests/verifica_access.mjs
       - name: Giro basi
         env:
           OLD_REPO: ${{ secrets.OLD_REPO }}
           OLD_REPO_TOKEN: ${{ secrets.OLD_REPO_TOKEN }}
           TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
           TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+          SMTP_USER: ${{ secrets.SMTP_USER }}
+          SMTP_PASSWORD: ${{ secrets.SMTP_PASSWORD }}
+          EMAIL_TO: ${{ secrets.EMAIL_TO }}
+          SITO_URL: ${{ vars.SITO_URL }}
         run: python scripts/run.py
       - name: Commit stato
         run: |

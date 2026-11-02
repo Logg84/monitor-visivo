@@ -114,3 +114,29 @@ def fondamentali(ticker: str) -> dict:
     except Exception as e:
         print(f"⚠️ fondamentali {ticker}: {type(e).__name__}: {e}")
     return out
+
+
+def invia_email(oggetto: str, testo: str) -> bool:
+    """Email via SMTP (Gmail con password per app). Secrets: SMTP_USER, SMTP_PASSWORD,
+    EMAIL_TO (indirizzi separati da virgola); opzionali SMTP_HOST, SMTP_PORT.
+    Mai eccezioni: False se non configurata o se l'invio fallisce."""
+    import smtplib
+    import ssl
+    from email.message import EmailMessage
+    user, pw = os.environ.get("SMTP_USER"), os.environ.get("SMTP_PASSWORD")
+    dest = [x.strip() for x in os.environ.get("EMAIL_TO", "").split(",") if x.strip()]
+    if not (user and pw and dest):
+        return False
+    msg = EmailMessage()
+    msg["Subject"], msg["From"], msg["To"] = oggetto, user, ", ".join(dest)
+    msg.set_content(testo)
+    try:
+        with smtplib.SMTP(os.environ.get("SMTP_HOST", "smtp.gmail.com"),
+                          int(os.environ.get("SMTP_PORT", "587")), timeout=30) as srv:
+            srv.starttls(context=ssl.create_default_context())
+            srv.login(user, pw)
+            srv.send_message(msg)
+        return True
+    except Exception as e:
+        print(f"⚠️ Email: {type(e).__name__}: {e}")
+        return False

@@ -115,6 +115,9 @@ def main() -> int:
     for e in uscite:
         ok = bio.invia_telegram(engine.messaggio(e))
         print(f"{e['tipo']} {e['ticker']} {e['tf']}: Telegram {'ok' if ok else 'NON inviato'}")
+    if uscite:
+        ogg, corpo = engine.email_uscite(uscite, os.environ.get("SITO_URL", ""))
+        print(f"Email uscite: {'ok' if bio.invia_email(ogg, corpo) else 'NON inviata (non configurata o errore)'}")
     print(f"Basi attive: {sum(1 for v in stato.values() if v['stato'] in ('rallenta', 'in_range'))} · "
           f"nuove: {sum(1 for e in eventi if e['tipo'] == 'nuova_base')} · uscite: {len(uscite)}")
     return 0

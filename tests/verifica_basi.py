@@ -217,4 +217,30 @@ check("oggi alle 15:00 UTC: barra giornaliera di oggi scartata (parziale)",
 check("oggi alle 22:30 UTC: barra giornaliera valida",
       len(detect.barre_chiuse_giornaliere(dd, pd.Timestamp("2026-10-30 22:30", tz="UTC"))) == len(dd))
 
+# ── Email ────────────────────────────────────────────────────────────────
+import os  # noqa: E402
+from unittest import mock  # noqa: E402
+
+from basewatch import io as bio  # noqa: E402
+
+exs = [{"ticker": "AAA", "tf": "1D", "tipo": "uscita_sopra", "bottom": 10, "top": 12, "chiusura": 13, "data": "2026-11-02"},
+       {"ticker": "BBB", "tf": "1W", "tipo": "uscita_sotto", "bottom": 20, "top": 25, "chiusura": 19, "data": "2026-11-02"}]
+ogg, corpo = engine.email_uscite(exs, "https://sito.test")
+check("email: un solo messaggio riepilogativo con tutte le uscite e il link",
+      "2 uscite" in ogg and "AAA" in corpo and "BBB" in corpo and "https://sito.test" in corpo)
+check("email: oggetto singolare con 1 uscita", "1 uscita" in engine.email_uscite(exs[:1])[0])
+os.environ.pop("SMTP_USER", None)
+check("email non configurata → False, nessuna eccezione", bio.invia_email("o", "t") is False)
+os.environ.update(SMTP_USER="m@x.it", SMTP_PASSWORD="pw", EMAIL_TO="a@x.it, b@x.it")
+with mock.patch("smtplib.SMTP") as smtp:
+    check("email configurata → True", bio.invia_email("ogg", "testo") is True)
+    srv = smtp.return_value.__enter__.return_value
+    inviato = srv.send_message.call_args[0][0]
+    check("email: STARTTLS, login e due destinatari",
+          srv.starttls.called and srv.login.called and inviato["To"] == "a@x.it, b@x.it" and inviato["Subject"] == "ogg")
+with mock.patch("smtplib.SMTP", side_effect=OSError("rete giù")):
+    check("email con errore di rete → False, nessuna eccezione", bio.invia_email("o", "t") is False)
+for k in ("SMTP_USER", "SMTP_PASSWORD", "EMAIL_TO"):
+    os.environ.pop(k, None)
+
 print("\nTUTTI I CHECK PASSATI (verifica_basi)")
