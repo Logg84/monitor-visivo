@@ -47,11 +47,11 @@
     }
   }
 
-  function creaGrafico(box, b, barre, altro) {
+  function creaGrafico(box, b, barre, altro, dim) {
     const colTesto = css("--muto"), colGriglia = css("--griglia-chart"), colBordo = css("--bordo");
     const chart = LW.createChart(box, {
-      autoSize: true,
-      layout: { background: { color: "transparent" }, textColor: colTesto, fontSize: 11 },
+      ...(dim ? { autoSize: false, width: dim.w, height: dim.h } : { autoSize: true }),
+      layout: { background: { color: dim ? css("--superficie") : "transparent" }, textColor: colTesto, fontSize: dim ? 13 : 11 },
       grid: { vertLines: { color: colGriglia }, horzLines: { color: colGriglia } },
       rightPriceScale: { borderColor: colBordo },
       timeScale: { borderColor: colBordo, timeVisible: false, rightOffset: 6 },
@@ -169,7 +169,7 @@
   function osserva(g) { g.disegnato = false; if (g.chart) { g.chart.remove(); g.chart = null; } osservatore.observe(g.card); montaGrafico(g); }
 
   // ── Analisi AI (tecnica + fondamentale), generata su richiesta dal Worker ──
-  const AVVISO_AI = "Testo generato automaticamente da un modello linguistico a partire dai soli dati del portale (prezzi di chiusura e fondamentali Yahoo Finance): può contenere errori, non include notizie. Non è un consiglio di investimento né un ordine: la decisione di aprire un trade è solo tua.";
+  const AVVISO_AI = "Testo generato automaticamente da un modello linguistico a partire dai soli dati del portale (grafici, prezzi di chiusura e fondamentali Yahoo Finance): può contenere errori, non include notizie. Non è un consiglio di investimento né un ordine: la decisione di aprire un trade è solo tua.";
   function pannelloAI(ai) {
     const box = eEl("div", "ai");
     if (ai.caricamento) { box.append(eEl("p", "nota", "Analisi in corso…")); return box; }
@@ -182,6 +182,22 @@
     box.append(eEl("p", "avviso", AVVISO_AI + (ai.fondamentali ? "" : " Fondamentali non disponibili per questo titolo.")));
     return box;
   }
+  // Screenshot di un grafico (fuori schermo) da allegare all'analisi: JPEG ridotto.
+  async function catturaGrafico(g, tf) {
+    const b = g.tfs[tf], dati = await serieDi(g.ticker), barre = dati && dati[tf];
+    if (!b || !barre || !barre.length) return null;
+    const div = eEl("div"); div.style.cssText = "position:fixed;left:-3000px;top:0;width:960px;height:520px";
+    document.body.append(div);
+    try {
+      const ta = tf === "1W" ? "1D" : "1W", ba = g.tfs[ta];
+      const chart = creaGrafico(div, b, barre, ba && !storica(ba) ? { tf: ta, b: ba } : null, { w: 960, h: 520 });
+      await new Promise((r) => requestAnimationFrame(() => requestAnimationFrame(r)));
+      const url = chart.takeScreenshot().toDataURL("image/jpeg", 0.82);
+      chart.remove();
+      return { tf, img: url };
+    } catch (e) { return null; } finally { div.remove(); }
+  }
+
   async function analisiAI(g) {
     let codice = "";
     try { codice = localStorage.getItem("bw_codice") || ""; } catch (e) { /* senza storage */ }
@@ -191,8 +207,9 @@
     }
     g.ai = { caricamento: true }; disegnaCard(g, g.tf); osserva(g);
     try {
+      const immagini = (await Promise.all(["1W", "1D"].filter((t) => g.tfs[t] && !storica(g.tfs[t])).map((t) => catturaGrafico(g, t)))).filter(Boolean);
       const r = await fetch("/api/analisi", { method: "POST", headers: { "content-type": "application/json", "x-codice": codice },
-                                              body: JSON.stringify({ ticker: g.ticker }) });
+                                              body: JSON.stringify({ ticker: g.ticker, immagini }) });
       const j = await r.json().catch(() => ({}));
       if (!r.ok) {
         if (r.status === 401) { try { localStorage.removeItem("bw_codice"); } catch (e) { /* nulla */ } }

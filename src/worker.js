@@ -13,6 +13,7 @@ const SYSTEM = `Sei un assistente che riassume in italiano, in prosa chiara e di
 - Non dare MAI indicazioni operative (compra/vendi/target di prezzo). La decisione di aprire un trade spetta sempre e solo all'utente.
 - Niente previsioni non supportate dai numeri. Se i segnali sono in conflitto o ambigui, dillo.
 - Niente markdown, niente elenchi puntati: solo paragrafi con questi titoli in maiuscolo, ciascuno su una riga: TECNICA, FONDAMENTALE, PUNTI DI ATTENZIONE, COSA CAMBIEREBBE IL QUADRO.
+- Se ricevi immagini dei grafici (candele; area colorata = range riconosciuto con linee top/bottom; linee blu = range dell'altro timeframe), guardale davvero: descrivi la struttura che vedi (discesa, rallentamento, oscillazioni, eventuale wedge/flag, ultimi movimenti rispetto al range). I livelli di prezzo precisi vengono SEMPRE dai numeri forniti, non dalla lettura dell'immagine; se immagine e numeri non coincidono, fidati dei numeri e segnalalo. I volumi non sono disponibili: non commentarli.
 - TECNICA: discesa precedente, base/range (top, bottom, ampiezza, durata, swing), posizione del prezzo nel range, distanza dall'ATH, e cosa dicono i due timeframe se presenti entrambi.
 - FONDAMENTALE: redditività, crescita, indebitamento e liquidità, valutazione, andamento di ricavi e utili sugli anni disponibili. Sii concreto e approfondito su ciò che i dati permettono.
 - PUNTI DI ATTENZIONE: tensioni tra tecnica e fondamentale, rischi che emergono dai numeri.
@@ -76,15 +77,23 @@ export default {
     }
 
     const ff = await leggi(env, base, `/data/fond/${nomeFile(ticker)}.json`);
+    // Immagini dei grafici (max 2: settimanale e giornaliero), solo JPEG/PNG in data URL, dimensione limitata.
+    const immagini = (Array.isArray(body.immagini) ? body.immagini : []).slice(0, 2)
+      .filter((i) => i && typeof i.img === "string" && i.img.length < 1_500_000 && /^data:image\/(jpeg|png);base64,[A-Za-z0-9+/=]+$/.test(i.img));
     const fond = ff && ff.dati && Object.keys(ff.dati).length ? ff.dati : null;
-    const prompt = costruisciPrompt(ticker, stati, (idx.titoli || {})[ticker], fond);
+    let prompt = costruisciPrompt(ticker, stati, (idx.titoli || {})[ticker], fond);
+    let contenuto = prompt;
+    if (immagini.length) {
+      prompt += "\n\nIMMAGINI ALLEGATE: " + immagini.map((i) => (i.tf === "1W" ? "grafico settimanale" : "grafico giornaliero")).join(", ") + ".";
+      contenuto = [{ type: "text", text: prompt }, ...immagini.map((i) => ({ type: "image_url", image_url: { url: i.img } }))];
+    }
     let r;
     try {
       r = await fetch(String(env.AI_BASE_URL).replace(/\/$/, "") + "/chat/completions", {
         method: "POST",
         headers: { Authorization: `Bearer ${env.AI_KEY}`, "content-type": "application/json" },
         body: JSON.stringify({ model: env.AI_MODEL, temperature: 0.3, max_tokens: 8000,
-          messages: [{ role: "system", content: SYSTEM }, { role: "user", content: prompt }] }),
+          messages: [{ role: "system", content: SYSTEM }, { role: "user", content: contenuto }] }),
       });
     } catch (e) { return json({ errore: "motore AI non raggiungibile" }, 502); }
     if (!r.ok) return json({ errore: `motore AI: errore ${r.status}` }, 502);
@@ -92,7 +101,7 @@ export default {
     try { testo = ((await r.json()).choices?.[0]?.message?.content || "").trim(); } catch (e) { /* vuoto */ }
     if (!testo) return json({ errore: "il motore AI non ha restituito testo" }, 502);
 
-    const esito = { testo, aggiornato: idx.aggiornato, fondamentali: Boolean(fond) };
+    const esito = { testo, aggiornato: idx.aggiornato, fondamentali: Boolean(fond), immagini: immagini.length };
     if (cache) {
       try { ctx.waitUntil(cache.put(chiaveCache, new Response(JSON.stringify(esito), { headers: { "cache-control": "max-age=86400" } }))); } catch (e) { /* ok */ }
     }
