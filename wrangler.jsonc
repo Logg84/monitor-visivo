@@ -10,8 +10,8 @@
     "AI_VISION": "true",
     "AI_MAX_TOKENS": "4000",
     // Cloudflare Access: compilare ACCESS_TEAM_DOMAIN (es. nome.cloudflareaccess.com) e ACCESS_AUD per attivare il login.
-    "ACCESS_TEAM_DOMAIN": "",
-    "ACCESS_AUD": "",
+    "ACCESS_TEAM_DOMAIN": "weathered-field-3c85.cloudflareaccess.com",
+    "ACCESS_AUD": "b0c98e987dc557db486ca47112bdf19575d20862f239c2eac54bf80d4acaaef9",
     "ADMIN_EMAILS": "lorenzetti1984@gmail.com"
   }
 }
