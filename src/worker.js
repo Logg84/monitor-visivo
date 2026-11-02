@@ -161,7 +161,13 @@ export default {
     if (url.pathname === "/api/me") {              // chi sono e cosa posso fare
       const io = await identita(request, env);
       if (io) return json({ modalita: io.modalita, email: io.email, admin: io.admin });
-      return modoAccess(env) ? json({ errore: "non autenticato" }, 401) : json({ modalita: "codice" });
+      if (modoAccess(env)) return json({ errore: "non autenticato" }, 401);
+      // Configurazione guidata: finché ACCESS_AUD non è impostato, mostra i due valori pubblici
+      // (team domain e AUD) letti dal token di Access, per copiarli in wrangler.jsonc. Non sono segreti.
+      const tok = request.headers.get("cf-access-jwt-assertion");
+      let diagnostica;
+      try { const pl = JSON.parse(new TextDecoder().decode(b64u(tok.split(".")[1]))); diagnostica = { team_domain: String(pl.iss || "").replace(/^https:\/\//, ""), aud: pl.aud }; } catch (e) { /* senza Access davanti: nessun dato */ }
+      return json(diagnostica ? { modalita: "codice", diagnostica } : { modalita: "codice" });
     }
 
     if (url.pathname === "/api/range") {           // solo admin, solo con Access
