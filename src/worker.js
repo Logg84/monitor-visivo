@@ -87,13 +87,103 @@ async function leggi(env, base, path) {
   } catch (e) { return null; }
 }
 
+// ── Identità: Cloudflare Access (JWT verificato) oppure, in transizione, codice ──
+const b64u = (x) => { x = x.replace(/-/g, "+").replace(/_/g, "/"); return Uint8Array.from(atob(x + "=".repeat((4 - (x.length % 4)) % 4)), (c) => c.charCodeAt(0)); };
+let jwksCache = { t: 0, dom: "", keys: [] };
+
+export async function verificaJwt(token, env) {
+  try {
+    const [h, p, sig] = String(token).split(".");
+    if (!sig) return null;
+    const dec = (x) => JSON.parse(new TextDecoder().decode(b64u(x)));
+    const header = dec(h), payload = dec(p);
+    if (header.alg !== "RS256") return null;
+    if (!(payload.exp * 1000 > Date.now())) return null;
+    const aud = Array.isArray(payload.aud) ? payload.aud : [payload.aud];
+    if (!aud.includes(env.ACCESS_AUD)) return null;
+    if (payload.iss !== `https://${env.ACCESS_TEAM_DOMAIN}`) return null;
+    if (jwksCache.dom !== env.ACCESS_TEAM_DOMAIN || Date.now() - jwksCache.t > 3600e3 || !jwksCache.keys.some((k) => k.kid === header.kid)) {
+      const r = await fetch(`https://${env.ACCESS_TEAM_DOMAIN}/cdn-cgi/access/certs`);
+      if (!r.ok) return null;
+      jwksCache = { t: Date.now(), dom: env.ACCESS_TEAM_DOMAIN, keys: (await r.json()).keys || [] };
+    }
+    const jwk = jwksCache.keys.find((k) => k.kid === header.kid);
+    if (!jwk) return null;
+    const key = await crypto.subtle.importKey("jwk", jwk, { name: "RSASSA-PKCS1-v1_5", hash: "SHA-256" }, false, ["verify"]);
+    const ok = await crypto.subtle.verify("RSASSA-PKCS1-v1_5", key, b64u(sig), new TextEncoder().encode(`${h}.${p}`));
+    return ok ? payload : null;
+  } catch (e) { return null; }
+}
+
+const modoAccess = (env) => Boolean(env.ACCESS_AUD && env.ACCESS_TEAM_DOMAIN);
+
+/** {modalita, email, admin} oppure null se non autenticato. */
+export async function identita(request, env) {
+  if (modoAccess(env)) {
+    const cookie = /(?:^|;\s*)CF_Authorization=([^;]+)/.exec(request.headers.get("cookie") || "");
+    const tok = request.headers.get("cf-access-jwt-assertion") || (cookie && cookie[1]);
+    const pl = tok && (await verificaJwt(tok, env));
+    if (!pl || !pl.email) return null;
+    const admin = String(env.ADMIN_EMAILS || "").toLowerCase().split(",").map((x) => x.trim()).filter(Boolean).includes(String(pl.email).toLowerCase());
+    return { modalita: "access", email: pl.email, admin };
+  }
+  if (env.ACCESS_CODE && uguali(request.headers.get("x-codice") || "", String(env.ACCESS_CODE))) return { modalita: "codice", email: "codice", admin: false };
+  return null;
+}
+
+const b64 = (txt) => btoa(String.fromCharCode(...new TextEncoder().encode(txt)));
+const deb64 = (x) => new TextDecoder().decode(Uint8Array.from(atob(x.replace(/\n/g, "")), (c) => c.charCodeAt(0)));
+
+/** Scrive il range corretto a mano in data/override.json (token GitHub solo sul server). */
+export async function scriviOverride(env, chiave, valori, utente) {
+  const repo = env.GITHUB_REPO || "Logg84/monitor-visivo";
+  const url = `https://api.github.com/repos/${repo}/contents/data/override.json`;
+  const h = { Authorization: `Bearer ${env.GITHUB_TOKEN}`, Accept: "application/vnd.github+json", "User-Agent": "basewatch-worker" };
+  for (let t = 0; t < 2; t++) {
+    let sha, attuale = {};
+    const r = await fetch(url, { headers: h });
+    if (r.ok) { const j = await r.json(); sha = j.sha; try { attuale = JSON.parse(deb64(j.content)); } catch (e) { attuale = {}; } }
+    else if (r.status !== 404) throw new Error(`GitHub ${r.status}`);
+    attuale[chiave] = { ...valori, da: utente };
+    const p = await fetch(url, { method: "PUT", headers: h, body: JSON.stringify({
+      message: `override range ${chiave} (${utente})`, content: b64(JSON.stringify(attuale, null, 1) + "\n"), sha }) });
+    if (p.ok) return;
+    if (p.status !== 409 && p.status !== 422) throw new Error(`GitHub ${p.status}`);
+  }
+  throw new Error("conflitto di salvataggio, riprova");
+}
+
 export default {
   async fetch(request, env, ctx) {
     const url = new URL(request.url);
-    if (url.pathname !== "/api/analisi") return env.ASSETS.fetch(request);
+    if (!url.pathname.startsWith("/api/")) return env.ASSETS.fetch(request);
+
+    if (url.pathname === "/api/me") {              // chi sono e cosa posso fare
+      const io = await identita(request, env);
+      if (io) return json({ modalita: io.modalita, email: io.email, admin: io.admin });
+      return modoAccess(env) ? json({ errore: "non autenticato" }, 401) : json({ modalita: "codice" });
+    }
+
+    if (url.pathname === "/api/range") {           // solo admin, solo con Access
+      if (request.method !== "POST") return json({ errore: "metodo non consentito" }, 405);
+      const io = await identita(request, env);
+      if (!io) return json({ errore: "non autenticato" }, 401);
+      if (!io.admin || io.modalita !== "access") return json({ errore: "solo un amministratore può modificare i range" }, 403);
+      if (!env.GITHUB_TOKEN) return json({ errore: "servizio di salvataggio non configurato" }, 503);
+      let b;
+      try { b = await request.json(); } catch (e) { return json({ errore: "richiesta non valida" }, 400); }
+      const top = Number(b.top), bottom = Number(b.bottom), chiave = String(b.chiave || "");
+      if (!(top > bottom && bottom > 0)) return json({ errore: "il top deve essere maggiore del bottom" }, 400);
+      const ix = await leggi(env, url.origin, "/data/index.json");
+      if (!((ix && ix.basi) || []).some((x) => x.chiave === chiave)) return json({ errore: "base sconosciuta" }, 404);
+      try { await scriviOverride(env, chiave, { top, bottom }, io.email); } catch (e) { return json({ errore: "salvataggio non riuscito: " + e.message }, 502); }
+      return json({ ok: true });
+    }
+
+    if (url.pathname !== "/api/analisi") return json({ errore: "percorso sconosciuto" }, 404);
     if (request.method !== "POST") return json({ errore: "metodo non consentito" }, 405);
-    if (!env.ACCESS_CODE || !env.AI_KEY || !env.AI_BASE_URL || !env.AI_MODEL) return json({ errore: "servizio AI non configurato" }, 503);
-    if (!uguali(request.headers.get("x-codice") || "", String(env.ACCESS_CODE))) return json({ errore: "codice di accesso errato" }, 401);
+    if (!env.AI_KEY || !env.AI_BASE_URL || !env.AI_MODEL || (!env.ACCESS_CODE && !modoAccess(env))) return json({ errore: "servizio AI non configurato" }, 503);
+    if (!(await identita(request, env))) return json({ errore: modoAccess(env) ? "non autenticato" : "codice di accesso errato" }, 401);
 
     let body;
     try { body = await request.json(); } catch (e) { return json({ errore: "richiesta non valida" }, 400); }

@@ -3,11 +3,15 @@
   "main": "src/worker.js",
   "compatibility_date": "2026-11-01",
   "assets": { "directory": "./site", "binding": "ASSETS", "run_worker_first": ["/api/*"] },
-  // Variabili non segrete (i secret AI_KEY e ACCESS_CODE si impostano nella dashboard Cloudflare).
+  // Variabili non segrete (secret nella dashboard Cloudflare: AI_KEY, GITHUB_TOKEN e, finché non c'è Access, ACCESS_CODE).
   "vars": {
     "AI_BASE_URL": "https://api.groq.com/openai/v1",
     "AI_MODEL": "qwen/qwen3.8-27b",
     "AI_VISION": "true",
-    "AI_MAX_TOKENS": "4000"
+    "AI_MAX_TOKENS": "4000",
+    // Cloudflare Access: compilare ACCESS_TEAM_DOMAIN (es. nome.cloudflareaccess.com) e ACCESS_AUD per attivare il login.
+    "ACCESS_TEAM_DOMAIN": "",
+    "ACCESS_AUD": "",
+    "ADMIN_EMAILS": "lorenzetti1984@gmail.com"
   }
 }

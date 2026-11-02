@@ -13,6 +13,7 @@
 
   const REPO = "Logg84/monitor-visivo", FILE_OVERRIDE = "data/override.json";
   let basi = [], titoli = {}, gruppi = [];
+  let me = { modalita: "codice" };           // chi sono: da /api/me (Cloudflare Access) o modalità a codice
   const cacheSerie = new Map();
   const nomeFile = (t) => [...t].map((c) => (/[A-Za-z0-9\-_.]/.test(c) ? c : "_")).join("");
   const leggiToken = () => { try { return localStorage.getItem("bw_token") || ""; } catch (e) { return ""; } };
@@ -134,9 +135,11 @@
     if (ba && !storica(ba)) nota.textContent += ` Sul ${ta === "1W" ? "settimanale" : "giornaliero"}: ${NOME_STATO[ba.stato].toLowerCase()}, range ${fmt(ba.bottom)}–${fmt(ba.top)} (linee blu nel grafico).`;
     if (b.manuale) nota.textContent += " Range corretto a mano.";
     const az = eEl("div", "azioni");
-    const bm = eEl("button", "link", "✎ Modifica range"); bm.type = "button";
-    bm.addEventListener("click", () => pannelloModifica(g, tf, az));
-    az.append(bm);
+    if (me.modalita !== "access" || me.admin) {
+      const bm = eEl("button", "link", "✎ Modifica range"); bm.type = "button";
+      bm.addEventListener("click", () => pannelloModifica(g, tf, az));
+      az.append(bm);
+    }
     const ba_ = eEl("button", "link", "🧠 Analisi AI"); ba_.type = "button";
     ba_.addEventListener("click", () => analisiAI(g));
     az.append(ba_);
@@ -200,22 +203,24 @@
 
   async function analisiAI(g) {
     let codice = "";
-    try { codice = localStorage.getItem("bw_codice") || ""; } catch (e) { /* senza storage */ }
-    if (!codice) {
+    if (me.modalita !== "access") {
+      try { codice = localStorage.getItem("bw_codice") || ""; } catch (e) { /* senza storage */ }
+    }
+    if (!codice && me.modalita !== "access") {
       codice = (prompt("Codice di accesso all'analisi AI (lo imposti tu nei secret Cloudflare):") || "").trim();
       if (!codice) return;
     }
     g.ai = { caricamento: true }; disegnaCard(g, g.tf); osserva(g);
     try {
       const immagini = (await Promise.all(["1W", "1D"].filter((t) => g.tfs[t] && !storica(g.tfs[t])).map((t) => catturaGrafico(g, t)))).filter(Boolean);
-      const r = await fetch("/api/analisi", { method: "POST", headers: { "content-type": "application/json", "x-codice": codice },
+      const r = await fetch("/api/analisi", { method: "POST", headers: { "content-type": "application/json", ...(codice ? { "x-codice": codice } : {}) },
                                               body: JSON.stringify({ ticker: g.ticker, immagini }) });
       const j = await r.json().catch(() => ({}));
       if (!r.ok) {
         if (r.status === 401) { try { localStorage.removeItem("bw_codice"); } catch (e) { /* nulla */ } }
         throw new Error(j.errore || `errore ${r.status}`);
       }
-      try { localStorage.setItem("bw_codice", codice); } catch (e) { /* nulla */ }
+      if (codice) { try { localStorage.setItem("bw_codice", codice); } catch (e) { /* nulla */ } }
       g.ai = j;
     } catch (e) { g.ai = { errore: e.message }; }
     disegnaCard(g, g.tf); osserva(g);
@@ -275,6 +280,19 @@
       ev.preventDefault();
       const top = parseFloat(iTop.value), bottom = parseFloat(iBot.value);
       if (!(top > bottom && bottom > 0)) { esito.textContent = "Il top deve essere maggiore del bottom."; return; }
+      if (me.modalita === "access") {            // login: il Worker scrive per conto dell'admin, nessun token nel browser
+        salva.disabled = true; esito.textContent = "Salvataggio…";
+        try {
+          const r = await fetch("/api/range", { method: "POST", headers: { "content-type": "application/json" },
+                                                body: JSON.stringify({ chiave: `${g.ticker}|${tf}`, top, bottom }) });
+          const j = await r.json().catch(() => ({}));
+          if (!r.ok) throw new Error(j.errore || `errore ${r.status}`);
+          Object.assign(b, { top, bottom, manuale: [top, bottom], ampiezza: top / bottom - 1 });
+          disegnaCard(g, tf); osserva(g);
+          g.card.querySelector(".azioni").append(eEl("span", "esito", "Salvato. Il motore lo applica al prossimo giro (circa 2 minuti): fino ad allora vale solo qui."));
+        } catch (e) { esito.textContent = "Non salvato: " + e.message; salva.disabled = false; }
+        return;
+      }
       let token = leggiToken();
       if (!token) {
         token = (prompt("Token GitHub (fine-grained, solo repo monitor-visivo, Contents: Read and write).\nResta salvato solo in questo browser:") || "").trim();
@@ -372,11 +390,15 @@
 
   async function carica() {
     try {
+      const m = await fetch("/api/me", { cache: "no-store" });
+      if (m.ok) me = await m.json();
+    } catch (e) { /* resta la modalità a codice */ }
+    try {
       const i = await fetch("data/index.json", { cache: "no-cache" });
       if (!i.ok) throw new Error(`HTTP ${i.status}`);
       const idx = await i.json(); basi = idx.basi || []; titoli = idx.titoli || {};
       const quando = new Date(idx.aggiornato);
-      $("sottotitolo").textContent = `Aggiornato ${quando.toLocaleString("it-IT", { dateStyle: "medium", timeStyle: "short" })} · ${basi.length} stati su ${new Set(basi.map((b) => b.chiave.split("|")[0])).size} titoli`;
+      $("sottotitolo").textContent = (me.modalita === "access" ? `${me.email}${me.admin ? " (admin)" : ""} · ` : "") + `Aggiornato ${quando.toLocaleString("it-IT", { dateStyle: "medium", timeStyle: "short" })} · ${basi.length} stati su ${new Set(basi.map((b) => b.chiave.split("|")[0])).size} titoli`;
     } catch (e) {
       $("sottotitolo").textContent = "Dati non disponibili: " + e.message;
       return;
