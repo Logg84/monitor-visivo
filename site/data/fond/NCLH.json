@@ -1,0 +1,56 @@
+{
+ "aggiornato": "2026-11-02",
+ "dati": {
+  "beta": 1.956,
+  "bilancio_annuale": {
+   "ricavi": {
+    "2022": 4843760000.0,
+    "2023": 8549924000.0,
+    "2024": 9479651000.0,
+    "2025": 9827592000.0
+   },
+   "utile_netto": {
+    "2022": -2269909000.0,
+    "2023": 166178000.0,
+    "2024": 910257000.0,
+    "2025": 423246000.0
+   },
+   "utile_operativo": {
+    "2022": -1551757000.0,
+    "2023": 930911000.0,
+    "2024": 1465906000.0,
+    "2025": 1560868000.0
+   }
+  },
+  "currency": "USD",
+  "currentRatio": 0.225,
+  "debtToEquity": 508.958,
+  "dividendYield": 0.0,
+  "earningsGrowth": 0.243,
+  "enterpriseToEbitda": 9.503,
+  "fiftyTwoWeekHigh": 25.13,
+  "fiftyTwoWeekLow": 13.63,
+  "forwardPE": 12.0418,
+  "freeCashflow": -1029625600,
+  "grossMargins": 0.414,
+  "industry": "Travel Services",
+  "longName": "Norwegian Cruise Line Holdings Ltd.",
+  "marketCap": 8069469696,
+  "numberOfAnalystOpinions": 23,
+  "operatingCashflow": 2165469952,
+  "operatingMargins": 0.2128,
+  "payoutRatio": 0.0,
+  "priceToBook": 2.5627,
+  "profitMargins": 0.082,
+  "quickRatio": 0.087,
+  "recommendationKey": "buy",
+  "returnOnAssets": 0.0386,
+  "returnOnEquity": 0.3118,
+  "revenueGrowth": 0.003,
+  "sector": "Consumer Cyclical",
+  "targetMeanPrice": 19.5652,
+  "totalCash": 256508000,
+  "totalDebt": 16026825728,
+  "trailingPE": 9.7072
+ }
+}

@@ -1,0 +1,56 @@
+{
+ "aggiornato": "2026-11-02",
+ "dati": {
+  "beta": 3.789,
+  "bilancio_annuale": {
+   "ricavi": {
+    "2023": 2679000000.0,
+    "2024": 3233000000.0,
+    "2025": 4007000000.0,
+    "2026": 4920000000.0
+   },
+   "utile_netto": {
+    "2023": 524000000.0,
+    "2024": 306000000.0,
+    "2025": 792000000.0,
+    "2026": 904000000.0
+   },
+   "utile_operativo": {
+    "2023": 678000000.0,
+    "2024": 117000000.0,
+    "2025": 831000000.0,
+    "2026": 908000000.0
+   }
+  },
+  "currency": "USD",
+  "currentRatio": 5.252,
+  "debtToEquity": 5.62,
+  "dividendYield": 0.0,
+  "earningsGrowth": 1.083,
+  "enterpriseToEbitda": 203.603,
+  "fiftyTwoWeekHigh": 452.7,
+  "fiftyTwoWeekLow": 100.02,
+  "forwardPE": 67.1676,
+  "freeCashflow": 1334499968,
+  "grossMargins": 0.9754,
+  "industry": "Semiconductors",
+  "longName": "Arm Holdings plc",
+  "marketCap": 219975663616,
+  "numberOfAnalystOpinions": 40,
+  "operatingCashflow": 2094000000,
+  "operatingMargins": 0.076,
+  "payoutRatio": 0.0,
+  "priceToBook": 25.4882,
+  "profitMargins": 0.2025,
+  "quickRatio": 5.063,
+  "recommendationKey": "buy",
+  "returnOnAssets": 0.0541,
+  "returnOnEquity": 0.1335,
+  "revenueGrowth": 0.224,
+  "sector": "Technology",
+  "targetMeanPrice": 290.705,
+  "totalCash": 3888000000,
+  "totalDebt": 485000000,
+  "trailingPE": 212.3402
+ }
+}

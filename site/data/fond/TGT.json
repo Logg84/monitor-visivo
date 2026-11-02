@@ -1,0 +1,56 @@
+{
+ "aggiornato": "2026-11-02",
+ "dati": {
+  "beta": 0.981,
+  "bilancio_annuale": {
+   "ricavi": {
+    "2023": 109120000000.0,
+    "2024": 107412000000.0,
+    "2025": 106566000000.0,
+    "2026": 104780000000.0
+   },
+   "utile_netto": {
+    "2023": 2780000000.0,
+    "2024": 4138000000.0,
+    "2025": 4091000000.0,
+    "2026": 3705000000.0
+   },
+   "utile_operativo": {
+    "2023": 3848000000.0,
+    "2024": 5707000000.0,
+    "2025": 5566000000.0,
+    "2026": 5117000000.0
+   }
+  },
+  "currency": "USD",
+  "currentRatio": 0.988,
+  "debtToEquity": 107.583,
+  "dividendYield": 3.01,
+  "earningsGrowth": 1.005,
+  "enterpriseToEbitda": 9.766,
+  "fiftyTwoWeekHigh": 170.75,
+  "fiftyTwoWeekLow": 83.44,
+  "forwardPE": 16.1735,
+  "freeCashflow": 3432999936,
+  "grossMargins": 0.2838,
+  "industry": "Discount Stores",
+  "longName": "Target Corporation",
+  "marketCap": 70133514240,
+  "numberOfAnalystOpinions": 34,
+  "operatingCashflow": 8723000320,
+  "operatingMargins": 0.0604,
+  "payoutRatio": 0.4735,
+  "priceToBook": 3.9305,
+  "profitMargins": 0.0408,
+  "quickRatio": 0.255,
+  "recommendationKey": "buy",
+  "returnOnAssets": 0.0569,
+  "returnOnEquity": 0.2641,
+  "revenueGrowth": 0.053,
+  "sector": "Consumer Defensive",
+  "targetMeanPrice": 163.3529,
+  "totalCash": 5410999808,
+  "totalDebt": 19196000256,
+  "trailingPE": 16.0312
+ }
+}

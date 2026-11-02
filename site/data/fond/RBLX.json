@@ -1,0 +1,52 @@
+{
+ "aggiornato": "2026-11-02",
+ "dati": {
+  "beta": 1.468,
+  "bilancio_annuale": {
+   "ricavi": {
+    "2022": 2225052000.0,
+    "2023": 2799274000.0,
+    "2024": 3601979000.0,
+    "2025": 4890551000.0
+   },
+   "utile_netto": {
+    "2022": -924366000.0,
+    "2023": -1151946000.0,
+    "2024": -935384000.0,
+    "2025": -1065057000.0
+   },
+   "utile_operativo": {
+    "2022": -923784000.0,
+    "2023": -1259067000.0,
+    "2024": -1063317000.0,
+    "2025": -1232342000.0
+   }
+  },
+  "currency": "USD",
+  "currentRatio": 0.797,
+  "dividendYield": 0.0,
+  "enterpriseToEbitda": -38.279,
+  "fiftyTwoWeekHigh": 113.6,
+  "fiftyTwoWeekLow": 33.88,
+  "forwardPE": -32.4627,
+  "freeCashflow": 1713751680,
+  "grossMargins": 0.2731,
+  "industry": "Electronic Gaming & Multimedia",
+  "longName": "Roblox Corporation",
+  "marketCap": 30768517120,
+  "numberOfAnalystOpinions": 33,
+  "operatingCashflow": 1949357952,
+  "operatingMargins": -0.1489,
+  "priceToBook": -42990.0,
+  "profitMargins": -0.1648,
+  "quickRatio": 0.628,
+  "recommendationKey": "buy",
+  "returnOnAssets": -0.0688,
+  "returnOnEquity": -5.3993,
+  "revenueGrowth": 0.156,
+  "sector": "Communication Services",
+  "targetMeanPrice": 49.1255,
+  "totalCash": 3196000000,
+  "totalDebt": 1910000000
+ }
+}

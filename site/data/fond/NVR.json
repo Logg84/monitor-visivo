@@ -1,0 +1,54 @@
+{
+ "aggiornato": "2026-11-02",
+ "dati": {
+  "beta": 0.902,
+  "bilancio_annuale": {
+   "ricavi": {
+    "2022": 10538287000.0,
+    "2023": 9534889000.0,
+    "2024": 10543571000.0,
+    "2025": 10341845000.0
+   },
+   "utile_netto": {
+    "2022": 1725575000.0,
+    "2023": 1591611000.0,
+    "2024": 1681928000.0,
+    "2025": 1339816000.0
+   },
+   "utile_operativo": {
+    "2022": 2250717000.0,
+    "2023": 1803654000.0,
+    "2024": 1993919000.0,
+    "2025": 1689318000.0
+   }
+  },
+  "currency": "USD",
+  "currentRatio": 5.07,
+  "debtToEquity": 31.083,
+  "dividendYield": 0.0,
+  "earningsGrowth": -0.204,
+  "enterpriseToEbitda": 11.024,
+  "fiftyTwoWeekHigh": 8200.0,
+  "fiftyTwoWeekLow": 5501.01,
+  "forwardPE": 16.8058,
+  "grossMargins": 0.211,
+  "industry": "Residential Construction",
+  "longName": "NVR, Inc.",
+  "marketCap": 15878728704,
+  "numberOfAnalystOpinions": 6,
+  "operatingMargins": 0.1411,
+  "payoutRatio": 0.0,
+  "priceToBook": 4.5869,
+  "profitMargins": 0.1112,
+  "quickRatio": 1.517,
+  "recommendationKey": "hold",
+  "returnOnAssets": 0.1509,
+  "returnOnEquity": 0.283,
+  "revenueGrowth": -0.082,
+  "sector": "Consumer Cyclical",
+  "targetMeanPrice": 6262.0,
+  "totalCash": 1091314944,
+  "totalDebt": 1067683008,
+  "trailingPE": 16.471
+ }
+}

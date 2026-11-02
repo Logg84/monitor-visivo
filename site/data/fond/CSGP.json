@@ -1,0 +1,55 @@
+{
+ "aggiornato": "2026-11-02",
+ "dati": {
+  "beta": 0.796,
+  "bilancio_annuale": {
+   "ricavi": {
+    "2022": 2182400000.0,
+    "2023": 2455000000.0,
+    "2024": 2736000000.0,
+    "2025": 3247000000.0
+   },
+   "utile_netto": {
+    "2022": 369500000.0,
+    "2023": 375000000.0,
+    "2024": 139000000.0,
+    "2025": 7000000.0
+   },
+   "utile_operativo": {
+    "2022": 451000000.0,
+    "2023": 282000000.0,
+    "2024": 5000000.0,
+    "2025": -72000000.0
+   }
+  },
+  "currency": "USD",
+  "currentRatio": 1.321,
+  "debtToEquity": 14.665,
+  "dividendYield": 0.0,
+  "enterpriseToEbitda": 22.988,
+  "fiftyTwoWeekHigh": 70.63,
+  "fiftyTwoWeekLow": 25.89,
+  "forwardPE": 17.0519,
+  "freeCashflow": 442449984,
+  "grossMargins": 0.7831,
+  "industry": "Real Estate Services",
+  "longName": "CoStar Group, Inc.",
+  "marketCap": 12138517504,
+  "numberOfAnalystOpinions": 20,
+  "operatingCashflow": 617000000,
+  "operatingMargins": 0.0882,
+  "payoutRatio": 0.0,
+  "priceToBook": 1.5204,
+  "profitMargins": 0.0487,
+  "quickRatio": 1.131,
+  "recommendationKey": "buy",
+  "returnOnAssets": 0.0126,
+  "returnOnEquity": 0.0215,
+  "revenueGrowth": 0.141,
+  "sector": "Real Estate",
+  "targetMeanPrice": 35.85,
+  "totalCash": 500000000,
+  "totalDebt": 1172000000,
+  "trailingPE": 70.1628
+ }
+}

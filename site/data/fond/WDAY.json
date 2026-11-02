@@ -1,0 +1,56 @@
+{
+ "aggiornato": "2026-11-02",
+ "dati": {
+  "beta": 1.074,
+  "bilancio_annuale": {
+   "ricavi": {
+    "2023": 6216000000.0,
+    "2024": 7259000000.0,
+    "2025": 8446000000.0,
+    "2026": 9552000000.0
+   },
+   "utile_netto": {
+    "2023": -367000000.0,
+    "2024": 1381000000.0,
+    "2025": 526000000.0,
+    "2026": 693000000.0
+   },
+   "utile_operativo": {
+    "2023": -182000000.0,
+    "2024": 183000000.0,
+    "2025": 499000000.0,
+    "2026": 1024000000.0
+   }
+  },
+  "currency": "USD",
+  "currentRatio": 0.908,
+  "debtToEquity": 58.39,
+  "dividendYield": 0.0,
+  "earningsGrowth": 2.06,
+  "enterpriseToEbitda": 30.292,
+  "fiftyTwoWeekHigh": 241.04,
+  "fiftyTwoWeekLow": 110.36,
+  "forwardPE": 14.9377,
+  "freeCashflow": 3046374912,
+  "grossMargins": 0.758,
+  "industry": "Software - Application",
+  "longName": "Workday, Inc.",
+  "marketCap": 47674621952,
+  "numberOfAnalystOpinions": 37,
+  "operatingCashflow": 3080999936,
+  "operatingMargins": 0.1182,
+  "payoutRatio": 0.0,
+  "priceToBook": 7.38,
+  "profitMargins": 0.1232,
+  "quickRatio": 0.81,
+  "recommendationKey": "buy",
+  "returnOnAssets": 0.0451,
+  "returnOnEquity": 0.1601,
+  "revenueGrowth": 0.128,
+  "sector": "Technology",
+  "targetMeanPrice": 209.2532,
+  "totalCash": 3403000064,
+  "totalDebt": 3772000000,
+  "trailingPE": 40.2892
+ }
+}

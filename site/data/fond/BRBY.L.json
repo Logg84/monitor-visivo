@@ -1,0 +1,55 @@
+{
+ "aggiornato": "2026-11-02",
+ "dati": {
+  "beta": 0.7,
+  "bilancio_annuale": {
+   "ricavi": {
+    "2023": 3094000000.0,
+    "2024": 2968000000.0,
+    "2025": 2461000000.0,
+    "2026": 2420000000.0
+   },
+   "utile_netto": {
+    "2023": 490000000.0,
+    "2024": 270000000.0,
+    "2025": -75000000.0,
+    "2026": 21000000.0
+   },
+   "utile_operativo": {
+    "2023": 635000000.0,
+    "2024": 418000000.0,
+    "2025": 26000000.0,
+    "2026": 160000000.0
+   }
+  },
+  "currency": "GBp",
+  "currentRatio": 1.87,
+  "debtToEquity": 160.994,
+  "dividendYield": 0.0,
+  "enterpriseToEbitda": 17.021,
+  "fiftyTwoWeekHigh": 1376.5,
+  "fiftyTwoWeekLow": 953.4,
+  "forwardPE": 18.7983,
+  "freeCashflow": 400750016,
+  "grossMargins": 0.6789,
+  "industry": "Luxury Goods",
+  "longName": "Burberry Group plc",
+  "marketCap": 3748732928,
+  "numberOfAnalystOpinions": 22,
+  "operatingCashflow": 484000000,
+  "operatingMargins": 0.1016,
+  "payoutRatio": 0.0,
+  "priceToBook": 3.9882,
+  "profitMargins": 0.0087,
+  "quickRatio": 1.306,
+  "recommendationKey": "buy",
+  "returnOnAssets": 0.0307,
+  "returnOnEquity": 0.0214,
+  "revenueGrowth": 0.009,
+  "sector": "Consumer Cyclical",
+  "targetMeanPrice": 1251.4089,
+  "totalCash": 671000000,
+  "totalDebt": 1523000064,
+  "trailingPE": 174.4167
+ }
+}

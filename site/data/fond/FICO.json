@@ -1,0 +1,54 @@
+{
+ "aggiornato": "2026-11-02",
+ "dati": {
+  "beta": 1.341,
+  "bilancio_annuale": {
+   "ricavi": {
+    "2022": 1377270000.0,
+    "2023": 1513557000.0,
+    "2024": 1717526000.0,
+    "2025": 1990869000.0
+   },
+   "utile_netto": {
+    "2022": 373541000.0,
+    "2023": 429375000.0,
+    "2024": 512811000.0,
+    "2025": 651946000.0
+   },
+   "utile_operativo": {
+    "2022": 542414000.0,
+    "2023": 640889000.0,
+    "2024": 733629000.0,
+    "2025": 935772000.0
+   }
+  },
+  "currency": "USD",
+  "currentRatio": 1.183,
+  "dividendYield": 0.0,
+  "earningsGrowth": 0.412,
+  "enterpriseToEbitda": 16.393,
+  "fiftyTwoWeekHigh": 1858.91,
+  "fiftyTwoWeekLow": 586.05,
+  "forwardPE": 15.0563,
+  "freeCashflow": 774413504,
+  "grossMargins": 0.851,
+  "industry": "Software - Application",
+  "longName": "Fair Isaac Corporation",
+  "marketCap": 15360885760,
+  "numberOfAnalystOpinions": 19,
+  "operatingCashflow": 1001548992,
+  "operatingMargins": 0.5379,
+  "payoutRatio": 0.0,
+  "priceToBook": -3.7491,
+  "profitMargins": 0.3405,
+  "quickRatio": 1.129,
+  "recommendationKey": "buy",
+  "returnOnAssets": 0.3998,
+  "revenueGrowth": 0.257,
+  "sector": "Technology",
+  "targetMeanPrice": 936.5247,
+  "totalCash": 248444000,
+  "totalDebt": 5598009856,
+  "trailingPE": 20.5915
+ }
+}

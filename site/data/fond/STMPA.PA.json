@@ -1,0 +1,56 @@
+{
+ "aggiornato": "2026-11-02",
+ "dati": {
+  "beta": 1.482,
+  "bilancio_annuale": {
+   "ricavi": {
+    "2022": 16128000000.0,
+    "2023": 17286000000.0,
+    "2024": 13269000000.0,
+    "2025": 11800000000.0
+   },
+   "utile_netto": {
+    "2022": 3960000000.0,
+    "2023": 4211000000.0,
+    "2024": 1557000000.0,
+    "2025": 166000000.0
+   },
+   "utile_operativo": {
+    "2022": 4280000000.0,
+    "2023": 4556000000.0,
+    "2024": 1494000000.0,
+    "2025": 323000000.0
+   }
+  },
+  "currency": "EUR",
+  "currentRatio": 3.125,
+  "debtToEquity": 17.534,
+  "dividendYield": 0.77,
+  "earningsGrowth": 0.192,
+  "enterpriseToEbitda": 12.144,
+  "fiftyTwoWeekHigh": 70.85,
+  "fiftyTwoWeekLow": 18.2,
+  "forwardPE": 17.6138,
+  "freeCashflow": 173250000,
+  "grossMargins": 0.3536,
+  "industry": "Semiconductors",
+  "longName": "STMicroelectronics N.V.",
+  "marketCap": 37954494464,
+  "numberOfAnalystOpinions": 19,
+  "operatingCashflow": 2729999872,
+  "operatingMargins": 0.1113,
+  "payoutRatio": 0.6316,
+  "priceToBook": 2.3892,
+  "profitMargins": 0.038,
+  "quickRatio": 1.916,
+  "recommendationKey": "buy",
+  "returnOnAssets": 0.0248,
+  "returnOnEquity": 0.0295,
+  "revenueGrowth": 0.179,
+  "sector": "Technology",
+  "targetMeanPrice": 64.8587,
+  "totalCash": 5312000000,
+  "totalDebt": 3206000128,
+  "trailingPE": 86.602
+ }
+}

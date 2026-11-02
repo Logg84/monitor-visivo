@@ -1,0 +1,56 @@
+{
+ "aggiornato": "2026-11-02",
+ "dati": {
+  "beta": 0.888,
+  "bilancio_annuale": {
+   "ricavi": {
+    "2022": 2954000000.0,
+    "2023": 3350000000.0,
+    "2024": 3468000000.0,
+    "2025": 3589000000.0
+   },
+   "utile_netto": {
+    "2022": -308000000.0,
+    "2023": -1019000000.0,
+    "2024": -49000000.0,
+    "2025": 370000000.0
+   },
+   "utile_operativo": {
+    "2022": -270000000.0,
+    "2023": 57000000.0,
+    "2024": -4000000.0,
+    "2025": 600000000.0
+   }
+  },
+  "currency": "GBp",
+  "currentRatio": 1.072,
+  "debtToEquity": 71.808,
+  "dividendYield": 1.59,
+  "earningsGrowth": -0.73,
+  "enterpriseToEbitda": 12.081,
+  "fiftyTwoWeekHigh": 685.0,
+  "fiftyTwoWeekLow": 409.9,
+  "forwardPE": 10.2732,
+  "freeCashflow": 448750016,
+  "grossMargins": 0.2721,
+  "industry": "Specialty Industrial Machinery",
+  "longName": "Melrose Industries PLC",
+  "marketCap": 5796846080,
+  "numberOfAnalystOpinions": 15,
+  "operatingCashflow": 289000000,
+  "operatingMargins": 0.0822,
+  "payoutRatio": 0.5625,
+  "priceToBook": 2.0341,
+  "profitMargins": 0.0428,
+  "quickRatio": 0.705,
+  "recommendationKey": "buy",
+  "returnOnAssets": 0.0254,
+  "returnOnEquity": 0.056,
+  "revenueGrowth": 0.089,
+  "sector": "Industrials",
+  "targetMeanPrice": 665.533,
+  "totalCash": 200000000,
+  "totalDebt": 2052999936,
+  "trailingPE": 35.7846
+ }
+}

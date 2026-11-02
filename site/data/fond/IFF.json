@@ -1,0 +1,56 @@
+{
+ "aggiornato": "2026-11-02",
+ "dati": {
+  "beta": 0.928,
+  "bilancio_annuale": {
+   "ricavi": {
+    "2022": 12440000000.0,
+    "2023": 11479000000.0,
+    "2024": 11484000000.0,
+    "2025": 10890000000.0
+   },
+   "utile_netto": {
+    "2022": -1868000000.0,
+    "2023": -2591000000.0,
+    "2024": 263000000.0,
+    "2025": -361000000.0
+   },
+   "utile_operativo": {
+    "2022": 1053000000.0,
+    "2023": 578000000.0,
+    "2024": 848000000.0,
+    "2025": 842000000.0
+   }
+  },
+  "currency": "USD",
+  "currentRatio": 2.061,
+  "debtToEquity": 44.821,
+  "dividendYield": 1.72,
+  "earningsGrowth": -0.916,
+  "enterpriseToEbitda": 15.425,
+  "fiftyTwoWeekHigh": 94.65,
+  "fiftyTwoWeekLow": 61.3,
+  "forwardPE": 23.6949,
+  "freeCashflow": -1720999936,
+  "grossMargins": 0.3658,
+  "industry": "Specialty Chemicals",
+  "longName": "International Flavors & Fragrances Inc.",
+  "marketCap": 23748327424,
+  "numberOfAnalystOpinions": 17,
+  "operatingCashflow": 1160999936,
+  "operatingMargins": 0.0849,
+  "payoutRatio": 1.5842,
+  "priceToBook": 1.6992,
+  "profitMargins": 0.0257,
+  "quickRatio": 0.491,
+  "recommendationKey": "buy",
+  "returnOnAssets": 0.0227,
+  "returnOnEquity": -0.0555,
+  "revenueGrowth": 0.018,
+  "sector": "Basic Materials",
+  "targetMeanPrice": 97.4706,
+  "totalCash": 569000000,
+  "totalDebt": 6279000064,
+  "trailingPE": 92.099
+ }
+}

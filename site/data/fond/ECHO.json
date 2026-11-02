@@ -1,0 +1,54 @@
+{
+ "aggiornato": "2026-11-02",
+ "dati": {
+  "beta": 0.992,
+  "bilancio_annuale": {
+   "ricavi": {
+    "2022": 18634246000.0,
+    "2023": 17015598000.0,
+    "2024": 15825516000.0,
+    "2025": 15004989000.0
+   },
+   "utile_netto": {
+    "2022": 2477720000.0,
+    "2023": -1702057000.0,
+    "2024": -119546000.0,
+    "2025": -14497180000.0
+   },
+   "utile_operativo": {
+    "2022": 2233549000.0,
+    "2023": 483190000.0,
+    "2024": -304070000.0,
+    "2025": -91135000.0
+   }
+  },
+  "currency": "USD",
+  "currentRatio": 5.201,
+  "debtToEquity": 123.757,
+  "dividendYield": 0.0,
+  "enterpriseToEbitda": 22.767,
+  "fiftyTwoWeekHigh": 147.25,
+  "fiftyTwoWeekLow": 65.76,
+  "forwardPE": 6.3071,
+  "freeCashflow": -18870501376,
+  "grossMargins": 0.2954,
+  "industry": "Telecom Services",
+  "longName": "EchoStar Corporation",
+  "marketCap": 28191688704,
+  "numberOfAnalystOpinions": 10,
+  "operatingCashflow": -85317000,
+  "operatingMargins": 0.1428,
+  "payoutRatio": 0.0,
+  "priceToBook": 1.9891,
+  "profitMargins": -0.3871,
+  "quickRatio": 0.367,
+  "recommendationKey": "strong_buy",
+  "returnOnAssets": 0.0132,
+  "returnOnEquity": -0.3343,
+  "revenueGrowth": -0.04,
+  "sector": "Communication Services",
+  "targetMeanPrice": 130.2,
+  "totalCash": 496192992,
+  "totalDebt": 17575225344
+ }
+}

@@ -1,0 +1,53 @@
+{
+ "aggiornato": "2026-11-02",
+ "dati": {
+  "beta": 1.681,
+  "bilancio_annuale": {
+   "ricavi": {
+    "2022": 1794148000.0,
+    "2023": 1821072000.0,
+    "2024": 2207100000.0,
+    "2025": 2790459000.0
+   },
+   "utile_netto": {
+    "2022": 437672000.0,
+    "2023": 427374000.0,
+    "2024": 1592058000.0,
+    "2025": 621483000.0
+   },
+   "utile_operativo": {
+    "2022": 526785000.0,
+    "2023": 481736000.0,
+    "2024": 539358000.0,
+    "2025": 728636000.0
+   }
+  },
+  "currency": "USD",
+  "currentRatio": 3.702,
+  "dividendYield": 0.66,
+  "earningsGrowth": 0.485,
+  "enterpriseToEbitda": 49.72,
+  "fiftyTwoWeekHigh": 1714.09,
+  "fiftyTwoWeekLow": 833.18,
+  "forwardPE": 26.7521,
+  "grossMargins": 0.5526,
+  "industry": "Semiconductors",
+  "longName": "Monolithic Power Systems, Inc.",
+  "marketCap": 59117850624,
+  "numberOfAnalystOpinions": 15,
+  "operatingMargins": 0.2972,
+  "payoutRatio": 0.4331,
+  "priceToBook": 15.8333,
+  "profitMargins": 0.2389,
+  "quickRatio": 2.424,
+  "recommendationKey": "strong_buy",
+  "returnOnAssets": 0.1551,
+  "returnOnEquity": 0.2447,
+  "revenueGrowth": 0.631,
+  "sector": "Technology",
+  "targetMeanPrice": 1822.6,
+  "totalCash": 1091234048,
+  "totalDebt": 0,
+  "trailingPE": 66.4271
+ }
+}

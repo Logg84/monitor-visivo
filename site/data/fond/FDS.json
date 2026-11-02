@@ -1,0 +1,56 @@
+{
+ "aggiornato": "2026-11-02",
+ "dati": {
+  "beta": 0.766,
+  "bilancio_annuale": {
+   "ricavi": {
+    "2023": 2085508000.0,
+    "2024": 2203056000.0,
+    "2025": 2321748000.0,
+    "2026": 2476256000.0
+   },
+   "utile_netto": {
+    "2023": 468173000.0,
+    "2024": 537126000.0,
+    "2025": 597040000.0,
+    "2026": 533481000.0
+   },
+   "utile_operativo": {
+    "2023": 629207000.0,
+    "2024": 701299000.0,
+    "2025": 748303000.0,
+    "2026": 699957000.0
+   }
+  },
+  "currency": "USD",
+  "currentRatio": 0.598,
+  "debtToEquity": 77.049,
+  "dividendYield": 1.41,
+  "earningsGrowth": -0.154,
+  "enterpriseToEbitda": 14.324,
+  "fiftyTwoWeekHigh": 339.83,
+  "fiftyTwoWeekLow": 185.0,
+  "forwardPE": 15.1655,
+  "freeCashflow": 653727232,
+  "grossMargins": 0.506,
+  "industry": "Financial Data & Stock Exchanges",
+  "longName": "FactSet Research Systems Inc.",
+  "marketCap": 11623891968,
+  "numberOfAnalystOpinions": 16,
+  "operatingCashflow": 822200000,
+  "operatingMargins": 0.2221,
+  "payoutRatio": 0.3102,
+  "priceToBook": 5.8044,
+  "profitMargins": 0.2154,
+  "quickRatio": 0.518,
+  "recommendationKey": "hold",
+  "returnOnAssets": 0.1065,
+  "returnOnEquity": 0.2547,
+  "revenueGrowth": 0.063,
+  "sector": "Financial Services",
+  "targetMeanPrice": 280.625,
+  "totalCash": 265332000,
+  "totalDebt": 1542413952,
+  "trailingPE": 22.6198
+ }
+}

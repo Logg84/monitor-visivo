@@ -1,0 +1,56 @@
+{
+ "aggiornato": "2026-11-02",
+ "dati": {
+  "beta": 1.102,
+  "bilancio_annuale": {
+   "ricavi": {
+    "2023": 64111745000.0,
+    "2024": 64896464000.0,
+    "2025": 69672977000.0,
+    "2026": 74183445000.0
+   },
+   "utile_netto": {
+    "2023": 6871557000.0,
+    "2024": 7264787000.0,
+    "2025": 7678433000.0,
+    "2026": 8367056000.0
+   },
+   "utile_operativo": {
+    "2023": 8809889000.0,
+    "2024": 9595847000.0,
+    "2025": 10225664000.0,
+    "2026": 11405960000.0
+   }
+  },
+  "currency": "USD",
+  "currentRatio": 1.427,
+  "debtToEquity": 40.283,
+  "dividendYield": 2.65,
+  "earningsGrowth": 0.464,
+  "enterpriseToEbitda": 11.536,
+  "fiftyTwoWeekHigh": 291.09,
+  "fiftyTwoWeekLow": 118.15,
+  "forwardPE": 16.254,
+  "freeCashflow": 10684486656,
+  "grossMargins": 0.3205,
+  "industry": "Information Technology Services",
+  "longName": "Accenture plc",
+  "marketCap": 158027923456,
+  "numberOfAnalystOpinions": 24,
+  "operatingCashflow": 12363345920,
+  "operatingMargins": 0.1783,
+  "payoutRatio": 0.4808,
+  "priceToBook": 4.8718,
+  "profitMargins": 0.1128,
+  "quickRatio": 1.308,
+  "recommendationKey": "buy",
+  "returnOnAssets": 0.1095,
+  "returnOnEquity": 0.2602,
+  "revenueGrowth": 0.062,
+  "sector": "Technology",
+  "targetMeanPrice": 229.7379,
+  "totalCash": 12837769216,
+  "totalDebt": 13396989952,
+  "trailingPE": 19.0442
+ }
+}

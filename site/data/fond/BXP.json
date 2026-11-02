@@ -1,0 +1,53 @@
+{
+ "aggiornato": "2026-11-02",
+ "dati": {
+  "beta": 1.054,
+  "bilancio_annuale": {
+   "ricavi": {
+    "2022": 3108581000.0,
+    "2023": 3273569000.0,
+    "2024": 3407719000.0,
+    "2025": 3482279000.0
+   },
+   "utile_netto": {
+    "2022": 848947000.0,
+    "2023": 190215000.0,
+    "2024": 14272000.0,
+    "2025": 276800000.0
+   },
+   "utile_operativo": {
+    "2022": 1061430000.0,
+    "2023": 1038655000.0,
+    "2024": 1021931000.0,
+    "2025": 1014351000.0
+   }
+  },
+  "currency": "USD",
+  "currentRatio": 0.704,
+  "debtToEquity": 222.013,
+  "dividendYield": 4.46,
+  "enterpriseToEbitda": 15.361,
+  "fiftyTwoWeekHigh": 74.94,
+  "fiftyTwoWeekLow": 49.72,
+  "forwardPE": 30.1091,
+  "grossMargins": 0.5924,
+  "industry": "REIT - Office",
+  "longName": "BXP, Inc.",
+  "marketCap": 11359101952,
+  "numberOfAnalystOpinions": 20,
+  "operatingMargins": 0.3268,
+  "payoutRatio": 1.5054,
+  "priceToBook": 1.9315,
+  "profitMargins": 0.1561,
+  "quickRatio": 0.644,
+  "recommendationKey": "buy",
+  "returnOnAssets": 0.0218,
+  "returnOnEquity": 0.0896,
+  "revenueGrowth": 0.055,
+  "sector": "Real Estate",
+  "targetMeanPrice": 73.4,
+  "totalCash": 1471630976,
+  "totalDebt": 17325688832,
+  "trailingPE": 18.8024
+ }
+}

@@ -1,0 +1,56 @@
+{
+ "aggiornato": "2026-11-02",
+ "dati": {
+  "beta": 0.751,
+  "bilancio_annuale": {
+   "ricavi": {
+    "2022": 5371800000.0,
+    "2023": 6177800000.0,
+    "2024": 7039200000.0,
+    "2025": 7902500000.0
+   },
+   "utile_netto": {
+    "2022": 4544700000.0,
+    "2023": 1384200000.0,
+    "2024": 1549300000.0,
+    "2025": 1536300000.0
+   },
+   "utile_operativo": {
+    "2022": 1524500000.0,
+    "2023": 1745200000.0,
+    "2024": 1996800000.0,
+    "2025": 2235400000.0
+   }
+  },
+  "currency": "USD",
+  "currentRatio": 0.426,
+  "debtToEquity": 50.696,
+  "dividendYield": 0.78,
+  "earningsGrowth": 0.326,
+  "enterpriseToEbitda": 16.886,
+  "fiftyTwoWeekHigh": 470.01,
+  "fiftyTwoWeekLow": 305.96,
+  "forwardPE": 18.9882,
+  "freeCashflow": 2435237376,
+  "grossMargins": 0.6967,
+  "industry": "Software - Application",
+  "longName": "Roper Technologies, Inc.",
+  "marketCap": 46147145728,
+  "numberOfAnalystOpinions": 14,
+  "operatingCashflow": 2620199936,
+  "operatingMargins": 0.2869,
+  "payoutRatio": 0.1446,
+  "priceToBook": 2.4093,
+  "profitMargins": 0.3071,
+  "quickRatio": 0.328,
+  "recommendationKey": "buy",
+  "returnOnAssets": 0.0429,
+  "returnOnEquity": 0.1323,
+  "revenueGrowth": 0.076,
+  "sector": "Technology",
+  "targetMeanPrice": 466.7857,
+  "totalCash": 311000000,
+  "totalDebt": 9719700480,
+  "trailingPE": 18.4646
+ }
+}

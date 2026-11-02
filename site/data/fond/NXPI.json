@@ -1,0 +1,56 @@
+{
+ "aggiornato": "2026-11-02",
+ "dati": {
+  "beta": 1.811,
+  "bilancio_annuale": {
+   "ricavi": {
+    "2022": 13205000000.0,
+    "2023": 13276000000.0,
+    "2024": 12614000000.0,
+    "2025": 12269000000.0
+   },
+   "utile_netto": {
+    "2022": 2787000000.0,
+    "2023": 2797000000.0,
+    "2024": 2510000000.0,
+    "2025": 2021000000.0
+   },
+   "utile_operativo": {
+    "2022": 3794000000.0,
+    "2023": 3676000000.0,
+    "2024": 3472000000.0,
+    "2025": 3035000000.0
+   }
+  },
+  "currency": "USD",
+  "currentRatio": 2.125,
+  "debtToEquity": 88.071,
+  "dividendYield": 1.56,
+  "earningsGrowth": 0.403,
+  "enterpriseToEbitda": 13.523,
+  "fiftyTwoWeekHigh": 339.95,
+  "fiftyTwoWeekLow": 183.0,
+  "forwardPE": 14.1745,
+  "freeCashflow": 4086625024,
+  "grossMargins": 0.5646,
+  "industry": "Semiconductors",
+  "longName": "NXP Semiconductors N.V.",
+  "marketCap": 65435471872,
+  "numberOfAnalystOpinions": 29,
+  "operatingCashflow": 3800000000,
+  "operatingMargins": 0.323,
+  "payoutRatio": 0.3191,
+  "priceToBook": 5.4133,
+  "profitMargins": 0.2339,
+  "quickRatio": 1.311,
+  "recommendationKey": "buy",
+  "returnOnAssets": 0.1082,
+  "returnOnEquity": 0.2867,
+  "revenueGrowth": 0.193,
+  "sector": "Technology",
+  "targetMeanPrice": 299.931,
+  "totalCash": 3943000064,
+  "totalDebt": 10977999872,
+  "trailingPE": 20.4256
+ }
+}

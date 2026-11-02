@@ -1,0 +1,54 @@
+{
+ "aggiornato": "2026-11-02",
+ "dati": {
+  "beta": 0.878,
+  "bilancio_annuale": {
+   "ricavi": {
+    "2023": 97059000000.0,
+    "2024": 86377000000.0,
+    "2025": 83674000000.0,
+    "2026": 86286000000.0
+   },
+   "utile_netto": {
+    "2023": 6437000000.0,
+    "2024": 7726000000.0,
+    "2025": 6957000000.0,
+    "2026": 6654000000.0
+   },
+   "utile_operativo": {
+    "2023": 10159000000.0,
+    "2024": 11557000000.0,
+    "2025": 10466000000.0,
+    "2026": 10153000000.0
+   }
+  },
+  "currency": "USD",
+  "currentRatio": 1.105,
+  "dividendYield": 2.39,
+  "earningsGrowth": 0.0,
+  "enterpriseToEbitda": 12.268,
+  "fiftyTwoWeekHigh": 293.06,
+  "fiftyTwoWeekLow": 178.45,
+  "forwardPE": 16.0997,
+  "freeCashflow": 4615374848,
+  "grossMargins": 0.3299,
+  "industry": "Home Improvement Retail",
+  "longName": "Lowe's Companies, Inc.",
+  "marketCap": 117299568640,
+  "numberOfAnalystOpinions": 33,
+  "operatingCashflow": 9262999552,
+  "operatingMargins": 0.1336,
+  "payoutRatio": 0.41,
+  "priceToBook": -15.7705,
+  "profitMargins": 0.0735,
+  "quickRatio": 0.209,
+  "recommendationKey": "buy",
+  "returnOnAssets": 0.1252,
+  "revenueGrowth": 0.083,
+  "sector": "Consumer Cyclical",
+  "targetMeanPrice": 251.9697,
+  "totalCash": 3172000000,
+  "totalDebt": 42031001600,
+  "trailingPE": 17.6729
+ }
+}

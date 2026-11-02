@@ -1,0 +1,56 @@
+{
+ "aggiornato": "2026-11-02",
+ "dati": {
+  "beta": 1.101,
+  "bilancio_annuale": {
+   "ricavi": {
+    "2022": 1305300000.0,
+    "2023": 1697100000.0,
+    "2024": 2071600000.0,
+    "2025": 2708100000.0
+   },
+   "utile_netto": {
+    "2022": 4600000.0,
+    "2023": 206300000.0,
+    "2024": 418300000.0,
+    "2025": 247100000.0
+   },
+   "utile_operativo": {
+    "2022": 37600000.0,
+    "2023": 220100000.0,
+    "2024": 308900000.0,
+    "2025": 473800000.0
+   }
+  },
+  "currency": "USD",
+  "currentRatio": 2.485,
+  "debtToEquity": 71.403,
+  "dividendYield": 0.0,
+  "earningsGrowth": 3.286,
+  "enterpriseToEbitda": 17.664,
+  "fiftyTwoWeekHigh": 354.88,
+  "fiftyTwoWeekLow": 126.4,
+  "forwardPE": 19.3829,
+  "freeCashflow": 236900000,
+  "grossMargins": 0.7107,
+  "industry": "Medical Devices",
+  "longName": "Insulet Corporation",
+  "marketCap": 10380936192,
+  "numberOfAnalystOpinions": 23,
+  "operatingCashflow": 511200000,
+  "operatingMargins": 0.1618,
+  "payoutRatio": 0.0,
+  "priceToBook": 7.299,
+  "profitMargins": 0.1229,
+  "quickRatio": 1.51,
+  "recommendationKey": "buy",
+  "returnOnAssets": 0.0972,
+  "returnOnEquity": 0.2602,
+  "revenueGrowth": 0.235,
+  "sector": "Healthcare",
+  "targetMeanPrice": 167.1739,
+  "totalCash": 534900000,
+  "totalDebt": 1015500032,
+  "trailingPE": 28.03
+ }
+}

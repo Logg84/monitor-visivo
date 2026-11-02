@@ -1,0 +1,54 @@
+{
+ "aggiornato": "2026-11-02",
+ "dati": {
+  "beta": 0.889,
+  "bilancio_annuale": {
+   "ricavi": {
+    "2022": 21161000000.0,
+    "2023": 16033000000.0,
+    "2024": 15835000000.0,
+    "2025": 23634000000.0
+   },
+   "utile_netto": {
+    "2022": 1504000000.0,
+    "2023": 288000000.0,
+    "2024": 557000000.0,
+    "2025": -3516000000.0
+   },
+   "utile_operativo": {
+    "2022": 1754000000.0,
+    "2023": 751000000.0,
+    "2024": 585000000.0,
+    "2025": -10000000.0
+   }
+  },
+  "currency": "USD",
+  "currentRatio": 1.014,
+  "debtToEquity": 77.134,
+  "dividendYield": 5.09,
+  "enterpriseToEbitda": 7.543,
+  "fiftyTwoWeekHigh": 50.25,
+  "fiftyTwoWeekLow": 29.26,
+  "forwardPE": 13.7757,
+  "freeCashflow": 2322374912,
+  "grossMargins": 0.2978,
+  "industry": "Packaging & Containers",
+  "longName": "International Paper Company",
+  "marketCap": 19260456960,
+  "numberOfAnalystOpinions": 10,
+  "operatingCashflow": 2380999936,
+  "operatingMargins": 0.0589,
+  "payoutRatio": 4.0217,
+  "priceToBook": 1.4625,
+  "profitMargins": -0.1432,
+  "quickRatio": 0.673,
+  "recommendationKey": "buy",
+  "returnOnAssets": 0.0151,
+  "returnOnEquity": -0.223,
+  "revenueGrowth": -0.004,
+  "sector": "Consumer Cyclical",
+  "targetMeanPrice": 42.3,
+  "totalCash": 815000000,
+  "totalDebt": 10140000256
+ }
+}

@@ -1,0 +1,56 @@
+{
+ "aggiornato": "2026-11-02",
+ "dati": {
+  "beta": 1.651,
+  "bilancio_annuale": {
+   "ricavi": {
+    "2022": 44200000000.0,
+    "2023": 35820000000.0,
+    "2024": 38962000000.0,
+    "2025": 44284000000.0
+   },
+   "utile_netto": {
+    "2022": 12936000000.0,
+    "2023": 7232000000.0,
+    "2024": 10142000000.0,
+    "2025": 5541000000.0
+   },
+   "utile_operativo": {
+    "2022": 15860000000.0,
+    "2023": 8650000000.0,
+    "2024": 10253000000.0,
+    "2025": 12394000000.0
+   }
+  },
+  "currency": "USD",
+  "currentRatio": 2.016,
+  "debtToEquity": 55.21,
+  "dividendYield": 2.23,
+  "earningsGrowth": -0.23,
+  "enterpriseToEbitda": 15.004,
+  "fiftyTwoWeekHigh": 259.92,
+  "fiftyTwoWeekLow": 121.99,
+  "forwardPE": 16.1479,
+  "freeCashflow": 10241000448,
+  "grossMargins": 0.5423,
+  "industry": "Semiconductors",
+  "longName": "QUALCOMM Incorporated",
+  "marketCap": 175969255424,
+  "numberOfAnalystOpinions": 30,
+  "operatingCashflow": 12401000448,
+  "operatingMargins": 0.1853,
+  "payoutRatio": 0.4155,
+  "priceToBook": 6.2976,
+  "profitMargins": 0.2101,
+  "quickRatio": 1.137,
+  "recommendationKey": "hold",
+  "returnOnAssets": 0.1161,
+  "returnOnEquity": 0.3375,
+  "revenueGrowth": -0.04,
+  "sector": "Technology",
+  "targetMeanPrice": 196.3,
+  "totalCash": 8304000000,
+  "totalDebt": 15269999616,
+  "trailingPE": 19.0729
+ }
+}

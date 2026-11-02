@@ -1,0 +1,56 @@
+{
+ "aggiornato": "2026-11-02",
+ "dati": {
+  "beta": 2.052,
+  "bilancio_annuale": {
+   "ricavi": {
+    "2022": 8326200000.0,
+    "2023": 8253000000.0,
+    "2024": 7082300000.0,
+    "2025": 5995400000.0
+   },
+   "utile_netto": {
+    "2022": 1902200000.0,
+    "2023": 2183700000.0,
+    "2024": 1572800000.0,
+    "2025": 121000000.0
+   },
+   "utile_operativo": {
+    "2022": 2764700000.0,
+    "2023": 2613600000.0,
+    "2024": 1901600000.0,
+    "2025": 751100000.0
+   }
+  },
+  "currency": "USD",
+  "currentRatio": 3.464,
+  "debtToEquity": 65.055,
+  "dividendYield": 0.0,
+  "earningsGrowth": 0.366,
+  "enterpriseToEbitda": 13.764,
+  "fiftyTwoWeekHigh": 134.92,
+  "fiftyTwoWeekLow": 44.56,
+  "forwardPE": 15.7513,
+  "freeCashflow": 1656649984,
+  "grossMargins": 0.4278,
+  "industry": "Semiconductors",
+  "longName": "ON Semiconductor Corporation",
+  "marketCap": 27902466048,
+  "numberOfAnalystOpinions": 27,
+  "operatingCashflow": 1672000000,
+  "operatingMargins": 0.1953,
+  "payoutRatio": 0.0,
+  "priceToBook": 3.8651,
+  "profitMargins": 0.1017,
+  "quickRatio": 2.287,
+  "recommendationKey": "buy",
+  "returnOnAssets": 0.0675,
+  "returnOnEquity": 0.0831,
+  "revenueGrowth": 0.092,
+  "sector": "Technology",
+  "targetMeanPrice": 101.6296,
+  "totalCash": 3864499968,
+  "totalDebt": 4709000192,
+  "trailingPE": 46.2387
+ }
+}

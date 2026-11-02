@@ -1,0 +1,55 @@
+{
+ "aggiornato": "2026-11-02",
+ "dati": {
+  "beta": 1.295,
+  "bilancio_annuale": {
+   "ricavi": {
+    "2023": 1136702000.0,
+    "2024": 1159060000.0,
+    "2025": 1219635000.0,
+    "2026": 1215039000.0
+   },
+   "utile_netto": {
+    "2023": 285263000.0,
+    "2024": 168105000.0,
+    "2025": 73400000.0,
+    "2026": 181862000.0
+   },
+   "utile_operativo": {
+    "2023": 290998000.0,
+    "2024": 246401000.0,
+    "2025": 242804000.0,
+    "2026": 272611000.0
+   }
+  },
+  "currency": "USD",
+  "currentRatio": 4.547,
+  "debtToEquity": 13.712,
+  "dividendYield": 0.44,
+  "enterpriseToEbitda": 34.175,
+  "fiftyTwoWeekHigh": 72.75,
+  "fiftyTwoWeekLow": 43.2,
+  "forwardPE": 31.4364,
+  "freeCashflow": 229653120,
+  "grossMargins": 0.6624,
+  "industry": "Biotechnology",
+  "longName": "Bio-Techne Corporation",
+  "marketCap": 11411657728,
+  "numberOfAnalystOpinions": 10,
+  "operatingCashflow": 292072992,
+  "operatingMargins": 0.2787,
+  "payoutRatio": 0.2759,
+  "priceToBook": 5.3798,
+  "profitMargins": 0.1497,
+  "quickRatio": 2.945,
+  "recommendationKey": "hold",
+  "returnOnAssets": 0.0667,
+  "returnOnEquity": 0.0903,
+  "revenueGrowth": 0.013,
+  "sector": "Healthcare",
+  "targetMeanPrice": 70.5,
+  "totalCash": 265479008,
+  "totalDebt": 289087008,
+  "trailingPE": 62.6379
+ }
+}

@@ -1,0 +1,56 @@
+{
+ "aggiornato": "2026-11-02",
+ "dati": {
+  "beta": 0.914,
+  "bilancio_annuale": {
+   "ricavi": {
+    "2022": 21095100000.0,
+    "2023": 21177600000.0,
+    "2024": 21156400000.0,
+    "2025": 21460200000.0
+   },
+   "utile_netto": {
+    "2022": 1596600000.0,
+    "2023": 1928900000.0,
+    "2024": 1781800000.0,
+    "2025": 1940900000.0
+   },
+   "utile_operativo": {
+    "2022": 2080900000.0,
+    "2023": 2720400000.0,
+    "2024": 2842900000.0,
+    "2025": 3058700000.0
+   }
+  },
+  "currency": "EUR",
+  "currentRatio": 1.374,
+  "debtToEquity": 50.409,
+  "dividendYield": 2.39,
+  "earningsGrowth": 0.088,
+  "enterpriseToEbitda": 8.675,
+  "fiftyTwoWeekHigh": 241.8,
+  "fiftyTwoWeekLow": 137.2,
+  "forwardPE": 10.5209,
+  "freeCashflow": 1235725056,
+  "grossMargins": 0.6425,
+  "industry": "Building Materials",
+  "longName": "Heidelberg Materials AG",
+  "marketCap": 26607620096,
+  "numberOfAnalystOpinions": 18,
+  "operatingCashflow": 3175300096,
+  "operatingMargins": 0.1125,
+  "payoutRatio": 0.3144,
+  "priceToBook": 1.4279,
+  "profitMargins": 0.0917,
+  "quickRatio": 0.924,
+  "recommendationKey": "buy",
+  "returnOnAssets": 0.0524,
+  "returnOnEquity": 0.117,
+  "revenueGrowth": 0.017,
+  "sector": "Basic Materials",
+  "targetMeanPrice": 205.2778,
+  "totalCash": 2192199936,
+  "totalDebt": 9983099904,
+  "trailingPE": 13.2183
+ }
+}

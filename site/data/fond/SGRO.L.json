@@ -1,0 +1,55 @@
+{
+ "aggiornato": "2026-11-02",
+ "dati": {
+  "beta": 1.126,
+  "bilancio_annuale": {
+   "ricavi": {
+    "2022": 669000000.0,
+    "2023": 749000000.0,
+    "2024": 675000000.0,
+    "2025": 726000000.0
+   },
+   "utile_netto": {
+    "2022": -1927000000.0,
+    "2023": -253000000.0,
+    "2024": 594000000.0,
+    "2025": 551000000.0
+   },
+   "utile_operativo": {
+    "2022": 411000000.0,
+    "2023": 525000000.0,
+    "2024": 455000000.0,
+    "2025": 499000000.0
+   }
+  },
+  "currency": "GBp",
+  "currentRatio": 0.586,
+  "debtToEquity": 43.745,
+  "dividendYield": 3.46,
+  "enterpriseToEbitda": 32.644,
+  "fiftyTwoWeekHigh": 997.4,
+  "fiftyTwoWeekLow": 632.2,
+  "forwardPE": 22.4974,
+  "freeCashflow": 300624992,
+  "grossMargins": 0.792,
+  "industry": "REIT - Industrial",
+  "longName": "SEGRO Plc",
+  "marketCap": 12339418112,
+  "numberOfAnalystOpinions": 11,
+  "operatingCashflow": 452000000,
+  "operatingMargins": 0.7081,
+  "payoutRatio": 1.4136,
+  "priceToBook": 1.031,
+  "profitMargins": 0.4,
+  "quickRatio": 0.584,
+  "recommendationKey": "hold",
+  "returnOnAssets": 0.018,
+  "returnOnEquity": 0.0248,
+  "revenueGrowth": 0.054,
+  "sector": "Real Estate",
+  "targetMeanPrice": 967.455,
+  "totalCash": 176000000,
+  "totalDebt": 5234999808,
+  "trailingPE": 41.4545
+ }
+}

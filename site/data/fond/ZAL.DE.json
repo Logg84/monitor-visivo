@@ -1,0 +1,56 @@
+{
+ "aggiornato": "2026-11-02",
+ "dati": {
+  "beta": 1.547,
+  "bilancio_annuale": {
+   "ricavi": {
+    "2022": 10344800000.0,
+    "2023": 10143100000.0,
+    "2024": 10572500000.0,
+    "2025": 12346200000.0
+   },
+   "utile_netto": {
+    "2022": 16800000.0,
+    "2023": 83000000.0,
+    "2024": 251100000.0,
+    "2025": 215100000.0
+   },
+   "utile_operativo": {
+    "2022": 81000000.0,
+    "2023": 190900000.0,
+    "2024": 391900000.0,
+    "2025": 387300000.0
+   }
+  },
+  "currency": "EUR",
+  "currentRatio": 1.057,
+  "debtToEquity": 53.379,
+  "dividendYield": 0.0,
+  "earningsGrowth": -0.216,
+  "enterpriseToEbitda": 10.029,
+  "fiftyTwoWeekHigh": 30.43,
+  "fiftyTwoWeekLow": 18.61,
+  "forwardPE": 14.1838,
+  "freeCashflow": 1473774976,
+  "grossMargins": 0.399,
+  "industry": "Internet Retail",
+  "longName": "Zalando SE",
+  "marketCap": 6520757248,
+  "numberOfAnalystOpinions": 23,
+  "operatingCashflow": 1020600000,
+  "operatingMargins": 0.0447,
+  "payoutRatio": 0.0,
+  "priceToBook": 2.5912,
+  "profitMargins": 0.007,
+  "quickRatio": 0.529,
+  "recommendationKey": "buy",
+  "returnOnAssets": 0.0309,
+  "returnOnEquity": 0.0345,
+  "revenueGrowth": 0.208,
+  "sector": "Consumer Cyclical",
+  "targetMeanPrice": 35.0739,
+  "totalCash": 1464000000,
+  "totalDebt": 1369600000,
+  "trailingPE": 72.1622
+ }
+}

@@ -1,0 +1,56 @@
+{
+ "aggiornato": "2026-11-02",
+ "dati": {
+  "beta": 0.813,
+  "bilancio_annuale": {
+   "ricavi": {
+    "2022": 142610000000.0,
+    "2023": 155498000000.0,
+    "2024": 142380000000.0,
+    "2025": 133453000000.0
+   },
+   "utile_netto": {
+    "2022": 17941000000.0,
+    "2023": 11290000000.0,
+    "2024": 7290000000.0,
+    "2025": 7294000000.0
+   },
+   "utile_operativo": {
+    "2022": 14209000000.0,
+    "2023": 18476000000.0,
+    "2024": 11394000000.0,
+    "2025": 9981000000.0
+   }
+  },
+  "currency": "EUR",
+  "currentRatio": 1.148,
+  "debtToEquity": 119.855,
+  "dividendYield": 7.61,
+  "earningsGrowth": -0.279,
+  "enterpriseToEbitda": 9.994,
+  "fiftyTwoWeekHigh": 97.92,
+  "fiftyTwoWeekLow": 51.98,
+  "forwardPE": 6.7515,
+  "freeCashflow": 1710268032,
+  "grossMargins": 0.1241,
+  "industry": "Auto Manufacturers",
+  "longName": "Bayerische Motoren Werke Aktiengesellschaft",
+  "marketCap": 34567733248,
+  "numberOfAnalystOpinions": 18,
+  "operatingCashflow": 4046000128,
+  "operatingMargins": 0.0515,
+  "payoutRatio": 0.4235,
+  "priceToBook": 0.3627,
+  "profitMargins": 0.0492,
+  "quickRatio": 0.729,
+  "recommendationKey": "hold",
+  "returnOnAssets": 0.0183,
+  "returnOnEquity": 0.0659,
+  "revenueGrowth": -0.079,
+  "sector": "Consumer Cyclical",
+  "targetMeanPrice": 67.7722,
+  "totalCash": 15642000384,
+  "totalDebt": 116789002240,
+  "trailingPE": 5.5582
+ }
+}

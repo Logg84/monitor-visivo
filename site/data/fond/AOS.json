@@ -1,0 +1,56 @@
+{
+ "aggiornato": "2026-11-02",
+ "dati": {
+  "beta": 1.11,
+  "bilancio_annuale": {
+   "ricavi": {
+    "2022": 3753900000.0,
+    "2023": 3852800000.0,
+    "2024": 3818100000.0,
+    "2025": 3830200000.0
+   },
+   "utile_netto": {
+    "2022": 235700000.0,
+    "2023": 556600000.0,
+    "2024": 533600000.0,
+    "2025": 546200000.0
+   },
+   "utile_operativo": {
+    "2022": 658700000.0,
+    "2023": 757400000.0,
+    "2024": 716800000.0,
+    "2025": 728000000.0
+   }
+  },
+  "currency": "USD",
+  "currentRatio": 1.637,
+  "debtToEquity": 39.219,
+  "dividendYield": 2.41,
+  "earningsGrowth": -0.011,
+  "enterpriseToEbitda": 11.394,
+  "fiftyTwoWeekHigh": 81.87,
+  "fiftyTwoWeekLow": 54.16,
+  "forwardPE": 16.7403,
+  "freeCashflow": 430500000,
+  "grossMargins": 0.3862,
+  "industry": "Specialty Industrial Machinery",
+  "longName": "A. O. Smith Corporation",
+  "marketCap": 8472127488,
+  "numberOfAnalystOpinions": 10,
+  "operatingCashflow": 612499968,
+  "operatingMargins": 0.1863,
+  "payoutRatio": 0.4022,
+  "priceToBook": 4.6471,
+  "profitMargins": 0.1301,
+  "quickRatio": 0.983,
+  "recommendationKey": "hold",
+  "returnOnAssets": 0.1265,
+  "returnOnEquity": 0.2697,
+  "revenueGrowth": -0.002,
+  "sector": "Industrials",
+  "targetMeanPrice": 66.3,
+  "totalCash": 234500000,
+  "totalDebt": 715000000,
+  "trailingPE": 17.6173
+ }
+}

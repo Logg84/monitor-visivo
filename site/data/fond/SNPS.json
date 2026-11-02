@@ -1,0 +1,56 @@
+{
+ "aggiornato": "2026-11-02",
+ "dati": {
+  "beta": 1.208,
+  "bilancio_annuale": {
+   "ricavi": {
+    "2022": 4615714000.0,
+    "2023": 5318014000.0,
+    "2024": 6127436000.0,
+    "2025": 7054178000.0
+   },
+   "utile_netto": {
+    "2022": 984594000.0,
+    "2023": 1229888000.0,
+    "2024": 2263380000.0,
+    "2025": 1332220000.0
+   },
+   "utile_operativo": {
+    "2022": 1159935000.0,
+    "2023": 1326330000.0,
+    "2024": 1355711000.0,
+    "2025": 914927000.0
+   }
+  },
+  "currency": "USD",
+  "currentRatio": 1.337,
+  "debtToEquity": 34.804,
+  "dividendYield": 0.0,
+  "earningsGrowth": 0.893,
+  "enterpriseToEbitda": 46.661,
+  "fiftyTwoWeekHigh": 539.48,
+  "fiftyTwoWeekLow": 362.55,
+  "forwardPE": 25.1687,
+  "freeCashflow": 3425542400,
+  "grossMargins": 0.8292,
+  "industry": "Software - Infrastructure",
+  "longName": "Synopsys, Inc.",
+  "marketCap": 89611206656,
+  "numberOfAnalystOpinions": 25,
+  "operatingCashflow": 2938341120,
+  "operatingMargins": 0.1452,
+  "payoutRatio": 0.0,
+  "priceToBook": 2.8761,
+  "profitMargins": 0.1143,
+  "quickRatio": 1.166,
+  "recommendationKey": "strong_buy",
+  "returnOnAssets": 0.0135,
+  "returnOnEquity": 0.0366,
+  "revenueGrowth": 0.424,
+  "sector": "Technology",
+  "targetMeanPrice": 586.946,
+  "totalCash": 3607668992,
+  "totalDebt": 10841789440,
+  "trailingPE": 82.6166
+ }
+}

@@ -1,0 +1,55 @@
+{
+ "aggiornato": "2026-11-02",
+ "dati": {
+  "beta": 0.02,
+  "bilancio_annuale": {
+   "ricavi": {
+    "2023": 20094200000.0,
+    "2024": 19857200000.0,
+    "2025": 19486600000.0,
+    "2026": 18424600000.0
+   },
+   "utile_netto": {
+    "2023": 2593900000.0,
+    "2024": 2496600000.0,
+    "2025": 2295200000.0,
+    "2026": -87600000.0
+   },
+   "utile_operativo": {
+    "2023": 3045400000.0,
+    "2024": 3673100000.0,
+    "2025": 3287200000.0,
+    "2026": 2807200000.0
+   }
+  },
+  "currency": "USD",
+  "currentRatio": 0.704,
+  "debtToEquity": 182.422,
+  "dividendYield": 7.12,
+  "earningsGrowth": -0.667,
+  "enterpriseToEbitda": 9.233,
+  "fiftyTwoWeekHigh": 49.59,
+  "fiftyTwoWeekLow": 31.18,
+  "forwardPE": 10.8779,
+  "freeCashflow": 1302612480,
+  "grossMargins": 0.3373,
+  "industry": "Packaged Foods",
+  "longName": "General Mills, Inc.",
+  "marketCap": 18334423040,
+  "numberOfAnalystOpinions": 18,
+  "operatingCashflow": 2067000064,
+  "operatingMargins": 0.1524,
+  "payoutRatio": 0.5941,
+  "priceToBook": 2.4609,
+  "profitMargins": -0.0489,
+  "quickRatio": 0.318,
+  "recommendationKey": "hold",
+  "returnOnAssets": 0.0565,
+  "returnOnEquity": -0.1049,
+  "revenueGrowth": -0.028,
+  "sector": "Consumer Defensive",
+  "targetMeanPrice": 37.0,
+  "totalCash": 433100000,
+  "totalDebt": 13615599616
+ }
+}

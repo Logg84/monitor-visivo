@@ -1,0 +1,56 @@
+{
+ "aggiornato": "2026-11-02",
+ "dati": {
+  "beta": 0.833,
+  "bilancio_annuale": {
+   "ricavi": {
+    "2022": 2238121000.0,
+    "2023": 2432278000.0,
+    "2024": 2618942000.0,
+    "2025": 2729296000.0
+   },
+   "utile_netto": {
+    "2022": 383329000.0,
+    "2023": 519470000.0,
+    "2024": 453917000.0,
+    "2025": 587924000.0
+   },
+   "utile_operativo": {
+    "2022": 651695000.0,
+    "2023": 699503000.0,
+    "2024": 741241000.0,
+    "2025": 752396000.0
+   }
+  },
+  "currency": "USD",
+  "currentRatio": 0.609,
+  "debtToEquity": 99.406,
+  "dividendYield": 4.52,
+  "earningsGrowth": 0.219,
+  "enterpriseToEbitda": 16.159,
+  "fiftyTwoWeekHigh": 30.893,
+  "fiftyTwoWeekLow": 24.25,
+  "forwardPE": 36.3169,
+  "freeCashflow": 1162354816,
+  "grossMargins": 0.5502,
+  "industry": "REIT - Residential",
+  "longName": "Invitation Homes Inc.",
+  "marketCap": 15451657216,
+  "numberOfAnalystOpinions": 23,
+  "operatingCashflow": 1189225984,
+  "operatingMargins": 0.2372,
+  "payoutRatio": 1.0526,
+  "priceToBook": 1.7519,
+  "profitMargins": 0.2389,
+  "quickRatio": 0.244,
+  "recommendationKey": "buy",
+  "returnOnAssets": 0.0239,
+  "returnOnEquity": 0.074,
+  "revenueGrowth": 0.013,
+  "sector": "Real Estate",
+  "targetMeanPrice": 32.8696,
+  "totalCash": 138790000,
+  "totalDebt": 8806403072,
+  "trailingPE": 23.2982
+ }
+}

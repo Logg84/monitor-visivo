@@ -1,0 +1,55 @@
+{
+ "aggiornato": "2026-11-02",
+ "dati": {
+  "beta": 3.776,
+  "bilancio_annuale": {
+   "ricavi": {
+    "2022": 1199125000.0,
+    "2023": 1333470000.0,
+    "2024": 1473856000.0,
+    "2025": 2023994000.0
+   },
+   "utile_netto": {
+    "2022": -301408000.0,
+    "2023": -302116000.0,
+    "2024": -29227000.0,
+    "2025": -88434000.0
+   },
+   "utile_operativo": {
+    "2022": -260992000.0,
+    "2023": -208907000.0,
+    "2024": 22909000.0,
+    "2025": 72802000.0
+   }
+  },
+  "currency": "USD",
+  "currentRatio": 3.742,
+  "debtToEquity": 141.948,
+  "dividendYield": 0.0,
+  "enterpriseToEbitda": 100.166,
+  "fiftyTwoWeekHigh": 351.28,
+  "fiftyTwoWeekLow": 75.7,
+  "forwardPE": 38.2612,
+  "freeCashflow": -1706500,
+  "grossMargins": 0.3177,
+  "industry": "Electrical Equipment & Parts",
+  "longName": "Bloom Energy Corporation",
+  "marketCap": 60044296192,
+  "numberOfAnalystOpinions": 26,
+  "operatingCashflow": 690968000,
+  "operatingMargins": 0.1849,
+  "payoutRatio": 0.0,
+  "priceToBook": 31.0657,
+  "profitMargins": 0.1353,
+  "quickRatio": 2.84,
+  "recommendationKey": "buy",
+  "returnOnAssets": 0.0745,
+  "returnOnEquity": 0.3961,
+  "revenueGrowth": 1.381,
+  "sector": "Industrials",
+  "targetMeanPrice": 284.8846,
+  "totalCash": 2486702080,
+  "totalDebt": 2786594048,
+  "trailingPE": 123.1333
+ }
+}

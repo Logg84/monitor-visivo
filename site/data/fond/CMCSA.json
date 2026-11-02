@@ -1,0 +1,56 @@
+{
+ "aggiornato": "2026-11-02",
+ "dati": {
+  "beta": 0.669,
+  "bilancio_annuale": {
+   "ricavi": {
+    "2022": 121427000000.0,
+    "2023": 121572000000.0,
+    "2024": 123731000000.0,
+    "2025": 123707000000.0
+   },
+   "utile_netto": {
+    "2022": 5370000000.0,
+    "2023": 15388000000.0,
+    "2024": 16192000000.0,
+    "2025": 19998000000.0
+   },
+   "utile_operativo": {
+    "2022": 22624000000.0,
+    "2023": 23313000000.0,
+    "2024": 23298000000.0,
+    "2025": 20670000000.0
+   }
+  },
+  "currency": "USD",
+  "currentRatio": 0.821,
+  "debtToEquity": 94.28,
+  "dividendYield": 5.68,
+  "earningsGrowth": 0.078,
+  "enterpriseToEbitda": 4.841,
+  "fiftyTwoWeekHigh": 32.86,
+  "fiftyTwoWeekLow": 20.48,
+  "forwardPE": 6.5931,
+  "freeCashflow": 13077499904,
+  "grossMargins": 0.6984,
+  "industry": "Telecom Services",
+  "longName": "Comcast Corporation",
+  "marketCap": 82454364160,
+  "numberOfAnalystOpinions": 22,
+  "operatingCashflow": 31726999552,
+  "operatingMargins": 0.1816,
+  "payoutRatio": 0.4177,
+  "priceToBook": 0.8906,
+  "profitMargins": 0.092,
+  "quickRatio": 0.688,
+  "recommendationKey": "hold",
+  "returnOnAssets": 0.0426,
+  "returnOnEquity": 0.1143,
+  "revenueGrowth": -0.061,
+  "sector": "Communication Services",
+  "targetMeanPrice": 27.9773,
+  "totalCash": 7596000256,
+  "totalDebt": 87366000640,
+  "trailingPE": 7.3481
+ }
+}

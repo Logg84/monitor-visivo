@@ -1,0 +1,56 @@
+{
+ "aggiornato": "2026-11-02",
+ "dati": {
+  "beta": 1.099,
+  "bilancio_annuale": {
+   "ricavi": {
+    "2023": 51217000000.0,
+    "2024": 51362000000.0,
+    "2025": 46309000000.0,
+    "2026": 46398000000.0
+   },
+   "utile_netto": {
+    "2023": 5070000000.0,
+    "2024": 5700000000.0,
+    "2025": 3219000000.0,
+    "2026": 3108000000.0
+   },
+   "utile_operativo": {
+    "2023": 5915000000.0,
+    "2024": 6311000000.0,
+    "2025": 3702000000.0,
+    "2026": 3797000000.0
+   }
+  },
+  "currency": "USD",
+  "currentRatio": 2.075,
+  "debtToEquity": 73.095,
+  "dividendYield": 4.24,
+  "earningsGrowth": -0.021,
+  "enterpriseToEbitda": 12.302,
+  "fiftyTwoWeekHigh": 69.14,
+  "fiftyTwoWeekLow": 31.97,
+  "forwardPE": 24.8351,
+  "freeCashflow": 1766875008,
+  "grossMargins": 0.4341,
+  "industry": "Footwear & Accessories",
+  "longName": "NIKE, Inc.",
+  "marketCap": 57436889088,
+  "numberOfAnalystOpinions": 37,
+  "operatingCashflow": 2780999936,
+  "operatingMargins": 0.0792,
+  "payoutRatio": 0.7885,
+  "priceToBook": 3.7679,
+  "profitMargins": 0.0674,
+  "quickRatio": 1.193,
+  "recommendationKey": "hold",
+  "returnOnAssets": 0.0689,
+  "returnOnEquity": 0.2156,
+  "revenueGrowth": -0.043,
+  "sector": "Consumer Cyclical",
+  "targetMeanPrice": 36.5,
+  "totalCash": 8368000000,
+  "totalDebt": 11125000192,
+  "trailingPE": 18.5913
+ }
+}

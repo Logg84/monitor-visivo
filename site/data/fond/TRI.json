@@ -1,0 +1,56 @@
+{
+ "aggiornato": "2026-11-02",
+ "dati": {
+  "beta": 0.201,
+  "bilancio_annuale": {
+   "ricavi": {
+    "2022": 6627000000.0,
+    "2023": 6794000000.0,
+    "2024": 7258000000.0,
+    "2025": 7476000000.0
+   },
+   "utile_netto": {
+    "2022": 1338000000.0,
+    "2023": 2695000000.0,
+    "2024": 2210000000.0,
+    "2025": 1502000000.0
+   },
+   "utile_operativo": {
+    "2022": 1815000000.0,
+    "2023": 1950000000.0,
+    "2024": 1896000000.0,
+    "2025": 1989000000.0
+   }
+  },
+  "currency": "USD",
+  "currentRatio": 0.51,
+  "debtToEquity": 28.809,
+  "dividendYield": 2.22,
+  "earningsGrowth": 0.472,
+  "enterpriseToEbitda": 23.437,
+  "fiftyTwoWeekHigh": 157.64,
+  "fiftyTwoWeekLow": 76.28,
+  "forwardPE": 24.0226,
+  "freeCashflow": 2108499968,
+  "grossMargins": 0.3966,
+  "industry": "Specialty Business Services",
+  "longName": "Thomson Reuters Corporation",
+  "marketCap": 51231977472,
+  "numberOfAnalystOpinions": 13,
+  "operatingCashflow": 2884999936,
+  "operatingMargins": 0.283,
+  "payoutRatio": 0.6643,
+  "priceToBook": 4.6048,
+  "profitMargins": 0.2122,
+  "quickRatio": 0.409,
+  "recommendationKey": "buy",
+  "returnOnAssets": 0.0744,
+  "returnOnEquity": 0.1417,
+  "revenueGrowth": 0.095,
+  "sector": "Industrials",
+  "targetMeanPrice": 123.8077,
+  "totalCash": 693000000,
+  "totalDebt": 3204999936,
+  "trailingPE": 31.0367
+ }
+}

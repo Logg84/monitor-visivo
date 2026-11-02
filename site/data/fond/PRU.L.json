@@ -1,0 +1,50 @@
+{
+ "aggiornato": "2026-11-02",
+ "dati": {
+  "beta": 0.909,
+  "bilancio_annuale": {
+   "ricavi": {
+    "2022": -21220000000.0,
+    "2023": 19148000000.0,
+    "2024": 16211000000.0,
+    "2025": 27393000000.0
+   },
+   "utile_netto": {
+    "2022": -1007000000.0,
+    "2023": 1701000000.0,
+    "2024": 2285000000.0,
+    "2025": 3978000000.0
+   }
+  },
+  "currency": "GBp",
+  "currentRatio": 1.519,
+  "debtToEquity": 28.701,
+  "dividendYield": 2.24,
+  "earningsGrowth": -0.23,
+  "enterpriseToEbitda": 4.055,
+  "fiftyTwoWeekHigh": 1238.0,
+  "fiftyTwoWeekLow": 867.4,
+  "forwardPE": 8.9212,
+  "freeCashflow": 4138874880,
+  "grossMargins": 0.3781,
+  "industry": "Insurance - Life",
+  "longName": "Prudential plc",
+  "marketCap": 22482905088,
+  "numberOfAnalystOpinions": 13,
+  "operatingCashflow": 1708999936,
+  "operatingMargins": 0.2805,
+  "payoutRatio": 0.1856,
+  "priceToBook": 1.5629,
+  "profitMargins": 0.2549,
+  "quickRatio": 0.963,
+  "recommendationKey": "strong_buy",
+  "returnOnAssets": 0.016,
+  "returnOnEquity": 0.1874,
+  "revenueGrowth": -0.018,
+  "sector": "Financial Services",
+  "targetMeanPrice": 1412.421,
+  "totalCash": 5888999936,
+  "totalDebt": 5919000064,
+  "trailingPE": 8.7505
+ }
+}

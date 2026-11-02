@@ -1,0 +1,56 @@
+{
+ "aggiornato": "2026-11-02",
+ "dati": {
+  "beta": 0.918,
+  "bilancio_annuale": {
+   "ricavi": {
+    "2022": 2089300000.0,
+    "2023": 1694500000.0,
+    "2024": 1628100000.0,
+    "2025": 1699400000.0
+   },
+   "utile_netto": {
+    "2022": 649300000.0,
+    "2023": 171000000.0,
+    "2024": 158500000.0,
+    "2025": 62000000.0
+   },
+   "utile_operativo": {
+    "2022": 444700000.0,
+    "2023": 247500000.0,
+    "2024": 242500000.0,
+    "2025": 259600000.0
+   }
+  },
+  "currency": "GBp",
+  "currentRatio": 2.569,
+  "debtToEquity": 35.787,
+  "dividendYield": 3.05,
+  "earningsGrowth": 0.285,
+  "enterpriseToEbitda": 23.162,
+  "fiftyTwoWeekHigh": 3674.0,
+  "fiftyTwoWeekLow": 2488.0,
+  "forwardPE": 20.5945,
+  "freeCashflow": 80200000,
+  "grossMargins": 0.4369,
+  "industry": "Specialty Chemicals",
+  "longName": "Croda International Plc",
+  "marketCap": 5091402752,
+  "numberOfAnalystOpinions": 14,
+  "operatingCashflow": 280300000,
+  "operatingMargins": 0.1607,
+  "payoutRatio": 1.9508,
+  "priceToBook": 2.3429,
+  "profitMargins": 0.0461,
+  "quickRatio": 1.563,
+  "recommendationKey": "buy",
+  "returnOnAssets": 0.0224,
+  "returnOnEquity": 0.0368,
+  "revenueGrowth": 0.029,
+  "sector": "Basic Materials",
+  "targetMeanPrice": 3707.8572,
+  "totalCash": 205300000,
+  "totalDebt": 783200000,
+  "trailingPE": 64.0977
+ }
+}

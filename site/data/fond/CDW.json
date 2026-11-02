@@ -1,0 +1,56 @@
+{
+ "aggiornato": "2026-11-02",
+ "dati": {
+  "beta": 0.941,
+  "bilancio_annuale": {
+   "ricavi": {
+    "2022": 23748700000.0,
+    "2023": 21376000000.0,
+    "2024": 20998700000.0,
+    "2025": 22424100000.0
+   },
+   "utile_netto": {
+    "2022": 1114500000.0,
+    "2023": 1104300000.0,
+    "2024": 1077800000.0,
+    "2025": 1066600000.0
+   },
+   "utile_operativo": {
+    "2022": 1735200000.0,
+    "2023": 1680900000.0,
+    "2024": 1651300000.0,
+    "2025": 1655600000.0
+   }
+  },
+  "currency": "USD",
+  "currentRatio": 1.167,
+  "debtToEquity": 263.278,
+  "dividendYield": 1.64,
+  "earningsGrowth": 0.049,
+  "enterpriseToEbitda": 12.579,
+  "fiftyTwoWeekHigh": 166.15,
+  "fiftyTwoWeekLow": 97.12,
+  "forwardPE": 12.7472,
+  "freeCashflow": 676787520,
+  "grossMargins": 0.2136,
+  "industry": "Information Technology Services",
+  "longName": "CDW Corporation",
+  "marketCap": 19226429440,
+  "numberOfAnalystOpinions": 9,
+  "operatingCashflow": 981800000,
+  "operatingMargins": 0.0735,
+  "payoutRatio": 0.3023,
+  "priceToBook": 7.8907,
+  "profitMargins": 0.046,
+  "quickRatio": 1.011,
+  "recommendationKey": "buy",
+  "returnOnAssets": 0.0659,
+  "returnOnEquity": 0.4401,
+  "revenueGrowth": 0.1,
+  "sector": "Technology",
+  "targetMeanPrice": 159.1111,
+  "totalCash": 361800000,
+  "totalDebt": 6429499904,
+  "trailingPE": 18.4844
+ }
+}

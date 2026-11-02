@@ -1,0 +1,56 @@
+{
+ "aggiornato": "2026-11-02",
+ "dati": {
+  "beta": -0.112,
+  "bilancio_annuale": {
+   "ricavi": {
+    "2022": 36602000000.0,
+    "2023": 39290000000.0,
+    "2024": 41033000000.0,
+    "2025": 41954000000.0
+   },
+   "utile_netto": {
+    "2022": 4896000000.0,
+    "2023": 2056000000.0,
+    "2024": 4174000000.0,
+    "2025": 4182000000.0
+   },
+   "utile_operativo": {
+    "2022": 3601000000.0,
+    "2023": 2537000000.0,
+    "2024": 4370000000.0,
+    "2025": 4280000000.0
+   }
+  },
+  "currency": "USD",
+  "currentRatio": 1.234,
+  "debtToEquity": 93.127,
+  "dividendYield": 1.77,
+  "earningsGrowth": 0.029,
+  "enterpriseToEbitda": 12.698,
+  "fiftyTwoWeekHigh": 774.0,
+  "fiftyTwoWeekLow": 470.06,
+  "forwardPE": 18.6214,
+  "freeCashflow": 3143124992,
+  "grossMargins": 0.2003,
+  "industry": "Aerospace & Defense",
+  "longName": "Northrop Grumman Corporation",
+  "marketCap": 79206637568,
+  "numberOfAnalystOpinions": 24,
+  "operatingCashflow": 5265999872,
+  "operatingMargins": 0.1291,
+  "payoutRatio": 0.3018,
+  "priceToBook": 4.2395,
+  "profitMargins": 0.1037,
+  "quickRatio": 1.071,
+  "recommendationKey": "buy",
+  "returnOnAssets": 0.0711,
+  "returnOnEquity": 0.2607,
+  "revenueGrowth": 0.067,
+  "sector": "Industrials",
+  "targetMeanPrice": 636.0,
+  "totalCash": 3744000000,
+  "totalDebt": 17398999040,
+  "trailingPE": 17.5991
+ }
+}

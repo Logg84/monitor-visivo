@@ -1,0 +1,56 @@
+{
+ "aggiornato": "2026-11-02",
+ "dati": {
+  "beta": 0.805,
+  "bilancio_annuale": {
+   "ricavi": {
+    "2022": 19398017000.0,
+    "2023": 19453617000.0,
+    "2024": 19335909000.0,
+    "2025": 19627602000.0
+   },
+   "utile_netto": {
+    "2022": 673405000.0,
+    "2023": 498997000.0,
+    "2024": 537913000.0,
+    "2025": 978367000.0
+   },
+   "utile_operativo": {
+    "2022": 1454734000.0,
+    "2023": 1476644000.0,
+    "2024": 1467380000.0,
+    "2025": 1826824000.0
+   }
+  },
+  "currency": "EUR",
+  "currentRatio": 1.071,
+  "debtToEquity": 81.131,
+  "dividendYield": 3.69,
+  "earningsGrowth": 0.055,
+  "enterpriseToEbitda": 7.952,
+  "fiftyTwoWeekHigh": 46.66,
+  "fiftyTwoWeekLow": 34.57,
+  "forwardPE": 9.4257,
+  "freeCashflow": 2022340224,
+  "grossMargins": 0.2635,
+  "industry": "Medical Care Facilities",
+  "longName": "Fresenius Medical Care AG",
+  "marketCap": 10790927360,
+  "numberOfAnalystOpinions": 17,
+  "operatingCashflow": 2830430976,
+  "operatingMargins": 0.1077,
+  "payoutRatio": 0.4488,
+  "priceToBook": 0.8515,
+  "profitMargins": 0.0483,
+  "quickRatio": 0.631,
+  "recommendationKey": "hold",
+  "returnOnAssets": 0.0398,
+  "returnOnEquity": 0.0852,
+  "revenueGrowth": 0.014,
+  "sector": "Healthcare",
+  "targetMeanPrice": 41.8618,
+  "totalCash": 1061251008,
+  "totalDebt": 10978023424,
+  "trailingPE": 12.1024
+ }
+}

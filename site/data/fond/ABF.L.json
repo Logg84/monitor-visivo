@@ -1,0 +1,53 @@
+{
+ "aggiornato": "2026-11-02",
+ "dati": {
+  "beta": 0.813,
+  "bilancio_annuale": {
+   "ricavi": {
+    "2023": 19750000000.0,
+    "2024": 20073000000.0,
+    "2025": 19459000000.0
+   },
+   "utile_netto": {
+    "2023": 1044000000.0,
+    "2024": 1455000000.0,
+    "2025": 1025000000.0
+   },
+   "utile_operativo": {
+    "2023": 1340000000.0,
+    "2024": 1834000000.0,
+    "2025": 1577000000.0
+   }
+  },
+  "currency": "GBp",
+  "currentRatio": 1.507,
+  "debtToEquity": 32.183,
+  "dividendYield": 3.28,
+  "earningsGrowth": -0.118,
+  "enterpriseToEbitda": 7.638,
+  "fiftyTwoWeekHigh": 2359.0,
+  "fiftyTwoWeekLow": 1729.45,
+  "forwardPE": 13.0416,
+  "freeCashflow": 737124992,
+  "grossMargins": 0.0743,
+  "industry": "Packaged Foods",
+  "longName": "Associated British Foods plc",
+  "marketCap": 13421733888,
+  "numberOfAnalystOpinions": 17,
+  "operatingCashflow": 2256999936,
+  "operatingMargins": 0.0664,
+  "payoutRatio": 0.4727,
+  "priceToBook": 1.1908,
+  "profitMargins": 0.0489,
+  "quickRatio": 0.627,
+  "recommendationKey": "underperform",
+  "returnOnAssets": 0.0492,
+  "returnOnEquity": 0.0845,
+  "revenueGrowth": -0.004,
+  "sector": "Consumer Defensive",
+  "targetMeanPrice": 1798.824,
+  "totalCash": 712000000,
+  "totalDebt": 3739000064,
+  "trailingPE": 14.4511
+ }
+}

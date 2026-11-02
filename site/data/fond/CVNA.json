@@ -1,0 +1,56 @@
+{
+ "aggiornato": "2026-11-02",
+ "dati": {
+  "beta": 3.548,
+  "bilancio_annuale": {
+   "ricavi": {
+    "2022": 13604000000.0,
+    "2023": 10771000000.0,
+    "2024": 13673000000.0,
+    "2025": 20322000000.0
+   },
+   "utile_netto": {
+    "2022": -1587000000.0,
+    "2023": 450000000.0,
+    "2024": 210000000.0,
+    "2025": 1407000000.0
+   },
+   "utile_operativo": {
+    "2022": -1504000000.0,
+    "2023": -80000000.0,
+    "2024": 990000000.0,
+    "2025": 1881000000.0
+   }
+  },
+  "currency": "USD",
+  "currentRatio": 4.051,
+  "debtToEquity": 100.778,
+  "dividendYield": 0.0,
+  "earningsGrowth": 0.857,
+  "enterpriseToEbitda": 19.748,
+  "fiftyTwoWeekHigh": 97.378,
+  "fiftyTwoWeekLow": 54.464,
+  "forwardPE": 30.2314,
+  "freeCashflow": 652499968,
+  "grossMargins": 0.1904,
+  "industry": "Auto & Truck Dealerships",
+  "longName": "Carvana Co.",
+  "marketCap": 75696988160,
+  "numberOfAnalystOpinions": 21,
+  "operatingCashflow": 1330000000,
+  "operatingMargins": 0.089,
+  "payoutRatio": 0.0,
+  "priceToBook": 14.1124,
+  "profitMargins": 0.0621,
+  "quickRatio": 1.849,
+  "recommendationKey": "buy",
+  "returnOnAssets": 0.1198,
+  "returnOnEquity": 0.5467,
+  "revenueGrowth": 0.424,
+  "sector": "Consumer Cyclical",
+  "targetMeanPrice": 80.8571,
+  "totalCash": 3606000128,
+  "totalDebt": 5696999936,
+  "trailingPE": 32.8317
+ }
+}

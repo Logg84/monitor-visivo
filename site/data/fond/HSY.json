@@ -1,0 +1,56 @@
+{
+ "aggiornato": "2026-11-02",
+ "dati": {
+  "beta": 0.089,
+  "bilancio_annuale": {
+   "ricavi": {
+    "2022": 10419294000.0,
+    "2023": 11164992000.0,
+    "2024": 11202263000.0,
+    "2025": 11692576000.0
+   },
+   "utile_netto": {
+    "2022": 1644817000.0,
+    "2023": 1861787000.0,
+    "2024": 2221239000.0,
+    "2025": 883259000.0
+   },
+   "utile_operativo": {
+    "2022": 2262776000.0,
+    "2023": 2561308000.0,
+    "2024": 2927267000.0,
+    "2025": 1462122000.0
+   }
+  },
+  "currency": "USD",
+  "currentRatio": 1.238,
+  "debtToEquity": 111.37,
+  "dividendYield": 3.51,
+  "earningsGrowth": 1.118,
+  "enterpriseToEbitda": 12.129,
+  "fiftyTwoWeekHigh": 239.48,
+  "fiftyTwoWeekLow": 156.16,
+  "forwardPE": 17.4168,
+  "freeCashflow": 1671246720,
+  "grossMargins": 0.4195,
+  "industry": "Confectioners",
+  "longName": "The Hershey Company",
+  "marketCap": 33284362240,
+  "numberOfAnalystOpinions": 21,
+  "operatingCashflow": 2565356032,
+  "operatingMargins": 0.2555,
+  "payoutRatio": 0.6477,
+  "priceToBook": 6.8262,
+  "profitMargins": 0.1463,
+  "quickRatio": 0.574,
+  "recommendationKey": "hold",
+  "returnOnAssets": 0.1182,
+  "returnOnEquity": 0.38,
+  "revenueGrowth": 0.03,
+  "sector": "Consumer Defensive",
+  "targetMeanPrice": 181.6667,
+  "totalCash": 676688000,
+  "totalDebt": 5430100992,
+  "trailingPE": 18.7342
+ }
+}

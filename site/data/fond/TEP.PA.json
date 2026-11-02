@@ -1,0 +1,56 @@
+{
+ "aggiornato": "2026-11-02",
+ "dati": {
+  "beta": 0.636,
+  "bilancio_annuale": {
+   "ricavi": {
+    "2022": 8154000000.0,
+    "2023": 8345000000.0,
+    "2024": 10279800000.0,
+    "2025": 10209400000.0
+   },
+   "utile_netto": {
+    "2022": 643000000.0,
+    "2023": 592000000.0,
+    "2024": 523000000.0,
+    "2025": 497000000.0
+   },
+   "utile_operativo": {
+    "2022": 1000000000.0,
+    "2023": 1001700000.0,
+    "2024": 1169000000.0,
+    "2025": 1152000000.0
+   }
+  },
+  "currency": "EUR",
+  "currentRatio": 1.395,
+  "debtToEquity": 120.367,
+  "dividendYield": 5.6,
+  "earningsGrowth": -0.116,
+  "enterpriseToEbitda": 5.489,
+  "fiftyTwoWeekHigh": 82.7,
+  "fiftyTwoWeekLow": 43.65,
+  "forwardPE": 5.5985,
+  "freeCashflow": 1155487488,
+  "grossMargins": 0.307,
+  "industry": "Specialty Business Services",
+  "longName": "Teleperformance SE",
+  "marketCap": 4647202816,
+  "numberOfAnalystOpinions": 15,
+  "operatingCashflow": 1611000064,
+  "operatingMargins": 0.107,
+  "payoutRatio": 0.5689,
+  "priceToBook": 1.1083,
+  "profitMargins": 0.0465,
+  "quickRatio": 1.285,
+  "recommendationKey": "hold",
+  "returnOnAssets": 0.0605,
+  "returnOnEquity": 0.114,
+  "revenueGrowth": -0.046,
+  "sector": "Industrials",
+  "targetMeanPrice": 78.96,
+  "totalCash": 1068300032,
+  "totalDebt": 5047000064,
+  "trailingPE": 10.1062
+ }
+}

@@ -1,0 +1,54 @@
+{
+ "aggiornato": "2026-11-02",
+ "dati": {
+  "beta": 1.095,
+  "bilancio_annuale": {
+   "ricavi": {
+    "2022": 18875000000.0,
+    "2023": 6754000000.0,
+    "2024": 3199000000.0,
+    "2025": 1922000000.0
+   },
+   "utile_netto": {
+    "2022": 8362000000.0,
+    "2023": -4714000000.0,
+    "2024": -3561000000.0,
+    "2025": -2822000000.0
+   },
+   "utile_operativo": {
+    "2022": 9420000000.0,
+    "2023": -4239000000.0,
+    "2024": -3945000000.0,
+    "2025": -3074000000.0
+   }
+  },
+  "currency": "USD",
+  "currentRatio": 2.295,
+  "debtToEquity": 19.036,
+  "dividendYield": 0.0,
+  "enterpriseToEbitda": -38.573,
+  "fiftyTwoWeekHigh": 254.48,
+  "fiftyTwoWeekLow": 22.28,
+  "forwardPE": -48.3548,
+  "freeCashflow": 299249984,
+  "grossMargins": -0.6602,
+  "industry": "Biotechnology",
+  "longName": "Moderna, Inc.",
+  "marketCap": 88518582272,
+  "numberOfAnalystOpinions": 19,
+  "operatingCashflow": -1073000000,
+  "operatingMargins": -5.5793,
+  "payoutRatio": 0.0,
+  "priceToBook": 13.0847,
+  "profitMargins": -1.4143,
+  "quickRatio": 2.068,
+  "recommendationKey": "hold",
+  "returnOnAssets": -0.1326,
+  "returnOnEquity": -0.39,
+  "revenueGrowth": 0.021,
+  "sector": "Healthcare",
+  "targetMeanPrice": 138.3684,
+  "totalCash": 5137999872,
+  "totalDebt": 1287000064
+ }
+}

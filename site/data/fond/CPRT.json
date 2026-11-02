@@ -1,0 +1,56 @@
+{
+ "aggiornato": "2026-11-02",
+ "dati": {
+  "beta": 1.058,
+  "bilancio_annuale": {
+   "ricavi": {
+    "2023": 3869518000.0,
+    "2024": 4236823000.0,
+    "2025": 4646958000.0,
+    "2026": 4666209000.0
+   },
+   "utile_netto": {
+    "2023": 1237741000.0,
+    "2024": 1363020000.0,
+    "2025": 1552449000.0,
+    "2026": 1484270000.0
+   },
+   "utile_operativo": {
+    "2023": 1486569000.0,
+    "2024": 1572023000.0,
+    "2025": 1696714000.0,
+    "2026": 1652590000.0
+   }
+  },
+  "currency": "USD",
+  "currentRatio": 7.912,
+  "debtToEquity": 0.97,
+  "dividendYield": 0.0,
+  "earningsGrowth": -0.15,
+  "enterpriseToEbitda": 12.606,
+  "fiftyTwoWeekHigh": 43.38,
+  "fiftyTwoWeekLow": 25.72,
+  "forwardPE": 16.6464,
+  "freeCashflow": 885121728,
+  "grossMargins": 0.4529,
+  "industry": "Specialty Business Services",
+  "longName": "Copart, Inc.",
+  "marketCap": 27910334464,
+  "numberOfAnalystOpinions": 10,
+  "operatingCashflow": 1604492032,
+  "operatingMargins": 0.3201,
+  "payoutRatio": 0.0,
+  "priceToBook": 3.0679,
+  "profitMargins": 0.3181,
+  "quickRatio": 6.806,
+  "recommendationKey": "buy",
+  "returnOnAssets": 0.1027,
+  "returnOnEquity": 0.1616,
+  "revenueGrowth": 0.024,
+  "sector": "Industrials",
+  "targetMeanPrice": 39.0,
+  "totalCash": 4489802240,
+  "totalDebt": 88367000,
+  "trailingPE": 19.4387
+ }
+}

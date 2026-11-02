@@ -1,0 +1,54 @@
+{
+ "aggiornato": "2026-11-02",
+ "dati": {
+  "beta": 0.839,
+  "bilancio_annuale": {
+   "ricavi": {
+    "2022": 50739000000.0,
+    "2023": 47637000000.0,
+    "2024": 46606000000.0,
+    "2025": 45575000000.0
+   },
+   "utile_netto": {
+    "2022": 4150000000.0,
+    "2023": -2941000000.0,
+    "2024": -2552000000.0,
+    "2025": -3620000000.0
+   },
+   "utile_operativo": {
+    "2022": 7333000000.0,
+    "2023": 8036000000.0,
+    "2024": 3327000000.0,
+    "2025": 6139000000.0
+   }
+  },
+  "currency": "EUR",
+  "currentRatio": 1.043,
+  "debtToEquity": 129.362,
+  "dividendYield": 0.22,
+  "enterpriseToEbitda": 8.207,
+  "fiftyTwoWeekHigh": 53.92,
+  "fiftyTwoWeekLow": 25.78,
+  "forwardPE": 10.4458,
+  "freeCashflow": 6562999808,
+  "grossMargins": 0.6046,
+  "industry": "Drug Manufacturers - General",
+  "longName": "Bayer Aktiengesellschaft",
+  "marketCap": 49691009024,
+  "numberOfAnalystOpinions": 18,
+  "operatingCashflow": 4783000064,
+  "operatingMargins": 0.0919,
+  "payoutRatio": 1.6216,
+  "priceToBook": 1.6797,
+  "profitMargins": -0.0383,
+  "quickRatio": 0.671,
+  "recommendationKey": "buy",
+  "returnOnAssets": 0.0318,
+  "returnOnEquity": -0.0569,
+  "revenueGrowth": 0.012,
+  "sector": "Healthcare",
+  "targetMeanPrice": 58.3333,
+  "totalCash": 5081999872,
+  "totalDebt": 38430998528
+ }
+}

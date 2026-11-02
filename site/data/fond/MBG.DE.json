@@ -1,0 +1,56 @@
+{
+ "aggiornato": "2026-11-02",
+ "dati": {
+  "beta": 0.747,
+  "bilancio_annuale": {
+   "ricavi": {
+    "2022": 150017000000.0,
+    "2023": 152390000000.0,
+    "2024": 145594000000.0,
+    "2025": 132214000000.0
+   },
+   "utile_netto": {
+    "2022": 14501000000.0,
+    "2023": 14261000000.0,
+    "2024": 10207000000.0,
+    "2025": 5141000000.0
+   },
+   "utile_operativo": {
+    "2022": 17884000000.0,
+    "2023": 17522000000.0,
+    "2024": 12301000000.0,
+    "2025": 4870000000.0
+   }
+  },
+  "currency": "EUR",
+  "currentRatio": 1.314,
+  "debtToEquity": 102.738,
+  "dividendYield": 8.6,
+  "earningsGrowth": 0.344,
+  "enterpriseToEbitda": 8.872,
+  "fiftyTwoWeekHigh": 62.34,
+  "fiftyTwoWeekLow": 38.89,
+  "forwardPE": 6.2506,
+  "freeCashflow": -879000000,
+  "grossMargins": 0.1674,
+  "industry": "Auto Manufacturers",
+  "longName": "Mercedes-Benz Group AG",
+  "marketCap": 38519848960,
+  "numberOfAnalystOpinions": 20,
+  "operatingCashflow": 10387000320,
+  "operatingMargins": 0.0472,
+  "payoutRatio": 0.614,
+  "priceToBook": 0.409,
+  "profitMargins": 0.042,
+  "quickRatio": 0.842,
+  "recommendationKey": "buy",
+  "returnOnAssets": 0.0214,
+  "returnOnEquity": 0.0587,
+  "revenueGrowth": -0.045,
+  "sector": "Consumer Cyclical",
+  "targetMeanPrice": 51.1575,
+  "totalCash": 19484000256,
+  "totalDebt": 96859996160,
+  "trailingPE": 7.6856
+ }
+}

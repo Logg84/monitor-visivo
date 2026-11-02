@@ -1,0 +1,56 @@
+{
+ "aggiornato": "2026-11-02",
+ "dati": {
+  "beta": 1.439,
+  "bilancio_annuale": {
+   "ricavi": {
+    "2022": 1187143000.0,
+    "2023": 1560699000.0,
+    "2024": 2082526000.0,
+    "2025": 2779536000.0
+   },
+   "utile_netto": {
+    "2022": 146930000.0,
+    "2023": 175783000.0,
+    "2024": 377034000.0,
+    "2025": 124656000.0
+   },
+   "utile_operativo": {
+    "2022": 92973000.0,
+    "2023": 156850000.0,
+    "2024": 58540000.0,
+    "2025": -62076000.0
+   }
+  },
+  "currency": "USD",
+  "currentRatio": 2.149,
+  "debtToEquity": 50.363,
+  "dividendYield": 0.0,
+  "earningsGrowth": -0.182,
+  "enterpriseToEbitda": 217.491,
+  "fiftyTwoWeekHigh": 738.23,
+  "fiftyTwoWeekLow": 339.01,
+  "forwardPE": 40.6881,
+  "freeCashflow": 222160000,
+  "grossMargins": 0.5952,
+  "industry": "Aerospace & Defense",
+  "longName": "Axon Enterprise, Inc.",
+  "marketCap": 34750926848,
+  "numberOfAnalystOpinions": 19,
+  "operatingCashflow": 265808992,
+  "operatingMargins": 0.0517,
+  "payoutRatio": 0.0,
+  "priceToBook": 9.457,
+  "profitMargins": 0.0619,
+  "quickRatio": 1.582,
+  "recommendationKey": "buy",
+  "returnOnAssets": 0.0051,
+  "returnOnEquity": 0.0622,
+  "revenueGrowth": 0.353,
+  "sector": "Industrials",
+  "targetMeanPrice": 680.3684,
+  "totalCash": 692532992,
+  "totalDebt": 1850605952,
+  "trailingPE": 177.4979
+ }
+}

@@ -1,0 +1,56 @@
+{
+ "aggiornato": "2026-11-02",
+ "dati": {
+  "beta": 1.029,
+  "bilancio_annuale": {
+   "ricavi": {
+    "2022": 13399370000.0,
+    "2023": 14281976000.0,
+    "2024": 15827935000.0,
+    "2025": 17364829000.0
+   },
+   "utile_netto": {
+    "2022": 675609000.0,
+    "2023": 717795000.0,
+    "2024": 1142097000.0,
+    "2025": 1488796000.0
+   },
+   "utile_operativo": {
+    "2022": 1003555000.0,
+    "2023": 1175381000.0,
+    "2024": 1681814000.0,
+    "2025": 1994015000.0
+   }
+  },
+  "currency": "USD",
+  "currentRatio": 1.369,
+  "debtToEquity": 79.776,
+  "dividendYield": 0.45,
+  "earningsGrowth": -0.109,
+  "enterpriseToEbitda": 6.223,
+  "fiftyTwoWeekHigh": 246.33,
+  "fiftyTwoWeekLow": 140.08,
+  "forwardPE": 7.3358,
+  "freeCashflow": 745072000,
+  "grossMargins": 0.4451,
+  "industry": "Medical Care Facilities",
+  "longName": "Universal Health Services, Inc.",
+  "marketCap": 10375774208,
+  "numberOfAnalystOpinions": 17,
+  "operatingCashflow": 2056179968,
+  "operatingMargins": 0.096,
+  "payoutRatio": 0.0326,
+  "priceToBook": 1.3809,
+  "profitMargins": 0.0796,
+  "quickRatio": 1.11,
+  "recommendationKey": "buy",
+  "returnOnAssets": 0.0765,
+  "returnOnEquity": 0.1974,
+  "revenueGrowth": 0.053,
+  "sector": "Healthcare",
+  "targetMeanPrice": 192.4118,
+  "totalCash": 168748992,
+  "totalDebt": 6176318976,
+  "trailingPE": 7.1799
+ }
+}

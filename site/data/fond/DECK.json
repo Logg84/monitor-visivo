@@ -1,0 +1,56 @@
+{
+ "aggiornato": "2026-11-02",
+ "dati": {
+  "beta": 1.121,
+  "bilancio_annuale": {
+   "ricavi": {
+    "2023": 3627286000.0,
+    "2024": 4287763000.0,
+    "2025": 4985612000.0,
+    "2026": 5472296000.0
+   },
+   "utile_netto": {
+    "2023": 516822000.0,
+    "2024": 759563000.0,
+    "2025": 966091000.0,
+    "2026": 1024071000.0
+   },
+   "utile_operativo": {
+    "2023": 652751000.0,
+    "2024": 927514000.0,
+    "2025": 1179092000.0,
+    "2026": 1262903000.0
+   }
+  },
+  "currency": "USD",
+  "currentRatio": 2.724,
+  "debtToEquity": 23.24,
+  "dividendYield": 0.0,
+  "earningsGrowth": 0.27,
+  "enterpriseToEbitda": 7.4,
+  "fiftyTwoWeekHigh": 122.29,
+  "fiftyTwoWeekLow": 77.2,
+  "forwardPE": 10.0244,
+  "freeCashflow": 815705728,
+  "grossMargins": 0.5892,
+  "industry": "Footwear & Accessories",
+  "longName": "Deckers Outdoor Corporation",
+  "marketCap": 10944023552,
+  "numberOfAnalystOpinions": 21,
+  "operatingCashflow": 1128460032,
+  "operatingMargins": 0.263,
+  "payoutRatio": 0.0,
+  "priceToBook": 4.7694,
+  "profitMargins": 0.19,
+  "quickRatio": 1.778,
+  "recommendationKey": "hold",
+  "returnOnAssets": 0.2127,
+  "returnOnEquity": 0.4427,
+  "revenueGrowth": 0.035,
+  "sector": "Consumer Cyclical",
+  "targetMeanPrice": 96.7429,
+  "totalCash": 1209721984,
+  "totalDebt": 539520000,
+  "trailingPE": 10.8596
+ }
+}

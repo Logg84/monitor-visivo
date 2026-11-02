@@ -1,0 +1,56 @@
+{
+ "aggiornato": "2026-11-02",
+ "dati": {
+  "beta": 0.609,
+  "bilancio_annuale": {
+   "ricavi": {
+    "2022": 17220000000.0,
+    "2023": 16338000000.0,
+    "2024": 17599000000.0,
+    "2025": 19317000000.0
+   },
+   "utile_netto": {
+    "2022": 824000000.0,
+    "2023": 1407000000.0,
+    "2024": 1546000000.0,
+    "2025": 4701000000.0
+   },
+   "utile_operativo": {
+    "2022": 1532000000.0,
+    "2023": 2628000000.0,
+    "2024": 2930000000.0,
+    "2025": 5240000000.0
+   }
+  },
+  "currency": "USD",
+  "currentRatio": 0.766,
+  "debtToEquity": 219.575,
+  "dividendYield": 5.97,
+  "earningsGrowth": -0.134,
+  "enterpriseToEbitda": 8.26,
+  "fiftyTwoWeekHigh": 81.62,
+  "fiftyTwoWeekLow": 51.1,
+  "forwardPE": 9.0503,
+  "freeCashflow": -176124992,
+  "grossMargins": 0.5944,
+  "industry": "Utilities - Regulated Electric",
+  "longName": "Edison International",
+  "marketCap": 22621640704,
+  "numberOfAnalystOpinions": 15,
+  "operatingCashflow": 6965000192,
+  "operatingMargins": 0.2153,
+  "payoutRatio": 0.373,
+  "priceToBook": 1.2704,
+  "profitMargins": 0.196,
+  "quickRatio": 0.392,
+  "recommendationKey": "hold",
+  "returnOnAssets": 0.0348,
+  "returnOnEquity": 0.1876,
+  "revenueGrowth": -0.15,
+  "sector": "Utilities",
+  "targetMeanPrice": 63.3667,
+  "totalCash": 171000000,
+  "totalDebt": 42714001408,
+  "trailingPE": 6.2476
+ }
+}

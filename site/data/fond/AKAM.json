@@ -1,0 +1,56 @@
+{
+ "aggiornato": "2026-11-02",
+ "dati": {
+  "beta": 0.616,
+  "bilancio_annuale": {
+   "ricavi": {
+    "2022": 3616654000.0,
+    "2023": 3811920000.0,
+    "2024": 3991168000.0,
+    "2025": 4208175000.0
+   },
+   "utile_netto": {
+    "2022": 523672000.0,
+    "2023": 547629000.0,
+    "2024": 504918000.0,
+    "2025": 452031000.0
+   },
+   "utile_operativo": {
+    "2022": 711040000.0,
+    "2023": 703418000.0,
+    "2024": 636354000.0,
+    "2025": 628242000.0
+   }
+  },
+  "currency": "USD",
+  "currentRatio": 1.637,
+  "debtToEquity": 196.672,
+  "dividendYield": 0.0,
+  "earningsGrowth": -0.268,
+  "enterpriseToEbitda": 17.88,
+  "fiftyTwoWeekHigh": 165.45,
+  "fiftyTwoWeekLow": 70.82,
+  "forwardPE": 13.561,
+  "freeCashflow": 710060096,
+  "grossMargins": 0.5745,
+  "industry": "Software - Infrastructure",
+  "longName": "Akamai Technologies, Inc.",
+  "marketCap": 13325404160,
+  "numberOfAnalystOpinions": 22,
+  "operatingCashflow": 1447190016,
+  "operatingMargins": 0.0763,
+  "payoutRatio": 0.0,
+  "priceToBook": 2.8037,
+  "profitMargins": 0.0951,
+  "quickRatio": 1.517,
+  "recommendationKey": "buy",
+  "returnOnAssets": 0.0252,
+  "returnOnEquity": 0.0892,
+  "revenueGrowth": 0.054,
+  "sector": "Technology",
+  "targetMeanPrice": 154.9641,
+  "totalCash": 3355386880,
+  "totalDebt": 9338986496,
+  "trailingPE": 33.5942
+ }
+}

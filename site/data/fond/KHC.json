@@ -1,0 +1,54 @@
+{
+ "aggiornato": "2026-11-02",
+ "dati": {
+  "beta": 0.111,
+  "bilancio_annuale": {
+   "ricavi": {
+    "2022": 26485000000.0,
+    "2023": 26640000000.0,
+    "2024": 25846000000.0,
+    "2025": 24942000000.0
+   },
+   "utile_netto": {
+    "2022": 2363000000.0,
+    "2023": 2855000000.0,
+    "2024": 2744000000.0,
+    "2025": -5846000000.0
+   },
+   "utile_operativo": {
+    "2022": 4547000000.0,
+    "2023": 5234000000.0,
+    "2024": 5352000000.0,
+    "2025": 4637000000.0
+   }
+  },
+  "currency": "USD",
+  "currentRatio": 1.061,
+  "debtToEquity": 52.591,
+  "dividendYield": 6.57,
+  "enterpriseToEbitda": 8.248,
+  "fiftyTwoWeekHigh": 28.09,
+  "fiftyTwoWeekLow": 21.035,
+  "forwardPE": 11.6928,
+  "freeCashflow": 3250500096,
+  "grossMargins": 0.335,
+  "industry": "Packaged Foods",
+  "longName": "The Kraft Heinz Company",
+  "marketCap": 28862949376,
+  "numberOfAnalystOpinions": 18,
+  "operatingCashflow": 4621000192,
+  "operatingMargins": 0.1549,
+  "payoutRatio": 0.7306,
+  "priceToBook": 0.8017,
+  "profitMargins": -0.1364,
+  "quickRatio": 0.57,
+  "recommendationKey": "hold",
+  "returnOnAssets": 0.0363,
+  "returnOnEquity": -0.0876,
+  "revenueGrowth": -0.014,
+  "sector": "Consumer Defensive",
+  "targetMeanPrice": 24.6944,
+  "totalCash": 2680999936,
+  "totalDebt": 19000999936
+ }
+}

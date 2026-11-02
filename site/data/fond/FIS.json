@@ -1,0 +1,55 @@
+{
+ "aggiornato": "2026-11-02",
+ "dati": {
+  "beta": 0.828,
+  "bilancio_annuale": {
+   "ricavi": {
+    "2022": 9720000000.0,
+    "2023": 9831000000.0,
+    "2024": 10127000000.0,
+    "2025": 10677000000.0
+   },
+   "utile_netto": {
+    "2022": -16752000000.0,
+    "2023": -6655000000.0,
+    "2024": 1450000000.0,
+    "2025": 382000000.0
+   },
+   "utile_operativo": {
+    "2022": 1279000000.0,
+    "2023": 1560000000.0,
+    "2024": 1761000000.0,
+    "2025": 1759000000.0
+   }
+  },
+  "currency": "USD",
+  "currentRatio": 0.535,
+  "debtToEquity": 132.51,
+  "dividendYield": 4.57,
+  "enterpriseToEbitda": 11.463,
+  "fiftyTwoWeekHigh": 68.37,
+  "fiftyTwoWeekLow": 32.1,
+  "forwardPE": 5.7988,
+  "freeCashflow": 2653125120,
+  "grossMargins": 0.3584,
+  "industry": "Information Technology Services",
+  "longName": "Fidelity National Information Services, Inc.",
+  "marketCap": 19925690368,
+  "numberOfAnalystOpinions": 25,
+  "operatingCashflow": 2976000000,
+  "operatingMargins": 0.2067,
+  "payoutRatio": 0.2581,
+  "priceToBook": 1.2403,
+  "profitMargins": 0.2765,
+  "quickRatio": 0.38,
+  "recommendationKey": "buy",
+  "returnOnAssets": 0.0428,
+  "returnOnEquity": 0.2235,
+  "revenueGrowth": 0.291,
+  "sector": "Technology",
+  "targetMeanPrice": 47.04,
+  "totalCash": 744000000,
+  "totalDebt": 21255999488,
+  "trailingPE": 5.9217
+ }
+}

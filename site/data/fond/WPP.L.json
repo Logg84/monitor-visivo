@@ -1,0 +1,55 @@
+{
+ "aggiornato": "2026-11-02",
+ "dati": {
+  "beta": 0.738,
+  "bilancio_annuale": {
+   "ricavi": {
+    "2022": 14429000000.0,
+    "2023": 14845000000.0,
+    "2024": 14741000000.0,
+    "2025": 13550000000.0
+   },
+   "utile_netto": {
+    "2022": 683000000.0,
+    "2023": 110000000.0,
+    "2024": 542000000.0,
+    "2025": -215000000.0
+   },
+   "utile_operativo": {
+    "2022": 1358000000.0,
+    "2023": 531000000.0,
+    "2024": 1325000000.0,
+    "2025": 382000000.0
+   }
+  },
+  "currency": "GBp",
+  "currentRatio": 0.866,
+  "debtToEquity": 257.604,
+  "dividendYield": 3.7,
+  "earningsGrowth": -0.575,
+  "enterpriseToEbitda": 16.161,
+  "fiftyTwoWeekHigh": 420.174,
+  "fiftyTwoWeekLow": 218.5,
+  "forwardPE": 7.3266,
+  "freeCashflow": 744249984,
+  "grossMargins": 0.1594,
+  "industry": "Advertising Agencies",
+  "longName": "WPP plc",
+  "marketCap": 4394883072,
+  "numberOfAnalystOpinions": 15,
+  "operatingCashflow": 1100000000,
+  "operatingMargins": 0.0409,
+  "payoutRatio": 1.1387,
+  "priceToBook": 1.6866,
+  "profitMargins": -0.0181,
+  "quickRatio": 0.866,
+  "recommendationKey": "hold",
+  "returnOnAssets": 0.011,
+  "returnOnEquity": -0.0662,
+  "revenueGrowth": -0.044,
+  "sector": "Communication Services",
+  "targetMeanPrice": 396.6,
+  "totalCash": 2363000064,
+  "totalDebt": 7182000128
+ }
+}

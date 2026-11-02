@@ -1,0 +1,56 @@
+{
+ "aggiornato": "2026-11-02",
+ "dati": {
+  "beta": 0.677,
+  "bilancio_annuale": {
+   "ricavi": {
+    "2022": 22095973000.0,
+    "2023": 23090610000.0,
+    "2024": 23486569000.0,
+    "2025": 24300141000.0
+   },
+   "utile_netto": {
+    "2022": 1182701000.0,
+    "2023": 1316524000.0,
+    "2024": 904076000.0,
+    "2025": 65945000.0
+   },
+   "utile_operativo": {
+    "2022": 1614199000.0,
+    "2023": 1747053000.0,
+    "2024": 1442736000.0,
+    "2025": 1214612000.0
+   }
+  },
+  "currency": "USD",
+  "currentRatio": 1.223,
+  "debtToEquity": 146.475,
+  "dividendYield": 3.52,
+  "earningsGrowth": 0.0,
+  "enterpriseToEbitda": 11.025,
+  "fiftyTwoWeekHigh": 151.57,
+  "fiftyTwoWeekLow": 90.78,
+  "forwardPE": 14.8557,
+  "freeCashflow": 915274112,
+  "grossMargins": 0.3774,
+  "industry": "Auto Parts",
+  "longName": "Genuine Parts Company",
+  "marketCap": 16667245568,
+  "numberOfAnalystOpinions": 9,
+  "operatingCashflow": 1196720000,
+  "operatingMargins": 0.0636,
+  "payoutRatio": 16.2212,
+  "priceToBook": 3.5853,
+  "profitMargins": 0.0012,
+  "quickRatio": 0.452,
+  "recommendationKey": "buy",
+  "returnOnAssets": 0.0441,
+  "returnOnEquity": 0.0066,
+  "revenueGrowth": 0.042,
+  "sector": "Consumer Cyclical",
+  "targetMeanPrice": 140.0,
+  "totalCash": 763150976,
+  "totalDebt": 6824138752,
+  "trailingPE": 465.0
+ }
+}

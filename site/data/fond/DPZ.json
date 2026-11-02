@@ -1,0 +1,54 @@
+{
+ "aggiornato": "2026-11-02",
+ "dati": {
+  "beta": 0.951,
+  "bilancio_annuale": {
+   "ricavi": {
+    "2022": 4537158000.0,
+    "2023": 4479358000.0,
+    "2024": 4706416000.0,
+    "2025": 4939994000.0
+   },
+   "utile_netto": {
+    "2022": 452263000.0,
+    "2023": 519118000.0,
+    "2024": 584170000.0,
+    "2025": 601704000.0
+   },
+   "utile_operativo": {
+    "2022": 746752000.0,
+    "2023": 819668000.0,
+    "2024": 879157000.0,
+    "2025": 949946000.0
+   }
+  },
+  "currency": "USD",
+  "currentRatio": 0.488,
+  "dividendYield": 2.54,
+  "earningsGrowth": 0.127,
+  "enterpriseToEbitda": 14.591,
+  "fiftyTwoWeekHigh": 442.35,
+  "fiftyTwoWeekLow": 282.0,
+  "forwardPE": 15.2057,
+  "freeCashflow": 566022976,
+  "grossMargins": 0.2887,
+  "industry": "Restaurants",
+  "longName": "Domino's Pizza, Inc.",
+  "marketCap": 10319821824,
+  "numberOfAnalystOpinions": 27,
+  "operatingCashflow": 760406976,
+  "operatingMargins": 0.2041,
+  "payoutRatio": 0.4248,
+  "priceToBook": -2.6091,
+  "profitMargins": 0.1203,
+  "quickRatio": 0.274,
+  "recommendationKey": "buy",
+  "returnOnAssets": 0.3604,
+  "revenueGrowth": 0.034,
+  "sector": "Consumer Cyclical",
+  "targetMeanPrice": 356.4815,
+  "totalCash": 229035008,
+  "totalDebt": 5121823232,
+  "trailingPE": 17.2843
+ }
+}

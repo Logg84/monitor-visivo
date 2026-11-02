@@ -1,0 +1,54 @@
+{
+ "aggiornato": "2026-11-02",
+ "dati": {
+  "beta": 0.94,
+  "bilancio_annuale": {
+   "ricavi": {
+    "2022": 4091300000.0,
+    "2023": 4254100000.0,
+    "2024": 4573200000.0,
+    "2025": 4951100000.0
+   },
+   "utile_netto": {
+    "2022": 352200000.0,
+    "2023": 1374800000.0,
+    "2024": 936900000.0,
+    "2025": 875000000.0
+   },
+   "utile_operativo": {
+    "2022": 514500000.0,
+    "2023": 638200000.0,
+    "2024": 932900000.0,
+    "2025": 1138400000.0
+   }
+  },
+  "currency": "USD",
+  "currentRatio": 0.61,
+  "dividendYield": 0.0,
+  "earningsGrowth": 0.377,
+  "enterpriseToEbitda": 11.843,
+  "fiftyTwoWeekHigh": 136.29,
+  "fiftyTwoWeekLow": 71.59,
+  "forwardPE": 10.4352,
+  "freeCashflow": 1213387520,
+  "grossMargins": 0.6375,
+  "industry": "Software - Infrastructure",
+  "longName": "GoDaddy Inc.",
+  "marketCap": 14848176128,
+  "numberOfAnalystOpinions": 16,
+  "operatingCashflow": 1772300032,
+  "operatingMargins": 0.2724,
+  "payoutRatio": 0.0,
+  "priceToBook": -103.2952,
+  "profitMargins": 0.1856,
+  "quickRatio": 0.398,
+  "recommendationKey": "buy",
+  "returnOnAssets": 0.1062,
+  "revenueGrowth": 0.06,
+  "sector": "Technology",
+  "targetMeanPrice": 111.5625,
+  "totalCash": 1164899968,
+  "totalDebt": 3841999872,
+  "trailingPE": 16.1265
+ }
+}

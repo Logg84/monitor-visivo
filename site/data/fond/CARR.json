@@ -1,0 +1,54 @@
+{
+ "aggiornato": "2026-11-02",
+ "dati": {
+  "beta": 1.288,
+  "bilancio_annuale": {
+   "ricavi": {
+    "2022": 17288000000.0,
+    "2023": 18951000000.0,
+    "2024": 22486000000.0,
+    "2025": 21747000000.0
+   },
+   "utile_netto": {
+    "2022": 3534000000.0,
+    "2023": 1349000000.0,
+    "2024": 5604000000.0,
+    "2025": 1484000000.0
+   },
+   "utile_operativo": {
+    "2022": 1904000000.0,
+    "2023": 2062000000.0,
+    "2024": 2098000000.0,
+    "2025": 1907000000.0
+   }
+  },
+  "currency": "USD",
+  "currentRatio": 0.997,
+  "debtToEquity": 113.962,
+  "dividendYield": 1.79,
+  "enterpriseToEbitda": 16.846,
+  "fiftyTwoWeekHigh": 76.76,
+  "fiftyTwoWeekLow": 50.24,
+  "forwardPE": 16.7734,
+  "freeCashflow": 1944125056,
+  "grossMargins": 0.2438,
+  "industry": "Building Products & Equipment",
+  "longName": "Carrier Global Corporation",
+  "marketCap": 43877933056,
+  "numberOfAnalystOpinions": 23,
+  "operatingCashflow": 2859000064,
+  "operatingMargins": 0.11,
+  "payoutRatio": 0.6739,
+  "priceToBook": 4.3669,
+  "profitMargins": -0.079,
+  "quickRatio": 0.6,
+  "recommendationKey": "buy",
+  "returnOnAssets": 0.0343,
+  "returnOnEquity": -0.1344,
+  "revenueGrowth": 0.123,
+  "sector": "Industrials",
+  "targetMeanPrice": 69.0922,
+  "totalCash": 1354000000,
+  "totalDebt": 11875999744
+ }
+}

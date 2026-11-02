@@ -1,0 +1,56 @@
+{
+ "aggiornato": "2026-11-02",
+ "dati": {
+  "beta": 0.785,
+  "bilancio_annuale": {
+   "ricavi": {
+    "2022": 22232000000.0,
+    "2023": 20993000000.0,
+    "2024": 21156000000.0,
+    "2025": 21102000000.0
+   },
+   "utile_netto": {
+    "2022": 3326000000.0,
+    "2023": 2824000000.0,
+    "2024": 2777000000.0,
+    "2025": 2608000000.0
+   },
+   "utile_operativo": {
+    "2022": 4752000000.0,
+    "2023": 3573000000.0,
+    "2024": 4009000000.0,
+    "2025": 3658000000.0
+   }
+  },
+  "currency": "EUR",
+  "currentRatio": 1.695,
+  "debtToEquity": 40.618,
+  "dividendYield": 1.45,
+  "earningsGrowth": -0.247,
+  "enterpriseToEbitda": 13.406,
+  "fiftyTwoWeekHigh": 152.1,
+  "fiftyTwoWeekLow": 100.7,
+  "forwardPE": 16.6647,
+  "freeCashflow": 2632999936,
+  "grossMargins": 0.5909,
+  "industry": "Drug Manufacturers - Specialty & Generic",
+  "longName": "Merck KGaA",
+  "marketCap": 65303638016,
+  "numberOfAnalystOpinions": 14,
+  "operatingCashflow": 4232000000,
+  "operatingMargins": 0.1386,
+  "payoutRatio": 0.4037,
+  "priceToBook": 2.1587,
+  "profitMargins": 0.1121,
+  "quickRatio": 0.988,
+  "recommendationKey": "buy",
+  "returnOnAssets": 0.0465,
+  "returnOnEquity": 0.0813,
+  "revenueGrowth": 0.034,
+  "sector": "Healthcare",
+  "targetMeanPrice": 156.1429,
+  "totalCash": 3123000064,
+  "totalDebt": 12302000128,
+  "trailingPE": 27.5596
+ }
+}

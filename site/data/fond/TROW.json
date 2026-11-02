@@ -1,0 +1,56 @@
+{
+ "aggiornato": "2026-11-02",
+ "dati": {
+  "beta": 1.471,
+  "bilancio_annuale": {
+   "ricavi": {
+    "2022": 6488400000.0,
+    "2023": 6460500000.0,
+    "2024": 7093600000.0,
+    "2025": 7314800000.0
+   },
+   "utile_netto": {
+    "2022": 1557900000.0,
+    "2023": 1788700000.0,
+    "2024": 2100100000.0,
+    "2025": 2087100000.0
+   },
+   "utile_operativo": {
+    "2022": 2496000000.0,
+    "2023": 2038000000.0,
+    "2024": 2476600000.0,
+    "2025": 2477400000.0
+   }
+  },
+  "currency": "USD",
+  "currentRatio": 3.614,
+  "debtToEquity": 6.674,
+  "dividendYield": 5.0,
+  "earningsGrowth": -0.028,
+  "enterpriseToEbitda": 6.711,
+  "fiftyTwoWeekHigh": 122.0,
+  "fiftyTwoWeekLow": 85.22,
+  "forwardPE": 10.2415,
+  "freeCashflow": 2093425024,
+  "grossMargins": 0.5225,
+  "industry": "Asset Management",
+  "longName": "T. Rowe Price Group, Inc.",
+  "marketCap": 22164566016,
+  "numberOfAnalystOpinions": 13,
+  "operatingCashflow": 1866200064,
+  "operatingMargins": 0.386,
+  "payoutRatio": 0.5233,
+  "priceToBook": 1.9492,
+  "profitMargins": 0.284,
+  "quickRatio": 3.614,
+  "recommendationKey": "hold",
+  "returnOnAssets": 0.1066,
+  "returnOnEquity": 0.182,
+  "revenueGrowth": 0.059,
+  "sector": "Financial Services",
+  "targetMeanPrice": 105.1539,
+  "totalCash": 3774299904,
+  "totalDebt": 841800000,
+  "trailingPE": 10.5162
+ }
+}

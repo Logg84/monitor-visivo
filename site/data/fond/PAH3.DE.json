@@ -1,0 +1,54 @@
+{
+ "aggiornato": "2026-11-02",
+ "dati": {
+  "beta": 0.992,
+  "bilancio_annuale": {
+   "ricavi": {
+    "2022": 5440000000.0,
+    "2023": 5425000000.0,
+    "2024": -19862000000.0,
+    "2025": 2743000000.0
+   },
+   "utile_netto": {
+    "2022": 5492000000.0,
+    "2023": 5074000000.0,
+    "2024": -20017000000.0,
+    "2025": 2651000000.0
+   },
+   "utile_operativo": {
+    "2022": 5398000000.0,
+    "2023": 5390000000.0,
+    "2024": -19892000000.0,
+    "2025": 2690000000.0
+   }
+  },
+  "currency": "EUR",
+  "currentRatio": 11.233,
+  "debtToEquity": 19.333,
+  "dividendYield": 5.9,
+  "enterpriseToEbitda": -223.13,
+  "fiftyTwoWeekHigh": 41.52,
+  "fiftyTwoWeekLow": 24.24,
+  "forwardPE": 1.9838,
+  "freeCashflow": -423000000,
+  "grossMargins": 0.0,
+  "industry": "Auto Manufacturers",
+  "longName": "Porsche Automobil Holding SE",
+  "marketCap": 7846125056,
+  "numberOfAnalystOpinions": 9,
+  "operatingCashflow": 429000000,
+  "operatingMargins": 0.0,
+  "payoutRatio": 4.871,
+  "priceToBook": 0.2196,
+  "profitMargins": 0.0,
+  "quickRatio": 11.177,
+  "recommendationKey": "hold",
+  "returnOnAssets": -0.0009,
+  "returnOnEquity": 0.0027,
+  "sector": "Consumer Cyclical",
+  "targetMeanPrice": 35.0278,
+  "totalCash": 1916999936,
+  "totalDebt": 6906999808,
+  "trailingPE": 82.6452
+ }
+}

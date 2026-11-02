@@ -1,0 +1,36 @@
+{
+ "aggiornato": "2026-11-02",
+ "dati": {
+  "bilancio_annuale": {
+   "ricavi": {
+    "2022": 17737000000.0,
+    "2023": 19093000000.0,
+    "2024": 20456000000.0,
+    "2025": 21193000000.0
+   },
+   "utile_netto": {
+    "2022": 2530000000.0,
+    "2023": 3068000000.0,
+    "2024": 3131000000.0,
+    "2025": 3480000000.0
+   },
+   "utile_operativo": {
+    "2022": 3686000000.0,
+    "2023": 4847000000.0,
+    "2024": 5879000000.0,
+    "2025": 5698000000.0
+   }
+  },
+  "currency": "USD",
+  "fiftyTwoWeekHigh": 70.41,
+  "fiftyTwoWeekLow": 43.87,
+  "forwardPE": 6.306,
+  "longName": "Fiserv, Inc.",
+  "marketCap": 26598971392,
+  "numberOfAnalystOpinions": 27,
+  "priceToBook": 0.9872,
+  "recommendationKey": "hold",
+  "targetMeanPrice": 57.5548,
+  "trailingPE": 9.6008
+ }
+}

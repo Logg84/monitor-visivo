@@ -1,0 +1,56 @@
+{
+ "aggiornato": "2026-11-02",
+ "dati": {
+  "beta": 1.478,
+  "bilancio_annuale": {
+   "ricavi": {
+    "2022": 5485500000.0,
+    "2023": 4772400000.0,
+    "2024": 4178000000.0,
+    "2025": 4086900000.0
+   },
+   "utile_netto": {
+    "2022": 1275200000.0,
+    "2023": 982800000.0,
+    "2024": 596000000.0,
+    "2025": 477100000.0
+   },
+   "utile_operativo": {
+    "2022": 1557700000.0,
+    "2023": 1153300000.0,
+    "2024": 787400000.0,
+    "2025": 524200000.0
+   }
+  },
+  "currency": "USD",
+  "currentRatio": 3.101,
+  "debtToEquity": 11.869,
+  "dividendYield": 0.0,
+  "earningsGrowth": -0.686,
+  "enterpriseToEbitda": 14.838,
+  "fiftyTwoWeekHigh": 92.8,
+  "fiftyTwoWeekLow": 51.93,
+  "forwardPE": 15.0733,
+  "freeCashflow": 448812512,
+  "grossMargins": 0.4073,
+  "industry": "Semiconductors",
+  "longName": "Skyworks Solutions, Inc.",
+  "marketCap": 20595800064,
+  "numberOfAnalystOpinions": 17,
+  "operatingCashflow": 716200000,
+  "operatingMargins": 0.0882,
+  "payoutRatio": 1.4715,
+  "priceToBook": 2.297,
+  "profitMargins": 0.0723,
+  "quickRatio": 1.312,
+  "recommendationKey": "hold",
+  "returnOnAssets": 0.0344,
+  "returnOnEquity": 0.0509,
+  "revenueGrowth": -0.031,
+  "sector": "Technology",
+  "targetMeanPrice": 78.6823,
+  "totalCash": 799200000,
+  "totalDebt": 681100032,
+  "trailingPE": 45.3782
+ }
+}

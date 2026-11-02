@@ -1,0 +1,55 @@
+{
+ "aggiornato": "2026-11-02",
+ "dati": {
+  "beta": 0.409,
+  "bilancio_annuale": {
+   "ricavi": {
+    "2022": 56902000000.0,
+    "2023": 44622000000.0,
+    "2024": 42964000000.0,
+    "2025": 39968000000.0
+   },
+   "utile_netto": {
+    "2022": 4582000000.0,
+    "2023": 589000000.0,
+    "2024": 1116000000.0,
+    "2025": -2623000000.0
+   },
+   "utile_operativo": {
+    "2022": 5702000000.0,
+    "2023": 2100000000.0,
+    "2024": 1905000000.0,
+    "2025": 158000000.0
+   }
+  },
+  "currency": "USD",
+  "currentRatio": 1.756,
+  "debtToEquity": 107.566,
+  "dividendYield": 4.03,
+  "earningsGrowth": 6.75,
+  "enterpriseToEbitda": 9.098,
+  "fiftyTwoWeekHigh": 42.74,
+  "fiftyTwoWeekLow": 20.93,
+  "forwardPE": 18.8813,
+  "freeCashflow": 897625024,
+  "grossMargins": 0.1101,
+  "industry": "Chemicals",
+  "longName": "Dow Inc.",
+  "marketCap": 25118703616,
+  "numberOfAnalystOpinions": 17,
+  "operatingCashflow": 4576999936,
+  "operatingMargins": 0.0678,
+  "payoutRatio": 7.0,
+  "priceToBook": 1.5551,
+  "profitMargins": -0.021,
+  "quickRatio": 0.903,
+  "recommendationKey": "hold",
+  "returnOnAssets": 0.0187,
+  "returnOnEquity": -0.0324,
+  "revenueGrowth": 0.13,
+  "sector": "Basic Materials",
+  "targetMeanPrice": 34.7647,
+  "totalCash": 4486000128,
+  "totalDebt": 18965999616
+ }
+}

@@ -1,0 +1,56 @@
+{
+ "aggiornato": "2026-11-02",
+ "dati": {
+  "beta": 0.21,
+  "bilancio_annuale": {
+   "ricavi": {
+    "2022": 10676000000.0,
+    "2023": 11454000000.0,
+    "2024": 11535000000.0,
+    "2025": 12484000000.0
+   },
+   "utile_netto": {
+    "2022": 579000000.0,
+    "2023": 681000000.0,
+    "2024": 550000000.0,
+    "2025": 605000000.0
+   },
+   "utile_operativo": {
+    "2022": 517000000.0,
+    "2023": 744000000.0,
+    "2024": 486000000.0,
+    "2025": 611000000.0
+   }
+  },
+  "currency": "USD",
+  "currentRatio": 1.265,
+  "debtToEquity": 53.332,
+  "dividendYield": 1.78,
+  "earningsGrowth": 0.489,
+  "enterpriseToEbitda": 12.11,
+  "fiftyTwoWeekHigh": 460.0,
+  "fiftyTwoWeekLow": 255.36,
+  "forwardPE": 15.3285,
+  "freeCashflow": 193375008,
+  "grossMargins": 0.1272,
+  "industry": "Aerospace & Defense",
+  "longName": "Huntington Ingalls Industries, Inc.",
+  "marketCap": 12486992896,
+  "numberOfAnalystOpinions": 12,
+  "operatingCashflow": 749000000,
+  "operatingMargins": 0.0772,
+  "payoutRatio": 0.2973,
+  "priceToBook": 2.2736,
+  "profitMargins": 0.0542,
+  "quickRatio": 1.141,
+  "recommendationKey": "buy",
+  "returnOnAssets": 0.0457,
+  "returnOnEquity": 0.1399,
+  "revenueGrowth": 0.108,
+  "sector": "Industrials",
+  "targetMeanPrice": 358.1667,
+  "totalCash": 387000000,
+  "totalDebt": 2928999936,
+  "trailingPE": 17.0641
+ }
+}

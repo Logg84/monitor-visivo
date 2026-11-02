@@ -1,0 +1,56 @@
+{
+ "aggiornato": "2026-11-02",
+ "dati": {
+  "beta": 1.415,
+  "bilancio_annuale": {
+   "ricavi": {
+    "2022": 17606000000.0,
+    "2023": 19409000000.0,
+    "2024": 21505000000.0,
+    "2025": 23769000000.0
+   },
+   "utile_netto": {
+    "2022": 4756000000.0,
+    "2023": 5428000000.0,
+    "2024": 5560000000.0,
+    "2025": 7130000000.0
+   },
+   "utile_operativo": {
+    "2022": 6098000000.0,
+    "2023": 6650000000.0,
+    "2024": 7741000000.0,
+    "2025": 8706000000.0
+   }
+  },
+  "currency": "USD",
+  "currentRatio": 0.77,
+  "debtToEquity": 57.693,
+  "dividendYield": 0.0,
+  "earningsGrowth": 0.105,
+  "enterpriseToEbitda": 9.936,
+  "fiftyTwoWeekHigh": 362.71,
+  "fiftyTwoWeekLow": 190.12,
+  "forwardPE": 9.0968,
+  "freeCashflow": 9345125376,
+  "grossMargins": 0.8925,
+  "industry": "Software - Application",
+  "longName": "Adobe Inc.",
+  "marketCap": 97389510656,
+  "numberOfAnalystOpinions": 32,
+  "operatingCashflow": 10805999616,
+  "operatingMargins": 0.3482,
+  "payoutRatio": 0.0,
+  "priceToBook": 8.3169,
+  "profitMargins": 0.2805,
+  "quickRatio": 0.65,
+  "recommendationKey": "hold",
+  "returnOnAssets": 0.2008,
+  "returnOnEquity": 0.619,
+  "revenueGrowth": 0.129,
+  "sector": "Technology",
+  "targetMeanPrice": 272.3138,
+  "totalCash": 5641999872,
+  "totalDebt": 6786999808,
+  "trailingPE": 13.9715
+ }
+}

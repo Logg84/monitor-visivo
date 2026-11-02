@@ -1,0 +1,56 @@
+{
+ "aggiornato": "2026-11-02",
+ "dati": {
+  "beta": 0.593,
+  "bilancio_annuale": {
+   "ricavi": {
+    "2022": 3563000000.0,
+    "2023": 4199000000.0,
+    "2024": 4705000000.0,
+    "2025": 5763000000.0
+   },
+   "utile_netto": {
+    "2022": 672000000.0,
+    "2023": 871000000.0,
+    "2024": 993000000.0,
+    "2025": 1054000000.0
+   },
+   "utile_operativo": {
+    "2022": 963000000.0,
+    "2023": 1156000000.0,
+    "2024": 1367000000.0,
+    "2025": 1502000000.0
+   }
+  },
+  "currency": "USD",
+  "currentRatio": 1.142,
+  "debtToEquity": 64.241,
+  "dividendYield": 0.95,
+  "earningsGrowth": -0.01,
+  "enterpriseToEbitda": 12.815,
+  "fiftyTwoWeekHigh": 82.58,
+  "fiftyTwoWeekLow": 53.81,
+  "forwardPE": 14.6315,
+  "freeCashflow": 1209750016,
+  "grossMargins": 0.498,
+  "industry": "Insurance Brokers",
+  "longName": "Brown & Brown, Inc.",
+  "marketCap": 23138824192,
+  "numberOfAnalystOpinions": 18,
+  "operatingCashflow": 1584000000,
+  "operatingMargins": 0.24,
+  "payoutRatio": 0.2089,
+  "priceToBook": 1.8129,
+  "profitMargins": 0.1787,
+  "quickRatio": 0.453,
+  "recommendationKey": "hold",
+  "returnOnAssets": 0.0389,
+  "returnOnEquity": 0.098,
+  "revenueGrowth": 0.097,
+  "sector": "Financial Services",
+  "targetMeanPrice": 74.3889,
+  "totalCash": 1099000064,
+  "totalDebt": 8095000064,
+  "trailingPE": 22.0759
+ }
+}

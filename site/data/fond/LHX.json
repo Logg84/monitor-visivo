@@ -1,0 +1,56 @@
+{
+ "aggiornato": "2026-11-02",
+ "dati": {
+  "beta": 0.505,
+  "bilancio_annuale": {
+   "ricavi": {
+    "2022": 17062000000.0,
+    "2023": 19419000000.0,
+    "2024": 21325000000.0,
+    "2025": 21865000000.0
+   },
+   "utile_netto": {
+    "2022": 1062000000.0,
+    "2023": 1227000000.0,
+    "2024": 1502000000.0,
+    "2025": 1606000000.0
+   },
+   "utile_operativo": {
+    "2022": 1929000000.0,
+    "2023": 1800000000.0,
+    "2024": 2015000000.0,
+    "2025": 2150000000.0
+   }
+  },
+  "currency": "USD",
+  "currentRatio": 1.196,
+  "debtToEquity": 51.802,
+  "dividendYield": 1.8,
+  "earningsGrowth": 0.333,
+  "enterpriseToEbitda": 14.538,
+  "fiftyTwoWeekHigh": 379.23,
+  "fiftyTwoWeekLow": 232.34,
+  "forwardPE": 20.536,
+  "freeCashflow": 3432999936,
+  "grossMargins": 0.2555,
+  "industry": "Aerospace & Defense",
+  "longName": "L3Harris Technologies, Inc.",
+  "marketCap": 51691184128,
+  "numberOfAnalystOpinions": 19,
+  "operatingCashflow": 4184999936,
+  "operatingMargins": 0.1434,
+  "payoutRatio": 0.4609,
+  "priceToBook": 2.5531,
+  "profitMargins": 0.0876,
+  "quickRatio": 0.98,
+  "recommendationKey": "buy",
+  "returnOnAssets": 0.0456,
+  "returnOnEquity": 0.1003,
+  "revenueGrowth": 0.071,
+  "sector": "Industrials",
+  "targetMeanPrice": 332.5263,
+  "totalCash": 3020999936,
+  "totalDebt": 10995999744,
+  "trailingPE": 25.8482
+ }
+}
