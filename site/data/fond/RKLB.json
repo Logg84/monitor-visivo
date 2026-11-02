@@ -1,7 +1,7 @@
 {
  "aggiornato": "2026-11-02",
  "dati": {
-  "beta": 2.938,
+  "beta": 3.176,
   "bilancio_annuale": {
    "ricavi": {
     "2022": 210996000.0,
@@ -24,22 +24,26 @@
   },
   "currency": "USD",
   "currentRatio": 5.482,
+  "debito_netto": -2168493960,
+  "debito_netto_su_ebitda": 14.41,
   "debtToEquity": 3.828,
   "dividendYield": 0.0,
+  "ebitda": -150520992,
   "enterpriseToEbitda": -203.156,
   "fiftyTwoWeekHigh": 151.0,
   "fiftyTwoWeekLow": 37.57,
-  "forwardPE": 951.9916,
+  "financialCurrency": "USD",
+  "forwardPE": 905.7228,
   "freeCashflow": -251963632,
   "grossMargins": 0.3726,
   "industry": "Aerospace & Defense",
   "longName": "Rocket Lab Corporation",
-  "marketCap": 34994962432,
+  "marketCap": 33294131200,
   "numberOfAnalystOpinions": 20,
   "operatingCashflow": -222460992,
   "operatingMargins": -0.2457,
   "payoutRatio": 0.0,
-  "priceToBook": 9.3748,
+  "priceToBook": 8.9192,
   "profitMargins": -0.2151,
   "quickRatio": 4.805,
   "recommendationKey": "none",
@@ -50,5 +54,6 @@
   "targetMeanPrice": 102.15,
   "totalCash": 2302184960,
   "totalDebt": 133691000
- }
+ },
+ "v": 2
 }

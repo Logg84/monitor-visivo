@@ -1,7 +1,7 @@
 {
  "aggiornato": "2026-11-02",
  "dati": {
-  "beta": 0.785,
+  "beta": 0.819,
   "bilancio_annuale": {
    "ricavi": {
     "2022": 22232000000.0,
@@ -24,23 +24,27 @@
   },
   "currency": "EUR",
   "currentRatio": 1.695,
+  "debito_netto": 9179000064,
+  "debito_netto_su_ebitda": 1.64,
   "debtToEquity": 40.618,
   "dividendYield": 1.45,
   "earningsGrowth": -0.247,
+  "ebitda": 5586999808,
   "enterpriseToEbitda": 13.406,
   "fiftyTwoWeekHigh": 152.1,
   "fiftyTwoWeekLow": 100.7,
-  "forwardPE": 16.6647,
+  "financialCurrency": "EUR",
+  "forwardPE": 16.6425,
   "freeCashflow": 2632999936,
   "grossMargins": 0.5909,
   "industry": "Drug Manufacturers - Specialty & Generic",
   "longName": "Merck KGaA",
-  "marketCap": 65303638016,
+  "marketCap": 65216684032,
   "numberOfAnalystOpinions": 14,
   "operatingCashflow": 4232000000,
   "operatingMargins": 0.1386,
   "payoutRatio": 0.4037,
-  "priceToBook": 2.1587,
+  "priceToBook": 2.1558,
   "profitMargins": 0.1121,
   "quickRatio": 0.988,
   "recommendationKey": "buy",
@@ -51,6 +55,7 @@
   "targetMeanPrice": 156.1429,
   "totalCash": 3123000064,
   "totalDebt": 12302000128,
-  "trailingPE": 27.5596
- }
+  "trailingPE": 27.5229
+ },
+ "v": 2
 }

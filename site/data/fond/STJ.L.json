@@ -1,7 +1,7 @@
 {
  "aggiornato": "2026-11-02",
  "dati": {
-  "beta": 1.023,
+  "beta": 1.034,
   "bilancio_annuale": {
    "ricavi": {
     "2022": -11922300000.0,
@@ -18,23 +18,27 @@
   },
   "currency": "GBp",
   "currentRatio": 3.068,
+  "debito_netto": 98900000,
+  "debito_netto_su_ebitda": 0.06,
   "debtToEquity": 33.043,
   "dividendYield": 1.73,
   "earningsGrowth": 0.151,
+  "ebitda": 1774000000,
   "enterpriseToEbitda": 3.02,
   "fiftyTwoWeekHigh": 1575.5,
   "fiftyTwoWeekLow": 1011.5,
-  "forwardPE": 9.7725,
+  "financialCurrency": "GBP",
+  "forwardPE": 10.1313,
   "freeCashflow": 1368462464,
   "grossMargins": 0.1025,
   "industry": "Asset Management",
   "longName": "St. James's Place plc",
-  "marketCap": 5185495552,
+  "marketCap": 5375902208,
   "numberOfAnalystOpinions": 16,
   "operatingCashflow": 557299968,
   "operatingMargins": 0.0443,
   "payoutRatio": 0.1689,
-  "priceToBook": 3.3987,
+  "priceToBook": 3.5235,
   "profitMargins": 0.0126,
   "quickRatio": 0.507,
   "recommendationKey": "buy",
@@ -45,6 +49,7 @@
   "targetMeanPrice": 1620.9999,
   "totalCash": 416600000,
   "totalDebt": 515500000,
-  "trailingPE": 9.7991
- }
+  "trailingPE": 10.1589
+ },
+ "v": 2
 }

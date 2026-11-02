@@ -1,7 +1,7 @@
 {
  "aggiornato": "2026-11-02",
  "dati": {
-  "beta": 1.341,
+  "beta": 1.274,
   "bilancio_annuale": {
    "ricavi": {
     "2022": 5122200000.0,
@@ -24,23 +24,27 @@
   },
   "currency": "USD",
   "currentRatio": 1.087,
+  "debito_netto": 5013800032,
+  "debito_netto_su_ebitda": 2.47,
   "debtToEquity": 112.843,
   "dividendYield": 1.21,
   "earningsGrowth": 0.388,
+  "ebitda": 2026599936,
   "enterpriseToEbitda": 13.203,
   "fiftyTwoWeekHigh": 228.67,
   "fiftyTwoWeekLow": 137.01,
-  "forwardPE": 19.3587,
+  "financialCurrency": "USD",
+  "forwardPE": 20.1882,
   "freeCashflow": 944600000,
   "grossMargins": 0.5518,
   "industry": "Consulting Services",
   "longName": "Equifax Inc.",
-  "marketCap": 21687711744,
+  "marketCap": 22617016320,
   "numberOfAnalystOpinions": 20,
   "operatingCashflow": 1612899968,
   "operatingMargins": 0.2099,
   "payoutRatio": 0.3528,
-  "priceToBook": 4.833,
+  "priceToBook": 5.0401,
   "profitMargins": 0.1127,
   "quickRatio": 0.93,
   "recommendationKey": "buy",
@@ -51,6 +55,7 @@
   "targetMeanPrice": 200.35,
   "totalCash": 192900000,
   "totalDebt": 5206700032,
-  "trailingPE": 29.8706
- }
+  "trailingPE": 31.1505
+ },
+ "v": 2
 }

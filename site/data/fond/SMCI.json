@@ -1,7 +1,7 @@
 {
  "aggiornato": "2026-11-02",
  "dati": {
-  "beta": 2.009,
+  "beta": 2.181,
   "bilancio_annuale": {
    "ricavi": {
     "2023": 7123482000.0,
@@ -24,23 +24,27 @@
   },
   "currency": "USD",
   "currentRatio": 3.872,
+  "debito_netto": 1715302400,
+  "debito_netto_su_ebitda": 0.61,
   "debtToEquity": 63.951,
   "dividendYield": 0.0,
   "earningsGrowth": 4.347,
+  "ebitda": 2824158976,
   "enterpriseToEbitda": 9.769,
   "fiftyTwoWeekHigh": 53.01,
   "fiftyTwoWeekLow": 19.48,
-  "forwardPE": 5.8022,
+  "financialCurrency": "USD",
+  "forwardPE": 5.3602,
   "freeCashflow": -8248783872,
   "grossMargins": 0.1082,
   "industry": "Computer Hardware",
   "longName": "Super Micro Computer, Inc.",
-  "marketCap": 21314465792,
+  "marketCap": 19998025728,
   "numberOfAnalystOpinions": 15,
   "operatingCashflow": -6809886208,
   "operatingMargins": 0.1338,
   "payoutRatio": 0.0,
-  "priceToBook": 2.111,
+  "priceToBook": 1.9502,
   "profitMargins": 0.0571,
   "quickRatio": 1.928,
   "recommendationKey": "hold",
@@ -51,6 +55,7 @@
   "targetMeanPrice": 43.2667,
   "totalCash": 7544584192,
   "totalDebt": 9259886592,
-  "trailingPE": 10.1074
- }
+  "trailingPE": 9.3374
+ },
+ "v": 2
 }

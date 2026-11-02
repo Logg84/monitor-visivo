@@ -1,0 +1,61 @@
+{
+ "aggiornato": "2026-11-02",
+ "dati": {
+  "beta": 0.984,
+  "bilancio_annuale": {
+   "ricavi": {
+    "2022": 7245000000.0,
+    "2023": 8971000000.0,
+    "2024": 10984000000.0,
+    "2025": 13278000000.0
+   },
+   "utile_netto": {
+    "2022": 325000000.0,
+    "2023": 1731000000.0,
+    "2024": 1425000000.0,
+    "2025": 1748000000.0
+   },
+   "utile_operativo": {
+    "2022": 355000000.0,
+    "2023": 762000000.0,
+    "2024": 1364000000.0,
+    "2025": 1824000000.0
+   }
+  },
+  "currency": "USD",
+  "currentRatio": 0.719,
+  "debito_netto": 3808000000,
+  "debito_netto_su_ebitda": 1.18,
+  "debtToEquity": 64.256,
+  "dividendYield": 0.0,
+  "earningsGrowth": -0.442,
+  "ebitda": 3235000064,
+  "enterpriseToEbitda": 34.904,
+  "fiftyTwoWeekHigh": 184.428,
+  "fiftyTwoWeekLow": 81.24,
+  "financialCurrency": "USD",
+  "forwardPE": 22.0778,
+  "freeCashflow": 5754250240,
+  "grossMargins": 0.7308,
+  "industry": "Software - Application",
+  "longName": "ServiceNow, Inc.",
+  "marketCap": 110029586432,
+  "numberOfAnalystOpinions": 46,
+  "operatingCashflow": 5334000128,
+  "operatingMargins": 0.1739,
+  "payoutRatio": 0.0,
+  "priceToBook": 8.4015,
+  "profitMargins": 0.0936,
+  "quickRatio": 0.579,
+  "recommendationKey": "strong_buy",
+  "returnOnAssets": 0.0459,
+  "returnOnEquity": 0.1185,
+  "revenueGrowth": 0.205,
+  "sector": "Technology",
+  "targetMeanPrice": 154.6883,
+  "totalCash": 4607000064,
+  "totalDebt": 8415000064,
+  "trailingPE": 76.2662
+ },
+ "v": 2
+}

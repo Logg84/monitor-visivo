@@ -1,7 +1,7 @@
 {
  "aggiornato": "2026-11-02",
  "dati": {
-  "beta": 1.548,
+  "beta": 1.536,
   "bilancio_annuale": {
    "ricavi": {
     "2022": 3367324000.0,
@@ -24,23 +24,27 @@
   },
   "currency": "USD",
   "currentRatio": 1.172,
+  "debito_netto": 899148032,
+  "debito_netto_su_ebitda": 0.55,
   "debtToEquity": 67.971,
   "dividendYield": 0.0,
   "earningsGrowth": 0.176,
+  "ebitda": 1621684992,
   "enterpriseToEbitda": 27.332,
   "fiftyTwoWeekHigh": 769.98,
   "fiftyTwoWeekLow": 500.61,
-  "forwardPE": 32.921,
+  "financialCurrency": "USD",
+  "forwardPE": 40.0139,
   "freeCashflow": 909368384,
   "grossMargins": 0.6245,
   "industry": "Diagnostics & Research",
   "longName": "IDEXX Laboratories, Inc.",
-  "marketCap": 43481100288,
+  "marketCap": 52912553984,
   "numberOfAnalystOpinions": 12,
   "operatingCashflow": 1371510016,
   "operatingMargins": 0.3498,
   "payoutRatio": 0.0,
-  "priceToBook": 26.9606,
+  "priceToBook": 32.8511,
   "profitMargins": 0.2503,
   "quickRatio": 0.729,
   "recommendationKey": "buy",
@@ -51,6 +55,7 @@
   "targetMeanPrice": 694.4167,
   "totalCash": 196932992,
   "totalDebt": 1096081024,
-  "trailingPE": 38.7358
- }
+  "trailingPE": 47.1989
+ },
+ "v": 2
 }

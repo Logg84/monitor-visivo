@@ -1,7 +1,7 @@
 {
  "aggiornato": "2026-11-02",
  "dati": {
-  "beta": 1.468,
+  "beta": 1.534,
   "bilancio_annuale": {
    "ricavi": {
     "2022": 2225052000.0,
@@ -24,20 +24,24 @@
   },
   "currency": "USD",
   "currentRatio": 0.797,
+  "debito_netto": -1286000000,
+  "debito_netto_su_ebitda": 1.67,
   "dividendYield": 0.0,
+  "ebitda": -769521984,
   "enterpriseToEbitda": -38.279,
   "fiftyTwoWeekHigh": 113.6,
   "fiftyTwoWeekLow": 33.88,
-  "forwardPE": -32.4627,
+  "financialCurrency": "USD",
+  "forwardPE": -33.4157,
   "freeCashflow": 1713751680,
   "grossMargins": 0.2731,
   "industry": "Electronic Gaming & Multimedia",
   "longName": "Roblox Corporation",
-  "marketCap": 30768517120,
+  "marketCap": 30689789952,
   "numberOfAnalystOpinions": 33,
   "operatingCashflow": 1949357952,
   "operatingMargins": -0.1489,
-  "priceToBook": -42990.0,
+  "priceToBook": -42880.0,
   "profitMargins": -0.1648,
   "quickRatio": 0.628,
   "recommendationKey": "buy",
@@ -48,5 +52,6 @@
   "targetMeanPrice": 49.1255,
   "totalCash": 3196000000,
   "totalDebt": 1910000000
- }
+ },
+ "v": 2
 }

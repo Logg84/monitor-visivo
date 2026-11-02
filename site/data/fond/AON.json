@@ -1,7 +1,7 @@
 {
  "aggiornato": "2026-11-02",
  "dati": {
-  "beta": 0.691,
+  "beta": 0.613,
   "bilancio_annuale": {
    "ricavi": {
     "2022": 12479000000.0,
@@ -24,23 +24,27 @@
   },
   "currency": "USD",
   "currentRatio": 1.585,
+  "debito_netto": 13797001216,
+  "debito_netto_su_ebitda": 2.31,
   "debtToEquity": 283.332,
   "dividendYield": 1.02,
   "earningsGrowth": 0.057,
+  "ebitda": 5970999808,
   "enterpriseToEbitda": 13.759,
   "fiftyTwoWeekHigh": 382.34,
   "fiftyTwoWeekLow": 266.33,
-  "forwardPE": 15.908,
+  "financialCurrency": "USD",
+  "forwardPE": 16.4998,
   "freeCashflow": 4397250048,
   "grossMargins": 0.484,
   "industry": "Insurance Brokers",
   "longName": "Aon plc",
-  "marketCap": 68244602880,
+  "marketCap": 70728966144,
   "numberOfAnalystOpinions": 19,
   "operatingCashflow": 3574000128,
   "operatingMargins": 0.2224,
   "payoutRatio": 0.1713,
-  "priceToBook": 6.7576,
+  "priceToBook": 7.0036,
   "profitMargins": 0.2224,
   "quickRatio": 0.797,
   "recommendationKey": "buy",
@@ -51,6 +55,7 @@
   "targetMeanPrice": 361.6316,
   "totalCash": 15150999552,
   "totalDebt": 28948000768,
-  "trailingPE": 17.6065
- }
+  "trailingPE": 18.2474
+ },
+ "v": 2
 }

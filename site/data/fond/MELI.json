@@ -1,7 +1,7 @@
 {
  "aggiornato": "2026-11-02",
  "dati": {
-  "beta": 1.308,
+  "beta": 1.39,
   "bilancio_annuale": {
    "ricavi": {
     "2022": 10780000000.0,
@@ -24,23 +24,27 @@
   },
   "currency": "USD",
   "currentRatio": 1.121,
+  "debito_netto": 7462000128,
+  "debito_netto_su_ebitda": 1.92,
   "debtToEquity": 168.586,
   "dividendYield": 0.0,
   "earningsGrowth": -0.109,
+  "ebitda": 3892000000,
   "enterpriseToEbitda": 23.078,
   "fiftyTwoWeekHigh": 2387.55,
   "fiftyTwoWeekLow": 1495.0,
-  "forwardPE": 29.0642,
+  "financialCurrency": "USD",
+  "forwardPE": 29.9992,
   "freeCashflow": 353375008,
   "grossMargins": 0.4775,
   "industry": "Internet Retail",
   "longName": "MercadoLibre, Inc.",
-  "marketCap": 82358476800,
+  "marketCap": 85007892480,
   "numberOfAnalystOpinions": 26,
   "operatingCashflow": 13905000448,
   "operatingMargins": 0.0672,
   "payoutRatio": 0.0,
-  "priceToBook": 10.5129,
+  "priceToBook": 10.8511,
   "profitMargins": 0.053,
   "quickRatio": 0.399,
   "recommendationKey": "strong_buy",
@@ -51,6 +55,7 @@
   "targetMeanPrice": 2271.932,
   "totalCash": 5744999936,
   "totalDebt": 13207000064,
-  "trailingPE": 44.1809
- }
+  "trailingPE": 45.6021
+ },
+ "v": 2
 }

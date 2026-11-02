@@ -1,7 +1,7 @@
 {
  "aggiornato": "2026-11-02",
  "dati": {
-  "beta": 1.343,
+  "beta": 1.325,
   "bilancio_annuale": {
    "ricavi": {
     "2022": 3676300000.0,
@@ -24,22 +24,26 @@
   },
   "currency": "USD",
   "currentRatio": 0.954,
+  "debito_netto": 1244899968,
+  "debito_netto_su_ebitda": 1.41,
   "debtToEquity": 28.553,
   "dividendYield": 0.0,
+  "ebitda": 880099968,
   "enterpriseToEbitda": 18.62,
   "fiftyTwoWeekHigh": 84.42,
   "fiftyTwoWeekLow": 47.92,
-  "forwardPE": 15.7023,
+  "financialCurrency": "USD",
+  "forwardPE": 15.92,
   "freeCashflow": 686174976,
   "grossMargins": 0.7177,
   "industry": "Scientific & Technical Instruments",
   "longName": "Trimble Inc.",
-  "marketCap": 15142699008,
+  "marketCap": 15352559616,
   "numberOfAnalystOpinions": 11,
   "operatingCashflow": 799100032,
   "operatingMargins": 0.1513,
   "payoutRatio": 0.0,
-  "priceToBook": 2.9631,
+  "priceToBook": 3.0042,
   "profitMargins": -0.0277,
   "quickRatio": 0.576,
   "recommendationKey": "strong_buy",
@@ -50,5 +54,6 @@
   "targetMeanPrice": 79.0909,
   "totalCash": 214400000,
   "totalDebt": 1459299968
- }
+ },
+ "v": 2
 }

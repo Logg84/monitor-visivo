@@ -1,7 +1,7 @@
 {
  "aggiornato": "2026-11-02",
  "dati": {
-  "beta": 2.052,
+  "beta": 2.151,
   "bilancio_annuale": {
    "ricavi": {
     "2022": 8326200000.0,
@@ -24,23 +24,27 @@
   },
   "currency": "USD",
   "currentRatio": 3.464,
+  "debito_netto": 844500224,
+  "debito_netto_su_ebitda": 0.4,
   "debtToEquity": 65.055,
   "dividendYield": 0.0,
   "earningsGrowth": 0.366,
+  "ebitda": 2089900032,
   "enterpriseToEbitda": 13.764,
   "fiftyTwoWeekHigh": 134.92,
   "fiftyTwoWeekLow": 44.56,
-  "forwardPE": 15.7513,
+  "financialCurrency": "USD",
+  "forwardPE": 15.4085,
   "freeCashflow": 1656649984,
   "grossMargins": 0.4278,
   "industry": "Semiconductors",
   "longName": "ON Semiconductor Corporation",
-  "marketCap": 27902466048,
+  "marketCap": 27295129600,
   "numberOfAnalystOpinions": 27,
   "operatingCashflow": 1672000000,
   "operatingMargins": 0.1953,
   "payoutRatio": 0.0,
-  "priceToBook": 3.8651,
+  "priceToBook": 3.7809,
   "profitMargins": 0.1017,
   "quickRatio": 2.287,
   "recommendationKey": "buy",
@@ -51,6 +55,7 @@
   "targetMeanPrice": 101.6296,
   "totalCash": 3864499968,
   "totalDebt": 4709000192,
-  "trailingPE": 46.2387
- }
+  "trailingPE": 45.2323
+ },
+ "v": 2
 }

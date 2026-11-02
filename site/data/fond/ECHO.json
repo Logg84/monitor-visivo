@@ -1,7 +1,7 @@
 {
  "aggiornato": "2026-11-02",
  "dati": {
-  "beta": 0.992,
+  "beta": 1.093,
   "bilancio_annuale": {
    "ricavi": {
     "2022": 18634246000.0,
@@ -24,22 +24,26 @@
   },
   "currency": "USD",
   "currentRatio": 5.201,
+  "debito_netto": 17079032352,
+  "debito_netto_su_ebitda": 8.59,
   "debtToEquity": 123.757,
   "dividendYield": 0.0,
+  "ebitda": 1989049984,
   "enterpriseToEbitda": 22.767,
   "fiftyTwoWeekHigh": 147.25,
   "fiftyTwoWeekLow": 65.76,
-  "forwardPE": 6.3071,
+  "financialCurrency": "USD",
+  "forwardPE": 6.391,
   "freeCashflow": -18870501376,
   "grossMargins": 0.2954,
   "industry": "Telecom Services",
   "longName": "EchoStar Corporation",
-  "marketCap": 28191688704,
+  "marketCap": 28566841344,
   "numberOfAnalystOpinions": 10,
   "operatingCashflow": -85317000,
   "operatingMargins": 0.1428,
   "payoutRatio": 0.0,
-  "priceToBook": 1.9891,
+  "priceToBook": 2.0156,
   "profitMargins": -0.3871,
   "quickRatio": 0.367,
   "recommendationKey": "strong_buy",
@@ -50,5 +54,6 @@
   "targetMeanPrice": 130.2,
   "totalCash": 496192992,
   "totalDebt": 17575225344
- }
+ },
+ "v": 2
 }

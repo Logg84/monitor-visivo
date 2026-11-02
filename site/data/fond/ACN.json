@@ -1,7 +1,7 @@
 {
  "aggiornato": "2026-11-02",
  "dati": {
-  "beta": 1.102,
+  "beta": 1.004,
   "bilancio_annuale": {
    "ricavi": {
     "2023": 64111745000.0,
@@ -24,23 +24,27 @@
   },
   "currency": "USD",
   "currentRatio": 1.427,
+  "debito_netto": 559220736,
+  "debito_netto_su_ebitda": 0.04,
   "debtToEquity": 40.283,
   "dividendYield": 2.65,
   "earningsGrowth": 0.464,
+  "ebitda": 13419352064,
   "enterpriseToEbitda": 11.536,
   "fiftyTwoWeekHigh": 291.09,
   "fiftyTwoWeekLow": 118.15,
-  "forwardPE": 16.254,
+  "financialCurrency": "USD",
+  "forwardPE": 16.4239,
   "freeCashflow": 10684486656,
   "grossMargins": 0.3205,
   "industry": "Information Technology Services",
   "longName": "Accenture plc",
-  "marketCap": 158027923456,
+  "marketCap": 159680167936,
   "numberOfAnalystOpinions": 24,
   "operatingCashflow": 12363345920,
   "operatingMargins": 0.1783,
   "payoutRatio": 0.4808,
-  "priceToBook": 4.8718,
+  "priceToBook": 4.9227,
   "profitMargins": 0.1128,
   "quickRatio": 1.308,
   "recommendationKey": "buy",
@@ -51,6 +55,7 @@
   "targetMeanPrice": 229.7379,
   "totalCash": 12837769216,
   "totalDebt": 13396989952,
-  "trailingPE": 19.0442
- }
+  "trailingPE": 19.2434
+ },
+ "v": 2
 }

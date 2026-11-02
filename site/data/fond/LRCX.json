@@ -1,7 +1,7 @@
 {
  "aggiornato": "2026-11-02",
  "dati": {
-  "beta": 1.854,
+  "beta": 2.01,
   "bilancio_annuale": {
    "ricavi": {
     "2023": 17428516000.0,
@@ -24,23 +24,27 @@
   },
   "currency": "USD",
   "currentRatio": 2.479,
+  "debito_netto": -3701940224,
+  "debito_netto_su_ebitda": -0.37,
   "debtToEquity": 26.857,
   "dividendYield": 0.55,
   "earningsGrowth": 0.766,
+  "ebitda": 10116395008,
   "enterpriseToEbitda": 29.159,
   "fiftyTwoWeekHigh": 438.5,
   "fiftyTwoWeekLow": 135.5,
-  "forwardPE": 19.541,
+  "financialCurrency": "USD",
+  "forwardPE": 18.5971,
   "freeCashflow": 4548759552,
   "grossMargins": 0.5105,
   "industry": "Semiconductor Equipment & Materials",
   "longName": "Lam Research Corporation",
-  "marketCap": 299228069888,
+  "marketCap": 284774137856,
   "numberOfAnalystOpinions": 30,
   "operatingCashflow": 7576345088,
   "operatingMargins": 0.3995,
   "payoutRatio": 0.1654,
-  "priceToBook": 21.4757,
+  "priceToBook": 20.4383,
   "profitMargins": 0.3234,
   "quickRatio": 1.791,
   "recommendationKey": "strong_buy",
@@ -51,6 +55,7 @@
   "targetMeanPrice": 364.0333,
   "totalCash": 7437384192,
   "totalDebt": 3735443968,
-  "trailingPE": 35.6349
- }
+  "trailingPE": 33.9136
+ },
+ "v": 2
 }

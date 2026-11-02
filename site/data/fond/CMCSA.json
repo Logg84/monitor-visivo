@@ -1,7 +1,7 @@
 {
  "aggiornato": "2026-11-02",
  "dati": {
-  "beta": 0.669,
+  "beta": 0.707,
   "bilancio_annuale": {
    "ricavi": {
     "2022": 121427000000.0,
@@ -24,23 +24,27 @@
   },
   "currency": "USD",
   "currentRatio": 0.821,
+  "debito_netto": 79770000384,
+  "debito_netto_su_ebitda": 2.38,
   "debtToEquity": 94.28,
   "dividendYield": 5.68,
   "earningsGrowth": 0.078,
+  "ebitda": 33540999168,
   "enterpriseToEbitda": 4.841,
   "fiftyTwoWeekHigh": 32.86,
   "fiftyTwoWeekLow": 20.48,
-  "forwardPE": 6.5931,
+  "financialCurrency": "USD",
+  "forwardPE": 6.7777,
   "freeCashflow": 13077499904,
   "grossMargins": 0.6984,
   "industry": "Telecom Services",
   "longName": "Comcast Corporation",
-  "marketCap": 82454364160,
+  "marketCap": 84762517504,
   "numberOfAnalystOpinions": 22,
   "operatingCashflow": 31726999552,
   "operatingMargins": 0.1816,
   "payoutRatio": 0.4177,
-  "priceToBook": 0.8906,
+  "priceToBook": 0.9156,
   "profitMargins": 0.092,
   "quickRatio": 0.688,
   "recommendationKey": "hold",
@@ -51,6 +55,7 @@
   "targetMeanPrice": 27.9773,
   "totalCash": 7596000256,
   "totalDebt": 87366000640,
-  "trailingPE": 7.3481
- }
+  "trailingPE": 7.5538
+ },
+ "v": 2
 }

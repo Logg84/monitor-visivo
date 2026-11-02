@@ -1,7 +1,7 @@
 {
  "aggiornato": "2026-11-02",
  "dati": {
-  "beta": 0.932,
+  "beta": 0.898,
   "bilancio_annuale": {
    "ricavi": {
     "2023": 6060900000.0,
@@ -24,23 +24,27 @@
   },
   "currency": "USD",
   "currentRatio": 1.236,
+  "debito_netto": 3116699968,
+  "debito_netto_su_ebitda": 1.72,
   "debtToEquity": 123.939,
   "dividendYield": 2.44,
   "earningsGrowth": 0.084,
+  "ebitda": 1808999936,
   "enterpriseToEbitda": 12.994,
   "fiftyTwoWeekHigh": 233.1,
   "fiftyTwoWeekLow": 133.83,
-  "forwardPE": 15.464,
+  "financialCurrency": "USD",
+  "forwardPE": 15.931,
   "freeCashflow": 1194499968,
   "grossMargins": 0.3178,
   "industry": "Information Technology Services",
   "longName": "Broadridge Financial Solutions, Inc.",
-  "marketCap": 20188784640,
+  "marketCap": 20798443520,
   "numberOfAnalystOpinions": 8,
   "operatingCashflow": 1345600000,
   "operatingMargins": 0.2461,
   "payoutRatio": 0.4063,
-  "priceToBook": 7.1766,
+  "priceToBook": 7.3933,
   "profitMargins": 0.1504,
   "quickRatio": 1.084,
   "recommendationKey": "buy",
@@ -51,6 +55,7 @@
   "targetMeanPrice": 208.625,
   "totalCash": 403800000,
   "totalDebt": 3520499968,
-  "trailingPE": 18.6271
- }
+  "trailingPE": 19.1896
+ },
+ "v": 2
 }

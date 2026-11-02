@@ -1,7 +1,7 @@
 {
  "aggiornato": "2026-11-02",
  "dati": {
-  "beta": 1.439,
+  "beta": 1.468,
   "bilancio_annuale": {
    "ricavi": {
     "2022": 1187143000.0,
@@ -24,23 +24,27 @@
   },
   "currency": "USD",
   "currentRatio": 2.149,
+  "debito_netto": 1158072960,
+  "debito_netto_su_ebitda": 7.01,
   "debtToEquity": 50.363,
   "dividendYield": 0.0,
   "earningsGrowth": -0.182,
+  "ebitda": 165106000,
   "enterpriseToEbitda": 217.491,
   "fiftyTwoWeekHigh": 738.23,
   "fiftyTwoWeekLow": 339.01,
-  "forwardPE": 40.6881,
+  "financialCurrency": "USD",
+  "forwardPE": 40.4655,
   "freeCashflow": 222160000,
   "grossMargins": 0.5952,
   "industry": "Aerospace & Defense",
   "longName": "Axon Enterprise, Inc.",
-  "marketCap": 34750926848,
+  "marketCap": 34560831488,
   "numberOfAnalystOpinions": 19,
   "operatingCashflow": 265808992,
   "operatingMargins": 0.0517,
   "payoutRatio": 0.0,
-  "priceToBook": 9.457,
+  "priceToBook": 9.4053,
   "profitMargins": 0.0619,
   "quickRatio": 1.582,
   "recommendationKey": "buy",
@@ -51,6 +55,7 @@
   "targetMeanPrice": 680.3684,
   "totalCash": 692532992,
   "totalDebt": 1850605952,
-  "trailingPE": 177.4979
- }
+  "trailingPE": 176.527
+ },
+ "v": 2
 }

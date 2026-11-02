@@ -1,7 +1,7 @@
 {
  "aggiornato": "2026-11-02",
  "dati": {
-  "beta": 0.94,
+  "beta": 0.941,
   "bilancio_annuale": {
    "ricavi": {
     "2022": 4091300000.0,
@@ -24,22 +24,26 @@
   },
   "currency": "USD",
   "currentRatio": 0.61,
+  "debito_netto": 2677099904,
+  "debito_netto_su_ebitda": 1.88,
   "dividendYield": 0.0,
   "earningsGrowth": 0.377,
+  "ebitda": 1426599936,
   "enterpriseToEbitda": 11.843,
   "fiftyTwoWeekHigh": 136.29,
   "fiftyTwoWeekLow": 71.59,
-  "forwardPE": 10.4352,
+  "financialCurrency": "USD",
+  "forwardPE": 10.3792,
   "freeCashflow": 1213387520,
   "grossMargins": 0.6375,
   "industry": "Software - Infrastructure",
   "longName": "GoDaddy Inc.",
-  "marketCap": 14848176128,
+  "marketCap": 14768389120,
   "numberOfAnalystOpinions": 16,
   "operatingCashflow": 1772300032,
   "operatingMargins": 0.2724,
   "payoutRatio": 0.0,
-  "priceToBook": -103.2952,
+  "priceToBook": -102.7401,
   "profitMargins": 0.1856,
   "quickRatio": 0.398,
   "recommendationKey": "buy",
@@ -49,6 +53,7 @@
   "targetMeanPrice": 111.5625,
   "totalCash": 1164899968,
   "totalDebt": 3841999872,
-  "trailingPE": 16.1265
- }
+  "trailingPE": 16.0399
+ },
+ "v": 2
 }

@@ -1,7 +1,7 @@
 {
  "aggiornato": "2026-11-02",
  "dati": {
-  "beta": 0.839,
+  "beta": 0.815,
   "bilancio_annuale": {
    "ricavi": {
     "2022": 50739000000.0,
@@ -24,22 +24,26 @@
   },
   "currency": "EUR",
   "currentRatio": 1.043,
+  "debito_netto": 33348998656,
+  "debito_netto_su_ebitda": 3.29,
   "debtToEquity": 129.362,
   "dividendYield": 0.22,
+  "ebitda": 10133000192,
   "enterpriseToEbitda": 8.207,
   "fiftyTwoWeekHigh": 53.92,
   "fiftyTwoWeekLow": 25.78,
-  "forwardPE": 10.4458,
+  "financialCurrency": "EUR",
+  "forwardPE": 10.3542,
   "freeCashflow": 6562999808,
   "grossMargins": 0.6046,
   "industry": "Drug Manufacturers - General",
   "longName": "Bayer Aktiengesellschaft",
-  "marketCap": 49691009024,
+  "marketCap": 49140850688,
   "numberOfAnalystOpinions": 18,
   "operatingCashflow": 4783000064,
   "operatingMargins": 0.0919,
   "payoutRatio": 1.6216,
-  "priceToBook": 1.6797,
+  "priceToBook": 1.6611,
   "profitMargins": -0.0383,
   "quickRatio": 0.671,
   "recommendationKey": "buy",
@@ -50,5 +54,6 @@
   "targetMeanPrice": 58.3333,
   "totalCash": 5081999872,
   "totalDebt": 38430998528
- }
+ },
+ "v": 2
 }

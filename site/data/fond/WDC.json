@@ -1,7 +1,7 @@
 {
  "aggiornato": "2026-11-02",
  "dati": {
-  "beta": 2.169,
+  "beta": 2.344,
   "bilancio_annuale": {
    "ricavi": {
     "2023": 6255000000.0,
@@ -24,23 +24,27 @@
   },
   "currency": "USD",
   "currentRatio": 1.434,
+  "debito_netto": -392000000,
+  "debito_netto_su_ebitda": -0.06,
   "debtToEquity": 9.863,
   "dividendYield": 0.19,
   "earningsGrowth": 0.509,
+  "ebitda": 6312000000,
   "enterpriseToEbitda": 21.649,
   "fiftyTwoWeekHigh": 799.87,
   "fiftyTwoWeekLow": 132.43,
-  "forwardPE": 9.061,
+  "financialCurrency": "USD",
+  "forwardPE": 8.3799,
   "freeCashflow": 2729499904,
   "grossMargins": 0.526,
   "industry": "Computer Hardware",
   "longName": "Western Digital Corporation",
-  "marketCap": 137043484672,
+  "marketCap": 126742110208,
   "numberOfAnalystOpinions": 24,
   "operatingCashflow": 4861000192,
   "operatingMargins": 0.4768,
   "payoutRatio": 0.0193,
-  "priceToBook": 14.6473,
+  "priceToBook": 13.5463,
   "profitMargins": 0.692,
   "quickRatio": 0.867,
   "recommendationKey": "buy",
@@ -51,6 +55,7 @@
   "targetMeanPrice": 613.375,
   "totalCash": 1314000000,
   "totalDebt": 922000000,
-  "trailingPE": 12.8776
- }
+  "trailingPE": 11.9096
+ },
+ "v": 2
 }

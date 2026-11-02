@@ -1,7 +1,7 @@
 {
  "aggiornato": "2026-11-02",
  "dati": {
-  "beta": 0.766,
+  "beta": 0.695,
   "bilancio_annuale": {
    "ricavi": {
     "2023": 2085508000.0,
@@ -24,23 +24,27 @@
   },
   "currency": "USD",
   "currentRatio": 0.598,
+  "debito_netto": 1277081952,
+  "debito_netto_su_ebitda": 1.42,
   "debtToEquity": 77.049,
   "dividendYield": 1.41,
   "earningsGrowth": -0.154,
+  "ebitda": 900307968,
   "enterpriseToEbitda": 14.324,
-  "fiftyTwoWeekHigh": 339.83,
+  "fiftyTwoWeekHigh": 345.66,
   "fiftyTwoWeekLow": 185.0,
-  "forwardPE": 15.1655,
+  "financialCurrency": "USD",
+  "forwardPE": 15.8176,
   "freeCashflow": 653727232,
   "grossMargins": 0.506,
   "industry": "Financial Data & Stock Exchanges",
   "longName": "FactSet Research Systems Inc.",
-  "marketCap": 11623891968,
+  "marketCap": 12123665408,
   "numberOfAnalystOpinions": 16,
   "operatingCashflow": 822200000,
   "operatingMargins": 0.2221,
   "payoutRatio": 0.3102,
-  "priceToBook": 5.8044,
+  "priceToBook": 6.054,
   "profitMargins": 0.2154,
   "quickRatio": 0.518,
   "recommendationKey": "hold",
@@ -51,6 +55,7 @@
   "targetMeanPrice": 280.625,
   "totalCash": 265332000,
   "totalDebt": 1542413952,
-  "trailingPE": 22.6198
- }
+  "trailingPE": 23.5923
+ },
+ "v": 2
 }

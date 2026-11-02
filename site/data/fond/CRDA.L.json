@@ -1,7 +1,7 @@
 {
  "aggiornato": "2026-11-02",
  "dati": {
-  "beta": 0.918,
+  "beta": 0.955,
   "bilancio_annuale": {
    "ricavi": {
     "2022": 2089300000.0,
@@ -24,23 +24,26 @@
   },
   "currency": "GBp",
   "currentRatio": 2.569,
+  "debito_netto": 577900000,
+  "debito_netto_su_ebitda": 2.36,
   "debtToEquity": 35.787,
   "dividendYield": 3.05,
   "earningsGrowth": 0.285,
+  "ebitda": 244800000,
   "enterpriseToEbitda": 23.162,
-  "fiftyTwoWeekHigh": 3674.0,
+  "fiftyTwoWeekHigh": 3699.0,
   "fiftyTwoWeekLow": 2488.0,
-  "forwardPE": 20.5945,
+  "financialCurrency": "GBP",
+  "forwardPE": 20.6759,
   "freeCashflow": 80200000,
   "grossMargins": 0.4369,
   "industry": "Specialty Chemicals",
   "longName": "Croda International Plc",
-  "marketCap": 5091402752,
   "numberOfAnalystOpinions": 14,
   "operatingCashflow": 280300000,
   "operatingMargins": 0.1607,
   "payoutRatio": 1.9508,
-  "priceToBook": 2.3429,
+  "priceToBook": 2.3522,
   "profitMargins": 0.0461,
   "quickRatio": 1.563,
   "recommendationKey": "buy",
@@ -51,6 +54,7 @@
   "targetMeanPrice": 3707.8572,
   "totalCash": 205300000,
   "totalDebt": 783200000,
-  "trailingPE": 64.0977
- }
+  "trailingPE": 64.3509
+ },
+ "v": 2
 }

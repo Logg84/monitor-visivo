@@ -1,7 +1,7 @@
 {
  "aggiornato": "2026-11-02",
  "dati": {
-  "beta": 1.074,
+  "beta": 1.009,
   "bilancio_annuale": {
    "ricavi": {
     "2023": 6216000000.0,
@@ -24,23 +24,27 @@
   },
   "currency": "USD",
   "currentRatio": 0.908,
+  "debito_netto": 368999936,
+  "debito_netto_su_ebitda": 0.23,
   "debtToEquity": 58.39,
   "dividendYield": 0.0,
   "earningsGrowth": 2.06,
+  "ebitda": 1586000000,
   "enterpriseToEbitda": 30.292,
   "fiftyTwoWeekHigh": 241.04,
   "fiftyTwoWeekLow": 110.36,
-  "forwardPE": 14.9377,
+  "financialCurrency": "USD",
+  "forwardPE": 14.9612,
   "freeCashflow": 3046374912,
   "grossMargins": 0.758,
   "industry": "Software - Application",
   "longName": "Workday, Inc.",
-  "marketCap": 47674621952,
+  "marketCap": 47749332992,
   "numberOfAnalystOpinions": 37,
   "operatingCashflow": 3080999936,
   "operatingMargins": 0.1182,
   "payoutRatio": 0.0,
-  "priceToBook": 7.38,
+  "priceToBook": 7.3915,
   "profitMargins": 0.1232,
   "quickRatio": 0.81,
   "recommendationKey": "buy",
@@ -51,6 +55,7 @@
   "targetMeanPrice": 209.2532,
   "totalCash": 3403000064,
   "totalDebt": 3772000000,
-  "trailingPE": 40.2892
- }
+  "trailingPE": 40.3523
+ },
+ "v": 2
 }

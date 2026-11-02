@@ -1,0 +1,61 @@
+{
+ "aggiornato": "2026-11-02",
+ "dati": {
+  "beta": 1.972,
+  "bilancio_annuale": {
+   "ricavi": {
+    "2022": 6583000000.0,
+    "2023": 8635000000.0,
+    "2024": 10722000000.0,
+    "2025": 13717000000.0
+   },
+   "utile_netto": {
+    "2022": -1365000000.0,
+    "2023": -558000000.0,
+    "2024": 123000000.0,
+    "2025": 935000000.0
+   },
+   "utile_operativo": {
+    "2022": -1032000000.0,
+    "2023": -577000000.0,
+    "2024": -38000000.0,
+    "2025": 725000000.0
+   }
+  },
+  "currency": "USD",
+  "currentRatio": 1.465,
+  "debito_netto": -2684000256,
+  "debito_netto_su_ebitda": -1.57,
+  "debtToEquity": 30.745,
+  "dividendYield": 0.0,
+  "earningsGrowth": 0.916,
+  "ebitda": 1710000000,
+  "enterpriseToEbitda": 44.071,
+  "fiftyTwoWeekHigh": 258.0,
+  "fiftyTwoWeekLow": 143.3,
+  "financialCurrency": "USD",
+  "forwardPE": 23.7077,
+  "freeCashflow": 6371375104,
+  "grossMargins": 0.5266,
+  "industry": "Internet Retail",
+  "longName": "DoorDash, Inc.",
+  "marketCap": 82866020352,
+  "numberOfAnalystOpinions": 40,
+  "operatingCashflow": 2952999936,
+  "operatingMargins": 0.1003,
+  "payoutRatio": 0.0,
+  "priceToBook": 7.7318,
+  "profitMargins": 0.0623,
+  "quickRatio": 1.16,
+  "recommendationKey": "buy",
+  "returnOnAssets": 0.0342,
+  "returnOnEquity": 0.1048,
+  "revenueGrowth": 0.34,
+  "sector": "Consumer Cyclical",
+  "targetMeanPrice": 251.234,
+  "totalCash": 5982000128,
+  "totalDebt": 3297999872,
+  "trailingPE": 78.8672
+ },
+ "v": 2
+}

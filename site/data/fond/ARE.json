@@ -1,7 +1,7 @@
 {
  "aggiornato": "2026-11-02",
  "dati": {
-  "beta": 1.178,
+  "beta": 1.191,
   "bilancio_annuale": {
    "ricavi": {
     "2022": 2576040000.0,
@@ -24,22 +24,26 @@
   },
   "currency": "USD",
   "currentRatio": 2.152,
+  "debito_netto": 12742168864,
+  "debito_netto_su_ebitda": 7.5,
   "debtToEquity": 71.945,
   "dividendYield": 7.16,
+  "ebitda": 1698887936,
   "enterpriseToEbitda": 13.747,
   "fiftyTwoWeekHigh": 59.76,
   "fiftyTwoWeekLow": 38.34,
-  "forwardPE": -42.766,
+  "financialCurrency": "USD",
+  "forwardPE": -45.2872,
   "freeCashflow": 1289590528,
   "grossMargins": 0.6768,
   "industry": "REIT - Office",
   "longName": "Alexandria Real Estate Equities, Inc.",
-  "marketCap": 7001257984,
+  "marketCap": 7414018560,
   "numberOfAnalystOpinions": 14,
   "operatingCashflow": 1187788032,
   "operatingMargins": 0.146,
   "payoutRatio": 6.8947,
-  "priceToBook": 0.4638,
+  "priceToBook": 0.4912,
   "profitMargins": -0.5181,
   "quickRatio": 1.796,
   "recommendationKey": "hold",
@@ -50,5 +54,6 @@
   "targetMeanPrice": 50.2143,
   "totalCash": 508855008,
   "totalDebt": 13251023872
- }
+ },
+ "v": 2
 }

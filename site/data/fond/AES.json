@@ -1,7 +1,7 @@
 {
  "aggiornato": "2026-11-02",
  "dati": {
-  "beta": 0.954,
+  "beta": 0.92,
   "bilancio_annuale": {
    "ricavi": {
     "2022": 12617000000.0,
@@ -24,22 +24,26 @@
   },
   "currency": "USD",
   "currentRatio": 0.746,
+  "debito_netto": 31089999616,
+  "debito_netto_su_ebitda": 7.64,
   "debtToEquity": 256.886,
   "dividendYield": 4.75,
+  "ebitda": 4070000128,
   "enterpriseToEbitda": 12.175,
   "fiftyTwoWeekHigh": 17.65,
   "fiftyTwoWeekLow": 13.21,
-  "forwardPE": 6.2229,
+  "financialCurrency": "USD",
+  "forwardPE": 6.2523,
   "freeCashflow": -3089125120,
   "grossMargins": 0.2027,
   "industry": "Utilities - Diversified",
   "longName": "The AES Corporation",
-  "marketCap": 10576129024,
+  "marketCap": 10630236160,
   "numberOfAnalystOpinions": 8,
   "operatingCashflow": 5032000000,
   "operatingMargins": 0.1867,
   "payoutRatio": 0.2636,
-  "priceToBook": 2.14,
+  "priceToBook": 2.1501,
   "profitMargins": 0.1434,
   "quickRatio": 0.45,
   "recommendationKey": "hold",
@@ -50,6 +54,7 @@
   "targetMeanPrice": 15.0,
   "totalCash": 1852999936,
   "totalDebt": 32942999552,
-  "trailingPE": 5.5543
- }
+  "trailingPE": 5.5805
+ },
+ "v": 2
 }

@@ -1,7 +1,7 @@
 {
  "aggiornato": "2026-11-02",
  "dati": {
-  "beta": 0.484,
+  "beta": 0.45,
   "bilancio_annuale": {
    "ricavi": {
     "2022": 6410000000.0,
@@ -24,23 +24,27 @@
   },
   "currency": "EUR",
   "currentRatio": 1.002,
+  "debito_netto": 2722999872,
+  "debito_netto_su_ebitda": 1.18,
   "debtToEquity": 51.63,
   "dividendYield": 1.11,
   "earningsGrowth": -0.057,
+  "ebitda": 2310000128,
   "enterpriseToEbitda": 22.486,
   "fiftyTwoWeekHigh": 1966.0,
   "fiftyTwoWeekLow": 909.0,
-  "forwardPE": 19.5657,
+  "financialCurrency": "EUR",
+  "forwardPE": 18.9004,
   "freeCashflow": 642764992,
   "grossMargins": 0.5221,
   "industry": "Aerospace & Defense",
   "longName": "Rheinmetall AG",
-  "marketCap": 48310775808,
+  "marketCap": 46668062720,
   "numberOfAnalystOpinions": 21,
   "operatingCashflow": 1312999936,
   "operatingMargins": 0.1444,
   "payoutRatio": 0.4466,
-  "priceToBook": 9.716,
+  "priceToBook": 9.3856,
   "profitMargins": 0.0626,
   "quickRatio": 0.353,
   "recommendationKey": "buy",
@@ -51,6 +55,7 @@
   "targetMeanPrice": 1552.2382,
   "totalCash": 255000000,
   "totalDebt": 2977999872,
-  "trailingPE": 40.2019
- }
+  "trailingPE": 38.835
+ },
+ "v": 2
 }

@@ -1,7 +1,7 @@
 {
  "aggiornato": "2026-11-02",
  "dati": {
-  "beta": 0.447,
+  "beta": 0.431,
   "bilancio_annuale": {
    "ricavi": {
     "2022": 23182000000.0,
@@ -24,22 +24,26 @@
   },
   "currency": "USD",
   "currentRatio": 1.081,
+  "debito_netto": 53782001280,
+  "debito_netto_su_ebitda": 3.6,
   "dividendYield": 2.99,
   "earningsGrowth": 0.057,
+  "ebitda": 14929999872,
   "enterpriseToEbitda": 15.836,
   "fiftyTwoWeekHigh": 341.75,
   "fiftyTwoWeekLow": 229.2,
-  "forwardPE": 18.8007,
+  "financialCurrency": "USD",
+  "forwardPE": 19.3485,
   "freeCashflow": 6262374912,
   "grossMargins": 0.5738,
   "industry": "Restaurants",
   "longName": "McDonald's Corporation",
-  "marketCap": 182656434176,
+  "marketCap": 187977908224,
   "numberOfAnalystOpinions": 28,
   "operatingCashflow": 11347000320,
   "operatingMargins": 0.4648,
   "payoutRatio": 0.5971,
-  "priceToBook": -178.5062,
+  "priceToBook": -183.7068,
   "profitMargins": 0.3172,
   "quickRatio": 0.823,
   "recommendationKey": "buy",
@@ -49,6 +53,7 @@
   "targetMeanPrice": 291.75,
   "totalCash": 822000000,
   "totalDebt": 54604001280,
-  "trailingPE": 20.9683
- }
+  "trailingPE": 21.5792
+ },
+ "v": 2
 }

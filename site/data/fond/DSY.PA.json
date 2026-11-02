@@ -1,7 +1,7 @@
 {
  "aggiornato": "2026-11-02",
  "dati": {
-  "beta": 0.567,
+  "beta": 0.574,
   "bilancio_annuale": {
    "ricavi": {
     "2022": 5665200000.0,
@@ -24,23 +24,27 @@
   },
   "currency": "EUR",
   "currentRatio": 1.772,
+  "debito_netto": -1048900096,
+  "debito_netto_su_ebitda": -0.57,
   "debtToEquity": 28.579,
   "dividendYield": 1.07,
   "earningsGrowth": 0.099,
+  "ebitda": 1843699968,
   "enterpriseToEbitda": 17.574,
-  "fiftyTwoWeekHigh": 25.59,
+  "fiftyTwoWeekHigh": 25.62,
   "fiftyTwoWeekLow": 15.825,
-  "forwardPE": 17.3741,
+  "financialCurrency": "EUR",
+  "forwardPE": 17.7914,
   "freeCashflow": 1620274944,
   "grossMargins": 0.8419,
   "industry": "Software - Application",
   "longName": "Dassault Systèmes SE",
-  "marketCap": 32865243136,
+  "marketCap": 33666836480,
   "numberOfAnalystOpinions": 20,
   "operatingCashflow": 1863299968,
   "operatingMargins": 0.2353,
   "payoutRatio": 0.2727,
-  "priceToBook": 3.4246,
+  "priceToBook": 3.5081,
   "profitMargins": 0.2127,
   "quickRatio": 1.638,
   "recommendationKey": "hold",
@@ -51,6 +55,7 @@
   "targetMeanPrice": 24.4625,
   "totalCash": 3814000128,
   "totalDebt": 2765100032,
-  "trailingPE": 25.2626
- }
+  "trailingPE": 25.8788
+ },
+ "v": 2
 }

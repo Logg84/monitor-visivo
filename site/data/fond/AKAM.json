@@ -1,7 +1,7 @@
 {
  "aggiornato": "2026-11-02",
  "dati": {
-  "beta": 0.616,
+  "beta": 0.664,
   "bilancio_annuale": {
    "ricavi": {
     "2022": 3616654000.0,
@@ -24,23 +24,27 @@
   },
   "currency": "USD",
   "currentRatio": 1.637,
+  "debito_netto": 5983599616,
+  "debito_netto_su_ebitda": 5.54,
   "debtToEquity": 196.672,
   "dividendYield": 0.0,
   "earningsGrowth": -0.268,
+  "ebitda": 1079897984,
   "enterpriseToEbitda": 17.88,
   "fiftyTwoWeekHigh": 165.45,
   "fiftyTwoWeekLow": 70.82,
-  "forwardPE": 13.561,
+  "financialCurrency": "USD",
+  "forwardPE": 12.6891,
   "freeCashflow": 710060096,
   "grossMargins": 0.5745,
   "industry": "Software - Infrastructure",
   "longName": "Akamai Technologies, Inc.",
-  "marketCap": 13325404160,
+  "marketCap": 12458792960,
   "numberOfAnalystOpinions": 22,
   "operatingCashflow": 1447190016,
   "operatingMargins": 0.0763,
   "payoutRatio": 0.0,
-  "priceToBook": 2.8037,
+  "priceToBook": 2.6214,
   "profitMargins": 0.0951,
   "quickRatio": 1.517,
   "recommendationKey": "buy",
@@ -51,6 +55,7 @@
   "targetMeanPrice": 154.9641,
   "totalCash": 3355386880,
   "totalDebt": 9338986496,
-  "trailingPE": 33.5942
- }
+  "trailingPE": 31.4094
+ },
+ "v": 2
 }

@@ -1,7 +1,7 @@
 {
  "aggiornato": "2026-11-02",
  "dati": {
-  "beta": 3.409,
+  "beta": 3.353,
   "bilancio_annuale": {
    "ricavi": {
     "2022": 3194208000.0,
@@ -24,23 +24,27 @@
   },
   "currency": "USD",
   "currentRatio": 2.425,
+  "debito_netto": -1935197696,
+  "debito_netto_su_ebitda": -7.13,
   "debtToEquity": 49.395,
   "dividendYield": 0.0,
   "earningsGrowth": 0.674,
+  "ebitda": 271502016,
   "enterpriseToEbitda": 132.85,
   "fiftyTwoWeekHigh": 342.8,
-  "fiftyTwoWeekLow": 136.89,
-  "forwardPE": 53.8719,
+  "fiftyTwoWeekLow": 135.47,
+  "financialCurrency": "USD",
+  "forwardPE": 55.7653,
   "freeCashflow": 3681990144,
   "grossMargins": 0.8532,
   "industry": "Financial Data & Stock Exchanges",
   "longName": "Coinbase Global, Inc.",
-  "marketCap": 38004142080,
+  "marketCap": 36492341248,
   "numberOfAnalystOpinions": 34,
   "operatingCashflow": 1409211008,
   "operatingMargins": -0.0142,
   "payoutRatio": 0.0,
-  "priceToBook": 2.7262,
+  "priceToBook": 2.6177,
   "profitMargins": -0.1289,
   "quickRatio": 1.262,
   "recommendationKey": "buy",
@@ -51,5 +55,6 @@
   "targetMeanPrice": 203.6206,
   "totalCash": 8820883456,
   "totalDebt": 6885685760
- }
+ },
+ "v": 2
 }

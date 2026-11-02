@@ -1,7 +1,7 @@
 {
  "aggiornato": "2026-11-02",
  "dati": {
-  "beta": 0.825,
+  "beta": 0.818,
   "bilancio_annuale": {
    "ricavi": {
     "2022": 3308400000.0,
@@ -24,23 +24,27 @@
   },
   "currency": "USD",
   "currentRatio": 1.222,
+  "debito_netto": 2646500128,
+  "debito_netto_su_ebitda": 2.84,
   "debtToEquity": 33.634,
   "dividendYield": 0.0,
   "earningsGrowth": 3.571,
+  "ebitda": 932000000,
   "enterpriseToEbitda": 14.99,
   "fiftyTwoWeekHigh": 89.83,
   "fiftyTwoWeekLow": 51.01,
-  "forwardPE": 12.6904,
+  "financialCurrency": "USD",
+  "forwardPE": 13.0634,
   "freeCashflow": 542649984,
   "grossMargins": 0.6593,
   "industry": "Medical Instruments & Supplies",
   "longName": "The Cooper Companies, Inc.",
-  "marketCap": 11323747328,
+  "marketCap": 11656519680,
   "numberOfAnalystOpinions": 15,
   "operatingCashflow": 1033299968,
   "operatingMargins": 0.2082,
   "payoutRatio": 0.0,
-  "priceToBook": 1.3593,
+  "priceToBook": 1.3992,
   "profitMargins": 0.1346,
   "quickRatio": 0.506,
   "recommendationKey": "buy",
@@ -51,6 +55,7 @@
   "targetMeanPrice": 65.8,
   "totalCash": 154700000,
   "totalDebt": 2801200128,
-  "trailingPE": 20.4639
- }
+  "trailingPE": 21.0653
+ },
+ "v": 2
 }

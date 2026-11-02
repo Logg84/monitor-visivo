@@ -1,7 +1,7 @@
 {
  "aggiornato": "2026-11-02",
  "dati": {
-  "beta": 0.201,
+  "beta": 0.188,
   "bilancio_annuale": {
    "ricavi": {
     "2022": 6627000000.0,
@@ -24,23 +24,27 @@
   },
   "currency": "USD",
   "currentRatio": 0.51,
+  "debito_netto": 2511999936,
+  "debito_netto_su_ebitda": 1.1,
   "debtToEquity": 28.809,
   "dividendYield": 2.22,
   "earningsGrowth": 0.472,
+  "ebitda": 2292999936,
   "enterpriseToEbitda": 23.437,
   "fiftyTwoWeekHigh": 157.64,
   "fiftyTwoWeekLow": 76.28,
-  "forwardPE": 24.0226,
+  "financialCurrency": "USD",
+  "forwardPE": 24.8332,
   "freeCashflow": 2108499968,
   "grossMargins": 0.3966,
   "industry": "Specialty Business Services",
   "longName": "Thomson Reuters Corporation",
-  "marketCap": 51231977472,
+  "marketCap": 52960649216,
   "numberOfAnalystOpinions": 13,
   "operatingCashflow": 2884999936,
   "operatingMargins": 0.283,
   "payoutRatio": 0.6643,
-  "priceToBook": 4.6048,
+  "priceToBook": 4.7601,
   "profitMargins": 0.2122,
   "quickRatio": 0.409,
   "recommendationKey": "buy",
@@ -51,6 +55,7 @@
   "targetMeanPrice": 123.8077,
   "totalCash": 693000000,
   "totalDebt": 3204999936,
-  "trailingPE": 31.0367
- }
+  "trailingPE": 32.084
+ },
+ "v": 2
 }

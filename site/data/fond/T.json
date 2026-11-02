@@ -1,7 +1,7 @@
 {
  "aggiornato": "2026-11-02",
  "dati": {
-  "beta": 0.442,
+  "beta": 0.494,
   "bilancio_annuale": {
    "ricavi": {
     "2022": 120741000000.0,
@@ -24,23 +24,27 @@
   },
   "currency": "USD",
   "currentRatio": 0.868,
+  "debito_netto": 169845006336,
+  "debito_netto_su_ebitda": 3.7,
   "debtToEquity": 144.768,
   "dividendYield": 5.18,
   "earningsGrowth": -0.904,
+  "ebitda": 45940998144,
   "enterpriseToEbitda": 7.228,
   "fiftyTwoWeekHigh": 29.44,
   "fiftyTwoWeekLow": 19.89,
-  "forwardPE": 8.2479,
+  "financialCurrency": "USD",
+  "forwardPE": 8.2595,
   "freeCashflow": 11961749504,
   "grossMargins": 0.5974,
   "industry": "Telecom Services",
   "longName": "AT&T Inc.",
-  "marketCap": 144227893248,
+  "marketCap": 144429989888,
   "numberOfAnalystOpinions": 23,
   "operatingCashflow": 40432001024,
   "operatingMargins": 0.2465,
   "payoutRatio": 0.5936,
-  "priceToBook": 1.3557,
+  "priceToBook": 1.3576,
   "profitMargins": 0.1019,
   "quickRatio": 0.411,
   "recommendationKey": "buy",
@@ -51,6 +55,7 @@
   "targetMeanPrice": 27.587,
   "totalCash": 10766999552,
   "totalDebt": 180612005888,
-  "trailingPE": 11.4492
- }
+  "trailingPE": 11.4652
+ },
+ "v": 2
 }

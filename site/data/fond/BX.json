@@ -1,7 +1,7 @@
 {
  "aggiornato": "2026-11-02",
  "dati": {
-  "beta": 1.587,
+  "beta": 1.534,
   "bilancio_annuale": {
    "ricavi": {
     "2022": 7132632000.0,
@@ -18,20 +18,22 @@
   },
   "currency": "USD",
   "currentRatio": 0.971,
+  "debito_netto": 11156307200,
   "debtToEquity": 67.536,
   "dividendYield": 4.41,
   "earningsGrowth": 0.037,
   "fiftyTwoWeekHigh": 165.14,
   "fiftyTwoWeekLow": 101.73,
-  "forwardPE": 16.0616,
+  "financialCurrency": "USD",
+  "forwardPE": 16.2826,
   "grossMargins": 1.0,
   "industry": "Asset Management",
   "longName": "Blackstone Inc.",
-  "marketCap": 141654736896,
+  "marketCap": 143603073024,
   "numberOfAnalystOpinions": 22,
   "operatingMargins": 0.4886,
   "payoutRatio": 1.1119,
-  "priceToBook": 10.7239,
+  "priceToBook": 10.8714,
   "profitMargins": 0.2299,
   "quickRatio": 0.949,
   "recommendationKey": "buy",
@@ -42,6 +44,7 @@
   "targetMeanPrice": 138.8637,
   "totalCash": 3037533952,
   "totalDebt": 14193841152,
-  "trailingPE": 26.3942
- }
+  "trailingPE": 26.7572
+ },
+ "v": 2
 }

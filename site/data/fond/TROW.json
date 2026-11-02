@@ -1,7 +1,7 @@
 {
  "aggiornato": "2026-11-02",
  "dati": {
-  "beta": 1.471,
+  "beta": 1.446,
   "bilancio_annuale": {
    "ricavi": {
     "2022": 6488400000.0,
@@ -24,23 +24,27 @@
   },
   "currency": "USD",
   "currentRatio": 3.614,
+  "debito_netto": -2932499904,
+  "debito_netto_su_ebitda": -0.96,
   "debtToEquity": 6.674,
   "dividendYield": 5.0,
   "earningsGrowth": -0.028,
+  "ebitda": 3050899968,
   "enterpriseToEbitda": 6.711,
   "fiftyTwoWeekHigh": 122.0,
   "fiftyTwoWeekLow": 85.22,
-  "forwardPE": 10.2415,
+  "financialCurrency": "USD",
+  "forwardPE": 10.4353,
   "freeCashflow": 2093425024,
   "grossMargins": 0.5225,
   "industry": "Asset Management",
   "longName": "T. Rowe Price Group, Inc.",
-  "marketCap": 22164566016,
+  "marketCap": 22580549632,
   "numberOfAnalystOpinions": 13,
   "operatingCashflow": 1866200064,
   "operatingMargins": 0.386,
   "payoutRatio": 0.5233,
-  "priceToBook": 1.9492,
+  "priceToBook": 1.9858,
   "profitMargins": 0.284,
   "quickRatio": 3.614,
   "recommendationKey": "hold",
@@ -51,6 +55,7 @@
   "targetMeanPrice": 105.1539,
   "totalCash": 3774299904,
   "totalDebt": 841800000,
-  "trailingPE": 10.5162
- }
+  "trailingPE": 10.7136
+ },
+ "v": 2
 }

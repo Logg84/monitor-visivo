@@ -1,7 +1,7 @@
 {
  "aggiornato": "2026-11-02",
  "dati": {
-  "beta": 1.554,
+  "beta": 1.507,
   "bilancio_annuale": {
    "ricavi": {
     "2022": 3055443000.0,
@@ -23,20 +23,22 @@
    }
   },
   "currency": "USD",
+  "debito_netto": 13020249728,
   "debtToEquity": 172.378,
   "dividendYield": 4.21,
   "earningsGrowth": -0.817,
   "fiftyTwoWeekHigh": 181.19,
   "fiftyTwoWeekLow": 95.8,
-  "forwardPE": 18.3336,
+  "financialCurrency": "USD",
+  "forwardPE": 19.0535,
   "grossMargins": 1.0,
   "industry": "Asset Management",
   "longName": "Ares Management Corporation",
-  "marketCap": 42517086208,
+  "marketCap": 44112928768,
   "numberOfAnalystOpinions": 20,
   "operatingMargins": 0.0289,
   "payoutRatio": 2.2765,
-  "priceToBook": 11.6173,
+  "priceToBook": 12.0533,
   "profitMargins": 0.0869,
   "recommendationKey": "buy",
   "revenueGrowth": -0.187,
@@ -44,6 +46,7 @@
   "targetMeanPrice": 145.55,
   "totalCash": 1852358016,
   "totalDebt": 14872607744,
-  "trailingPE": 59.0553
- }
+  "trailingPE": 61.2719
+ },
+ "v": 2
 }

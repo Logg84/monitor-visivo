@@ -1,7 +1,7 @@
 {
  "aggiornato": "2026-11-02",
  "dati": {
-  "beta": 0.951,
+  "beta": 0.967,
   "bilancio_annuale": {
    "ricavi": {
     "2022": 4537158000.0,
@@ -24,22 +24,26 @@
   },
   "currency": "USD",
   "currentRatio": 0.488,
+  "debito_netto": 4892788224,
+  "debito_netto_su_ebitda": 4.69,
   "dividendYield": 2.54,
   "earningsGrowth": 0.127,
+  "ebitda": 1042630016,
   "enterpriseToEbitda": 14.591,
   "fiftyTwoWeekHigh": 442.35,
   "fiftyTwoWeekLow": 282.0,
-  "forwardPE": 15.2057,
+  "financialCurrency": "USD",
+  "forwardPE": 15.6245,
   "freeCashflow": 566022976,
   "grossMargins": 0.2887,
   "industry": "Restaurants",
   "longName": "Domino's Pizza, Inc.",
-  "marketCap": 10319821824,
+  "marketCap": 10604044288,
   "numberOfAnalystOpinions": 27,
   "operatingCashflow": 760406976,
   "operatingMargins": 0.2041,
   "payoutRatio": 0.4248,
-  "priceToBook": -2.6091,
+  "priceToBook": -2.681,
   "profitMargins": 0.1203,
   "quickRatio": 0.274,
   "recommendationKey": "buy",
@@ -49,6 +53,7 @@
   "targetMeanPrice": 356.4815,
   "totalCash": 229035008,
   "totalDebt": 5121823232,
-  "trailingPE": 17.2843
- }
+  "trailingPE": 17.7603
+ },
+ "v": 2
 }

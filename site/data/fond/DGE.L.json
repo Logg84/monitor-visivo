@@ -1,7 +1,7 @@
 {
  "aggiornato": "2026-11-02",
  "dati": {
-  "beta": 0.348,
+  "beta": 0.376,
   "bilancio_annuale": {
    "ricavi": {
     "2023": 20555000000.0,
@@ -24,22 +24,26 @@
   },
   "currency": "GBp",
   "currentRatio": 1.604,
+  "debito_netto": 20415000832,
+  "debito_netto_su_ebitda": 3.18,
   "debtToEquity": 171.345,
   "dividendYield": 2.55,
+  "ebitda": 6429000192,
   "enterpriseToEbitda": 9.579,
   "fiftyTwoWeekHigh": 1903.905,
   "fiftyTwoWeekLow": 1295.5,
-  "forwardPE": 13.2595,
+  "financialCurrency": "USD",
+  "forwardPE": 13.6722,
   "freeCashflow": 2568499968,
   "grossMargins": 0.5982,
   "industry": "Beverages - Wineries & Distilleries",
   "longName": "Diageo plc",
-  "marketCap": 38952402944,
+  "marketCap": 40164798464,
   "numberOfAnalystOpinions": 22,
   "operatingCashflow": 4392000000,
   "operatingMargins": 0.2704,
   "payoutRatio": 1.0821,
-  "priceToBook": 4.7991,
+  "priceToBook": 4.9485,
   "profitMargins": 0.0884,
   "quickRatio": 0.487,
   "recommendationKey": "buy",
@@ -47,9 +51,10 @@
   "returnOnEquity": 0.1499,
   "revenueGrowth": -0.017,
   "sector": "Consumer Defensive",
-  "targetMeanPrice": 1992.4574,
+  "targetMeanPrice": 1993.5802,
   "totalCash": 1780999936,
   "totalDebt": 22196000768,
-  "trailingPE": 30.1897
- }
+  "trailingPE": 31.1293
+ },
+ "v": 2
 }

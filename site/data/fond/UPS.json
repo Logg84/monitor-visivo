@@ -1,7 +1,7 @@
 {
  "aggiornato": "2026-11-02",
  "dati": {
-  "beta": 1.046,
+  "beta": 0.948,
   "bilancio_annuale": {
    "ricavi": {
     "2022": 100338000000.0,
@@ -24,23 +24,27 @@
   },
   "currency": "USD",
   "currentRatio": 1.239,
+  "debito_netto": 23452999680,
+  "debito_netto_su_ebitda": 2.1,
   "debtToEquity": 201.584,
   "dividendYield": 6.06,
   "earningsGrowth": -0.116,
+  "ebitda": 11153000448,
   "enterpriseToEbitda": 10.365,
   "fiftyTwoWeekHigh": 122.41,
   "fiftyTwoWeekLow": 90.84,
-  "forwardPE": 13.3807,
+  "financialCurrency": "USD",
+  "forwardPE": 13.5576,
   "freeCashflow": 5618999808,
   "grossMargins": 0.2138,
   "industry": "Integrated Freight & Logistics",
   "longName": "United Parcel Service, Inc.",
-  "marketCap": 92097101824,
+  "marketCap": 93339246592,
   "numberOfAnalystOpinions": 26,
   "operatingCashflow": 9287999488,
   "operatingMargins": 0.0793,
   "payoutRatio": 1.2193,
-  "priceToBook": 6.1439,
+  "priceToBook": 6.2268,
   "profitMargins": 0.0484,
   "quickRatio": 1.106,
   "recommendationKey": "buy",
@@ -51,6 +55,7 @@
   "targetMeanPrice": 115.4231,
   "totalCash": 6837000192,
   "totalDebt": 30289999872,
-  "trailingPE": 20.1208
- }
+  "trailingPE": 20.3922
+ },
+ "v": 2
 }

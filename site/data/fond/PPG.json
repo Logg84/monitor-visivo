@@ -1,7 +1,7 @@
 {
  "aggiornato": "2026-11-02",
  "dati": {
-  "beta": 1.05,
+  "beta": 0.987,
   "bilancio_annuale": {
    "ricavi": {
     "2022": 15614000000.0,
@@ -24,23 +24,27 @@
   },
   "currency": "USD",
   "currentRatio": 1.579,
+  "debito_netto": 5831999872,
+  "debito_netto_su_ebitda": 2.11,
   "debtToEquity": 86.615,
   "dividendYield": 2.48,
   "earningsGrowth": 0.011,
+  "ebitda": 2758000128,
   "enterpriseToEbitda": 11.739,
   "fiftyTwoWeekHigh": 133.43,
   "fiftyTwoWeekLow": 93.39,
-  "forwardPE": 13.8114,
+  "financialCurrency": "USD",
+  "forwardPE": 14.4319,
   "freeCashflow": 1097374976,
   "grossMargins": 0.4118,
   "industry": "Specialty Chemicals",
   "longName": "PPG Industries, Inc.",
-  "marketCap": 26401968128,
+  "marketCap": 27588200448,
   "numberOfAnalystOpinions": 22,
   "operatingCashflow": 2044999936,
   "operatingMargins": 0.1466,
   "payoutRatio": 0.4031,
-  "priceToBook": 3.1112,
+  "priceToBook": 3.251,
   "profitMargins": 0.0941,
   "quickRatio": 1.053,
   "recommendationKey": "buy",
@@ -51,6 +55,7 @@
   "targetMeanPrice": 130.1363,
   "totalCash": 1642000000,
   "totalDebt": 7473999872,
-  "trailingPE": 16.7865
- }
+  "trailingPE": 17.5407
+ },
+ "v": 2
 }

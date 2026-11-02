@@ -1,7 +1,7 @@
 {
  "aggiornato": "2026-11-02",
  "dati": {
-  "beta": 3.69,
+  "beta": 3.86,
   "bilancio_annuale": {
    "ricavi": {
     "2022": 79872000.0,
@@ -24,23 +24,27 @@
   },
   "currency": "USD",
   "currentRatio": 10.054,
+  "debito_netto": -1208544952,
+  "debito_netto_su_ebitda": -4.23,
   "debtToEquity": 2.574,
   "dividendYield": 0.0,
   "earningsGrowth": 1.862,
+  "ebitda": 285396000,
   "enterpriseToEbitda": 153.023,
   "fiftyTwoWeekHigh": 499.476,
   "fiftyTwoWeekLow": 97.89,
-  "forwardPE": 40.3714,
+  "financialCurrency": "USD",
+  "forwardPE": 35.3243,
   "freeCashflow": 91913128,
   "grossMargins": 0.7513,
   "industry": "Semiconductors",
   "longName": "Astera Labs, Inc.",
-  "marketCap": 44880596992,
+  "marketCap": 39844323328,
   "numberOfAnalystOpinions": 22,
   "operatingCashflow": 335712000,
   "operatingMargins": 0.2274,
   "payoutRatio": 0.0,
-  "priceToBook": 26.0078,
+  "priceToBook": 23.0894,
   "profitMargins": 0.3074,
   "quickRatio": 9.164,
   "recommendationKey": "buy",
@@ -51,6 +55,7 @@
   "targetMeanPrice": 382.6778,
   "totalCash": 1252957952,
   "totalDebt": 44413000,
-  "trailingPE": 127.4384
- }
+  "trailingPE": 113.1379
+ },
+ "v": 2
 }

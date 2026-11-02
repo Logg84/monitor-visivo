@@ -1,7 +1,7 @@
 {
  "aggiornato": "2026-11-02",
  "dati": {
-  "beta": 1.112,
+  "beta": 1.136,
   "bilancio_annuale": {
    "ricavi": {
     "2022": 1610600000.0,
@@ -24,23 +24,27 @@
   },
   "currency": "GBp",
   "currentRatio": 2.143,
+  "debito_netto": 707499936,
+  "debito_netto_su_ebitda": 1.83,
   "debtToEquity": 86.781,
   "dividendYield": 2.29,
   "earningsGrowth": 0.557,
-  "enterpriseToEbitda": 16.1,
+  "ebitda": 386600000,
+  "enterpriseToEbitda": 16.339,
   "fiftyTwoWeekHigh": 8050.0,
   "fiftyTwoWeekLow": 5950.0,
-  "forwardPE": 20.9157,
+  "financialCurrency": "GBP",
+  "forwardPE": 21.0961,
   "freeCashflow": 162750000,
   "grossMargins": 0.7533,
   "industry": "Specialty Industrial Machinery",
   "longName": "Spirax Group plc",
-  "marketCap": 5560519680,
+  "marketCap": 5608486912,
   "numberOfAnalystOpinions": 18,
   "operatingCashflow": 283000000,
   "operatingMargins": 0.1778,
   "payoutRatio": 0.6334,
-  "priceToBook": 4.4452,
+  "priceToBook": 4.4835,
   "profitMargins": 0.1136,
   "quickRatio": 1.405,
   "recommendationKey": "buy",
@@ -51,6 +55,7 @@
   "targetMeanPrice": 8111.389,
   "totalCash": 378300000,
   "totalDebt": 1085799936,
-  "trailingPE": 28.1157
- }
+  "trailingPE": 28.3582
+ },
+ "v": 2
 }

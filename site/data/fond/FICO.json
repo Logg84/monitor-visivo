@@ -1,7 +1,7 @@
 {
  "aggiornato": "2026-11-02",
  "dati": {
-  "beta": 1.341,
+  "beta": 1.338,
   "bilancio_annuale": {
    "ricavi": {
     "2022": 1377270000.0,
@@ -24,22 +24,26 @@
   },
   "currency": "USD",
   "currentRatio": 1.183,
+  "debito_netto": 5349565856,
+  "debito_netto_su_ebitda": 4.23,
   "dividendYield": 0.0,
   "earningsGrowth": 0.412,
+  "ebitda": 1263363968,
   "enterpriseToEbitda": 16.393,
   "fiftyTwoWeekHigh": 1858.91,
   "fiftyTwoWeekLow": 586.05,
-  "forwardPE": 15.0563,
+  "financialCurrency": "USD",
+  "forwardPE": 15.6495,
   "freeCashflow": 774413504,
   "grossMargins": 0.851,
   "industry": "Software - Application",
   "longName": "Fair Isaac Corporation",
-  "marketCap": 15360885760,
+  "marketCap": 15640792064,
   "numberOfAnalystOpinions": 19,
   "operatingCashflow": 1001548992,
   "operatingMargins": 0.5379,
   "payoutRatio": 0.0,
-  "priceToBook": -3.7491,
+  "priceToBook": -3.8174,
   "profitMargins": 0.3405,
   "quickRatio": 1.129,
   "recommendationKey": "buy",
@@ -49,6 +53,7 @@
   "targetMeanPrice": 936.5247,
   "totalCash": 248444000,
   "totalDebt": 5598009856,
-  "trailingPE": 20.5915
- }
+  "trailingPE": 20.9667
+ },
+ "v": 2
 }

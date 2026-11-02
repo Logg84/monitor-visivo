@@ -1,7 +1,7 @@
 {
  "aggiornato": "2026-11-02",
  "dati": {
-  "beta": 0.805,
+  "beta": 0.816,
   "bilancio_annuale": {
    "ricavi": {
     "2022": 8975515000.0,
@@ -24,23 +24,27 @@
   },
   "currency": "USD",
   "currentRatio": 0.825,
+  "debito_netto": 18146847232,
+  "debito_netto_su_ebitda": 4.05,
   "debtToEquity": 98.273,
   "dividendYield": 1.03,
   "earningsGrowth": -0.952,
+  "ebitda": 4482187776,
   "enterpriseToEbitda": 9.958,
   "fiftyTwoWeekHigh": 101.32,
   "fiftyTwoWeekLow": 61.16,
-  "forwardPE": 6.0145,
+  "financialCurrency": "USD",
+  "forwardPE": 6.1878,
   "freeCashflow": 7867763200,
   "grossMargins": 0.6396,
   "industry": "Specialty Business Services",
   "longName": "Global Payments Inc.",
-  "marketCap": 25625643008,
+  "marketCap": 26363928576,
   "numberOfAnalystOpinions": 33,
   "operatingCashflow": 1657741056,
   "operatingMargins": 0.1611,
   "payoutRatio": 0.4695,
-  "priceToBook": 1.1138,
+  "priceToBook": 1.1459,
   "profitMargins": -0.0915,
   "quickRatio": 0.494,
   "recommendationKey": "buy",
@@ -51,6 +55,7 @@
   "targetMeanPrice": 105.0606,
   "totalCash": 5408962048,
   "totalDebt": 23555809280,
-  "trailingPE": 45.4648
- }
+  "trailingPE": 46.7746
+ },
+ "v": 2
 }

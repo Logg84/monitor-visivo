@@ -1,7 +1,7 @@
 {
  "aggiornato": "2026-11-02",
  "dati": {
-  "beta": 1.476,
+  "beta": 1.508,
   "bilancio_annuale": {
    "ricavi": {
     "2022": 33203000000.0,
@@ -24,23 +24,27 @@
   },
   "currency": "USD",
   "currentRatio": 2.504,
+  "debito_netto": 35444000768,
+  "debito_netto_su_ebitda": 0.68,
   "debtToEquity": 59.604,
   "dividendYield": 0.8,
   "earningsGrowth": 2.153,
+  "ebitda": 52259999744,
   "enterpriseToEbitda": 30.464,
   "fiftyTwoWeekHigh": 495.0,
   "fiftyTwoWeekLow": 289.96,
-  "forwardPE": 16.7521,
+  "financialCurrency": "USD",
+  "forwardPE": 16.5543,
   "freeCashflow": 30596499456,
   "grossMargins": 0.7551,
   "industry": "Semiconductors",
   "longName": "Broadcom Inc.",
-  "marketCap": 1556585250816,
+  "marketCap": 1538206859264,
   "numberOfAnalystOpinions": 48,
   "operatingCashflow": 40653000704,
   "operatingMargins": 0.5431,
   "payoutRatio": 0.3244,
-  "priceToBook": 15.6154,
+  "priceToBook": 15.431,
   "profitMargins": 0.4294,
   "quickRatio": 2.153,
   "recommendationKey": "strong_buy",
@@ -51,6 +55,7 @@
   "targetMeanPrice": 530.1417,
   "totalCash": 23975000064,
   "totalDebt": 59419000832,
-  "trailingPE": 41.645
- }
+  "trailingPE": 41.1533
+ },
+ "v": 2
 }

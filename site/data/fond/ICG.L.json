@@ -1,7 +1,7 @@
 {
  "aggiornato": "2026-11-02",
  "dati": {
-  "beta": 1.442,
+  "beta": 1.448,
   "bilancio_annuale": {
    "ricavi": {
     "2023": 599000000.0,
@@ -18,21 +18,23 @@
   },
   "currency": "GBp",
   "currentRatio": 1.587,
+  "debito_netto": -151300096,
   "debtToEquity": 46.983,
   "dividendYield": 4.69,
   "earningsGrowth": -0.389,
   "fiftyTwoWeekHigh": 2148.0,
   "fiftyTwoWeekLow": 1424.875,
-  "forwardPE": 9.7195,
+  "financialCurrency": "GBP",
+  "forwardPE": 9.9897,
   "grossMargins": 1.0,
   "industry": "Asset Management",
   "longName": "ICG plc",
-  "marketCap": 5384199680,
+  "marketCap": 5533864448,
   "numberOfAnalystOpinions": 14,
   "operatingCashflow": 846099968,
   "operatingMargins": 0.464,
   "payoutRatio": 0.5149,
-  "priceToBook": 1.9449,
+  "priceToBook": 1.999,
   "profitMargins": 0.4894,
   "quickRatio": 1.577,
   "recommendationKey": "strong_buy",
@@ -43,6 +45,7 @@
   "targetMeanPrice": 2503.7139,
   "totalCash": 1420300032,
   "totalDebt": 1268999936,
-  "trailingPE": 11.2958
- }
+  "trailingPE": 11.6098
+ },
+ "v": 2
 }

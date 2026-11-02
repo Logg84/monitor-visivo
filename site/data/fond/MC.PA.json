@@ -1,7 +1,7 @@
 {
  "aggiornato": "2026-11-02",
  "dati": {
-  "beta": 0.879,
+  "beta": 0.898,
   "bilancio_annuale": {
    "ricavi": {
     "2022": 79183000000.0,
@@ -24,23 +24,27 @@
   },
   "currency": "EUR",
   "currentRatio": 1.631,
+  "debito_netto": 24936998912,
+  "debito_netto_su_ebitda": 1.24,
   "debtToEquity": 53.306,
   "dividendYield": 3.36,
   "earningsGrowth": 0.008,
+  "ebitda": 20053999616,
   "enterpriseToEbitda": 10.839,
   "fiftyTwoWeekHigh": 654.7,
   "fiftyTwoWeekLow": 375.65,
-  "forwardPE": 15.8742,
+  "financialCurrency": "EUR",
+  "forwardPE": 16.3071,
   "freeCashflow": 11537125376,
   "grossMargins": 0.6636,
   "industry": "Luxury Goods",
   "longName": "LVMH Moët Hennessy - Louis Vuitton, Société Européenne",
-  "marketCap": 188904275968,
+  "marketCap": 194055749632,
   "numberOfAnalystOpinions": 27,
   "operatingCashflow": 18639998976,
   "operatingMargins": 0.2252,
   "payoutRatio": 0.5925,
-  "priceToBook": 2.7749,
+  "priceToBook": 2.8506,
   "profitMargins": 0.1366,
   "quickRatio": 0.661,
   "recommendationKey": "buy",
@@ -51,6 +55,7 @@
   "targetMeanPrice": 491.5407,
   "totalCash": 12213999616,
   "totalDebt": 37150998528,
-  "trailingPE": 17.4658
- }
+  "trailingPE": 17.9421
+ },
+ "v": 2
 }

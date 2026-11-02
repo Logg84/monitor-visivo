@@ -1,7 +1,7 @@
 {
  "aggiornato": "2026-11-02",
  "dati": {
-  "beta": 1.101,
+  "beta": 1.05,
   "bilancio_annuale": {
    "ricavi": {
     "2022": 1305300000.0,
@@ -24,23 +24,27 @@
   },
   "currency": "USD",
   "currentRatio": 2.485,
+  "debito_netto": 480600032,
+  "debito_netto_su_ebitda": 0.78,
   "debtToEquity": 71.403,
   "dividendYield": 0.0,
   "earningsGrowth": 3.286,
+  "ebitda": 614899968,
   "enterpriseToEbitda": 17.664,
   "fiftyTwoWeekHigh": 354.88,
   "fiftyTwoWeekLow": 126.4,
-  "forwardPE": 19.3829,
+  "financialCurrency": "USD",
+  "forwardPE": 19.8918,
   "freeCashflow": 236900000,
   "grossMargins": 0.7107,
   "industry": "Medical Devices",
   "longName": "Insulet Corporation",
-  "marketCap": 10380936192,
+  "marketCap": 10653498368,
   "numberOfAnalystOpinions": 23,
   "operatingCashflow": 511200000,
   "operatingMargins": 0.1618,
   "payoutRatio": 0.0,
-  "priceToBook": 7.299,
+  "priceToBook": 7.4906,
   "profitMargins": 0.1229,
   "quickRatio": 1.51,
   "recommendationKey": "buy",
@@ -51,6 +55,7 @@
   "targetMeanPrice": 167.1739,
   "totalCash": 534900000,
   "totalDebt": 1015500032,
-  "trailingPE": 28.03
- }
+  "trailingPE": 28.7659
+ },
+ "v": 2
 }

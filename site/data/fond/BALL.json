@@ -1,7 +1,7 @@
 {
  "aggiornato": "2026-11-02",
  "dati": {
-  "beta": 0.961,
+  "beta": 0.95,
   "bilancio_annuale": {
    "ricavi": {
     "2022": 13372000000.0,
@@ -24,23 +24,27 @@
   },
   "currency": "USD",
   "currentRatio": 1.069,
+  "debito_netto": 7082000128,
+  "debito_netto_su_ebitda": 3.41,
   "debtToEquity": 131.495,
   "dividendYield": 1.2,
   "earningsGrowth": 0.092,
+  "ebitda": 2076000000,
   "enterpriseToEbitda": 11.896,
   "fiftyTwoWeekHigh": 68.29,
   "fiftyTwoWeekLow": 44.83,
-  "forwardPE": 14.7128,
+  "financialCurrency": "USD",
+  "forwardPE": 15.0669,
   "freeCashflow": 379875008,
   "grossMargins": 0.1863,
   "industry": "Packaging & Containers",
   "longName": "Ball Corporation",
-  "marketCap": 17697406976,
+  "marketCap": 18018357248,
   "numberOfAnalystOpinions": 13,
   "operatingCashflow": 1426000000,
   "operatingMargins": 0.0923,
   "payoutRatio": 0.2279,
-  "priceToBook": 3.061,
+  "priceToBook": 3.1347,
   "profitMargins": 0.0661,
   "quickRatio": 0.605,
   "recommendationKey": "buy",
@@ -51,6 +55,7 @@
   "targetMeanPrice": 71.5385,
   "totalCash": 500000000,
   "totalDebt": 7582000128,
-  "trailingPE": 18.9373
- }
+  "trailingPE": 19.3932
+ },
+ "v": 2
 }

@@ -1,7 +1,7 @@
 {
  "aggiornato": "2026-11-02",
  "dati": {
-  "beta": 0.574,
+  "beta": 0.553,
   "bilancio_annuale": {
    "ricavi": {
     "2022": 24494000000.0,
@@ -24,23 +24,27 @@
   },
   "currency": "EUR",
   "currentRatio": 0.889,
+  "debito_netto": 13384999680,
+  "debito_netto_su_ebitda": 2.29,
   "debtToEquity": 38.359,
   "dividendYield": 2.17,
   "earningsGrowth": 0.123,
+  "ebitda": 5853000192,
   "enterpriseToEbitda": 16.88,
   "fiftyTwoWeekHigh": 323.8,
   "fiftyTwoWeekLow": 138.3,
-  "forwardPE": 23.3506,
+  "financialCurrency": "EUR",
+  "forwardPE": 23.5777,
   "freeCashflow": 3285750016,
   "grossMargins": 0.6003,
   "industry": "Medical Instruments & Supplies",
   "longName": "EssilorLuxottica Société anonyme",
-  "marketCap": 84844724224,
+  "marketCap": 85669789696,
   "numberOfAnalystOpinions": 23,
   "operatingCashflow": 5285000192,
   "operatingMargins": 0.1537,
   "payoutRatio": 0.7477,
-  "priceToBook": 2.1692,
+  "priceToBook": 2.1903,
   "profitMargins": 0.0852,
   "quickRatio": 0.499,
   "recommendationKey": "buy",
@@ -51,6 +55,7 @@
   "targetMeanPrice": 215.913,
   "totalCash": 1931000064,
   "totalDebt": 15315999744,
-  "trailingPE": 34.5981
- }
+  "trailingPE": 34.9346
+ },
+ "v": 2
 }

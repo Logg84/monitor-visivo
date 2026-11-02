@@ -1,7 +1,7 @@
 {
  "aggiornato": "2026-11-02",
  "dati": {
-  "beta": 0.988,
+  "beta": 0.98,
   "bilancio_annuale": {
    "ricavi": {
     "2022": 2061178000.0,
@@ -24,23 +24,27 @@
   },
   "currency": "USD",
   "currentRatio": 2.286,
+  "debito_netto": 8679467904,
+  "debito_netto_su_ebitda": 5.53,
   "debtToEquity": 108.653,
   "dividendYield": 6.41,
   "earningsGrowth": 0.682,
+  "ebitda": 1570761984,
   "enterpriseToEbitda": 14.932,
   "fiftyTwoWeekHigh": 22.95,
   "fiftyTwoWeekLow": 15.7,
-  "forwardPE": 135.9286,
+  "financialCurrency": "USD",
+  "forwardPE": 139.1429,
   "freeCashflow": 1645113088,
   "grossMargins": 0.5765,
   "industry": "REIT - Healthcare Facilities",
   "longName": "Healthpeak Properties, Inc.",
-  "marketCap": 13491266560,
+  "marketCap": 13810292736,
   "numberOfAnalystOpinions": 19,
   "operatingCashflow": 1231026048,
   "operatingMargins": 0.1599,
   "payoutRatio": 3.4858,
-  "priceToBook": 1.6725,
+  "priceToBook": 1.7121,
   "profitMargins": 0.0825,
   "quickRatio": 1.928,
   "recommendationKey": "buy",
@@ -51,6 +55,7 @@
   "targetMeanPrice": 22.3947,
   "totalCash": 1640912000,
   "totalDebt": 10320379904,
-  "trailingPE": 52.8611
- }
+  "trailingPE": 55.6571
+ },
+ "v": 2
 }

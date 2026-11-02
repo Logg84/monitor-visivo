@@ -1,7 +1,7 @@
 {
  "aggiornato": "2026-11-02",
  "dati": {
-  "beta": 0.829,
+  "beta": 0.893,
   "bilancio_annuale": {
    "ricavi": {
     "2022": 21714000000.0,
@@ -21,23 +21,27 @@
   },
   "currency": "EUR",
   "currentRatio": 1.162,
+  "debito_netto": 12642999808,
+  "debito_netto_su_ebitda": 3.14,
   "debtToEquity": 78.296,
   "dividendYield": 2.33,
   "earningsGrowth": 0.224,
+  "ebitda": 4022000128,
   "enterpriseToEbitda": 15.049,
   "fiftyTwoWeekHigh": 49.25,
   "fiftyTwoWeekLow": 32.81,
-  "forwardPE": 17.8627,
+  "financialCurrency": "EUR",
+  "forwardPE": 18.2582,
   "freeCashflow": 2145374976,
   "grossMargins": 0.3902,
   "industry": "Medical Devices",
   "longName": "Siemens Healthineers AG",
-  "marketCap": 47521185792,
+  "marketCap": 48573239296,
   "numberOfAnalystOpinions": 20,
   "operatingCashflow": 3422000128,
   "operatingMargins": 0.1641,
   "payoutRatio": 0.5076,
-  "priceToBook": 2.4784,
+  "priceToBook": 2.5333,
   "profitMargins": 0.0955,
   "quickRatio": 0.705,
   "recommendationKey": "buy",
@@ -48,6 +52,7 @@
   "targetMeanPrice": 45.395,
   "totalCash": 2360000000,
   "totalDebt": 15002999808,
-  "trailingPE": 21.5533
- }
+  "trailingPE": 22.0305
+ },
+ "v": 2
 }

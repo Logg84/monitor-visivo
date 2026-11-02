@@ -1,7 +1,7 @@
 {
  "aggiornato": "2026-11-02",
  "dati": {
-  "beta": 0.747,
+  "beta": 0.736,
   "bilancio_annuale": {
    "ricavi": {
     "2022": 150017000000.0,
@@ -24,23 +24,27 @@
   },
   "currency": "EUR",
   "currentRatio": 1.314,
+  "debito_netto": 77375995904,
+  "debito_netto_su_ebitda": 5.92,
   "debtToEquity": 102.738,
   "dividendYield": 8.6,
   "earningsGrowth": 0.344,
+  "ebitda": 13075999744,
   "enterpriseToEbitda": 8.872,
   "fiftyTwoWeekHigh": 62.34,
   "fiftyTwoWeekLow": 38.89,
-  "forwardPE": 6.2506,
+  "financialCurrency": "EUR",
+  "forwardPE": 6.9304,
   "freeCashflow": -879000000,
   "grossMargins": 0.1674,
   "industry": "Auto Manufacturers",
   "longName": "Mercedes-Benz Group AG",
-  "marketCap": 38519848960,
+  "marketCap": 39065653248,
   "numberOfAnalystOpinions": 20,
   "operatingCashflow": 10387000320,
   "operatingMargins": 0.0472,
   "payoutRatio": 0.614,
-  "priceToBook": 0.409,
+  "priceToBook": 0.4083,
   "profitMargins": 0.042,
   "quickRatio": 0.842,
   "recommendationKey": "buy",
@@ -51,6 +55,7 @@
   "targetMeanPrice": 51.1575,
   "totalCash": 19484000256,
   "totalDebt": 96859996160,
-  "trailingPE": 7.6856
- }
+  "trailingPE": 7.2202
+ },
+ "v": 2
 }

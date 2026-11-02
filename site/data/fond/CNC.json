@@ -1,7 +1,7 @@
 {
  "aggiornato": "2026-11-02",
  "dati": {
-  "beta": 1.13,
+  "beta": 1.079,
   "bilancio_annuale": {
    "ricavi": {
     "2022": 144547000000.0,
@@ -24,22 +24,26 @@
   },
   "currency": "USD",
   "currentRatio": 1.164,
+  "debito_netto": -8044001280,
+  "debito_netto_su_ebitda": -1.71,
   "debtToEquity": 69.673,
   "dividendYield": 0.0,
+  "ebitda": 4691999744,
   "enterpriseToEbitda": 5.529,
   "fiftyTwoWeekHigh": 72.5,
   "fiftyTwoWeekLow": 31.63,
-  "forwardPE": 12.3593,
+  "financialCurrency": "USD",
+  "forwardPE": 11.9953,
   "freeCashflow": 3082749952,
   "grossMargins": 0.1134,
   "industry": "Healthcare Plans",
   "longName": "Centene Corporation",
-  "marketCap": 33887404032,
+  "marketCap": 32936873984,
   "numberOfAnalystOpinions": 18,
   "operatingCashflow": 4723999744,
   "operatingMargins": 0.0074,
   "payoutRatio": 0.0,
-  "priceToBook": 1.5257,
+  "priceToBook": 1.4829,
   "profitMargins": 0.0081,
   "quickRatio": 1.123,
   "recommendationKey": "buy",
@@ -50,6 +54,7 @@
   "targetMeanPrice": 74.5,
   "totalCash": 23586000896,
   "totalDebt": 15541999616,
-  "trailingPE": 23.5223
- }
+  "trailingPE": 22.8625
+ },
+ "v": 2
 }

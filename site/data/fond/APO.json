@@ -1,7 +1,7 @@
 {
  "aggiornato": "2026-11-02",
  "dati": {
-  "beta": 1.58,
+  "beta": 1.495,
   "bilancio_annuale": {
    "ricavi": {
     "2022": 10968000000.0,
@@ -24,21 +24,23 @@
   },
   "currency": "USD",
   "currentRatio": 1.948,
+  "debito_netto": -5731999744,
   "debtToEquity": 100.969,
   "dividendYield": 1.94,
   "earningsGrowth": 0.637,
   "fiftyTwoWeekHigh": 153.29,
   "fiftyTwoWeekLow": 99.56,
-  "forwardPE": 10.8818,
+  "financialCurrency": "USD",
+  "forwardPE": 11.2218,
   "grossMargins": 0.3614,
   "industry": "Asset Management",
   "longName": "Apollo Global Management, Inc.",
-  "marketCap": 68408516608,
+  "marketCap": 70546284544,
   "numberOfAnalystOpinions": 20,
   "operatingCashflow": 9473000448,
   "operatingMargins": 0.2195,
   "payoutRatio": 0.75,
-  "priceToBook": 3.4028,
+  "priceToBook": 3.5091,
   "profitMargins": 0.0527,
   "quickRatio": 1.897,
   "recommendationKey": "buy",
@@ -49,6 +51,7 @@
   "targetMeanPrice": 147.55,
   "totalCash": 47616000000,
   "totalDebt": 41884000256,
-  "trailingPE": 41.5197
- }
+  "trailingPE": 42.8172
+ },
+ "v": 2
 }

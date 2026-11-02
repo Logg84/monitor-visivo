@@ -1,7 +1,7 @@
 {
  "aggiornato": "2026-11-02",
  "dati": {
-  "beta": 2.26,
+  "beta": 2.327,
   "bilancio_annuale": {
    "ricavi": {
     "2023": 5919600000.0,
@@ -24,23 +24,27 @@
   },
   "currency": "USD",
   "currentRatio": 3.168,
+  "debito_netto": 1353299968,
+  "debito_netto_su_ebitda": 0.47,
   "debtToEquity": 28.525,
   "dividendYield": 0.12,
   "earningsGrowth": 0.5,
+  "ebitda": 2850299904,
   "enterpriseToEbitda": 60.898,
   "fiftyTwoWeekHigh": 329.88,
   "fiftyTwoWeekLow": 70.69,
-  "forwardPE": 26.7999,
+  "financialCurrency": "USD",
+  "forwardPE": 23.3899,
   "freeCashflow": 2408049920,
   "grossMargins": 0.5222,
   "industry": "Semiconductors",
   "longName": "Marvell Technology, Inc.",
-  "marketCap": 176505585664,
+  "marketCap": 154046971904,
   "numberOfAnalystOpinions": 44,
   "operatingCashflow": 2200300032,
   "operatingMargins": 0.1668,
   "payoutRatio": 0.0789,
-  "priceToBook": 9.2926,
+  "priceToBook": 8.1102,
   "profitMargins": 0.2793,
   "quickRatio": 2.461,
   "recommendationKey": "strong_buy",
@@ -51,6 +55,7 @@
   "targetMeanPrice": 340.562,
   "totalCash": 3932800000,
   "totalDebt": 5286099968,
-  "trailingPE": 64.6053
- }
+  "trailingPE": 56.3849
+ },
+ "v": 2
 }

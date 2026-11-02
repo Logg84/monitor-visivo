@@ -1,7 +1,7 @@
 {
  "aggiornato": "2026-11-02",
  "dati": {
-  "beta": 0.933,
+  "beta": 0.951,
   "bilancio_annuale": {
    "ricavi": {
     "2022": 10184000000.0,
@@ -24,23 +24,27 @@
   },
   "currency": "USD",
   "currentRatio": 1.817,
+  "debito_netto": 5027999936,
+  "debito_netto_su_ebitda": 6.85,
   "debtToEquity": 57.312,
   "dividendYield": 4.13,
   "earningsGrowth": -0.273,
+  "ebitda": 734000000,
   "enterpriseToEbitda": 26.822,
   "fiftyTwoWeekHigh": 27.75,
   "fiftyTwoWeekLow": 18.26,
-  "forwardPE": 40.0118,
+  "financialCurrency": "USD",
+  "forwardPE": 41.86,
   "freeCashflow": 583124992,
   "grossMargins": 0.1496,
   "industry": "REIT - Specialty",
   "longName": "Weyerhaeuser Company",
-  "marketCap": 14659000320,
+  "marketCap": 15336124416,
   "numberOfAnalystOpinions": 11,
   "operatingCashflow": 530000000,
   "operatingMargins": 0.05,
   "payoutRatio": 1.3333,
-  "priceToBook": 1.5625,
+  "priceToBook": 1.6347,
   "profitMargins": 0.0647,
   "quickRatio": 0.918,
   "recommendationKey": "strong_buy",
@@ -51,6 +55,7 @@
   "targetMeanPrice": 26.4546,
   "totalCash": 349000000,
   "totalDebt": 5376999936,
-  "trailingPE": 32.3016
- }
+  "trailingPE": 33.7936
+ },
+ "v": 2
 }

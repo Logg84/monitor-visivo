@@ -1,7 +1,7 @@
 {
  "aggiornato": "2026-11-02",
  "dati": {
-  "beta": 0.02,
+  "beta": -0.012,
   "bilancio_annuale": {
    "ricavi": {
     "2023": 20094200000.0,
@@ -24,23 +24,27 @@
   },
   "currency": "USD",
   "currentRatio": 0.704,
+  "debito_netto": 13182499616,
+  "debito_netto_su_ebitda": 3.86,
   "debtToEquity": 182.422,
   "dividendYield": 7.12,
   "earningsGrowth": -0.667,
+  "ebitda": 3415000064,
   "enterpriseToEbitda": 9.233,
   "fiftyTwoWeekHigh": 49.59,
   "fiftyTwoWeekLow": 31.18,
-  "forwardPE": 10.8779,
+  "financialCurrency": "USD",
+  "forwardPE": 11.0238,
   "freeCashflow": 1302612480,
   "grossMargins": 0.3373,
   "industry": "Packaged Foods",
   "longName": "General Mills, Inc.",
-  "marketCap": 18334423040,
+  "marketCap": 18580377600,
   "numberOfAnalystOpinions": 18,
   "operatingCashflow": 2067000064,
   "operatingMargins": 0.1524,
   "payoutRatio": 0.5941,
-  "priceToBook": 2.4609,
+  "priceToBook": 2.4939,
   "profitMargins": -0.0489,
   "quickRatio": 0.318,
   "recommendationKey": "hold",
@@ -51,5 +55,6 @@
   "targetMeanPrice": 37.0,
   "totalCash": 433100000,
   "totalDebt": 13615599616
- }
+ },
+ "v": 2
 }

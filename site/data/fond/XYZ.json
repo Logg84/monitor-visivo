@@ -1,7 +1,7 @@
 {
  "aggiornato": "2026-11-02",
  "dati": {
-  "beta": 2.553,
+  "beta": 2.559,
   "bilancio_annuale": {
    "ricavi": {
     "2022": 17531587000.0,
@@ -24,23 +24,27 @@
   },
   "currency": "USD",
   "currentRatio": 2.209,
+  "debito_netto": 433136128,
+  "debito_netto_su_ebitda": 0.28,
   "debtToEquity": 32.58,
   "dividendYield": 0.0,
   "earningsGrowth": -0.833,
+  "ebitda": 1547908992,
   "enterpriseToEbitda": 29.84,
   "fiftyTwoWeekHigh": 86.92,
   "fiftyTwoWeekLow": 48.21,
-  "forwardPE": 14.6388,
+  "financialCurrency": "USD",
+  "forwardPE": 14.804,
   "freeCashflow": -27105876,
   "grossMargins": 0.4657,
   "industry": "Software - Infrastructure",
   "longName": "Block, Inc.",
-  "marketCap": 45792595968,
+  "marketCap": 46309281792,
   "numberOfAnalystOpinions": 42,
   "operatingCashflow": 4057472000,
   "operatingMargins": 0.07,
   "payoutRatio": 0.0,
-  "priceToBook": 2.077,
+  "priceToBook": 2.1004,
   "profitMargins": 0.0143,
   "quickRatio": 1.077,
   "recommendationKey": "buy",
@@ -51,6 +55,7 @@
   "targetMeanPrice": 97.9112,
   "totalCash": 6738176000,
   "totalDebt": 7171312128,
-  "trailingPE": 136.1071
- }
+  "trailingPE": 137.6429
+ },
+ "v": 2
 }

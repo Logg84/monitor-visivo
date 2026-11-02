@@ -1,7 +1,7 @@
 {
  "aggiornato": "2026-11-02",
  "dati": {
-  "beta": 0.889,
+  "beta": 0.941,
   "bilancio_annuale": {
    "ricavi": {
     "2022": 21161000000.0,
@@ -24,22 +24,26 @@
   },
   "currency": "USD",
   "currentRatio": 1.014,
+  "debito_netto": 9325000256,
+  "debito_netto_su_ebitda": 2.46,
   "debtToEquity": 77.134,
   "dividendYield": 5.09,
+  "ebitda": 3784999936,
   "enterpriseToEbitda": 7.543,
   "fiftyTwoWeekHigh": 50.25,
   "fiftyTwoWeekLow": 29.26,
-  "forwardPE": 13.7757,
+  "financialCurrency": "USD",
+  "forwardPE": 13.4835,
   "freeCashflow": 2322374912,
   "grossMargins": 0.2978,
   "industry": "Packaging & Containers",
   "longName": "International Paper Company",
-  "marketCap": 19260456960,
+  "marketCap": 19403440128,
   "numberOfAnalystOpinions": 10,
   "operatingCashflow": 2380999936,
   "operatingMargins": 0.0589,
   "payoutRatio": 4.0217,
-  "priceToBook": 1.4625,
+  "priceToBook": 1.4734,
   "profitMargins": -0.1432,
   "quickRatio": 0.673,
   "recommendationKey": "buy",
@@ -50,5 +54,6 @@
   "targetMeanPrice": 42.3,
   "totalCash": 815000000,
   "totalDebt": 10140000256
- }
+ },
+ "v": 2
 }

@@ -1,7 +1,7 @@
 {
  "aggiornato": "2026-11-02",
  "dati": {
-  "beta": 1.827,
+  "beta": 1.715,
   "bilancio_annuale": {
    "ricavi": {
     "2022": 5565056000.0,
@@ -24,21 +24,23 @@
   },
   "currency": "USD",
   "currentRatio": 0.856,
+  "debito_netto": 8607404032,
   "debtToEquity": 69.812,
   "dividendYield": 0.83,
   "earningsGrowth": 0.4,
   "fiftyTwoWeekHigh": 144.84,
   "fiftyTwoWeekLow": 82.67,
-  "forwardPE": 13.1388,
+  "financialCurrency": "USD",
+  "forwardPE": 13.6427,
   "grossMargins": 0.5477,
   "industry": "Asset Management",
   "longName": "KKR & Co. Inc.",
-  "marketCap": 87177707520,
+  "marketCap": 90521108480,
   "numberOfAnalystOpinions": 21,
   "operatingCashflow": 2488480000,
   "operatingMargins": 0.2065,
   "payoutRatio": 0.2396,
-  "priceToBook": 2.9729,
+  "priceToBook": 3.0869,
   "profitMargins": 0.122,
   "quickRatio": 0.817,
   "recommendationKey": "buy",
@@ -49,6 +51,7 @@
   "targetMeanPrice": 120.5729,
   "totalCash": 47556554752,
   "totalDebt": 56163958784,
-  "trailingPE": 30.1565
- }
+  "trailingPE": 31.3131
+ },
+ "v": 2
 }

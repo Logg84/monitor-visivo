@@ -1,7 +1,7 @@
 {
  "aggiornato": "2026-11-02",
  "dati": {
-  "beta": 0.813,
+  "beta": 0.811,
   "bilancio_annuale": {
    "ricavi": {
     "2022": 142610000000.0,
@@ -24,23 +24,27 @@
   },
   "currency": "EUR",
   "currentRatio": 1.148,
+  "debito_netto": 101147001856,
+  "debito_netto_su_ebitda": 7.33,
   "debtToEquity": 119.855,
   "dividendYield": 7.61,
   "earningsGrowth": -0.279,
+  "ebitda": 13793000448,
   "enterpriseToEbitda": 9.994,
   "fiftyTwoWeekHigh": 97.92,
   "fiftyTwoWeekLow": 51.98,
-  "forwardPE": 6.7515,
+  "financialCurrency": "EUR",
+  "forwardPE": 6.8812,
   "freeCashflow": 1710268032,
   "grossMargins": 0.1241,
   "industry": "Auto Manufacturers",
   "longName": "Bayerische Motoren Werke Aktiengesellschaft",
-  "marketCap": 34567733248,
+  "marketCap": 35232153600,
   "numberOfAnalystOpinions": 18,
   "operatingCashflow": 4046000128,
   "operatingMargins": 0.0515,
   "payoutRatio": 0.4235,
-  "priceToBook": 0.3627,
+  "priceToBook": 0.3697,
   "profitMargins": 0.0492,
   "quickRatio": 0.729,
   "recommendationKey": "hold",
@@ -51,6 +55,7 @@
   "targetMeanPrice": 67.7722,
   "totalCash": 15642000384,
   "totalDebt": 116789002240,
-  "trailingPE": 5.5582
- }
+  "trailingPE": 5.6651
+ },
+ "v": 2
 }

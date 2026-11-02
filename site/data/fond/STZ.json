@@ -1,0 +1,61 @@
+{
+ "aggiornato": "2026-11-02",
+ "dati": {
+  "beta": 0.396,
+  "bilancio_annuale": {
+   "ricavi": {
+    "2023": 9452600000.0,
+    "2024": 9961800000.0,
+    "2025": 10208700000.0,
+    "2026": 9139000000.0
+   },
+   "utile_netto": {
+    "2023": -71000000.0,
+    "2024": 1727400000.0,
+    "2025": -81400000.0,
+    "2026": 1686700000.0
+   },
+   "utile_operativo": {
+    "2023": 2840900000.0,
+    "2024": 3184800000.0,
+    "2025": 3364600000.0,
+    "2026": 2863100000.0
+   }
+  },
+  "currency": "USD",
+  "currentRatio": 0.999,
+  "debito_netto": 10217200224,
+  "debito_netto_su_ebitda": 2.98,
+  "debtToEquity": 116.176,
+  "dividendYield": 3.04,
+  "earningsGrowth": 0.253,
+  "ebitda": 3425900032,
+  "enterpriseToEbitda": 9.751,
+  "fiftyTwoWeekHigh": 168.6,
+  "fiftyTwoWeekLow": 110.6,
+  "financialCurrency": "USD",
+  "forwardPE": 11.6351,
+  "freeCashflow": 1118400000,
+  "grossMargins": 0.5277,
+  "industry": "Beverages - Brewers",
+  "longName": "Constellation Brands, Inc.",
+  "marketCap": 23804770304,
+  "numberOfAnalystOpinions": 23,
+  "operatingCashflow": 2658299904,
+  "operatingMargins": 0.3358,
+  "payoutRatio": 0.3671,
+  "priceToBook": 2.7817,
+  "profitMargins": 0.2089,
+  "quickRatio": 0.262,
+  "recommendationKey": "buy",
+  "returnOnAssets": 0.0868,
+  "returnOnEquity": 0.2401,
+  "revenueGrowth": 0.061,
+  "sector": "Consumer Defensive",
+  "targetMeanPrice": 151.1739,
+  "totalCash": 98500000,
+  "totalDebt": 10315700224,
+  "trailingPE": 12.5936
+ },
+ "v": 2
+}

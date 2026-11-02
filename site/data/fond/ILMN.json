@@ -1,7 +1,7 @@
 {
  "aggiornato": "2026-11-02",
  "dati": {
-  "beta": 1.416,
+  "beta": 1.451,
   "bilancio_annuale": {
    "ricavi": {
     "2022": 4584000000.0,
@@ -24,23 +24,27 @@
   },
   "currency": "USD",
   "currentRatio": 2.625,
+  "debito_netto": 976000000,
+  "debito_netto_su_ebitda": 0.85,
   "debtToEquity": 73.545,
   "dividendYield": 0.0,
   "earningsGrowth": 0.459,
+  "ebitda": 1142000000,
   "enterpriseToEbitda": 32.1,
   "fiftyTwoWeekHigh": 309.35,
   "fiftyTwoWeekLow": 112.65,
-  "forwardPE": 38.5109,
+  "financialCurrency": "USD",
+  "forwardPE": 36.651,
   "freeCashflow": 859000000,
   "grossMargins": 0.6768,
   "industry": "Diagnostics & Research",
   "longName": "Illumina, Inc.",
-  "marketCap": 35681689600,
+  "marketCap": 34258896896,
   "numberOfAnalystOpinions": 20,
   "operatingCashflow": 1230000000,
   "operatingMargins": 0.2002,
   "payoutRatio": 0.0,
-  "priceToBook": 12.556,
+  "priceToBook": 10.9507,
   "profitMargins": 0.1972,
   "quickRatio": 1.866,
   "recommendationKey": "hold",
@@ -51,6 +55,7 @@
   "targetMeanPrice": 261.6,
   "totalCash": 1336999936,
   "totalDebt": 2312999936,
-  "trailingPE": 44.028
- }
+  "trailingPE": 38.9983
+ },
+ "v": 2
 }

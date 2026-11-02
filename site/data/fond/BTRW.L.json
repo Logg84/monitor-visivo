@@ -1,7 +1,7 @@
 {
  "aggiornato": "2026-11-02",
  "dati": {
-  "beta": 1.319,
+  "beta": 1.384,
   "bilancio_annuale": {
    "ricavi": {
     "2023": 5321400000.0,
@@ -24,23 +24,27 @@
   },
   "currency": "GBp",
   "currentRatio": 5.029,
+  "debito_netto": -723299968,
+  "debito_netto_su_ebitda": -1.43,
   "debtToEquity": 3.184,
   "dividendYield": 1.86,
   "earningsGrowth": 0.263,
+  "ebitda": 504500000,
   "enterpriseToEbitda": 7.522,
   "fiftyTwoWeekHigh": 406.5,
   "fiftyTwoWeekLow": 235.4,
-  "forwardPE": 11.1931,
+  "financialCurrency": "GBP",
+  "forwardPE": 11.5943,
   "freeCashflow": 238987504,
   "grossMargins": 0.1355,
   "industry": "Residential Construction",
   "longName": "Barratt Redrow plc",
-  "marketCap": 4415819776,
+  "marketCap": 4550456832,
   "numberOfAnalystOpinions": 19,
   "operatingCashflow": 436400000,
   "operatingMargins": 0.0875,
   "payoutRatio": 1.0179,
-  "priceToBook": 0.5834,
+  "priceToBook": 0.6011,
   "profitMargins": 0.0402,
   "quickRatio": 0.687,
   "recommendationKey": "buy",
@@ -51,6 +55,7 @@
   "targetMeanPrice": 336.474,
   "totalCash": 970899968,
   "totalDebt": 247600000,
-  "trailingPE": 19.1
- }
+  "trailingPE": 19.6824
+ },
+ "v": 2
 }

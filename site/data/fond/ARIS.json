@@ -1,7 +1,7 @@
 {
  "aggiornato": "2026-11-02",
  "dati": {
-  "beta": 2.08,
+  "beta": 2.11,
   "bilancio_annuale": {
    "ricavi": {
     "2022": 399963000.0,
@@ -24,22 +24,26 @@
   },
   "currency": "USD",
   "currentRatio": 1.907,
+  "debito_netto": 80281984,
+  "debito_netto_su_ebitda": 0.13,
   "debtToEquity": 28.652,
   "dividendYield": 0.0,
+  "ebitda": 626472000,
   "enterpriseToEbitda": 4.882,
   "fiftyTwoWeekHigh": 23.29,
   "fiftyTwoWeekLow": 9.553,
-  "forwardPE": 5.0953,
+  "financialCurrency": "USD",
+  "forwardPE": 5.1836,
   "freeCashflow": 120859752,
   "grossMargins": 0.5951,
   "industry": "Gold",
   "longName": "Aris Mining Corporation",
-  "marketCap": 2978795008,
+  "marketCap": 3030402560,
   "numberOfAnalystOpinions": 1,
   "operatingCashflow": 489407008,
   "operatingMargins": 0.4784,
   "payoutRatio": 0.0,
-  "priceToBook": 1.6873,
+  "priceToBook": 1.7166,
   "profitMargins": 0.2243,
   "quickRatio": 1.617,
   "recommendationKey": "strong_buy",
@@ -50,6 +54,7 @@
   "targetMeanPrice": 37.0,
   "totalCash": 425552000,
   "totalDebt": 505833984,
-  "trailingPE": 10.3813
- }
+  "trailingPE": 10.5612
+ },
+ "v": 2
 }

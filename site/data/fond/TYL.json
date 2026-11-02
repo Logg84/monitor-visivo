@@ -1,7 +1,7 @@
 {
  "aggiornato": "2026-11-02",
  "dati": {
-  "beta": 0.849,
+  "beta": 0.732,
   "bilancio_annuale": {
    "ricavi": {
     "2022": 1850204000.0,
@@ -24,23 +24,27 @@
   },
   "currency": "USD",
   "currentRatio": 1.332,
+  "debito_netto": 575909056,
+  "debito_netto_su_ebitda": 1.21,
   "debtToEquity": 52.155,
   "dividendYield": 0.0,
   "earningsGrowth": 0.207,
+  "ebitda": 476884992,
   "enterpriseToEbitda": 34.082,
   "fiftyTwoWeekHigh": 481.57,
   "fiftyTwoWeekLow": 270.71,
-  "forwardPE": 25.3578,
+  "financialCurrency": "USD",
+  "forwardPE": 25.9712,
   "freeCashflow": 689574976,
   "grossMargins": 0.477,
   "industry": "Software - Application",
   "longName": "Tyler Technologies, Inc.",
-  "marketCap": 15677179904,
+  "marketCap": 16060462080,
   "numberOfAnalystOpinions": 22,
   "operatingCashflow": 758028992,
   "operatingMargins": 0.1807,
   "payoutRatio": 0.0,
-  "priceToBook": 5.6297,
+  "priceToBook": 5.7674,
   "profitMargins": 0.1351,
   "quickRatio": 1.261,
   "recommendationKey": "buy",
@@ -51,6 +55,7 @@
   "targetMeanPrice": 444.3182,
   "totalCash": 879393984,
   "totalDebt": 1455303040,
-  "trailingPE": 49.226
- }
+  "trailingPE": 50.4295
+ },
+ "v": 2
 }

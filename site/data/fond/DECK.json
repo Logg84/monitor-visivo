@@ -1,7 +1,7 @@
 {
  "aggiornato": "2026-11-02",
  "dati": {
-  "beta": 1.121,
+  "beta": 1.106,
   "bilancio_annuale": {
    "ricavi": {
     "2023": 3627286000.0,
@@ -24,23 +24,27 @@
   },
   "currency": "USD",
   "currentRatio": 2.724,
+  "debito_netto": -670201984,
+  "debito_netto_su_ebitda": -0.48,
   "debtToEquity": 23.24,
   "dividendYield": 0.0,
   "earningsGrowth": 0.27,
+  "ebitda": 1388444032,
   "enterpriseToEbitda": 7.4,
   "fiftyTwoWeekHigh": 122.29,
   "fiftyTwoWeekLow": 77.2,
-  "forwardPE": 10.0244,
+  "financialCurrency": "USD",
+  "forwardPE": 10.3924,
   "freeCashflow": 815705728,
   "grossMargins": 0.5892,
   "industry": "Footwear & Accessories",
   "longName": "Deckers Outdoor Corporation",
-  "marketCap": 10944023552,
+  "marketCap": 11345798144,
   "numberOfAnalystOpinions": 21,
   "operatingCashflow": 1128460032,
   "operatingMargins": 0.263,
   "payoutRatio": 0.0,
-  "priceToBook": 4.7694,
+  "priceToBook": 4.8941,
   "profitMargins": 0.19,
   "quickRatio": 1.778,
   "recommendationKey": "hold",
@@ -51,6 +55,7 @@
   "targetMeanPrice": 96.7429,
   "totalCash": 1209721984,
   "totalDebt": 539520000,
-  "trailingPE": 10.8596
- }
+  "trailingPE": 11.2583
+ },
+ "v": 2
 }

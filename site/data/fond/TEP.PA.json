@@ -1,7 +1,7 @@
 {
  "aggiornato": "2026-11-02",
  "dati": {
-  "beta": 0.636,
+  "beta": 0.639,
   "bilancio_annuale": {
    "ricavi": {
     "2022": 8154000000.0,
@@ -24,23 +24,27 @@
   },
   "currency": "EUR",
   "currentRatio": 1.395,
+  "debito_netto": 3978700032,
+  "debito_netto_su_ebitda": 2.53,
   "debtToEquity": 120.367,
   "dividendYield": 5.6,
   "earningsGrowth": -0.116,
+  "ebitda": 1575299968,
   "enterpriseToEbitda": 5.489,
   "fiftyTwoWeekHigh": 82.7,
   "fiftyTwoWeekLow": 43.65,
-  "forwardPE": 5.5985,
+  "financialCurrency": "EUR",
+  "forwardPE": 5.7484,
   "freeCashflow": 1155487488,
   "grossMargins": 0.307,
   "industry": "Specialty Business Services",
   "longName": "Teleperformance SE",
-  "marketCap": 4647202816,
+  "marketCap": 4901345792,
   "numberOfAnalystOpinions": 15,
   "operatingCashflow": 1611000064,
   "operatingMargins": 0.107,
   "payoutRatio": 0.5689,
-  "priceToBook": 1.1083,
+  "priceToBook": 1.138,
   "profitMargins": 0.0465,
   "quickRatio": 1.285,
   "recommendationKey": "hold",
@@ -51,6 +55,7 @@
   "targetMeanPrice": 78.96,
   "totalCash": 1068300032,
   "totalDebt": 5047000064,
-  "trailingPE": 10.1062
- }
+  "trailingPE": 10.3767
+ },
+ "v": 2
 }

@@ -1,7 +1,7 @@
 {
  "aggiornato": "2026-11-02",
  "dati": {
-  "beta": 0.848,
+  "beta": 0.796,
   "bilancio_annuale": {
    "ricavi": {
     "2023": 5007100000.0,
@@ -24,23 +24,27 @@
   },
   "currency": "USD",
   "currentRatio": 1.277,
+  "debito_netto": 3686699840,
+  "debito_netto_su_ebitda": 1.2,
   "debtToEquity": 124.704,
   "dividendYield": 4.25,
   "earningsGrowth": 0.139,
+  "ebitda": 3078000128,
   "enterpriseToEbitda": 14.165,
   "fiftyTwoWeekHigh": 127.98,
   "fiftyTwoWeekLow": 85.45,
-  "forwardPE": 17.5501,
+  "financialCurrency": "USD",
+  "forwardPE": 18.0776,
   "freeCashflow": 1887112448,
   "grossMargins": 0.7439,
   "industry": "Software - Application",
   "longName": "Paychex, Inc.",
-  "marketCap": 39912534016,
+  "marketCap": 41112186880,
   "numberOfAnalystOpinions": 14,
   "operatingCashflow": 2251800064,
   "operatingMargins": 0.385,
   "payoutRatio": 0.9008,
-  "priceToBook": 10.7714,
+  "priceToBook": 11.0952,
   "profitMargins": 0.2735,
   "quickRatio": 0.516,
   "recommendationKey": "hold",
@@ -51,6 +55,7 @@
   "targetMeanPrice": 114.5714,
   "totalCash": 934200000,
   "totalDebt": 4620899840,
-  "trailingPE": 22.246
- }
+  "trailingPE": 22.9147
+ },
+ "v": 2
 }

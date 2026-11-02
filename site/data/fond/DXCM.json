@@ -1,7 +1,7 @@
 {
  "aggiornato": "2026-11-02",
  "dati": {
-  "beta": 1.477,
+  "beta": 1.443,
   "bilancio_annuale": {
    "ricavi": {
     "2022": 2909800000.0,
@@ -24,23 +24,27 @@
   },
   "currency": "USD",
   "currentRatio": 1.738,
+  "debito_netto": -425000064,
+  "debito_netto_su_ebitda": -0.28,
   "debtToEquity": 54.938,
   "dividendYield": 0.0,
   "earningsGrowth": 0.026,
+  "ebitda": 1498800000,
   "enterpriseToEbitda": 20.193,
   "fiftyTwoWeekHigh": 92.59,
   "fiftyTwoWeekLow": 54.11,
-  "forwardPE": 26.2513,
+  "financialCurrency": "USD",
+  "forwardPE": 27.0393,
   "freeCashflow": 811900032,
   "grossMargins": 0.6342,
   "industry": "Medical Devices",
   "longName": "DexCom, Inc.",
-  "marketCap": 30690129920,
+  "marketCap": 31611320320,
   "numberOfAnalystOpinions": 26,
   "operatingCashflow": 1414400000,
   "operatingMargins": 0.2434,
   "payoutRatio": 0.0,
-  "priceToBook": 12.1068,
+  "priceToBook": 12.4702,
   "profitMargins": 0.1942,
   "quickRatio": 1.342,
   "recommendationKey": "strong_buy",
@@ -51,6 +55,7 @@
   "targetMeanPrice": 98.1539,
   "totalCash": 1817900032,
   "totalDebt": 1392899968,
-  "trailingPE": 32.3976
- }
+  "trailingPE": 33.3701
+ },
+ "v": 2
 }

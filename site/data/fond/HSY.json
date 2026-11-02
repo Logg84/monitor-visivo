@@ -1,7 +1,7 @@
 {
  "aggiornato": "2026-11-02",
  "dati": {
-  "beta": 0.089,
+  "beta": 0.068,
   "bilancio_annuale": {
    "ricavi": {
     "2022": 10419294000.0,
@@ -24,23 +24,27 @@
   },
   "currency": "USD",
   "currentRatio": 1.238,
+  "debito_netto": 4753412992,
+  "debito_netto_su_ebitda": 1.52,
   "debtToEquity": 111.37,
   "dividendYield": 3.51,
   "earningsGrowth": 1.118,
+  "ebitda": 3136112896,
   "enterpriseToEbitda": 12.129,
   "fiftyTwoWeekHigh": 239.48,
   "fiftyTwoWeekLow": 156.16,
-  "forwardPE": 17.4168,
+  "financialCurrency": "USD",
+  "forwardPE": 18.0099,
   "freeCashflow": 1671246720,
   "grossMargins": 0.4195,
   "industry": "Confectioners",
   "longName": "The Hershey Company",
-  "marketCap": 33284362240,
+  "marketCap": 34417889280,
   "numberOfAnalystOpinions": 21,
   "operatingCashflow": 2565356032,
   "operatingMargins": 0.2555,
   "payoutRatio": 0.6477,
-  "priceToBook": 6.8262,
+  "priceToBook": 7.0587,
   "profitMargins": 0.1463,
   "quickRatio": 0.574,
   "recommendationKey": "hold",
@@ -51,6 +55,7 @@
   "targetMeanPrice": 181.6667,
   "totalCash": 676688000,
   "totalDebt": 5430100992,
-  "trailingPE": 18.7342
- }
+  "trailingPE": 19.3722
+ },
+ "v": 2
 }

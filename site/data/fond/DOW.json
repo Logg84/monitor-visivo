@@ -1,7 +1,7 @@
 {
  "aggiornato": "2026-11-02",
  "dati": {
-  "beta": 0.409,
+  "beta": 0.386,
   "bilancio_annuale": {
    "ricavi": {
     "2022": 56902000000.0,
@@ -24,23 +24,27 @@
   },
   "currency": "USD",
   "currentRatio": 1.756,
+  "debito_netto": 14479999488,
+  "debito_netto_su_ebitda": 3.21,
   "debtToEquity": 107.566,
   "dividendYield": 4.03,
   "earningsGrowth": 6.75,
+  "ebitda": 4514999808,
   "enterpriseToEbitda": 9.098,
   "fiftyTwoWeekHigh": 42.74,
   "fiftyTwoWeekLow": 20.93,
-  "forwardPE": 18.8813,
+  "financialCurrency": "USD",
+  "forwardPE": 18.5983,
   "freeCashflow": 897625024,
   "grossMargins": 0.1101,
   "industry": "Chemicals",
   "longName": "Dow Inc.",
-  "marketCap": 25118703616,
+  "marketCap": 24742283264,
   "numberOfAnalystOpinions": 17,
   "operatingCashflow": 4576999936,
   "operatingMargins": 0.0678,
   "payoutRatio": 7.0,
-  "priceToBook": 1.5551,
+  "priceToBook": 1.5318,
   "profitMargins": -0.021,
   "quickRatio": 0.903,
   "recommendationKey": "hold",
@@ -51,5 +55,6 @@
   "targetMeanPrice": 34.7647,
   "totalCash": 4486000128,
   "totalDebt": 18965999616
- }
+ },
+ "v": 2
 }

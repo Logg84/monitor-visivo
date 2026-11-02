@@ -1,7 +1,7 @@
 {
  "aggiornato": "2026-11-02",
  "dati": {
-  "beta": 3.571,
+  "beta": 3.611,
   "bilancio_annuale": {
    "ricavi": {
     "2022": 499264000.0,
@@ -24,21 +24,25 @@
   },
   "currency": "USD",
   "currentRatio": 4.041,
+  "debito_netto": 870313984,
+  "debito_netto_su_ebitda": -0.04,
   "debtToEquity": 9.893,
   "dividendYield": 0.0,
   "earningsGrowth": 4.314,
+  "ebitda": -19342766080,
   "enterpriseToEbitda": -3.567,
   "fiftyTwoWeekHigh": 270.36,
   "fiftyTwoWeekLow": 81.81,
-  "forwardPE": 5.5137,
+  "financialCurrency": "USD",
+  "forwardPE": 5.5243,
   "grossMargins": 0.6784,
   "industry": "Software - Application",
   "longName": "Strategy Inc",
-  "marketCap": 55280414720,
+  "marketCap": 55386304512,
   "numberOfAnalystOpinions": 15,
   "operatingMargins": 166.7089,
   "payoutRatio": 0.0,
-  "priceToBook": 0.9933,
+  "priceToBook": 0.9953,
   "profitMargins": 0.0,
   "quickRatio": 3.994,
   "recommendationKey": "strong_buy",
@@ -49,5 +53,6 @@
   "targetMeanPrice": 234.2667,
   "totalCash": 5905912832,
   "totalDebt": 6776226816
- }
+ },
+ "v": 2
 }

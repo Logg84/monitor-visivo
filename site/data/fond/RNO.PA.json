@@ -1,7 +1,7 @@
 {
  "aggiornato": "2026-11-02",
  "dati": {
-  "beta": 0.86,
+  "beta": 0.834,
   "bilancio_annuale": {
    "ricavi": {
     "2022": 46328000000.0,
@@ -24,22 +24,26 @@
   },
   "currency": "EUR",
   "currentRatio": 1.033,
+  "debito_netto": 51081000960,
+  "debito_netto_su_ebitda": 8.23,
   "debtToEquity": 327.722,
   "dividendYield": 7.96,
+  "ebitda": 6209999872,
   "enterpriseToEbitda": 9.762,
   "fiftyTwoWeekHigh": 37.97,
   "fiftyTwoWeekLow": 24.38,
-  "forwardPE": 4.3821,
+  "financialCurrency": "EUR",
+  "forwardPE": 4.4027,
   "freeCashflow": 3082249984,
   "grossMargins": 0.1786,
   "industry": "Auto Manufacturers",
   "longName": "Renault SA",
-  "marketCap": 8006962176,
+  "marketCap": 8044580352,
   "numberOfAnalystOpinions": 18,
   "operatingCashflow": 4945999872,
   "operatingMargins": 0.051,
   "payoutRatio": 0.6728,
-  "priceToBook": 0.3903,
+  "priceToBook": 0.3921,
   "profitMargins": 0.0158,
   "quickRatio": 0.889,
   "recommendationKey": "buy",
@@ -50,6 +54,7 @@
   "targetMeanPrice": 37.9167,
   "totalCash": 21280000000,
   "totalDebt": 72361000960,
-  "trailingPE": 8.4618
- }
+  "trailingPE": 8.5015
+ },
+ "v": 2
 }

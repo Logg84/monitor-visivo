@@ -1,7 +1,7 @@
 {
  "aggiornato": "2026-11-02",
  "dati": {
-  "beta": 0.279,
+  "beta": 0.177,
   "bilancio_annuale": {
    "ricavi": {
     "2022": 21680000000.0,
@@ -24,23 +24,27 @@
   },
   "currency": "USD",
   "currentRatio": 1.03,
+  "debito_netto": 64576000640,
+  "debito_netto_su_ebitda": 6.05,
   "debtToEquity": 188.02,
   "dividendYield": 1.52,
   "earningsGrowth": -0.089,
+  "ebitda": 10679000064,
   "enterpriseToEbitda": 8.937,
   "fiftyTwoWeekHigh": 19.16,
   "fiftyTwoWeekLow": 11.77,
-  "forwardPE": 7.3149,
+  "financialCurrency": "USD",
+  "forwardPE": 7.3704,
   "freeCashflow": -6491624960,
   "grossMargins": 0.4057,
   "industry": "Utilities - Regulated Electric",
   "longName": "PG&E Corporation",
-  "marketCap": 39571197952,
+  "marketCap": 39871430656,
   "numberOfAnalystOpinions": 17,
   "operatingCashflow": 7800000000,
   "operatingMargins": 0.2364,
   "payoutRatio": 0.1481,
-  "priceToBook": 0.8798,
+  "priceToBook": 0.8865,
   "profitMargins": 0.1157,
   "quickRatio": 0.444,
   "recommendationKey": "buy",
@@ -51,6 +55,7 @@
   "targetMeanPrice": 17.6177,
   "totalCash": 902000000,
   "totalDebt": 65478000640,
-  "trailingPE": 9.763
- }
+  "trailingPE": 9.837
+ },
+ "v": 2
 }

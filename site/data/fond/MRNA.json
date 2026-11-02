@@ -1,7 +1,7 @@
 {
  "aggiornato": "2026-11-02",
  "dati": {
-  "beta": 1.095,
+  "beta": 1.166,
   "bilancio_annuale": {
    "ricavi": {
     "2022": 18875000000.0,
@@ -24,22 +24,26 @@
   },
   "currency": "USD",
   "currentRatio": 2.295,
+  "debito_netto": -3850999808,
+  "debito_netto_su_ebitda": 1.75,
   "debtToEquity": 19.036,
   "dividendYield": 0.0,
+  "ebitda": -2195000064,
   "enterpriseToEbitda": -38.573,
   "fiftyTwoWeekHigh": 254.48,
   "fiftyTwoWeekLow": 22.28,
-  "forwardPE": -48.3548,
+  "financialCurrency": "USD",
+  "forwardPE": -48.1607,
   "freeCashflow": 299249984,
   "grossMargins": -0.6602,
   "industry": "Biotechnology",
   "longName": "Moderna, Inc.",
-  "marketCap": 88518582272,
+  "marketCap": 88163262464,
   "numberOfAnalystOpinions": 19,
   "operatingCashflow": -1073000000,
   "operatingMargins": -5.5793,
   "payoutRatio": 0.0,
-  "priceToBook": 13.0847,
+  "priceToBook": 13.0322,
   "profitMargins": -1.4143,
   "quickRatio": 2.068,
   "recommendationKey": "hold",
@@ -50,5 +54,6 @@
   "targetMeanPrice": 138.3684,
   "totalCash": 5137999872,
   "totalDebt": 1287000064
- }
+ },
+ "v": 2
 }

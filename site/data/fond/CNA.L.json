@@ -1,7 +1,7 @@
 {
  "aggiornato": "2026-11-02",
  "dati": {
-  "beta": 0.365,
+  "beta": 0.391,
   "bilancio_annuale": {
    "ricavi": {
     "2022": 23741000000.0,
@@ -24,22 +24,26 @@
   },
   "currency": "GBp",
   "currentRatio": 1.431,
+  "debito_netto": -673999872,
+  "debito_netto_su_ebitda": -0.15,
   "debtToEquity": 74.075,
   "dividendYield": 3.71,
+  "ebitda": 4646000128,
   "enterpriseToEbitda": 1.428,
   "fiftyTwoWeekHigh": 220.3,
   "fiftyTwoWeekLow": 144.0,
-  "forwardPE": 11.6681,
+  "financialCurrency": "GBP",
+  "forwardPE": 11.5069,
   "freeCashflow": 2141874944,
   "grossMargins": 0.3586,
   "industry": "Utilities - Independent Power Producers",
   "longName": "Centrica plc",
-  "marketCap": 6884220416,
+  "marketCap": 6789109760,
   "numberOfAnalystOpinions": 14,
   "operatingCashflow": 428000000,
   "operatingMargins": 0.2586,
   "payoutRatio": 0.3642,
-  "priceToBook": 2.0267,
+  "priceToBook": 1.9987,
   "profitMargins": 0.0364,
   "quickRatio": 1.094,
   "recommendationKey": "buy",
@@ -50,6 +54,7 @@
   "targetMeanPrice": 206.143,
   "totalCash": 3476999936,
   "totalDebt": 2803000064,
-  "trailingPE": 10.1333
- }
+  "trailingPE": 9.9933
+ },
+ "v": 2
 }

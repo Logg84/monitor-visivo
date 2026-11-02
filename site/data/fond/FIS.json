@@ -1,7 +1,7 @@
 {
  "aggiornato": "2026-11-02",
  "dati": {
-  "beta": 0.828,
+  "beta": 0.853,
   "bilancio_annuale": {
    "ricavi": {
     "2022": 9720000000.0,
@@ -24,22 +24,26 @@
   },
   "currency": "USD",
   "currentRatio": 0.535,
+  "debito_netto": 20511999488,
+  "debito_netto_su_ebitda": 5.82,
   "debtToEquity": 132.51,
   "dividendYield": 4.57,
+  "ebitda": 3524000000,
   "enterpriseToEbitda": 11.463,
   "fiftyTwoWeekHigh": 68.37,
   "fiftyTwoWeekLow": 32.1,
-  "forwardPE": 5.7988,
+  "financialCurrency": "USD",
+  "forwardPE": 6.0395,
   "freeCashflow": 2653125120,
   "grossMargins": 0.3584,
   "industry": "Information Technology Services",
   "longName": "Fidelity National Information Services, Inc.",
-  "marketCap": 19925690368,
+  "marketCap": 20705593344,
   "numberOfAnalystOpinions": 25,
   "operatingCashflow": 2976000000,
   "operatingMargins": 0.2067,
   "payoutRatio": 0.2581,
-  "priceToBook": 1.2403,
+  "priceToBook": 1.2918,
   "profitMargins": 0.2765,
   "quickRatio": 0.38,
   "recommendationKey": "buy",
@@ -50,6 +54,7 @@
   "targetMeanPrice": 47.04,
   "totalCash": 744000000,
   "totalDebt": 21255999488,
-  "trailingPE": 5.9217
- }
+  "trailingPE": 6.1674
+ },
+ "v": 2
 }

@@ -1,7 +1,7 @@
 {
  "aggiornato": "2026-11-02",
  "dati": {
-  "beta": 0.813,
+  "beta": 0.875,
   "bilancio_annuale": {
    "ricavi": {
     "2023": 19750000000.0,
@@ -21,23 +21,27 @@
   },
   "currency": "GBp",
   "currentRatio": 1.507,
+  "debito_netto": 3027000064,
+  "debito_netto_su_ebitda": 1.37,
   "debtToEquity": 32.183,
   "dividendYield": 3.28,
   "earningsGrowth": -0.118,
+  "ebitda": 2204000000,
   "enterpriseToEbitda": 7.638,
   "fiftyTwoWeekHigh": 2359.0,
   "fiftyTwoWeekLow": 1729.45,
-  "forwardPE": 13.0416,
+  "financialCurrency": "GBP",
+  "forwardPE": 13.1841,
   "freeCashflow": 737124992,
   "grossMargins": 0.0743,
   "industry": "Packaged Foods",
   "longName": "Associated British Foods plc",
-  "marketCap": 13421733888,
+  "marketCap": 13582101504,
   "numberOfAnalystOpinions": 17,
   "operatingCashflow": 2256999936,
   "operatingMargins": 0.0664,
   "payoutRatio": 0.4727,
-  "priceToBook": 1.1908,
+  "priceToBook": 1.2038,
   "profitMargins": 0.0489,
   "quickRatio": 0.627,
   "recommendationKey": "underperform",
@@ -48,6 +52,7 @@
   "targetMeanPrice": 1798.824,
   "totalCash": 712000000,
   "totalDebt": 3739000064,
-  "trailingPE": 14.4511
- }
+  "trailingPE": 14.609
+ },
+ "v": 2
 }

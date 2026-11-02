@@ -1,7 +1,7 @@
 {
  "aggiornato": "2026-11-02",
  "dati": {
-  "beta": 0.941,
+  "beta": 0.924,
   "bilancio_annuale": {
    "ricavi": {
     "2022": 23748700000.0,
@@ -24,23 +24,27 @@
   },
   "currency": "USD",
   "currentRatio": 1.167,
+  "debito_netto": 6067699904,
+  "debito_netto_su_ebitda": 3.02,
   "debtToEquity": 263.278,
   "dividendYield": 1.64,
   "earningsGrowth": 0.049,
+  "ebitda": 2010899968,
   "enterpriseToEbitda": 12.579,
   "fiftyTwoWeekHigh": 166.15,
   "fiftyTwoWeekLow": 97.12,
-  "forwardPE": 12.7472,
+  "financialCurrency": "USD",
+  "forwardPE": 12.482,
   "freeCashflow": 676787520,
   "grossMargins": 0.2136,
   "industry": "Information Technology Services",
   "longName": "CDW Corporation",
-  "marketCap": 19226429440,
+  "marketCap": 18826373120,
   "numberOfAnalystOpinions": 9,
   "operatingCashflow": 981800000,
   "operatingMargins": 0.0735,
   "payoutRatio": 0.3023,
-  "priceToBook": 7.8907,
+  "priceToBook": 7.7265,
   "profitMargins": 0.046,
   "quickRatio": 1.011,
   "recommendationKey": "buy",
@@ -51,6 +55,7 @@
   "targetMeanPrice": 159.1111,
   "totalCash": 361800000,
   "totalDebt": 6429499904,
-  "trailingPE": 18.4844
- }
+  "trailingPE": 18.0998
+ },
+ "v": 2
 }

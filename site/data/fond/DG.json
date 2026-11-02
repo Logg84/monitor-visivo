@@ -1,7 +1,7 @@
 {
  "aggiornato": "2026-11-02",
  "dati": {
-  "beta": 0.226,
+  "beta": 0.191,
   "bilancio_annuale": {
    "ricavi": {
     "2023": 37844863000.0,
@@ -24,23 +24,27 @@
   },
   "currency": "USD",
   "currentRatio": 1.209,
+  "debito_netto": 14183510016,
+  "debito_netto_su_ebitda": 3.96,
   "debtToEquity": 169.811,
   "dividendYield": 1.78,
   "earningsGrowth": 0.333,
+  "ebitda": 3581925888,
   "enterpriseToEbitda": 12.108,
   "fiftyTwoWeekHigh": 158.23,
   "fiftyTwoWeekLow": 95.11,
-  "forwardPE": 15.9105,
+  "financialCurrency": "USD",
+  "forwardPE": 16.329,
   "freeCashflow": 1738019712,
   "grossMargins": 0.3116,
   "industry": "Discount Stores",
   "longName": "Dollar General Corporation",
-  "marketCap": 29187600384,
+  "marketCap": 29955346432,
   "numberOfAnalystOpinions": 29,
   "operatingCashflow": 3316349952,
   "operatingMargins": 0.0681,
   "payoutRatio": 0.3065,
-  "priceToBook": 3.1423,
+  "priceToBook": 3.2249,
   "profitMargins": 0.039,
   "quickRatio": 0.229,
   "recommendationKey": "buy",
@@ -51,6 +55,7 @@
   "targetMeanPrice": 141.5172,
   "totalCash": 1589590016,
   "totalDebt": 15773100032,
-  "trailingPE": 17.1818
- }
+  "trailingPE": 17.6338
+ },
+ "v": 2
 }

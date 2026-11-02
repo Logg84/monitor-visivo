@@ -1,7 +1,7 @@
 {
  "aggiornato": "2026-11-02",
  "dati": {
-  "beta": 0.677,
+  "beta": 0.659,
   "bilancio_annuale": {
    "ricavi": {
     "2022": 22095973000.0,
@@ -24,23 +24,27 @@
   },
   "currency": "USD",
   "currentRatio": 1.223,
+  "debito_netto": 6060987776,
+  "debito_netto_su_ebitda": 2.94,
   "debtToEquity": 146.475,
   "dividendYield": 3.52,
   "earningsGrowth": 0.0,
+  "ebitda": 2062473984,
   "enterpriseToEbitda": 11.025,
   "fiftyTwoWeekHigh": 151.57,
   "fiftyTwoWeekLow": 90.78,
-  "forwardPE": 14.8557,
+  "financialCurrency": "USD",
+  "forwardPE": 15.3116,
   "freeCashflow": 915274112,
   "grossMargins": 0.3774,
   "industry": "Auto Parts",
   "longName": "Genuine Parts Company",
-  "marketCap": 16667245568,
+  "marketCap": 17178704896,
   "numberOfAnalystOpinions": 9,
   "operatingCashflow": 1196720000,
   "operatingMargins": 0.0636,
   "payoutRatio": 16.2212,
-  "priceToBook": 3.5853,
+  "priceToBook": 3.6953,
   "profitMargins": 0.0012,
   "quickRatio": 0.452,
   "recommendationKey": "buy",
@@ -51,6 +55,7 @@
   "targetMeanPrice": 140.0,
   "totalCash": 763150976,
   "totalDebt": 6824138752,
-  "trailingPE": 465.0
- }
+  "trailingPE": 479.2693
+ },
+ "v": 2
 }

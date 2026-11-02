@@ -1,7 +1,7 @@
 {
  "aggiornato": "2026-11-02",
  "dati": {
-  "beta": 0.575,
+  "beta": 0.585,
   "bilancio_annuale": {
    "ricavi": {
     "2022": 12682000000.0,
@@ -23,21 +23,25 @@
    }
   },
   "currency": "USD",
+  "debito_netto": 12085000000,
+  "debito_netto_su_ebitda": 2.12,
   "debtToEquity": 50.151,
   "dividendYield": 0.0,
   "earningsGrowth": -0.215,
+  "ebitda": 5694000128,
   "enterpriseToEbitda": 12.85,
   "fiftyTwoWeekHigh": 105.65,
   "fiftyTwoWeekLow": 39.57,
-  "forwardPE": 13.3119,
+  "financialCurrency": "USD",
+  "forwardPE": 14.0971,
   "grossMargins": 0.6858,
   "industry": "Medical Devices",
   "longName": "Boston Scientific Corporation",
-  "marketCap": 60838658048,
+  "marketCap": 64229855232,
   "numberOfAnalystOpinions": 28,
   "operatingMargins": 0.2024,
   "payoutRatio": 0.0,
-  "priceToBook": 2.4362,
+  "priceToBook": 2.572,
   "profitMargins": 0.1662,
   "recommendationKey": "buy",
   "returnOnEquity": 0.1432,
@@ -46,6 +50,7 @@
   "targetMeanPrice": 50.0271,
   "totalCash": 539000000,
   "totalDebt": 12624000000,
-  "trailingPE": 17.7131
- }
+  "trailingPE": 18.7004
+ },
+ "v": 2
 }
