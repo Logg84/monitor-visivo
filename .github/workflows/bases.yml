@@ -11,6 +11,10 @@ on:
     paths: ["data/override.json"]
   workflow_dispatch:
     inputs:
+      test_telegram:
+        description: "Solo prova di invio Telegram (non fa il giro)"
+        type: boolean
+        default: false
       test_email:
         description: "Solo prova di invio email (non fa il giro)"
         type: boolean
@@ -50,6 +54,7 @@ jobs:
           EMAIL_TO: ${{ secrets.EMAIL_TO }}
           SITO_URL: ${{ vars.SITO_URL }}
           TEST_EMAIL: ${{ inputs.test_email }}
+          TEST_TELEGRAM: ${{ inputs.test_telegram }}
         run: python scripts/run.py
       - name: Commit stato
         run: |
