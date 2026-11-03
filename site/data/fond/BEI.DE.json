@@ -1,0 +1,61 @@
+{
+ "aggiornato": "2026-11-03",
+ "dati": {
+  "beta": 0.46,
+  "bilancio_annuale": {
+   "ricavi": {
+    "2022": 8799000000.0,
+    "2023": 9447000000.0,
+    "2024": 9850000000.0,
+    "2025": 9852000000.0
+   },
+   "utile_netto": {
+    "2022": 755000000.0,
+    "2023": 736000000.0,
+    "2024": 912000000.0,
+    "2025": 939000000.0
+   },
+   "utile_operativo": {
+    "2022": 1200000000.0,
+    "2023": 1171000000.0,
+    "2024": 1341000000.0,
+    "2025": 1364000000.0
+   }
+  },
+  "currency": "EUR",
+  "currentRatio": 1.998,
+  "debito_netto": -2731999872,
+  "debito_netto_su_ebitda": -1.73,
+  "debtToEquity": 1.221,
+  "dividendYield": 1.21,
+  "earningsGrowth": 0.019,
+  "ebitda": 1580000000,
+  "enterpriseToEbitda": 9.857,
+  "fiftyTwoWeekHigh": 110.15,
+  "fiftyTwoWeekLow": 67.08,
+  "financialCurrency": "EUR",
+  "forwardPE": 20.8407,
+  "freeCashflow": 559750016,
+  "grossMargins": 0.5713,
+  "industry": "Household & Personal Products",
+  "longName": "Beiersdorf Aktiengesellschaft",
+  "marketCap": 18128730112,
+  "numberOfAnalystOpinions": 20,
+  "operatingCashflow": 1021000000,
+  "operatingMargins": 0.1547,
+  "payoutRatio": 0.2326,
+  "priceToBook": 2.0101,
+  "profitMargins": 0.0976,
+  "quickRatio": 1.501,
+  "recommendationKey": "hold",
+  "returnOnAssets": 0.0624,
+  "returnOnEquity": 0.1089,
+  "revenueGrowth": -0.045,
+  "sector": "Consumer Defensive",
+  "targetMeanPrice": 81.5,
+  "totalCash": 2841999872,
+  "totalDebt": 110000000,
+  "trailingPE": 19.293
+ },
+ "v": 2
+}
