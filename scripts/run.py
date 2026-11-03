@@ -18,6 +18,7 @@ SITO = ROOT / "site" / "data"      # servito da Cloudflare Pages
 
 def main() -> int:
     if os.environ.get("TEST_TELEGRAM") == "true":   # prova di invio: Actions → Run workflow → test_telegram
+        bio.diagnostica_telegram()
         ok = bio.invia_telegram("Basewatch: messaggio di prova. Se lo leggi, gli alert Telegram funzionano.")
         print(f"Telegram di prova: {'inviato' if ok else 'NON inviato (controlla i secret TELEGRAM_BOT_TOKEN e TELEGRAM_CHAT_ID e che il bot sia amministratore del canale)'}")
         return 0 if ok else 1

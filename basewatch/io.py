@@ -140,3 +140,27 @@ def invia_email(oggetto: str, testo: str) -> bool:
     except Exception as e:
         print(f"⚠️ Email: {type(e).__name__}: {e}")
         return False
+
+
+def diagnostica_telegram() -> None:
+    """Stampa (senza mostrare il token) cosa vede Telegram: bot, forma e tipo di ogni chat."""
+    token, chat = os.environ.get("TELEGRAM_BOT_TOKEN", ""), os.environ.get("TELEGRAM_CHAT_ID", "")
+    print(f"Token presente: {bool(token.strip())} (lunghezza {len(token.strip())}); chat configurate: "
+          f"{[c.strip() for c in chat.split(',') if c.strip()] if chat else 'nessuna'}")
+    if not token.strip():
+        return
+    try:
+        r = requests.get(f"https://api.telegram.org/bot{token.strip()}/getMe", timeout=15)
+        print("getMe:", r.status_code, (r.json().get("result") or {}).get("username", r.text[:150]))
+        for c in [x.strip() for x in chat.split(",") if x.strip()]:
+            g = requests.get(f"https://api.telegram.org/bot{token.strip()}/getChat", params={"chat_id": c}, timeout=15)
+            j = g.json()
+            res = j.get("result") or {}
+            print(f"getChat {c!r}: {g.status_code} tipo={res.get('type')} titolo={res.get('title')!r} "
+                  f"{'' if g.ok else j.get('description')}")
+            if g.ok and res.get("type") in ("channel", "supergroup", "group"):
+                m = requests.get(f"https://api.telegram.org/bot{token.strip()}/getChatMember",
+                                 params={"chat_id": c, "user_id": (r.json().get("result") or {}).get("id")}, timeout=15)
+                print("   stato del bot nella chat:", (m.json().get("result") or {}).get("status", m.text[:150]))
+    except Exception as e:
+        print(f"⚠️ diagnostica Telegram: {type(e).__name__}: {e}")
