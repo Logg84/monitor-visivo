@@ -1,0 +1,59 @@
+{
+ "aggiornato": "2026-11-04",
+ "dati": {
+  "beta": 0.968,
+  "bilancio_annuale": {
+   "ricavi": {
+    "2022": 2633454000.0,
+    "2023": 2711584000.0,
+    "2024": 2679634000.0,
+    "2025": 2815139000.0
+   },
+   "utile_netto": {
+    "2022": 461429000.0,
+    "2023": 501812000.0,
+    "2024": 749536000.0,
+    "2025": 1053632000.0
+   },
+   "utile_operativo": {
+    "2022": 995375000.0,
+    "2023": 1114717000.0,
+    "2024": 1569634000.0,
+    "2025": 1554271000.0
+   }
+  },
+  "currency": "USD",
+  "currentRatio": 0.196,
+  "debito_netto": 14823979936,
+  "debito_netto_su_ebitda": 8.11,
+  "dividendYield": 2.71,
+  "earningsGrowth": -0.005,
+  "ebitda": 1827202944,
+  "enterpriseToEbitda": 18.719,
+  "fiftyTwoWeekHigh": 224.46,
+  "fiftyTwoWeekLow": 156.6,
+  "financialCurrency": "USD",
+  "forwardPE": 24.5732,
+  "freeCashflow": 661747008,
+  "grossMargins": 0.7455,
+  "industry": "REIT - Specialty",
+  "longName": "SBA Communications Corporation",
+  "marketCap": 20775751680,
+  "numberOfAnalystOpinions": 20,
+  "operatingCashflow": 1291384064,
+  "operatingMargins": 0.534,
+  "payoutRatio": 0.5092,
+  "priceToBook": -4.2972,
+  "profitMargins": 0.3454,
+  "quickRatio": 0.136,
+  "recommendationKey": "buy",
+  "returnOnAssets": 0.0819,
+  "revenueGrowth": -0.025,
+  "sector": "Real Estate",
+  "targetMeanPrice": 224.25,
+  "totalCash": 417532000,
+  "totalDebt": 15241511936,
+  "trailingPE": 21.4849
+ },
+ "v": 2
+}

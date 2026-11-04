@@ -1,0 +1,60 @@
+{
+ "aggiornato": "2026-11-04",
+ "dati": {
+  "beta": 0.963,
+  "bilancio_annuale": {
+   "ricavi": {
+    "2022": 279050000000.0,
+    "2023": 322284000000.0,
+    "2024": 324655000000.0,
+    "2025": 321913000000.0
+   },
+   "utile_netto": {
+    "2022": 15457000000.0,
+    "2023": 16532000000.0,
+    "2024": 11351000000.0,
+    "2025": 7323000000.0
+   },
+   "utile_operativo": {
+    "2022": 18488000000.0,
+    "2023": 25699000000.0,
+    "2024": 21664000000.0,
+    "2025": 10794000000.0
+   }
+  },
+  "currency": "EUR",
+  "currentRatio": 1.101,
+  "debito_netto": 213690003456,
+  "debito_netto_su_ebitda": 7.41,
+  "debtToEquity": 142.989,
+  "dividendYield": 7.49,
+  "ebitda": 28824000512,
+  "enterpriseToEbitda": 9.065,
+  "fiftyTwoWeekHigh": 109.15,
+  "fiftyTwoWeekLow": 65.92,
+  "financialCurrency": "EUR",
+  "forwardPE": 3.5144,
+  "freeCashflow": 10050654208,
+  "grossMargins": 0.1385,
+  "industry": "Auto Manufacturers",
+  "longName": "Volkswagen AG",
+  "marketCap": 35692220416,
+  "numberOfAnalystOpinions": 17,
+  "operatingCashflow": 15438000128,
+  "operatingMargins": -0.0779,
+  "payoutRatio": 2.4929,
+  "priceToBook": 0.2091,
+  "profitMargins": 0.0053,
+  "quickRatio": 0.815,
+  "recommendationKey": "buy",
+  "returnOnAssets": 0.0152,
+  "returnOnEquity": 0.004,
+  "revenueGrowth": -0.063,
+  "sector": "Consumer Cyclical",
+  "targetMeanPrice": 99.6941,
+  "totalCash": 67136999424,
+  "totalDebt": 280827002880,
+  "trailingPE": 33.7441
+ },
+ "v": 2
+}
