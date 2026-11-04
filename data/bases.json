@@ -328,6 +328,22 @@
   "uscita_data": "2026-04-17",
   "uscito_il": "2026-11-01"
  },
+ "ARE|1D": {
+  "aggiornato": "2026-11-04",
+  "ampiezza": 0.3804,
+  "barre": 131,
+  "bottom": 39.2941,
+  "congelato_il": "2026-11-04",
+  "data_ultimo": "2026-11-03",
+  "inizio": "2026-04-28",
+  "manuale": [
+   54.24,
+   39.2941
+  ],
+  "stato": "in_range",
+  "top": 54.24,
+  "ultimo": 42.28
+ },
  "ARIS|1D": {
   "aggiornato": "2026-11-04",
   "ampiezza": 0.5913,
@@ -660,16 +676,21 @@
  },
  "BSX|1D": {
   "aggiornato": "2026-11-04",
-  "ampiezza": 0.1065,
+  "ampiezza": 0.2665,
   "barre": 19,
   "bottom": 41.58,
   "calo": 0.6155,
+  "congelato_il": "2026-11-04",
   "data_ultimo": "2026-11-03",
   "inizio": "2026-10-07",
-  "stato": "rallenta",
+  "manuale": [
+   52.66,
+   41.58
+  ],
+  "stato": "in_range",
   "swing_massimi": 1,
   "swing_minimi": 2,
-  "top": 46.01,
+  "top": 52.66,
   "ultimo": 43.5
  },
  "BTRW.L|1D": {
