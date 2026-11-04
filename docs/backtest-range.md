@@ -58,3 +58,16 @@ Retest del range dopo l'uscita (ritorno al top/bottom a ridosso del livello rott
 con tenuta o fallimento): richiesto da Marco, si aggiunge come evento a parte quando
 il passo 2 è chiuso. `eventi_range.csv` contiene già uscite e rientri con i livelli,
 da cui il retest si ricava dai prezzi.
+
+## Risultato del 4/11/2026 (universo: 678 titoli, indici attuali; prime uscite dall'alto)
+Verdetto pre-registrato (60 sedute, per timeframe): **NON soddisfatto** né per 1D né per 1W.
+- 1D: n=323, eccesso medio −0,25%, t=−0,15, hit 41%.
+- 1W: n=110, eccesso medio −4,68%, t=−3,46, hit 31%.
+Dettaglio completo: `data/backtest_range_report.md`.
+
+Analisi ESPLORATIVA (non entra nel verdetto; fatta dopo aver visto i numeri):
+- Il 69% degli eventi cade nel 2007-2009 (1D: 242 su 323; 1W: 60 su 110): il campione è in gran parte uno studio della crisi.
+- 2007-2009: 1D eccesso −2,23% (t=−2,13); 1W −7,23% (t=−5,44). Uscite dall'alto durante i rimbalzi di un mercato orso: in prevalenza fallite.
+- 2010-2026: 1D n=83, eccesso +5,48% (t=0,95); 1W n=50, eccesso −1,61% (t=−0,69). Nessuno distinguibile da zero.
+- Limiti: ~5 eventi l'anno dopo il 2009 (potenza bassa); eccesso non corretto per beta (i titoli dopo un calo ≥25% sono più volatili dell'universo); survivorship bias.
+- Cosa NON si può dire: né che il range funzioni né che non funzioni fuori dalla crisi: il campione non basta.
