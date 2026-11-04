@@ -1,0 +1,65 @@
+name: eventi-range
+
+# Solo manuale (Actions → eventi-range → Run workflow). Rigioca il rilevatore sullo
+# storico e salva data/eventi_range.csv (nuova base, uscite, rientri), per il backtest.
+# Non tocca lo stato del portale (data/bases.json) né il sito.
+on:
+  workflow_dispatch:
+    inputs:
+      universo:
+        description: "File con i ticker (uno per riga) nel repo; vuoto = watchlist del vecchio portale"
+        type: string
+        default: ""
+      anni:
+        description: "Anni di storico da scaricare"
+        type: string
+        default: "20"
+      da:
+        description: "Tieni solo gli eventi da questa data (AAAA-MM-GG); vuoto = tutti"
+        type: string
+        default: ""
+
+permissions:
+  contents: write
+
+concurrency:
+  group: eventi-range
+  cancel-in-progress: false
+
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+      - run: pip install -r requirements.txt
+      - name: Test sintetici
+        run: python tests/verifica_storico.py
+      - name: Replay storico
+        env:
+          OLD_REPO: ${{ secrets.OLD_REPO }}
+          OLD_REPO_TOKEN: ${{ secrets.OLD_REPO_TOKEN }}
+          UNIVERSO: ${{ inputs.universo }}
+          ANNI: ${{ inputs.anni }}
+          DA: ${{ inputs.da }}
+        run: |
+          args="--anni ${ANNI:-20}"
+          if [ -n "$UNIVERSO" ]; then args="$args --tickers-file $UNIVERSO"; else args="$args --vecchio-portale"; fi
+          if [ -n "$DA" ]; then args="$args --da $DA"; fi
+          python scripts/eventi_range.py $args
+      - name: Commit eventi
+        run: |
+          git config user.name "basewatch-bot"
+          git config user.email "basewatch-bot@users.noreply.github.com"
+          git add data/eventi_range.csv
+          git diff --cached --quiet || git commit -m "chore: eventi range storici"
+          for i in 1 2 3 4 5; do
+            git push && exit 0
+            git pull --rebase -X theirs origin main || true
+            sleep $((i * 5))
+          done
+          echo "::error::push non riuscito"; exit 1

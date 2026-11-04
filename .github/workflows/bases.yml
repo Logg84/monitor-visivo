@@ -41,6 +41,7 @@ jobs:
       - name: Test sintetici
         run: |
           python tests/verifica_basi.py
+          python tests/verifica_storico.py
           node tests/verifica_worker.mjs
           node tests/verifica_access.mjs
       - name: Giro basi
