@@ -1,0 +1,49 @@
+name: backtest-range
+
+# Solo manuale (Actions → backtest-range → Run workflow). Legge data/eventi_range.csv,
+# scarica i prezzi e scrive data/backtest_range_report.md + data/backtest_range_eventi.csv.
+# Non tocca lo stato del portale (data/bases.json) né il sito.
+on:
+  workflow_dispatch:
+    inputs:
+      anni:
+        description: "Anni di storico da scaricare (devono coprire gli eventi)"
+        type: string
+        default: "20"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: backtest-range
+  cancel-in-progress: false
+
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+      - run: pip install -r requirements.txt
+      - name: Test sintetici
+        run: python tests/verifica_backtest.py
+      - name: Backtest
+        env:
+          ANNI: ${{ inputs.anni }}
+        run: python scripts/backtest_range.py --anni "${ANNI:-20}"
+      - name: Commit report
+        run: |
+          git config user.name "basewatch-bot"
+          git config user.email "basewatch-bot@users.noreply.github.com"
+          git add data/backtest_range_report.md data/backtest_range_eventi.csv
+          git diff --cached --quiet || git commit -m "chore: report backtest range"
+          for i in 1 2 3 4 5; do
+            git push && exit 0
+            git pull --rebase -X theirs origin main || true
+            sleep $((i * 5))
+          done
+          echo "::error::push non riuscito"; exit 1

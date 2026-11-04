@@ -22,9 +22,21 @@ chiusura_giorno, apertura_succ, bottom, top, inizio, ampiezza, calo, barre, swin
 - Eventi 1W e 1D analizzati separatamente; uscite dall'alto e dal basso separate.
 - Errori standard raggruppati per mese (gli eventi dello stesso periodo sono correlati).
 
-## Criterio per «il range ha contenuto informativo» (uscite dall'alto)
-Eccesso medio a 60 sedute > 0 con t > 2 **in entrambe le metà temporali** del periodo,
-e hit rate > 50%. Se non è soddisfatto, il range resta solo uno strumento di lettura.
+## Definizioni FISSATE il 4/11/2026, prima di vedere i risultati (confermate da Marco)
+- **Evento** = PRIMA uscita dall'alto dopo una base riconosciuta dal vivo (nuova_base), per
+  ogni (ticker, tf, inizio). Le uscite dopo un rientro e le basi viste a uscita già avvenuta
+  non contano (nel CSV sono 10.351 uscite dall'alto, ma solo 732 basi riconosciute dal vivo).
+- **Ingresso** = apertura della seduta successiva al giorno dell'alert. **Rendimento a h** =
+  chiusura della h-esima seduta dopo il giorno dell'alert / apertura d'ingresso − 1.
+- **Eccesso** = rendimento − media equal-weight dell'universo sulla stessa finestra.
+- **t** = media / errore standard raggruppato per mese di alert (correzione G/(G−1)).
+- **Criterio «il range ha contenuto informativo»**, a 60 sedute, **per ciascun timeframe
+  separatamente** (1D e 1W si sovrappongono sullo stesso titolo, non si sommano): eccesso medio
+  > 0 con t > 2 in ENTRAMBE le metà (divise a metà degli eventi, per data) e hit rate > 50%.
+- Le uscite dal basso e gli orizzonti 20/120 sono solo di controllo: non entrano nel verdetto.
+- Se il criterio non è soddisfatto, il range resta solo uno strumento di lettura.
+- Non si cambiano soglie, orizzonti o definizioni dopo aver visto i numeri; eventuali varianti
+  si dichiarano come esplorative.
 
 ## Criterio per «il range batte i punteggi» (da definire con Marco)
 Confronto a parità di finestra temporale e universo: eccesso a 60 sedute degli
