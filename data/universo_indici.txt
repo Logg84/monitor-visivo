@@ -1,7 +1,6 @@
 # Universo per il backtest range: unione degli indici del vecchio portale (SP500, NASDAQ100, DAX, FTSE100, CAC40)
 # Composizione ATTUALE (survivorship bias): lo storico di appartenenza parte solo dal 25/10/2026.
 # Una riga per ticker; # per i commenti.
--
 2602335D
 A
 AAF.L
