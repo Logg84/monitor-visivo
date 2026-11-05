@@ -71,3 +71,11 @@ Analisi ESPLORATIVA (non entra nel verdetto; fatta dopo aver visto i numeri):
 - 2010-2026: 1D n=83, eccesso +5,48% (t=0,95); 1W n=50, eccesso −1,61% (t=−0,69). Nessuno distinguibile da zero.
 - Limiti: ~5 eventi l'anno dopo il 2009 (potenza bassa); eccesso non corretto per beta (i titoli dopo un calo ≥25% sono più volatili dell'universo); survivorship bias.
 - Cosa NON si può dire: né che il range funzioni né che non funzioni fuori dalla crisi: il campione non basta.
+
+## Confronto range vs punteggi 1–6, ultimi 10 anni (5/11/2026; report nel repo privato, data/backtest/range_punteggi.txt)
+Finestra: eventi dal 2016-11-04. Prime uscite dall'alto: B = 289 (269 con punteggio calcolato; 20 senza storia sufficiente), A = 53 con punteggio. 2020 pesa il 31% degli eventi.
+- **R1 (range, 60 sedute, campione A):** 1D n=27, eccesso +0,11% (t=0,02); 1W n=26, eccesso −6,48% (t=−2,08, hit 27%). Verdetto NON VALUTABILE (meno di 30 eventi e 20 mesi), ma il segno del 1W conferma il risultato a 20 anni (−4,68%, t=−3,46).
+- **S1 (punteggio ≥4 contro <4 dentro le uscite, B, n=96/172):** −1,60 p.p. a 60 sedute (t=−0,33) → NON DIMOSTRATO. Nessuna monotonia per punti.
+- **Q3:** uscite B a 20 sedute −0,25% (A: −1,68%) contro il segnale S del backtest core +0,28%: tutti compatibili con zero.
+- Conclusione: né il range né il punteggio mostrano un vantaggio dimostrato, e il punteggio non aggiunge informazione dentro le uscite. Non si può dire che il range sia più performante dei punteggi; non si può nemmeno dire il contrario (potenza bassa, survivorship, eccesso non corretto per beta).
+- Esplorativo, da non leggere come risultato: uscite fuori zona sconto a 20 sedute −2,68% (t=−2,45, n=45).
