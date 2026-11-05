@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Vista unificata · basewatch</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="top">
+  <div class="titolo">
+    <h1>Vista unificata</h1>
+    <p id="sottotitolo" class="muted">Caricamento…</p>
+  </div>
+  <div id="riepilogo" class="chips"></div>
+</header>
+
+<section class="controlli" aria-label="Filtri">
+  <label>Mostra
+    <select id="f-mostra">
+      <option value="uscite">Uscite dal range (sopra/sotto)</option>
+      <option value="attive">Basi attive (in range + rallenta)</option>
+      <option value="punteggio">Con punteggio</option>
+      <option value="tutte">Tutti</option>
+    </select>
+  </label>
+  <label>Timeframe
+    <select id="f-tf"><option value="">1D e 1W</option><option value="1D">1D</option><option value="1W">1W</option></select>
+  </label>
+  <label>Punteggio minimo
+    <select id="f-min"><option value="0">Qualsiasi</option><option value="1">1/6</option><option value="2">2/6</option><option value="3">3/6</option><option value="4">4/6</option><option value="5">5/6</option><option value="6">6/6</option></select>
+  </label>
+  <label>Cerca
+    <input id="f-cerca" type="search" placeholder="Ticker" autocomplete="off">
+  </label>
+  <span id="conteggio" class="muted"></span>
+</section>
+
+<p id="avviso" class="muted" style="max-width:1500px;margin:0 auto 10px" hidden></p>
+<div class="tabella-wrap" style="max-width:1500px;margin:0 auto"><table id="tab"></table></div>
+
+<details class="storiche" id="sched" hidden>
+  <summary>Scheduler (ultimi lanci)</summary>
+  <div class="tabella-wrap"><table id="tab-sched"></table></div>
+</details>
+
+<footer class="piede">
+  Lettura combinata: il <b>range</b> dice in che stato è la base, il <b>punteggio 1–6</b> dice dove si trova il prezzo nel range.
+  Strumento di lettura: i backtest non hanno dimostrato un vantaggio operativo né per le uscite né per il punteggio.
+  <a href="/">← Basi di accumulo</a>
+</footer>
+<script src="unificato.js"></script>
+</body>
+</html>

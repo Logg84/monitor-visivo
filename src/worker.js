@@ -7,6 +7,7 @@
  * compatibile OpenAI (Groq, OpenRouter, Gemini compat…) via AI_BASE_URL / AI_MODEL.
  * L'AI vede SOLO i dati calcolati (index.json + fond/<ticker>.json): niente notizie.
  */
+import { eseguiCron, leggiPunteggi, ultimiLog, unisci } from "./dati.js";
 
 const SYSTEM = `Sei un assistente che riassume in italiano, in prosa chiara e discorsiva, dati di analisi tecnica e fondamentale già calcolati da un portale di monitoraggio personale. Regole assolute:
 - Usa SOLO i dati forniti. Non inventare numeri, notizie, eventi, date o dividendi. Se un dato manca, dillo.
@@ -154,6 +155,9 @@ export async function scriviOverride(env, chiave, valori, utente) {
 }
 
 export default {
+  async scheduled(controller, env, ctx) {
+    ctx.waitUntil(eseguiCron(controller.cron, env));
+  },
   async fetch(request, env, ctx) {
     const url = new URL(request.url);
     if (!url.pathname.startsWith("/api/")) return env.ASSETS.fetch(request);
@@ -168,6 +172,19 @@ export default {
       let diagnostica;
       try { const pl = JSON.parse(new TextDecoder().decode(b64u(tok.split(".")[1]))); diagnostica = { team_domain: String(pl.iss || "").replace(/^https:\/\//, ""), aud: pl.aud }; } catch (e) { /* senza Access davanti: nessun dato */ }
       return json(diagnostica ? { modalita: "codice", diagnostica } : { modalita: "codice" });
+    }
+
+    if (url.pathname === "/api/unificato") {       // range (pubblici) + punteggi (riservati, da D1): solo con login
+      if (request.method !== "GET") return json({ errore: "metodo non consentito" }, 405);
+      const io = await identita(request, env);
+      if (!io) return json({ errore: "non autenticato" }, 401);
+      const ix = await leggi(env, url.origin, "/data/index.json");
+      if (!ix) return json({ errore: "dati dei range non disponibili" }, 503);
+      let p = { data: null, righe: [] };
+      if (env.DB) { try { p = await leggiPunteggi(env.DB); } catch (e) { return json({ errore: "database non raggiungibile: " + e.message }, 502); } }
+      const out = { aggiornato: ix.aggiornato || null, punteggi_data: p.data, db: Boolean(env.DB), righe: unisci(ix, p.righe) };
+      if (io.admin && env.DB) out.scheduler = await ultimiLog(env.DB, 5);
+      return json(out);
     }
 
     if (url.pathname === "/api/range") {           // solo admin, solo con Access
