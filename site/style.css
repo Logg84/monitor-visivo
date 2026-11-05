@@ -82,3 +82,8 @@ body.blocca{overflow:hidden}
 .ai h4:first-child{margin-top:0}
 .ai p{margin:0 0 6px}
 .ai .avviso{margin-top:10px;font-size:.8em;color:var(--muto)}
+
+.btn{display:inline-block;background:var(--accento,#2563eb);color:#fff;border:0;border-radius:8px;padding:8px 16px;font:inherit;font-size:14px;font-weight:600;text-decoration:none;cursor:pointer}
+.btn:hover{filter:brightness(1.12)}
+.btn.sec{background:transparent;color:var(--testo);border:1px solid var(--bordo)}
+.btn:focus-visible{outline:2px solid var(--accento);outline-offset:2px}
