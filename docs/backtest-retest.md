@@ -37,3 +37,10 @@ I parametri dei verdetti sono quelli sopra (2% e 30 sedute) e NON si cambiano do
 Pochi eventi (potenza bassa, un esito NON VALUTABILE è plausibile); universo = indici attuali (survivorship);
 nessun costo; eccesso non corretto per beta; il retest tenuto è per costruzione un sottoinsieme che
 «non è tornato sotto il top», ma l'ingresso è dopo la conferma, quindi i rendimenti successivi sono puliti.
+
+## Nota del 5/11/2026 (dopo il primo run)
+Il primo run ha usato come «universo» per il benchmark i soli 118 titoli con basi, e non l'universo
+completo degli indici (698) previsto da questa definizione: errore di implementazione, corretto nello
+script (ora legge `data/universo_indici.txt` e fallisce se manca). I numeri del primo run (T1 −2,62%, t=−1,36;
+T2 +0,46%, t=+1,05; 289 uscite) sono SUPERATI: i verdetti validi sono quelli del secondo run. Parametri,
+eventi e criteri sono rimasti identici.

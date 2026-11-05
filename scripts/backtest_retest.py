@@ -82,14 +82,19 @@ def main() -> int:
     ap.add_argument("--eventi", default=str(ROOT / "data" / "eventi_range.csv"))
     ap.add_argument("--da", default=DA_DEFAULT)
     ap.add_argument("--anni", type=int, default=11)
+    ap.add_argument("--universo", default=str(ROOT / "data" / "universo_indici.txt"),
+                    help="ticker dell'universo per il benchmark equal-weight (come negli altri backtest)")
     ap.add_argument("--out", default=str(ROOT / "data"))
     a = ap.parse_args()
 
     ev = bt.prima_uscita_per_base(pd.read_csv(a.eventi), a.da)
     print(f"Uscite (prima per base) dal {a.da}: {len(ev)} · 1D {int((ev.tf == '1D').sum())} · 1W {int((ev.tf == '1W').sum())}")
-    tickers = sorted(ev["ticker"].unique())
-    prezzi = bio.scarica_giornalieri(tickers, anni=a.anni)
-    print(f"Prezzi scaricati: {len(prezzi)}/{len(tickers)}")
+    if not Path(a.universo).exists():
+        print(f"::error::File dell'universo non trovato ({a.universo}): senza, il benchmark non sarebbe quello pre-registrato")
+        return 1
+    tickers = sorted(set(rt.leggi_universo(a.universo)) | set(ev["ticker"].unique()))
+    prezzi = bio.scarica_giornalieri(tickers, anni=a.anni)       # benchmark = TUTTO l'universo scaricato
+    print(f"Prezzi scaricati: {len(prezzi)}/{len(tickers)} (universo per il benchmark)")
     if len(prezzi) < max(1, len(tickers) // 2):
         print("::error::Meno della metà dei titoli scaricata: test annullato")
         return 1

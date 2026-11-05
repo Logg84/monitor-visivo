@@ -13,6 +13,8 @@ Ogni decisione usa solo barre fino al giorno t compreso.
 """
 from __future__ import annotations
 
+from pathlib import Path
+
 import pandas as pd
 
 from basewatch import backtest as bt
@@ -111,3 +113,8 @@ def quote(classificati: pd.DataFrame) -> pd.DataFrame:
     t["totale"] = t.sum(axis=1)
     return t
 
+
+def leggi_universo(path) -> list[str]:
+    """Ticker del file dell'universo (uno per riga, # per i commenti, righe vuote ignorate)."""
+    righe = Path(path).read_text(encoding="utf-8").splitlines()
+    return sorted({r.split("#")[0].strip().upper() for r in righe if r.split("#")[0].strip()})

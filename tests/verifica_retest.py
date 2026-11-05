@@ -139,6 +139,26 @@ check("appaiati: diff60 = ecc60(retest) − ecc60(uscita) della stessa base",
       abs(m["diff60"] - (m["ecc60"] - u["ecc60"])) < 1e-9)
 check("senza prezzi: segnato e non fa crollare", rt.esiti(sel.assign(ticker="ZZZ"), prezzi)["esito"].eq("senza_prezzi").all())
 
+# ── Universo del benchmark ──
+import tempfile  # noqa: E402
+with tempfile.TemporaryDirectory() as tmp:
+    f = Path(tmp) / "u.txt"
+    f.write_text("# commento\naaa\n\nBBB  # nota\n  ccc  \naaa\n", encoding="utf-8")
+    check("leggi_universo: commenti, vuoti, maiuscole e duplicati", rt.leggi_universo(f) == ["AAA", "BBB", "CCC"])
+# il benchmark usa TUTTI i titoli scaricati, non solo quelli con eventi
+poche = {t: prezzi[t] for t in sel["ticker"].unique()[:5]}
+sel5 = sel[sel["ticker"].isin(poche)]
+a_all = rt.analisi(sel5, prezzi)
+a_few = rt.analisi(sel5, poche)
+check("benchmark: cambia se l'universo scaricato è più largo dei soli titoli con eventi",
+      not np.allclose(a_all["uscite"]["ecc60"].fillna(0), a_few["uscite"]["ecc60"].fillna(0)))
+cl60 = pd.DataFrame({t: d["Close"] for t, d in prezzi.items()})
+op60 = pd.DataFrame({t: d["Open"] for t, d in prezzi.items()})
+u0 = a_all["uscite"].dropna(subset=["ecc60"]).iloc[0]
+i = cl60.index.get_loc(pd.Timestamp(u0["data_alert"]))
+f60 = cl60.iloc[i + 60] / op60.iloc[i + 1] - 1
+check("benchmark: media equal-weight di tutti i 40 titoli", abs(u0["ecc60"] - (f60[u0["ticker"]] - f60.mean())) < 1e-9)
+
 # ── Verdetti ──
 check("verdetto: pochi eventi → NON VALUTABILE", rt.esito_verdetto(0.05, 3.0, 12, 40) == "NON VALUTABILE")
 check("verdetto: pochi mesi → NON VALUTABILE", rt.esito_verdetto(0.05, 3.0, 60, 10) == "NON VALUTABILE")
