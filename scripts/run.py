@@ -9,7 +9,7 @@ sys.path.insert(0, str(ROOT))
 
 import pandas as pd  # noqa: E402
 
-from basewatch import detect, engine, io as bio  # noqa: E402
+from basewatch import alert, detect, engine, io as bio  # noqa: E402
 
 DATA = ROOT / "data"
 BARRE_GRAFICO = {"1W": 365, "1D": 780}   # ~7 anni di settimanali, ~3 di giornalieri
@@ -19,7 +19,10 @@ SITO = ROOT / "site" / "data"      # servito da Cloudflare Pages
 def main() -> int:
     if os.environ.get("TEST_TELEGRAM") == "true":   # prova di invio: Actions → Run workflow → test_telegram
         bio.diagnostica_telegram()
-        ok = bio.invia_telegram("Basewatch: messaggio di prova. Se lo leggi, gli alert Telegram funzionano.")
+        prova = alert.leggi_punteggi(["SMCI", "ARE", "ALB"])        # prova della lettura dei punteggi da D1
+        print(f"Punteggi da D1: {len(prova)}/3 letti" + (f" (es. {next(iter(prova.items()))})" if prova else " (secret CF_* mancanti o database non raggiungibile)"))
+        ok = bio.invia_telegram("Basewatch: messaggio di prova. Se lo leggi, gli alert Telegram funzionano.\n"
+                                + alert.riga_punteggio(prova.get("SMCI"), pd.Timestamp.now(tz="UTC").date()))
         print(f"Telegram di prova: {'inviato' if ok else 'NON inviato (controlla i secret TELEGRAM_BOT_TOKEN e TELEGRAM_CHAT_ID e che il bot sia amministratore del canale)'}")
         return 0 if ok else 1
     if os.environ.get("TEST_EMAIL") == "true":      # prova di invio da Actions → Run workflow → test_email
@@ -78,6 +81,8 @@ def main() -> int:
     for k in [k for k in stato if k.split("|")[0] not in prezzi]:
         stato.pop(k)
 
+    # Retest tenuti nuovi delle uscite osservate (info di lettura): usa le barre giornaliere CHIUSE.
+    retest = alert.retest_nuovi(stato, {t: detect.barre_chiuse_giornaliere(d, adesso) for t, d in prezzi.items()}, oggi)
     engine.salva_stato(stato, DATA / "bases.json")
     sito = SITO
     sito.mkdir(parents=True, exist_ok=True)
@@ -122,14 +127,20 @@ def main() -> int:
     print(f"Fondamentali aggiornati: {nuovi}/{len(visibili)}")
 
     uscite = [e for e in eventi if e["tipo"].startswith("uscita")]
-    for e in uscite:
-        ok = bio.invia_telegram(engine.messaggio(e))
-        print(f"{e['tipo']} {e['ticker']} {e['tf']}: Telegram {'ok' if ok else 'NON inviato'}")
-    if uscite:
-        ogg, corpo = engine.email_uscite(uscite, os.environ.get("SITO_URL", ""))
-        print(f"Email uscite: {'ok' if bio.invia_email(ogg, corpo) else 'NON inviata (non configurata o errore)'}")
+    avvisi = uscite + retest
+    punteggi = alert.leggi_punteggi([e["ticker"] for e in avvisi])     # da D1; {} se non raggiungibile
+    testi = [alert.messaggio_unificato(e, punteggi.get(e["ticker"]), oggi) for e in avvisi]
+    for e, testo in zip(avvisi, testi):
+        ok = bio.invia_telegram(testo)
+        print(f"{e['tipo']} {e['ticker']} {e['tf']}: Telegram {'ok' if ok else 'NON inviato'} · punteggio {'sì' if e['ticker'] in punteggi else 'no'}")
+    if avvisi:
+        ogg, corpo = engine.email_uscite(uscite, os.environ.get("SITO_URL", ""), testi)
+        if retest:
+            ogg = (f"Basewatch: {len(uscite)} uscite e {len(retest)} retest" if uscite
+                   else f"Basewatch: {len(retest)} retest del livello rotto")
+        print(f"Email: {'ok' if bio.invia_email(ogg, corpo) else 'NON inviata (non configurata o errore)'}")
     print(f"Basi attive: {sum(1 for v in stato.values() if v['stato'] in ('rallenta', 'in_range'))} · "
-          f"nuove: {sum(1 for e in eventi if e['tipo'] == 'nuova_base')} · uscite: {len(uscite)}")
+          f"nuove: {sum(1 for e in eventi if e['tipo'] == 'nuova_base')} · uscite: {len(uscite)} · retest: {len(retest)}")
     return 0
 
 

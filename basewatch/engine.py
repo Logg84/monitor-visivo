@@ -182,11 +182,12 @@ def messaggio(e: dict) -> str:
             "Solo informazione sui prezzi: non è un ordine né un consiglio.")
 
 
-def email_uscite(uscite: list[dict], sito: str = "") -> tuple[str, str]:
-    """(oggetto, testo) di UNA email riepilogativa con tutte le uscite del giro."""
+def email_uscite(uscite: list[dict], sito: str = "", testi: list[str] | None = None) -> tuple[str, str]:
+    """(oggetto, testo) di UNA email riepilogativa con tutte le uscite del giro.
+    `testi` = messaggi già pronti (alert unico con punteggio); se mancano si usa messaggio()."""
     n = len(uscite)
     oggetto = f"Basewatch: {n} uscita dal range" if n == 1 else f"Basewatch: {n} uscite dal range"
-    corpo = "\n\n".join(messaggio(e) for e in uscite)
+    corpo = "\n\n".join(testi if testi is not None else [messaggio(e) for e in uscite])
     if sito:
         corpo += f"\n\nGrafici e analisi: {sito}"
     return oggetto, corpo

@@ -79,3 +79,6 @@ Finestra: eventi dal 2016-11-04. Prime uscite dall'alto: B = 289 (269 con punteg
 - **Q3:** uscite B a 20 sedute −0,25% (A: −1,68%) contro il segnale S del backtest core +0,28%: tutti compatibili con zero.
 - Conclusione: né il range né il punteggio mostrano un vantaggio dimostrato, e il punteggio non aggiunge informazione dentro le uscite. Non si può dire che il range sia più performante dei punteggi; non si può nemmeno dire il contrario (potenza bassa, survivorship, eccesso non corretto per beta).
 - Esplorativo, da non leggere come risultato: uscite fuori zona sconto a 20 sedute −2,68% (t=−2,45, n=45).
+
+## Alert unico (5/11/2026)
+L'alert di uscita include ora il punteggio 1–6 dell'ultimo screening (letto da D1) e, per le uscite verso l'alto, la frequenza storica del retest (61–66% entro 30 sedute). Un avviso separato segnala il primo retest tenuto di un'uscita osservata. Sono informazioni di lettura: nessun vantaggio dimostrato (vedi sopra e docs/backtest-retest.md).
