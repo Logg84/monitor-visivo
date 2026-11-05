@@ -98,3 +98,14 @@ def criterio(tab: pd.DataFrame, h: int = ORIZZONTE_CRITERIO) -> dict:
     ok = (tot["media"] > 0 and tot["hit"] > HIT_MIN
           and s1["media"] > 0 and s1["t"] > T_MIN and s2["media"] > 0 and s2["t"] > T_MIN)
     return {"n": len(d), "tot": tot, "meta1": s1, "meta2": s2, "taglio": meta, "soddisfatto": bool(ok)}
+
+
+def prima_uscita_per_base(ev: pd.DataFrame, da: str, direzione: str = "sopra") -> pd.DataFrame:
+    """Prima uscita (in assoluto) di ogni base (ticker, tf, inizio), tenuta se l'alert è ≥ `da`.
+    A differenza di `prime_uscite` NON richiede che la base sia stata riconosciuta prima: è ciò
+    che il live avviserebbe (campione «B» del confronto range/punteggi)."""
+    chiavi = ["ticker", "tf", "inizio"]
+    us = ev[ev.tipo == f"uscita_{direzione}"].sort_values("data_alert", kind="stable")
+    b = us.groupby(chiavi, as_index=False).first()
+    b = b[b.data_alert >= da]
+    return b.sort_values(["data_alert", "ticker", "tf"], kind="stable").reset_index(drop=True)
