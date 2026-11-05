@@ -6,8 +6,8 @@
   // Scheduler: lancia bases.yml dal lunedì al venerdì alle 22:30 UTC. Cloudflare numera i giorni da 1 = DOMENICA:
   // per questo si usano i nomi, e il codice filtra comunque il giorno (src/dati.js). Free: max 5 cron.
   "triggers": { "crons": ["30 22 * * mon-fri"] },
-  // Database D1 (punteggi riservati): decommentare dopo aver creato il database «basewatch» e inserito l'ID.
-  // "d1_databases": [{ "binding": "DB", "database_name": "basewatch", "database_id": "INCOLLA-QUI-L-ID" }],
+  // Database D1 «basewatch» (punteggi riservati e log dello scheduler).
+  "d1_databases": [{ "binding": "DB", "database_name": "basewatch", "database_id": "90e41efa-031d-4b5f-93ea-38da1a08369c" }],
   // Variabili non segrete (secret nella dashboard Cloudflare: AI_KEY, GITHUB_TOKEN e, finché non c'è Access, ACCESS_CODE).
   "vars": {
     "AI_BASE_URL": "https://api.groq.com/openai/v1",
