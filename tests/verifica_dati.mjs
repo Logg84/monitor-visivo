@@ -147,4 +147,23 @@ const insBig = db.raw.prepare("INSERT INTO punteggi (ticker,data,segnale,punti,p
 db.raw.exec("BEGIN"); for (let i = 0; i < 700; i++) insBig.run("T" + i, "2026-11-04", "x", 1, 1, big); db.raw.exec("COMMIT");
 const t0 = performance.now(); const rb = await getS({ ...envS, DB: db }); const txt = await rb.text(); const ms = performance.now() - t0;
 assert.equal(JSON.parse(txt).righe.length, 700); ok(`700 righe (${(txt.length / 1e6).toFixed(2)} MB): ${ms.toFixed(0)} ms in Node (inclusa la query SQLite)`);
+// ── /api/pagina/<chiave> ──
+db = fakeD1();
+const getP = (e, chiave, codice = "segreto", m = "GET") => worker.fetch(new Request("https://x.dev/api/pagina/" + chiave, { method: m, headers: codice ? { "x-codice": codice } : {} }), e, { waitUntil() {} });
+const envP = { ACCESS_CODE: "segreto", ASSETS: assets, DB: db };
+assert.equal((await getP(envP, "macro", null)).status, 401); ok("/api/pagina senza login → 401");
+assert.equal((await getP(envP, "macro", "segreto", "POST")).status, 405);
+assert.equal((await getP(envP, "UPPER")).status, 400); assert.equal((await getP(envP, "a%20b")).status, 400); ok("chiave non valida → 400");
+assert.equal((await getP({ ...envP, DB: undefined }, "macro")).status, 503);
+assert.equal((await getP(envP, "macro")).status, 404); ok("tabella assente / pagina non caricata → 404");
+db.raw.exec("CREATE TABLE pagine (chiave TEXT NOT NULL, parte INTEGER NOT NULL, aggiornato TEXT NOT NULL, json TEXT NOT NULL, PRIMARY KEY (chiave, parte))");
+assert.equal((await getP(envP, "macro")).status, 404);
+const full = JSON.stringify({ regime: "Espansione", lista: Array.from({ length: 50 }, (_, i) => ({ i, t: "x".repeat(30) })) });
+const insp = db.raw.prepare("INSERT INTO pagine VALUES (?,?,?,?)");
+[full.slice(0, 700), full.slice(700, 1400), full.slice(1400)].forEach((p, n) => insp.run("macro", n, "2026-11-05T21:00:00+00:00", p));
+insp.run("macro", 3, "2026-11-04T00:00:00+00:00", "ZZZ");                 // parte rimasta: ordinata per parte
+db.raw.prepare("DELETE FROM pagine WHERE parte = 3").run();
+res = await getP(envP, "macro"); j = await res.json();
+assert.equal(res.status, 200); assert.equal(j.aggiornato, "2026-11-05T21:00:00+00:00"); assert.deepEqual(j.dati, JSON.parse(full)); ok("parti rimesse insieme nell'ordine giusto → JSON identico");
+insp.run("rotta", 0, "x", '{"a":'); assert.equal((await getP(envP, "rotta")).status, 404); ok("JSON troncato non viene servito");
 console.log("OK: verifica_dati");

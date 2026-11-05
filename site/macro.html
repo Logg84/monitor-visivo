@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Regimi macro · basewatch</title>
+<link rel="stylesheet" href="style.css">
+<style>
+  main.col{max-width:1100px;margin:0 auto}
+  .box{background:var(--superficie);border:1px solid var(--bordo);border-radius:12px;padding:14px 18px;margin-bottom:14px}
+  .regime{border-left:8px solid var(--c,#888)}
+  .regime .g{font-size:28px;font-weight:700;margin:2px 0}
+  .kpi{display:flex;gap:28px;flex-wrap:wrap;margin-top:10px}.kpi div{display:grid}.kpi span{font-size:12px;color:var(--muto)}.kpi b{font-size:22px;font-variant-numeric:tabular-nums}
+  h2{font-size:18px;margin:22px 0 8px}
+  .bar{display:grid;grid-template-columns:190px 1fr 130px;gap:10px;align-items:center;font-size:13px;margin:3px 0}
+  .bar .t{height:16px;position:relative;background:transparent}
+  .bar .t i{position:absolute;top:0;height:100%;border-radius:3px}
+  .sfum{opacity:.35}
+  .heat td{text-align:center;min-width:110px}
+  .heat td.cur{outline:2px solid var(--testo);outline-offset:-2px}
+  .strip{display:flex;gap:1px;height:34px}.strip i{flex:1;border-radius:1px}
+  .lista{display:grid;grid-template-columns:1fr 1fr;gap:10px}@media(max-width:700px){.lista{grid-template-columns:1fr}.bar{grid-template-columns:120px 1fr 90px}}
+  .su{border-left:4px solid var(--verde)}.giu{border-left:4px solid var(--rosso)}
+  .seg{display:inline-flex;border:1px solid var(--bordo);border-radius:8px;overflow:hidden;margin:0 6px 8px 0}.seg button{background:transparent;color:var(--muto);border:0;padding:5px 12px;font:inherit;font-size:13px;cursor:pointer}.seg button[aria-pressed=true]{background:var(--accento);color:#fff}
+  svg text{fill:currentColor;font-size:12px}
+</style>
+</head>
+<body>
+<header class="top">
+  <div class="titolo">
+    <h1>Regimi macroeconomici</h1>
+    <p id="sottotitolo" class="muted">Caricamento…</p>
+  </div>
+  <div style="display:flex;gap:8px;flex-wrap:wrap">
+    <a href="screening.html" class="btn sec">Screening</a>
+    <a href="unificato.html" class="btn sec">Vista unificata</a>
+    <a href="./" class="btn sec">← Basi di accumulo</a>
+  </div>
+</header>
+<main class="col" id="main"></main>
+<footer class="piede">
+  Quadro di contesto, non un segnale operativo. Il segnale di ogni indicatore dice se <i>accelera o frena</i> (conta la direzione, non il livello).
+  Lo studio sui settori descrive il passato su tutta la storia: nel test fuori campione non ha mostrato capacità predittiva, per questo non entra nei punteggi.
+  Dati: FRED e Yahoo Finance.
+</footer>
+<script src="macro.js"></script>
+</body>
+</html>

@@ -146,3 +146,22 @@ export async function corpoScreening(db) {
   };
   return `{"data":${JSON.stringify(p.data)},"righe":[${p.righe.map(un).join(",")}]}`;
 }
+
+// ── Pagine «istantanea» (JSON preparato dal repo privato, tabella `pagine`) ───
+export const CHIAVE_PAGINA = /^[a-z0-9_-]{1,40}$/;
+
+/** {"aggiornato":…, "dati":<JSON>} oppure null se la pagina non è ancora stata caricata.
+ * Le parti (≤ 40.000 caratteri ciascuna) si rimettono insieme come TESTO: nessun JSON.parse (CPU Free = 10 ms). */
+export async function corpoPagina(db, chiave) {
+  let results;
+  try {
+    ({ results } = await db.prepare("SELECT aggiornato, json FROM pagine WHERE chiave = ? ORDER BY parte").bind(chiave).all());
+  } catch (e) {
+    if (/no such table/i.test(String((e && e.message) || e))) return null;
+    throw e;
+  }
+  if (!results || !results.length) return null;
+  const dati = results.map((r) => r.json).join("");
+  if (!(dati.startsWith("{") && dati.endsWith("}"))) return null;
+  return `{"aggiornato":${JSON.stringify(results[0].aggiornato)},"dati":${dati}}`;
+}

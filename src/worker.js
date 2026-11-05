@@ -7,7 +7,7 @@
  * compatibile OpenAI (Groq, OpenRouter, Gemini compat…) via AI_BASE_URL / AI_MODEL.
  * L'AI vede SOLO i dati calcolati (index.json + fond/<ticker>.json): niente notizie.
  */
-import { corpoScreening, eseguiCron, leggiPunteggi, ultimiLog, unisci } from "./dati.js";
+import { CHIAVE_PAGINA, corpoPagina, corpoScreening, eseguiCron, leggiPunteggi, ultimiLog, unisci } from "./dati.js";
 
 const SYSTEM = `Sei un assistente che riassume in italiano, in prosa chiara e discorsiva, dati di analisi tecnica e fondamentale già calcolati da un portale di monitoraggio personale. Regole assolute:
 - Usa SOLO i dati forniti. Non inventare numeri, notizie, eventi, date o dividendi. Se un dato manca, dillo.
@@ -193,6 +193,19 @@ export default {
       if (!env.DB) return json({ errore: "database non collegato" }, 503);
       try { return new Response(await corpoScreening(env.DB), { headers: { "content-type": "application/json", "cache-control": "no-store" } }); }
       catch (e) { return json({ errore: "database non raggiungibile: " + e.message }, 502); }
+    }
+
+    if (url.pathname.startsWith("/api/pagina/")) {  // istantanee delle pagine (dati riservati da D1): solo con login
+      if (request.method !== "GET") return json({ errore: "metodo non consentito" }, 405);
+      if (!(await identita(request, env))) return json({ errore: "non autenticato" }, 401);
+      const chiave = url.pathname.slice("/api/pagina/".length);
+      if (!CHIAVE_PAGINA.test(chiave)) return json({ errore: "pagina non valida" }, 400);
+      if (!env.DB) return json({ errore: "database non collegato" }, 503);
+      try {
+        const c = await corpoPagina(env.DB, chiave);
+        if (!c) return json({ errore: "pagina non ancora caricata" }, 404);
+        return new Response(c, { headers: { "content-type": "application/json", "cache-control": "no-store" } });
+      } catch (e) { return json({ errore: "database non raggiungibile: " + e.message }, 502); }
     }
 
     if (url.pathname === "/api/range") {           // solo admin, solo con Access
