@@ -44,3 +44,10 @@ completo degli indici (698) previsto da questa definizione: errore di implementa
 script (ora legge `data/universo_indici.txt` e fallisce se manca). I numeri del primo run (T1 −2,62%, t=−1,36;
 T2 +0,46%, t=+1,05; 289 uscite) sono SUPERATI: i verdetti validi sono quelli del secondo run. Parametri,
 eventi e criteri sono rimasti identici.
+
+## Risultato del secondo run (5/11/2026, benchmark corretto: 693 titoli, 289 uscite)
+- T3: retest tenuto 61% (1D) e 66% (1W); rientro 31% / 21%; nessun ritorno 8% / 13%.
+- **T1 NON DIMOSTRATO**: eccesso a 60 sedute −1,90% (t=−0,96, n=182).
+- **T2 NON DIMOSTRATO**: retest − uscita +0,55% (t=+1,45, n=168).
+- Fuori criterio (esplorativo): differenza appaiata a 120 sedute +1,57% (t=2,39); non entra nei verdetti (orizzonte non pre-registrato, più orizzonti provati).
+Conclusione: il retest è frequente e va tenuto sotto osservazione come informazione, ma non ha mostrato un vantaggio dimostrato.
