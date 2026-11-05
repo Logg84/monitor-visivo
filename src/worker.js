@@ -7,7 +7,7 @@
  * compatibile OpenAI (Groq, OpenRouter, Gemini compat…) via AI_BASE_URL / AI_MODEL.
  * L'AI vede SOLO i dati calcolati (index.json + fond/<ticker>.json): niente notizie.
  */
-import { eseguiCron, leggiPunteggi, ultimiLog, unisci } from "./dati.js";
+import { corpoScreening, eseguiCron, leggiPunteggi, ultimiLog, unisci } from "./dati.js";
 
 const SYSTEM = `Sei un assistente che riassume in italiano, in prosa chiara e discorsiva, dati di analisi tecnica e fondamentale già calcolati da un portale di monitoraggio personale. Regole assolute:
 - Usa SOLO i dati forniti. Non inventare numeri, notizie, eventi, date o dividendi. Se un dato manca, dillo.
@@ -185,6 +185,14 @@ export default {
       const out = { aggiornato: ix.aggiornato || null, punteggi_data: p.data, db: Boolean(env.DB), righe: unisci(ix, p.righe) };
       if (io.admin && env.DB) out.scheduler = await ultimiLog(env.DB, 5);
       return json(out);
+    }
+
+    if (url.pathname === "/api/screening") {       // tabella dello screening (dati riservati da D1): solo con login
+      if (request.method !== "GET") return json({ errore: "metodo non consentito" }, 405);
+      if (!(await identita(request, env))) return json({ errore: "non autenticato" }, 401);
+      if (!env.DB) return json({ errore: "database non collegato" }, 503);
+      try { return new Response(await corpoScreening(env.DB), { headers: { "content-type": "application/json", "cache-control": "no-store" } }); }
+      catch (e) { return json({ errore: "database non raggiungibile: " + e.message }, 502); }
     }
 
     if (url.pathname === "/api/range") {           // solo admin, solo con Access

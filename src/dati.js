@@ -130,3 +130,19 @@ export function unisci(index, righe) {
   }
   return [...per.values()].sort((a, b) => (a.ticker < b.ticker ? -1 : a.ticker > b.ticker ? 1 : 0));
 }
+
+// ── Pagina Screening: ultima data completa, con le colonne in `extra` ─────────
+/** Corpo JSON {data, righe:[{ticker,segnale,punti,origine,priorita,extra:{…}}]}.
+ * `extra` (≈0,5 MB per giorno) viene incollato come testo, MAI riletto con JSON.parse:
+ * il piano Free ha 10 ms di CPU per richiesta. Se `extra` non sembra un oggetto JSON diventa null. */
+export async function corpoScreening(db) {
+  const p = await leggiPunteggi(db);
+  if (!p.data) return JSON.stringify({ data: null, righe: [] });
+  const un = (r) => {
+    const x = typeof r.extra === "string" ? r.extra : "";
+    const extra = x.startsWith("{") && x.endsWith("}") ? x : "null";
+    return `{"ticker":${JSON.stringify(r.ticker)},"segnale":${JSON.stringify(r.segnale ?? null)},"punti":${JSON.stringify(r.punti ?? null)},` +
+      `"origine":${JSON.stringify(r.origine ?? null)},"priorita":${JSON.stringify(r.priorita ?? null)},"extra":${extra}}`;
+  };
+  return `{"data":${JSON.stringify(p.data)},"righe":[${p.righe.map(un).join(",")}]}`;
+}

@@ -121,4 +121,30 @@ await worker.scheduled({ cron: CRON }, { GITHUB_TOKEN: "t", DB: db }, { waitUnti
 await Promise.all(attese);
 const oggi = new Date().getUTCDay();
 assert.equal(chiamate.length, oggi >= 1 && oggi <= 5 ? 1 : 0); ok("worker.scheduled → delega a eseguiCron (rispetta il giorno)");
+// ── /api/screening ──
+db = fakeD1(); db.raw.exec(DDL_PUNTEGGI);
+const insx = db.raw.prepare("INSERT INTO punteggi (ticker,data,segnale,punti,priorita,extra) VALUES (?,?,?,?,?,?)");
+insx.run("AAA", "2026-11-04", "🟢 5/6", 5, 100, '{"Prezzo":1.5,"Trend":"G↗ S↘","Squeeze":false}');
+insx.run("BBB", "2026-11-04", "—", 1, null, null);
+insx.run("CCC", "2026-11-04", "x", 2, 1, '"</script>"');            // extra non-oggetto → null
+insx.run("OLD", "2026-11-03", "x", 2, 1, '{"Prezzo":9}');
+const envS = { ACCESS_CODE: "segreto", ASSETS: assets, DB: db };
+const getS = (e, codice = "segreto", m = "GET") => worker.fetch(new Request("https://x.dev/api/screening", { method: m, headers: codice ? { "x-codice": codice } : {} }), e, { waitUntil() {} });
+assert.equal((await getS(envS, null)).status, 401); ok("/api/screening senza login → 401");
+assert.equal((await getS(envS, "segreto", "POST")).status, 405);
+assert.equal((await getS({ ...envS, DB: undefined })).status, 503); ok("senza database → 503");
+res = await getS(envS); j = await res.json();
+assert.equal(res.status, 200); assert.equal(j.data, "2026-11-04"); assert.equal(j.righe.length, 3);
+assert.deepEqual(j.righe.find((x) => x.ticker === "AAA").extra, { Prezzo: 1.5, Trend: "G↗ S↘", Squeeze: false });
+assert.equal(j.righe.find((x) => x.ticker === "BBB").extra, null); assert.equal(j.righe.find((x) => x.ticker === "CCC").extra, null); ok("/api/screening: ultima data, extra incollato come oggetto, extra non valido → null");
+assert.equal(res.headers.get("cache-control"), "no-store");
+db = fakeD1(); res = await getS({ ...envS, DB: db }); j = await res.json();
+assert.deepEqual(j, { data: null, righe: [] }); ok("tabella assente → risposta vuota, non errore");
+// carico realistico: 700 righe da 0,75 KB → tempo del solo codice
+db = fakeD1(); db.raw.exec(DDL_PUNTEGGI);
+const big = JSON.stringify(Object.fromEntries(Array.from({ length: 45 }, (_, i) => ["Col" + i, i % 3 ? i * 1.2345 : "testo " + i])));
+const insBig = db.raw.prepare("INSERT INTO punteggi (ticker,data,segnale,punti,priorita,extra) VALUES (?,?,?,?,?,?)");
+db.raw.exec("BEGIN"); for (let i = 0; i < 700; i++) insBig.run("T" + i, "2026-11-04", "x", 1, 1, big); db.raw.exec("COMMIT");
+const t0 = performance.now(); const rb = await getS({ ...envS, DB: db }); const txt = await rb.text(); const ms = performance.now() - t0;
+assert.equal(JSON.parse(txt).righe.length, 700); ok(`700 righe (${(txt.length / 1e6).toFixed(2)} MB): ${ms.toFixed(0)} ms in Node (inclusa la query SQLite)`);
 console.log("OK: verifica_dati");
