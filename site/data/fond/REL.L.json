@@ -1,0 +1,61 @@
+{
+ "aggiornato": "2026-11-05",
+ "dati": {
+  "beta": 0.28,
+  "bilancio_annuale": {
+   "ricavi": {
+    "2022": 8553000000.0,
+    "2023": 9161000000.0,
+    "2024": 9434000000.0,
+    "2025": 9590000000.0
+   },
+   "utile_netto": {
+    "2022": 1634000000.0,
+    "2023": 1781000000.0,
+    "2024": 1934000000.0,
+    "2025": 2065000000.0
+   },
+   "utile_operativo": {
+    "2022": 2304000000.0,
+    "2023": 2636000000.0,
+    "2024": 2818000000.0,
+    "2025": 2983000000.0
+   }
+  },
+  "currency": "GBp",
+  "currentRatio": 0.449,
+  "debito_netto": 8686000384,
+  "debito_netto_su_ebitda": 2.64,
+  "debtToEquity": 709.641,
+  "dividendYield": 2.25,
+  "earningsGrowth": 0.243,
+  "ebitda": 3292000000,
+  "enterpriseToEbitda": 19.036,
+  "fiftyTwoWeekHigh": 3448.5,
+  "fiftyTwoWeekLow": 1991.0,
+  "financialCurrency": "GBP",
+  "forwardPE": 19.5994,
+  "freeCashflow": 2232375040,
+  "grossMargins": 0.6642,
+  "industry": "Specialty Business Services",
+  "longName": "RELX PLC",
+  "marketCap": 53517881344,
+  "numberOfAnalystOpinions": 17,
+  "operatingCashflow": 2880999936,
+  "operatingMargins": 0.3201,
+  "payoutRatio": 0.5409,
+  "priceToBook": 43.5593,
+  "profitMargins": 0.2327,
+  "quickRatio": 0.394,
+  "recommendationKey": "buy",
+  "returnOnAssets": 0.1312,
+  "returnOnEquity": 1.3186,
+  "revenueGrowth": 0.027,
+  "sector": "Industrials",
+  "targetMeanPrice": 3503.2349,
+  "totalCash": 220000000,
+  "totalDebt": 8906000384,
+  "trailingPE": 24.672
+ },
+ "v": 2
+}

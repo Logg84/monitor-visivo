@@ -1,0 +1,61 @@
+{
+ "aggiornato": "2026-11-05",
+ "dati": {
+  "beta": 0.529,
+  "bilancio_annuale": {
+   "ricavi": {
+    "2023": 12137000000.0,
+    "2024": 11598000000.0,
+    "2025": 10959000000.0,
+    "2026": 9403000000.0
+   },
+   "utile_netto": {
+    "2023": 2262000000.0,
+    "2024": 1476000000.0,
+    "2025": 1626000000.0,
+    "2026": 1203000000.0
+   },
+   "utile_operativo": {
+    "2023": 3320000000.0,
+    "2024": 3109000000.0,
+    "2025": 2941000000.0,
+    "2026": 2412000000.0
+   }
+  },
+  "currency": "EUR",
+  "currentRatio": 2.474,
+  "debito_netto": 10684000256,
+  "debito_netto_su_ebitda": 4.07,
+  "debtToEquity": 76.644,
+  "dividendYield": 6.68,
+  "earningsGrowth": -0.478,
+  "ebitda": 2624000000,
+  "enterpriseToEbitda": 11.341,
+  "fiftyTwoWeekHigh": 87.66,
+  "fiftyTwoWeekLow": 57.86,
+  "financialCurrency": "EUR",
+  "forwardPE": 12.0921,
+  "freeCashflow": 1152875008,
+  "grossMargins": 0.5843,
+  "industry": "Beverages - Wineries & Distilleries",
+  "longName": "Pernod Ricard SA",
+  "marketCap": 18044960768,
+  "numberOfAnalystOpinions": 19,
+  "operatingCashflow": 1579000064,
+  "operatingMargins": 0.1959,
+  "payoutRatio": 0.9853,
+  "priceToBook": 1.1636,
+  "profitMargins": 0.1279,
+  "quickRatio": 0.748,
+  "recommendationKey": "buy",
+  "returnOnAssets": 0.0406,
+  "returnOnEquity": 0.0756,
+  "revenueGrowth": -0.132,
+  "sector": "Consumer Defensive",
+  "targetMeanPrice": 80.6579,
+  "totalCash": 1992999936,
+  "totalDebt": 12677000192,
+  "trailingPE": 15.0231
+ },
+ "v": 2
+}
