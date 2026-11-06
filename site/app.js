@@ -13,6 +13,7 @@
 
   const REPO = "Logg84/monitor-visivo", FILE_OVERRIDE = "data/override.json";
   let basi = [], titoli = {}, gruppi = [];
+  let punteggi = {};                          // ticker → {punti, segnale}: solo con login (D1); altrimenti vuoto
   let me = { modalita: "codice" };           // chi sono: da /api/me (Cloudflare Access) o modalità a codice
   const cacheSerie = new Map();
   const nomeFile = (t) => [...t].map((c) => (/[A-Za-z0-9\-_.]/.test(c) ? c : "_")).join("");
@@ -100,6 +101,12 @@
       bt.disabled = !g.tfs[t];
       bt.addEventListener("click", () => { g.tf = t; disegnaCard(g, t); osserva(g); });
       sel.append(bt);
+    }
+    const pt = punteggi[g.ticker];
+    if (pt && pt.punti != null) {
+      const bp = eEl("span", "badge b-punti", `${pt.punti}/6`);
+      bp.title = `Punteggio ${pt.punti}/6${pt.segnale ? " · " + pt.segnale : ""} (strumento di lettura, nessun vantaggio dimostrato)`;
+      testa.append(bp);
     }
     if (b.manuale) testa.append(eEl("span", "badge b-manuale", "manuale"));
     testa.append(sel);
@@ -403,6 +410,10 @@
       $("sottotitolo").textContent = "Dati non disponibili: " + e.message;
       return;
     }
+    try {   // punteggi 1–6: richiedono il login; se non ci sono (401/404/rete) la pagina resta com'è
+      const u = await fetch("/api/unificato", { cache: "no-store" });
+      if (u.ok) for (const r of (await u.json()).righe || []) if (r.punteggio && r.punteggio.punti != null) punteggi[r.ticker] = r.punteggio;
+    } catch (e) { /* nessun punteggio */ }
     gruppi = raggruppa();
     riepilogo(); tabellaStoriche(); aggiorna();
   }

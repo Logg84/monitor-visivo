@@ -151,7 +151,11 @@ def settimanali_chiuse(daily: pd.DataFrame, adesso: pd.Timestamp) -> pd.DataFram
     è già iniziata la settimana dopo."""
     if daily.empty:
         return daily
-    w = daily.resample("W-FRI").last().dropna(how="all")
+    # OHLC veri della settimana (prima: .last() su tutto → candele settimanali = quelle del venerdì,
+    # grafico frastagliato). La chiusura resta l'ultima: il rilevamento usa solo Close, quindi non cambia.
+    regole = {"Open": "first", "High": "max", "Low": "min", "Close": "last"}
+    r = daily.resample("W-FRI")
+    w = r.agg({c: regole.get(c, "last") for c in daily.columns}).dropna(how="all")
     fine_sett = w.index[-1]                       # venerdì della settimana corrente
     ultima_seduta = pd.Timestamp(daily.index[-1]).normalize()
     oggi = pd.Timestamp(adesso).tz_localize(None).normalize() if adesso.tzinfo is None \
