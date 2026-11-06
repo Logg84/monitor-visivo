@@ -1,0 +1,61 @@
+{
+ "aggiornato": "2026-11-06",
+ "dati": {
+  "beta": 1.102,
+  "bilancio_annuale": {
+   "ricavi": {
+    "2022": 3561718000.0,
+    "2023": 4089986000.0,
+    "2024": 4641264000.0,
+    "2025": 5296759000.0
+   },
+   "utile_netto": {
+    "2022": 848952000.0,
+    "2023": 1041144000.0,
+    "2024": 1055484000.0,
+    "2025": 1108888000.0
+   },
+   "utile_operativo": {
+    "2022": 1073741000.0,
+    "2023": 1262238000.0,
+    "2024": 1382850000.0,
+    "2025": 1649781000.0
+   }
+  },
+  "currency": "USD",
+  "currentRatio": 1.36,
+  "debito_netto": 1269304064,
+  "debito_netto_su_ebitda": 0.57,
+  "debtToEquity": 40.908,
+  "dividendYield": 0.0,
+  "earningsGrowth": 0.0,
+  "ebitda": 2220476928,
+  "enterpriseToEbitda": 39.054,
+  "fiftyTwoWeekHigh": 416.69,
+  "fiftyTwoWeekLow": 262.75,
+  "financialCurrency": "USD",
+  "forwardPE": 32.4948,
+  "freeCashflow": 1746447872,
+  "grossMargins": 0.8568,
+  "industry": "Software - Application",
+  "longName": "Cadence Design Systems, Inc.",
+  "marketCap": 87779336192,
+  "numberOfAnalystOpinions": 24,
+  "operatingCashflow": 1967931008,
+  "operatingMargins": 0.2893,
+  "payoutRatio": 0.0,
+  "priceToBook": 12.7677,
+  "profitMargins": 0.2251,
+  "quickRatio": 1.093,
+  "recommendationKey": "strong_buy",
+  "returnOnAssets": 0.1052,
+  "returnOnEquity": 0.2287,
+  "revenueGrowth": 0.22,
+  "sector": "Technology",
+  "targetMeanPrice": 411.7604,
+  "totalCash": 1543213056,
+  "totalDebt": 2812517120,
+  "trailingPE": 63.6024
+ },
+ "v": 2
+}

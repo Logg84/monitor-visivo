@@ -1,0 +1,61 @@
+{
+ "aggiornato": "2026-11-06",
+ "dati": {
+  "beta": 2.108,
+  "bilancio_annuale": {
+   "ricavi": {
+    "2022": 5691500000.0,
+    "2023": 6863200000.0,
+    "2024": 8011800000.0,
+    "2025": 10229900000.0
+   },
+   "utile_netto": {
+    "2022": 76600000.0,
+    "2023": 460200000.0,
+    "2024": 495800000.0,
+    "2025": 1332800000.0
+   },
+   "utile_operativo": {
+    "2022": 227800000.0,
+    "2023": 916800000.0,
+    "2024": 1382000000.0,
+    "2025": 1896200000.0
+   }
+  },
+  "currency": "USD",
+  "currentRatio": 1.392,
+  "debito_netto": -354799872,
+  "debito_netto_su_ebitda": -0.11,
+  "debtToEquity": 61.012,
+  "dividendYield": 0.14,
+  "earningsGrowth": 0.912,
+  "ebitda": 3188199936,
+  "enterpriseToEbitda": 21.234,
+  "fiftyTwoWeekHigh": 379.935,
+  "fiftyTwoWeekLow": 147.82,
+  "financialCurrency": "USD",
+  "forwardPE": 18.5789,
+  "freeCashflow": 2962249984,
+  "grossMargins": 0.3811,
+  "industry": "Electrical Equipment & Parts",
+  "longName": "Vertiv Holdings Co",
+  "marketCap": 70412148736,
+  "numberOfAnalystOpinions": 28,
+  "operatingCashflow": 3665499904,
+  "operatingMargins": 0.2377,
+  "payoutRatio": 0.0467,
+  "priceToBook": 12.7964,
+  "profitMargins": 0.16,
+  "quickRatio": 0.929,
+  "recommendationKey": "strong_buy",
+  "returnOnAssets": 0.1194,
+  "returnOnEquity": 0.4657,
+  "revenueGrowth": 0.612,
+  "sector": "Industrials",
+  "targetMeanPrice": 339.0714,
+  "totalCash": 3711699968,
+  "totalDebt": 3356900096,
+  "trailingPE": 34.1794
+ },
+ "v": 2
+}
