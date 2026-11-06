@@ -118,4 +118,6 @@ check("nuova uscita dopo un avviso precedente → si può avvisare di nuovo",
 fut = serie({24: (108.0, 106.0)}, n=25)
 check("nessun look-ahead: stesso esito con barre future casuali",
       alert.retest_nuovi(stato_base(), {"AAA": fut}, g)[0]["data"] == alert.retest_nuovi(stato_base(), {"AAA": serie({24: (108.0, 106.0)}, n=25).iloc[:25]}, g)[0]["data"])
+src = (ROOT / "scripts" / "run.py").read_text(encoding="utf-8")
+check("run.py: avvisi solo per l'uscita verso l'alto", 'e["tipo"] == "uscita_sopra"' in src and 'startswith("uscita")' not in src)
 print("OK: verifica_alert")

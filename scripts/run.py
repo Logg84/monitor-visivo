@@ -126,7 +126,9 @@ def main() -> int:
         nuovi += 1
     print(f"Fondamentali aggiornati: {nuovi}/{len(visibili)}")
 
-    uscite = [e for e in eventi if e["tipo"].startswith("uscita")]
+    # Avvisi SOLO per la rottura verso l'alto (scelta di Marco, 6/11/2026): l'uscita verso il basso resta
+    # nello stato e nel sito, ma non genera Telegram né email.
+    uscite = [e for e in eventi if e["tipo"] == "uscita_sopra"]
     avvisi = uscite + retest
     punteggi = alert.leggi_punteggi([e["ticker"] for e in avvisi])     # da D1; {} se non raggiungibile
     testi = [alert.messaggio_unificato(e, punteggi.get(e["ticker"]), oggi) for e in avvisi]
