@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Watchlist · basewatch</title>
+<link rel="stylesheet" href="style.css">
+<style>
+  main.col{max-width:1400px;margin:0 auto}
+  .kpis{display:flex;gap:14px;flex-wrap:wrap;margin:12px 0}.kpis div{background:var(--superficie);border:1px solid var(--bordo);border-radius:10px;padding:8px 14px;display:grid;min-width:140px}.kpis span{font-size:12px;color:var(--muto)}.kpis b{font-size:18px}
+  .box{background:var(--superficie);border:1px solid var(--bordo);border-radius:12px;padding:14px 18px;margin:14px 0}
+  .box form{display:flex;gap:10px;flex-wrap:wrap;align-items:flex-end}.box label{display:grid;gap:3px;font-size:12px;color:var(--muto)}
+  .box input,.box select{font:inherit;padding:5px 8px;background:var(--bg);color:var(--testo);border:1px solid var(--bordo);border-radius:6px;max-width:140px}
+  .box input.largo{max-width:260px}
+  button.az{font:inherit;padding:6px 12px;border-radius:8px;border:1px solid var(--bordo);background:var(--superficie);color:var(--testo);cursor:pointer}button.az.pri{border-color:var(--accento);font-weight:600}
+  tbody tr.cl{cursor:pointer}tbody tr.sel{outline:2px solid var(--accento);outline-offset:-2px}
+  .msg{padding:8px 12px;border-radius:8px;margin:10px 0}.msg.ok{background:rgba(34,197,94,.15)}.msg.err{background:rgba(239,68,68,.18)}
+  .pos{color:#16a34a}.neg{color:#dc2626}
+</style>
+</head>
+<body>
+<header class="top">
+  <div class="titolo"><h1>👀 Watchlist</h1><p id="sottotitolo" class="muted">Caricamento…</p></div>
+  <div style="display:flex;gap:8px;flex-wrap:wrap"><a href="portafoglio.html" class="btn sec">Portafoglio</a><a href="condiviso.html" class="btn sec">Condiviso</a><a href="insider.html" class="btn sec">Insider</a><a href="backtest.html" class="btn sec">Backtest</a><a href="strumenti.html" class="btn sec">Strumenti</a><a href="settori.html" class="btn sec">Settori</a><a href="calendario.html" class="btn sec">Calendario</a><a href="macro.html" class="btn sec">Regimi macro</a><a href="screening.html" class="btn sec">Screening</a><a href="unificato.html" class="btn sec">Vista unificata</a><a href="./" class="btn sec">← Basi di accumulo</a></div>
+</header>
+<main class="col">
+  <p class="muted">La watchlist del repo privato (👤 manuale = tua, intoccabile dall'automazione; 🤖 auto = gestita dal sistema). Le modifiche vengono salvate come commit nel repo privato. Lettura, mai ordine.</p>
+  <div id="esito"></div>
+  <section class="controlli" aria-label="Filtri">
+    <label>Cerca<input id="f-q" placeholder="ticker o nome"></label>
+    <label>Origine<select id="f-or"><option value="">tutte</option><option value="manual">👤 manuale</option><option value="auto">🤖 auto</option></select></label>
+    <label>Settore<select id="f-se"><option value="">tutti</option></select></label>
+    <label class="chk"><input type="checkbox" id="f-st"> Solo da rivedere (≥ 4 mesi)</label>
+    <span id="conteggio" class="muted"></span>
+  </section>
+  <div class="kpis" id="kpi"></div>
+  <div class="tabella-wrap"><table id="tab"></table></div>
+  <div class="box"><h3>➕ Aggiungi titolo (👤 manuale)</h3>
+    <form id="f-add"><label>Ticker (es. CPR.MI o CPR)<input id="a-t" required></label><label>L1 (supporto forte)<input id="a-l1" type="number" step="any" min="0"></label><label>L2 (supporto medio)<input id="a-l2" type="number" step="any" min="0"></label><label>L3 (resistenza)<input id="a-l3" type="number" step="any" min="0"></label><label>Data target (alert)<input id="a-td" type="date"></label><button class="az pri" type="submit">Aggiungi</button></form>
+    <p class="muted">Il ticker va scritto come su Yahoo Finance (suffisso di borsa incluso). Settore e VWAP li compila il sistema alla prossima riconciliazione. L1/L2/L3 sono livelli personali, non entrano nei calcoli.</p></div>
+  <div id="det"></div>
+</main>
+<footer class="piede">Dati: data/watchlist.json del repo privato (letti dal vivo) + ultimo screening. Aggiungere, togliere e modificare i livelli crea un commit nel repo privato; i workflow usano subito il nuovo file.</footer>
+<script src="comune.js"></script>
+<script src="watchlist.js"></script>
+</body>
+</html>

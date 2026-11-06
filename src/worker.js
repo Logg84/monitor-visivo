@@ -7,6 +7,8 @@
  * compatibile OpenAI (Groq, OpenRouter, Gemini compat…) via AI_BASE_URL / AI_MODEL.
  * L'AI vede SOLO i dati calcolati (index.json + fond/<ticker>.json): niente notizie.
  */
+import { COL_COND, COL_PORT, costruisciTabella, csvLeggi, leggiEditor, leggiFile, modificaWatchlist, puoModificareCondiviso, scriviFile } from "./archivio.js";
+import { avviaWorkflow } from "./dati.js";
 import { CHIAVE_PAGINA, corpoPagina, corpoScreening, eseguiCron, leggiPunteggi, ultimiLog, unisci } from "./dati.js";
 
 const SYSTEM = `Sei un assistente che riassume in italiano, in prosa chiara e discorsiva, dati di analisi tecnica e fondamentale già calcolati da un portale di monitoraggio personale. Regole assolute:
@@ -206,6 +208,49 @@ export default {
         if (!c) return json({ errore: "pagina non ancora caricata" }, 404);
         return new Response(c, { headers: { "content-type": "application/json", "cache-control": "no-store" } });
       } catch (e) { return json({ errore: "database non raggiungibile: " + e.message }, 502); }
+    }
+
+    // ── Dati personali nel repo privato (watchlist, portafoglio, condiviso) ──────────────────────────────
+    if (url.pathname.startsWith("/api/dati/") || ["/api/watchlist", "/api/portafoglio", "/api/condiviso"].includes(url.pathname)) {
+      const io = await identita(request, env);
+      if (!io) return json({ errore: "non autenticato" }, 401);
+      const nome = url.pathname.split("/").pop();
+      if (!["watchlist", "portafoglio", "condiviso"].includes(nome)) return json({ errore: "dato sconosciuto" }, 404);
+      const personale = nome !== "condiviso";
+      // Per ora i file personali sono quelli storici (un solo utente): li gestisce solo l'amministratore.
+      if (personale && !io.admin) return json({ errore: "area personale non ancora abilitata per questo utente" }, 403);
+      if (url.pathname.startsWith("/api/dati/")) {
+        if (request.method !== "GET") return json({ errore: "metodo non consentito" }, 405);
+        const f = await leggiFile(env, nome);
+        if (!f.ok) return json({ errore: f.errore }, f.stato);
+        const puo = personale ? true : puoModificareCondiviso(io, await leggiEditor(env));
+        if (f.assente) return json({ sha: null, righe: nome === "watchlist" ? undefined : [], puo_modificare: puo });
+        if (nome === "watchlist") {                  // JSON incollato come testo, mai riletto (CPU Free = 10 ms)
+          const t = f.testo.trim();
+          if (!(t.startsWith("{") && t.endsWith("}"))) return json({ errore: "watchlist.json illeggibile" }, 502);
+          return new Response(`{"sha":${JSON.stringify(f.sha)},"puo_modificare":true,"dati":${t}}`, { headers: { "content-type": "application/json", "cache-control": "no-store" } });
+        }
+        const c = csvLeggi(f.testo);
+        return new Response(JSON.stringify({ sha: f.sha, puo_modificare: puo, colonne: nome === "condiviso" ? COL_COND : COL_PORT, righe: c.righe }),
+          { headers: { "content-type": "application/json", "cache-control": "no-store" } });
+      }
+      if (request.method !== "POST") return json({ errore: "metodo non consentito" }, 405);
+      const origine = request.headers.get("origin");
+      if (origine && origine !== url.origin) return json({ errore: "origine non consentita" }, 403);
+      let b; try { b = await request.json(); } catch (e) { return json({ errore: "richiesta non valida" }, 400); }
+      if (nome === "watchlist") {
+        const r = await modificaWatchlist(env, b, io.email);
+        return r.ok ? json({ ok: true, invariato: !!r.invariato }) : json({ errore: r.errore }, r.stato || 502);
+      }
+      if (nome === "condiviso" && !puoModificareCondiviso(io, await leggiEditor(env))) return json({ errore: "non hai il permesso di modificare il portafoglio condiviso" }, 403);
+      const t = costruisciTabella(b.righe, nome === "condiviso");
+      if (!t.ok) return json({ errore: t.errori.join(" · ") }, 400);
+      const w = await scriviFile(env, nome, t.testo, b.sha || null, `chore(portale): aggiorna ${nome === "condiviso" ? "portafoglio condiviso" : "portafoglio"} (${io.email})`);
+      if (!w.ok) return json({ errore: w.conflitto ? "i dati sono stati modificati nel frattempo: ricarica la pagina" : w.errore }, w.stato || 502);
+      let alert = null;
+      if (nome === "condiviso")      // gli avvisi Telegram li invia il repo privato (diff del commit): qui si lancia solo il workflow
+        alert = (await avviaWorkflow(env, { repo: "Logg84/monitor-trading-marco", workflow: "portafoglio-condiviso-alert.yml", ref: "main", token: "PRIVATE_REPO_TOKEN" })).ok ? "avviato" : "non avviato";
+      return json({ ok: true, sha: w.sha, alert });
     }
 
     if (url.pathname === "/api/range") {           // solo admin, solo con Access
