@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Strumenti · basewatch</title>
+<link rel="stylesheet" href="style.css">
+<style>
+  main.col{max-width:1500px;margin:0 auto}
+  h2{font-size:18px;margin:22px 0 8px}
+  .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:12px}
+  .card{background:var(--superficie);border:1px solid var(--bordo);border-radius:12px;padding:12px 14px;display:grid;gap:6px;border-top:4px solid var(--c,#888)}
+  .card .h{display:flex;justify-content:space-between;align-items:baseline}.card .h b{font-size:15px}.card .h span{font-size:12px;color:var(--muto)}
+  .card .b{font-size:12px}.card .p{font-size:22px;font-weight:700;font-variant-numeric:tabular-nums}
+  .card .r{display:flex;justify-content:space-between;font-size:12px;color:var(--muto)}.card .r b{color:var(--testo);font-variant-numeric:tabular-nums}
+  .ruler{position:relative;height:6px;background:var(--bordo);border-radius:3px;margin:8px 0 2px}.ruler i{position:absolute;top:-4px;width:4px;height:14px;background:var(--testo);border-radius:2px}
+  .rl{display:flex;justify-content:space-between;font-size:11px;color:var(--muto)}
+  .foot{font-size:11px;color:var(--muto)}
+  .verde{--c:#3FB950}.giallo{--c:#D29922}.rosso{--c:#F85149}.arancio{--c:#F0883E}.grigio{--c:#888}
+  .box{background:var(--superficie);border:1px solid var(--bordo);border-radius:12px;padding:12px 16px;margin:10px 0}
+  .kpis{display:flex;gap:14px;flex-wrap:wrap;margin:12px 0}.kpis div{background:var(--superficie);border:1px solid var(--bordo);border-radius:10px;padding:8px 14px;display:grid;min-width:120px}.kpis span{font-size:12px;color:var(--muto)}.kpis b{font-size:18px}
+  svg text{fill:currentColor;font-size:12px;font-family:ui-monospace,monospace}
+  .sc{display:inline-block;width:60px;height:8px;background:var(--bordo);border-radius:4px;vertical-align:middle;margin-right:6px;overflow:hidden}.sc i{display:block;height:100%;background:var(--accento)}
+  .neg{color:var(--rosso)}
+</style>
+</head>
+<body>
+<header class="top">
+  <div class="titolo">
+    <h1>🌐 Indici e coppie — lettura tecnica</h1>
+    <p id="sottotitolo" class="muted">Caricamento…</p>
+  </div>
+  <div style="display:flex;gap:8px;flex-wrap:wrap">
+    <a href="calendario.html" class="btn sec">Calendario</a>
+    <a href="settori.html" class="btn sec">Settori</a>
+    <a href="macro.html" class="btn sec">Regimi macro</a>
+    <a href="screening.html" class="btn sec">Screening</a>
+    <a href="unificato.html" class="btn sec">Vista unificata</a>
+    <a href="./" class="btn sec">← Basi di accumulo</a>
+  </div>
+</header>
+<main class="col" id="main"></main>
+<footer class="piede">
+  Stessi indicatori dello Screening senza fondamentali. Il colore del semaforo è solo presentazione: nessun consiglio operativo, nessun ordine.
+  Si usa lo strumento negoziabile con volume reale (ETF per gli indici, future per oro, argento, petrolio ed EUR/USD): i livelli sono quelli del simbolo indicato, non i punti dell'indice.
+</footer>
+<script src="strumenti.js"></script>
+</body>
+</html>
