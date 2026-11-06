@@ -13,7 +13,7 @@
 
   const REPO = "Logg84/monitor-visivo", FILE_OVERRIDE = "data/override.json";
   let basi = [], titoli = {}, gruppi = [];
-  let punteggi = {};                          // ticker → {punti, segnale}: solo con login (D1); altrimenti vuoto
+  let scr = {}, wl = {}, statoPunt = "";      // screening (D1) e watchlist (repo privato): solo con login; altrimenti vuoti
   let me = { modalita: "codice" };           // chi sono: da /api/me (Cloudflare Access) o modalità a codice
   const cacheSerie = new Map();
   const nomeFile = (t) => [...t].map((c) => (/[A-Za-z0-9\-_.]/.test(c) ? c : "_")).join("");
@@ -49,7 +49,7 @@
     }
   }
 
-  function creaGrafico(box, b, barre, altro, dim) {
+  function creaGrafico(box, b, barre, altro, dim, extra) {
     const colTesto = css("--muto"), colGriglia = css("--griglia-chart"), colBordo = css("--bordo");
     const chart = LW.createChart(box, {
       ...(dim ? { autoSize: false, width: dim.w, height: dim.h } : { autoSize: true }),
@@ -76,8 +76,75 @@
                                   axisLabelVisible: true, title: nome });
       }
     }
+    if (extra) {   // livelli del titolo: POC, VWAP, zone volumetriche, livelli personali
+      for (const z of extra.bande || []) candele.attachPrimitive(new Rettangolo(barre[0].t, z.top, z.bottom, z.colore));
+      for (const l of extra.linee || []) candele.createPriceLine({ price: l.prezzo, color: l.colore, lineWidth: 1, lineStyle: l.stile, axisLabelVisible: true, title: l.nome });
+    }
     chart.timeScale().fitContent();
     return chart;
+  }
+
+  // ── Livelli del titolo (POC, VWAP, zone, livelli personali) e dettaglio completo ──
+  const LIV_DEF = { poc: true, vwap: true, anc: false, zone: false, miei: true };
+  const nz = (x) => (typeof x === "number" && Number.isFinite(x) ? x : null);
+  const zona = (t) => { const m = /([\d.]+)\s*[–-]\s*([\d.]+)/.exec(String(t || "")); return m ? [Number(m[1]), Number(m[2])] : null; };
+  function livelliDi(g) {
+    const x = (scr[g.ticker] || {}).extra || {}, w = wl[g.ticker], o = { ...LIV_DEF, ...(g.lv || {}) }, linee = [], bande = [];
+    if (o.poc && nz(x.Z1c) !== null) linee.push({ prezzo: x.Z1c, nome: "POC", colore: "#f59e0b", stile: 0 });
+    if (o.vwap) {
+      if (nz(x.VWAP60) !== null) linee.push({ prezzo: x.VWAP60, nome: "VWAP60", colore: "#a855f7", stile: 0 });
+    }
+    if (o.anc) {
+      ["VWA1", "VWA2", "VWA3"].forEach((k, i) => { if (nz(x[k]) !== null) linee.push({ prezzo: x[k], nome: "VWAP anc." + (i + 1), colore: "#ec4899", stile: 3 }); });
+    }
+    if (o.zone) for (const [k, c] of [["Z1", "rgba(245,158,11,.13)"], ["Z2", "rgba(245,158,11,.07)"]]) { const z = zona(x[k]); if (z) bande.push({ top: Math.max(...z), bottom: Math.min(...z), colore: c }); }
+    if (o.miei && w && w.levels) for (const k of ["L1", "L2", "L3"]) if (nz(w.levels[k]) !== null && w.levels[k] > 0) linee.push({ prezzo: w.levels[k], nome: k + " (mio)", colore: "#38bdf8", stile: 1 });
+    return { linee, bande };
+  }
+  const SEZ = [
+    ["Segnale", ["Segnale", "Seg_Punti", "Origine_Segnale", "Priorità", "Confluenza", "Trend", "In zona", "Sifrediana_Today"]],
+    ["Prezzo e tecnica", ["Prezzo", "DD%", "DD_2a%", "RSI", "ATR%", "SMA50", "SMA200", "Dist_SMA200%", "Sopra_SMA200", "W_SMA13", "W_SMA52", "Ret_4s%", "RS_4s%"]],
+    ["Livelli", ["Z1c", "VWAP60", "VWA1", "VWA2", "VWA3", "Z1", "Z2", "Bottom", "Bottom_DD", "Bottom_RSI", "Bottom_Zona", "Bottom_Decel"]],
+    ["Qualità e fondamentali", ["Health", "H_ROE", "H_DE", "H_Margine", "H_Crescita", "H_FCF", "PE_trailing", "PE_forward", "EV_EBITDA", "P_S", "Qualita_Dati"]],
+    ["Wyckoff, insider, squeeze", ["Wyckoff", "W_Score", "Insider_Cluster", "WI_Confluence", "Short_Float_%", "Squeeze"]],
+    ["Settore", ["Settore", "Sector", "SectorETF", "SectorScore", "Δ EW−CW", "Vento", "Sotto-settore", "SottoScore", "SottoΔ", "Z_Sconto_Settore", "Z_Medio_Settore"]],
+    ["Bonus (somma di lettura)", ["Bonus_Settore", "Bonus_Confluenza", "Bonus_Sifrediana", "Bonus_Insider", "Bonus_WI", "Bonus_Regime", "Bonus_Volatilita", "Bonus_Compresso", "Bonus_Totale"]],
+  ];
+  const ETI_X = { Z1c: "POC (centro zona 1)", VWA1: "VWAP ancorato 1", VWA2: "VWAP ancorato 2", VWA3: "VWAP ancorato 3", Seg_Punti: "Punti del segnale", H_ROE: "ROE", H_DE: "Debito/Equity", H_Margine: "Margine", H_Crescita: "Crescita", H_FCF: "Free cash flow", "DD%": "Drawdown max 5a %", "DD_2a%": "Drawdown 2a %" };
+  const fx = (v) => (typeof v === "boolean" ? (v ? "sì" : "no") : typeof v === "number" ? (Number.isInteger(v) ? String(v) : v.toFixed(2)) : String(v));
+  function dettaglioCompleto(g) {
+    const sc = scr[g.ticker], w = wl[g.ticker], box = eEl("details", "dettaglio");
+    box.append(eEl("summary", null, "📋 Tutte le informazioni del titolo" + (sc ? "" : " (screening non disponibile)")));
+    const griglia = eEl("div", "sezioni");
+    const sezione = (titolo, voci) => {
+      if (!voci.length) return;
+      const s = eEl("section"); s.append(eEl("h4", null, titolo));
+      for (const [k, v] of voci) { const r = eEl("div"); r.append(eEl("span", null, k), eEl("b", null, v)); s.append(r); }
+      griglia.append(s);
+    };
+    if (sc) {
+      const x = { ...(sc.extra || {}) };
+      for (const [t, ks] of SEZ) sezione(t, ks.filter((k) => x[k] !== undefined && x[k] !== null && x[k] !== "" && x[k] !== "—").map((k) => [ETI_X[k] || k, k === "Seg_Punti" ? x[k] + "/6" : fx(x[k])]));
+      sezione("Flag del segnale", ["B", "C", "G", "D", "E"].filter((k) => x["Seg_" + k] !== undefined && x["Seg_" + k] !== null).map((k) => [k, x["Seg_" + k] ? "✔" : "·"]));
+    }
+    if (w) sezione("Watchlist", [["Origine", w.origin === "manual" ? "👤 manuale" : "🤖 automatica"], ["Aggiunto", (w.created || "").slice(0, 10)], ["Ultima revisione", (w.last_reviewed || "").slice(0, 10)],
+      ["Livelli personali", ["L1", "L2", "L3"].filter((k) => w.levels && w.levels[k]).map((k) => `${k} ${w.levels[k]}`).join(" · ") || "–"], ["Data target", w.target_date || "–"], ["POC (file)", w.poc == null ? "–" : fx(w.poc)], ["VWAP (file)", w.vwap == null ? "–" : fx(w.vwap)],
+      ["Settore (file)", [w.sector, w.sub].filter(Boolean).join(" / ") || "–"]].filter(([, v]) => v !== "–" && v !== ""));
+    if (!griglia.children.length) griglia.append(eEl("p", "nota", "Dati riservati non disponibili: effettua il login, oppure lo screening non è ancora stato caricato."));
+    box.append(griglia);
+    return box;
+  }
+  function barraLivelli(g) {
+    const o = { ...LIV_DEF, ...(g.lv || {}) }, riga = eEl("div", "livelli");
+    riga.append(eEl("span", "muted", "Sul grafico:"));
+    const voci = [["poc", "POC"], ["vwap", "VWAP 60"], ["anc", "VWAP ancorati"], ["zone", "Zone volumetriche"]];
+    if (wl[g.ticker] && wl[g.ticker].levels && Object.keys(wl[g.ticker].levels).length) voci.push(["miei", "Miei livelli"]);
+    for (const [k, nome] of voci) {
+      const l = eEl("label"), c = eEl("input"); c.type = "checkbox"; c.checked = !!o[k];
+      c.addEventListener("change", () => { g.lv = { ...(g.lv || {}), [k]: c.checked }; osserva(g); });
+      l.append(c, document.createTextNode(" " + nome)); riga.append(l);
+    }
+    return riga;
   }
 
   // ── Card ───────────────────────────────────────────────────────────────
@@ -102,12 +169,13 @@
       bt.addEventListener("click", () => { g.tf = t; disegnaCard(g, t); osserva(g); });
       sel.append(bt);
     }
-    const pt = punteggi[g.ticker];
-    if (pt && pt.punti != null) {
-      const bp = eEl("span", "badge b-punti", `${pt.punti}/6`);
+    const pt = scr[g.ticker];
+    if (pt && pt.punti != null && pt.segnale && pt.segnale !== "—") {
+      const bp = eEl("span", "badge b-punti", `punteggio ${pt.punti}/6`);
       bp.title = `Punteggio ${pt.punti}/6${pt.segnale ? " · " + pt.segnale : ""} (strumento di lettura, nessun vantaggio dimostrato)`;
       testa.append(bp);
     }
+    if (wl[g.ticker]) testa.append(eEl("span", "badge b-manuale", wl[g.ticker].origin === "manual" ? "👀 watchlist 👤" : "👀 watchlist 🤖"));
     if (b.manuale) testa.append(eEl("span", "badge b-manuale", "manuale"));
     testa.append(sel);
     const bz = eEl("button", "zoom", g.schermo ? "✕ Chiudi" : "⤢ Schermo intero");
@@ -150,7 +218,9 @@
     const ba_ = eEl("button", "link", "🧠 Analisi AI"); ba_.type = "button";
     ba_.addEventListener("click", () => analisiAI(g));
     az.append(ba_);
-    card.append(testa, box, dati, nota, az);
+    card.append(testa, box);
+    if (scr[g.ticker] || wl[g.ticker]) card.append(barraLivelli(g));
+    card.append(dati, nota, az, dettaglioCompleto(g));
     if (g.ai) card.append(pannelloAI(g.ai));
     g.box = box;
   }
@@ -174,7 +244,7 @@
     if (g.chart) { g.chart.remove(); g.chart = null; }
     const ta = tf === "1W" ? "1D" : "1W", ba = g.tfs[ta];
     const altro = ba && !storica(ba) ? { tf: ta, b: ba } : null;
-    g.chart = creaGrafico(box, b, barre, altro);
+    g.chart = creaGrafico(box, b, barre, altro, null, livelliDi(g));
   }
   function osserva(g) { g.disegnato = false; if (g.chart) { g.chart.remove(); g.chart = null; } osservatore.observe(g.card); montaGrafico(g); }
 
@@ -200,7 +270,7 @@
     document.body.append(div);
     try {
       const ta = tf === "1W" ? "1D" : "1W", ba = g.tfs[ta];
-      const chart = creaGrafico(div, b, barre, ba && !storica(ba) ? { tf: ta, b: ba } : null, { w: 960, h: 520 });
+      const chart = creaGrafico(div, b, barre, ba && !storica(ba) ? { tf: ta, b: ba } : null, { w: 960, h: 520 }, livelliDi(g));
       await new Promise((r) => requestAnimationFrame(() => requestAnimationFrame(r)));
       const url = chart.takeScreenshot().toDataURL("image/jpeg", 0.82);
       chart.remove();
@@ -390,6 +460,7 @@
     const c = { in_range: 0, rallenta: 0, uscite: 0 };
     for (const g of gruppi) { const b = g.tfs[g.tf]; if (storica(b)) continue; if (b.stato === "in_range") c.in_range++; else if (b.stato === "rallenta") c.rallenta++; else c.uscite++; }
     const el = $("riepilogo"); el.replaceChildren();
+    if (statoPunt) { const d = eEl("span", "chip"); d.textContent = statoPunt; el.append(d); }
     for (const [k, v] of [["In range", c.in_range], ["Rallenta", c.rallenta], ["Uscite osservate", c.uscite]]) {
       const chip = eEl("span", "chip"); chip.append(document.createTextNode(k + " "), eEl("b", null, String(v))); el.append(chip);
     }
@@ -410,10 +481,19 @@
       $("sottotitolo").textContent = "Dati non disponibili: " + e.message;
       return;
     }
-    try {   // punteggi 1–6: richiedono il login; se non ci sono (401/404/rete) la pagina resta com'è
-      const u = await fetch("/api/unificato", { cache: "no-store" });
-      if (u.ok) for (const r of (await u.json()).righe || []) if (r.punteggio && r.punteggio.punti != null) punteggi[r.ticker] = r.punteggio;
-    } catch (e) { /* nessun punteggio */ }
+    // Dati riservati (richiedono il login): screening con punteggi e livelli; watchlist. Se mancano la pagina resta com'è.
+    try {
+      const u = await fetch("/api/screening", { cache: "no-store" });
+      if (u.ok) {
+        const j = await u.json(); let n = 0;
+        for (const r of j.righe || []) { scr[r.ticker] = r; if (r.punti != null && r.segnale && r.segnale !== "—") n++; }
+        statoPunt = `Punteggi 1–6: ${n} titoli con segnale (screening del ${j.data || "n/d"})`;
+      } else statoPunt = u.status === 401 ? "Punteggi 1–6: accedi per vederli" : `Punteggi 1–6 non disponibili (errore ${u.status})`;
+    } catch (e) { statoPunt = "Punteggi 1–6 non disponibili (rete)"; }
+    try {
+      const u = await fetch("/api/dati/watchlist", { cache: "no-store" });
+      if (u.ok) for (const e of ((await u.json()).dati || {}).entries || []) wl[e.ticker] = e;
+    } catch (e) { /* solo per l'amministratore */ }
     gruppi = raggruppa();
     riepilogo(); tabellaStoriche(); aggiorna();
   }

@@ -88,3 +88,11 @@ body.blocca{overflow:hidden}
 .btn.sec{background:transparent;color:var(--testo);border:1px solid var(--bordo)}
 .btn:focus-visible{outline:2px solid var(--accento);outline-offset:2px}
 .b-punti{background:transparent;border:1px solid var(--bordo);color:var(--testo)}
+.card .livelli{display:flex;gap:12px;flex-wrap:wrap;font-size:12px;padding:4px 2px}
+.card .livelli label{display:flex;align-items:center;gap:4px;cursor:pointer}
+.dettaglio{margin-top:8px;border-top:1px solid var(--bordo);padding-top:6px}
+.dettaglio summary{cursor:pointer;font-weight:600}
+.dettaglio .sezioni{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:10px;margin-top:8px}
+.dettaglio h4{margin:0 0 4px;font-size:12px;text-transform:uppercase;color:var(--muto)}
+.dettaglio section div{display:flex;justify-content:space-between;gap:8px;font-size:12px;border-bottom:1px dotted var(--bordo);padding:2px 0}
+.dettaglio section div span{color:var(--muto)}
