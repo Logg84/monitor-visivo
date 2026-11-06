@@ -1,0 +1,35 @@
+name: portafoglio-condiviso-alert
+
+# Lanciato dal Worker del sito (workflow_dispatch) subito dopo ogni modifica del portafoglio condiviso:
+# invia gli avvisi Telegram (nuovo trade, chiusura, SL/TP cambiati). Può essere lanciato anche a mano.
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: portafoglio-condiviso-alert
+  cancel-in-progress: false
+
+jobs:
+  avvisi:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: "pip"
+          cache-dependency-path: requirements-jobs.txt
+      - name: Installa dipendenze
+        run: pip install -r requirements-jobs.txt
+      - name: Invia avvisi
+        env:
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+          USERS_TOML: ${{ secrets.USERS_TOML }}
+        run: python scripts/alert_condiviso.py
