@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Backtest · basewatch</title>
+<link rel="stylesheet" href="style.css">
+<style>
+  main.col{max-width:1200px;margin:0 auto}
+  .sez{background:var(--superficie);border:1px solid var(--bordo);border-radius:12px;padding:14px 18px;margin:14px 0}
+  .sez h3{margin:0 0 6px}.sez .cosa{font-weight:600}
+  pre.rep{white-space:pre-wrap;overflow-x:auto;font-size:12px;background:var(--bg);border:1px solid var(--bordo);border-radius:8px;padding:10px}
+  details{margin:8px 0}
+</style>
+</head>
+<body>
+<header class="top">
+  <div class="titolo">
+    <h1>🧪 Backtest</h1>
+    <p id="sottotitolo" class="muted">Caricamento…</p>
+  </div>
+  <div style="display:flex;gap:8px;flex-wrap:wrap">
+    <a href="insider.html" class="btn sec">Insider</a><a href="strumenti.html" class="btn sec">Strumenti</a><a href="settori.html" class="btn sec">Settori</a>
+    <a href="calendario.html" class="btn sec">Calendario</a><a href="macro.html" class="btn sec">Regimi macro</a>
+    <a href="screening.html" class="btn sec">Screening</a><a href="unificato.html" class="btn sec">Vista unificata</a>
+    <a href="./" class="btn sec">← Basi di accumulo</a>
+  </div>
+</header>
+<main class="col">
+  <p class="muted">Verifica storica dei punteggi e delle soglie, point-in-time. I filtri di qualità usano fondamentali attuali: sulla parte fondamentale c'è look-ahead e i risultati sono ottimistici. Numeri per decidere se cambiare una regola, non per prevedere il mercato. Nessuna scrittura.</p>
+  <div id="lettura"></div>
+  <h2>📬 Scorecard degli alert</h2>
+  <p class="muted">Rendimento a 5/10/20 sedute dopo ogni alert inviato (ingresso alla prima chiusura successiva), confrontato con SPY nella stessa finestra. Fotografia descrittiva: non cambia punteggi né alert.</p>
+  <div class="tabella-wrap"><table id="score"></table></div>
+  <p class="muted" id="score-nota"></p>
+  <h2>📄 Report dei backtest</h2>
+  <div id="report"></div>
+</main>
+<footer class="piede">I backtest misurano il passato del portale sui propri segnali: non prevedono il futuro e non sono consulenza. Le letture si aggiornano con i workflow «backtest» (mer/sab) e «scorecard» (domenica) del repo privato. I ricalcoli con parametri a scelta restano nel vecchio portale finché non viene spento.</footer>
+<script src="backtest.js"></script>
+</body>
+</html>

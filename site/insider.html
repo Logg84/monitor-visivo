@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Insider · basewatch</title>
+<link rel="stylesheet" href="style.css">
+<style>
+  main.col{max-width:1500px;margin:0 auto}
+  .kpis{display:flex;gap:14px;flex-wrap:wrap;margin:12px 0}.kpis div{background:var(--superficie);border:1px solid var(--bordo);border-radius:10px;padding:8px 14px;display:grid;min-width:150px}.kpis span{font-size:12px;color:var(--muto)}.kpis b{font-size:18px}
+  .tabs{display:flex;gap:6px;flex-wrap:wrap;margin:14px 0 8px}.tabs button{background:var(--superficie);border:1px solid var(--bordo);color:var(--testo);border-radius:8px;padding:6px 12px;cursor:pointer;font:inherit}.tabs button[aria-pressed=true]{border-color:var(--accento);font-weight:600}
+  tbody tr.cl{cursor:pointer}tbody tr.sel{outline:2px solid var(--accento);outline-offset:-2px}
+  .det{background:var(--superficie);border:1px solid var(--bordo);border-radius:12px;padding:14px 18px;margin:14px 0}
+  .controlli label.chk{display:flex;align-items:center;gap:6px;flex-direction:row}
+  .controlli select[multiple]{min-height:84px}
+</style>
+</head>
+<body>
+<header class="top">
+  <div class="titolo">
+    <h1>👔 Insider — SEC Form 4</h1>
+    <p id="sottotitolo" class="muted">Caricamento…</p>
+  </div>
+  <div style="display:flex;gap:8px;flex-wrap:wrap">
+    <a href="backtest.html" class="btn sec">Backtest</a><a href="strumenti.html" class="btn sec">Strumenti</a><a href="settori.html" class="btn sec">Settori</a>
+    <a href="calendario.html" class="btn sec">Calendario</a><a href="macro.html" class="btn sec">Regimi macro</a>
+    <a href="screening.html" class="btn sec">Screening</a><a href="unificato.html" class="btn sec">Vista unificata</a>
+    <a href="./" class="btn sec">← Basi di accumulo</a>
+  </div>
+</header>
+<main class="col">
+  <p class="muted">Fonte: <b>SEC EDGAR</b>, i Form 4 depositati dagli insider. Codice <b>P</b> = acquisto a mercato con denaro proprio; esclusi assegnazioni, esercizi di opzioni, ritenute, donazioni e qualsiasi vendita. Solo universo USA, solo sotto la soglia di capitalizzazione indicata. <b>Lettura, mai ordine</b>: non è un segnale operativo. Il cluster (≥2 insider distinti in 30 giorni) è contesto informativo.</p>
+  <section class="controlli" aria-label="Filtri">
+    <label>Finestra (giorni)<input type="number" id="f-gg" min="5" value="60"></label>
+    <label>Importo minimo (k$)<input type="number" id="f-k" min="0" step="5" value="25"></label>
+    <label>Fascia market cap<select id="f-fa" multiple></select></label>
+    <label>Ruolo insider<select id="f-ru" multiple></select></label>
+    <label class="chk"><input type="checkbox" id="f-cl"> Solo cluster</label>
+    <span id="conteggio" class="muted"></span>
+  </section>
+  <div class="kpis" id="kpi"></div>
+  <div class="tabs" id="tabs" role="group" aria-label="Viste"></div>
+  <div class="tabella-wrap"><table id="tab"></table></div>
+  <div id="det"></div>
+  <h2 style="margin-top:28px">🌐 Resto del mercato — cluster fuori screening</h2>
+  <p class="muted" id="resto-nota"></p>
+  <div class="kpis" id="kpi-resto"></div>
+  <div class="tabella-wrap"><table id="tab-resto"></table></div>
+</main>
+<footer class="piede">I dati si aggiornano con il workflow «insiders» del repo privato (una corsa serale nei giorni feriali). Rilevanza = ordinamento, non un segnale. Il link EDGAR è la verifica da fare prima di qualsiasi decisione.</footer>
+<script src="insider.js"></script>
+</body>
+</html>
