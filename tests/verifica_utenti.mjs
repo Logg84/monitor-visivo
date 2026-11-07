@@ -39,6 +39,11 @@ assert.equal(policy.include[0].email.email, "lorenzetti1984@gmail.com"); ok("le 
 const cf2 = async (url, o = {}) => { const p = url.split("/access/")[1];
   if (p === "apps/APP1/policies/POL") return o.method === "PUT" ? risp(policy) : risp(policy); return risp(null, 404); };
 assert.ok((await ut.accessAggiungi({ ...env, ACCESS_POLICY_ID: "POL", ACCESS_APP_ID: "APP1" }, "x@y.it", cf2)).ok); ok("ID espliciti: regola di applicazione");
+// token non valido / senza permesso: messaggi distinti
+const cf401 = async (u) => (u.includes("tokens/verify") ? { ok: false, status: 401, json: async () => ({ success: false, errors: [{ message: "Invalid API Token" }] }) } : { ok: false, status: 401, json: async () => ({ success: false, errors: [{ message: "Authentication error" }] }) });
+const e401 = await ut.verificaAccess(env, cf401); assert.ok(!e401.ok && e401.errore.includes("non è valido") && e401.errore.includes("Invalid API Token")); ok("401 con token non valido: messaggio «copiato male / creane uno nuovo»");
+const cf403 = async (u) => (u.includes("user/tokens/verify") ? { ok: true, status: 200, json: async () => ({ success: true, result: { status: "active" } }) } : { ok: false, status: 403, json: async () => ({ success: false, errors: [{ message: "Forbidden" }] }) });
+const e403 = await ut.verificaAccess(env, cf403); assert.ok(!e403.ok && e403.errore.includes("Access: Apps and Policies Edit")); ok("token valido ma senza permesso: indica il permesso da aggiungere");
 // ambiguità
 const cf3 = async (url, o = {}) => { const p = url.split("/access/")[1];
   if (p === "apps?per_page=100") return risp([{ id: "A", policies: [{ id: "P1" }, { id: "P2" }] }]);
@@ -76,6 +81,9 @@ assert.equal((await ut.aggiornaProfilo(db, "nuovo@x.it", { canale: "sms" })).ok,
 // limite giornaliero
 for (let i = 0; i < 20; i++) await ut.richiedi(db, { email: `u${i}@x.it`, nome: "Utente " + i });
 assert.equal((await ut.richiedi(db, { email: "ultimo@x.it", nome: "Ultimo Utente" })).stato, 429); ok("limite di richieste (anti-spam)");
+// Telegram con errore spiegato
+const tgKo = await ut.inviaTelegram({ TELEGRAM_BOT_TOKEN: "T", TELEGRAM_CHAT_ID: "9" }, "x", async () => ({ ok: false, status: 400, json: async () => ({ description: "Bad Request: chat not found" }) }));
+assert.ok(!tgKo.ok && tgKo.errore.includes("chat not found")); assert.ok((await ut.inviaTelegram({ TELEGRAM_BOT_TOKEN: "T" }, "x")).errore.includes("TELEGRAM_CHAT_ID")); ok("Telegram: errore spiegato (chat non trovata, secret mancante)");
 // Telegram
 let tg = null; await ut.notificaTelegram({ TELEGRAM_BOT_TOKEN: "T", TELEGRAM_CHAT_ID: "9" }, "x", async (u, o) => { tg = [u, JSON.parse(o.body)]; return { ok: true }; });
 assert.ok(tg[0].includes("botT/sendMessage") && tg[1].chat_id === "9"); assert.equal(await ut.notificaTelegram({}, "x"), false); ok("notifica Telegram (e silenzio se non configurata)");

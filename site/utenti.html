@@ -26,6 +26,7 @@
   <div class="tabella-wrap"><table id="ute"></table></div>
   <p class="muted" id="nota-access"></p>
   <p><button class="az" id="prova-access" type="button">🔌 Verifica collegamento a Cloudflare Access</button> <span id="esito-access"></span></p>
+  <p><button class="az" id="prova-tg" type="button">✈️ Invia messaggio di prova su Telegram</button> <span id="esito-tg"></span></p>
   <p class="muted">Link da dare ai collaboratori: <b id="link"></b>. Chi non è ancora abilitato vede la schermata di Cloudflare: da lì può aprire la pagina <b>richiedi.html</b>.</p>
 </main>
 <script src="nav.js"></script>
@@ -62,6 +63,11 @@
     const e = $("esito-access"); e.textContent = "Verifico…";
     const r = await api("/api/utenti/access-test"); const d = r.dati || {};
     e.textContent = d.ok ? `✅ Collegato: regola «${d.regola}»${d.applicazione ? " (app «" + d.applicazione + "»)" : ""}, ${d.email} email ammesse.` : "❌ " + (d.errore || "errore " + r.stato);
+  });
+  $("prova-tg").addEventListener("click", async () => {
+    const e = $("esito-tg"); e.textContent = "Invio…";
+    const r = await api("/api/utenti/telegram-test", {}); const d = r.dati || {};
+    e.textContent = d.ok ? "✅ Messaggio inviato: controlla Telegram." : "❌ " + (d.errore || "errore " + r.stato);
   });
   carica();
 })();

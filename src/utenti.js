@@ -50,14 +50,19 @@ export async function richiedi(db, d, ora = new Date()) {
   return { ok: true, nuova: !gia, email, nome };
 }
 
-export async function notificaTelegram(env, testo, fetchFn = fetch) {
-  if (!env.TELEGRAM_BOT_TOKEN || !env.TELEGRAM_CHAT_ID) return false;
+/** Invia un messaggio a Telegram. Ritorna {ok, errore}: l'errore è la spiegazione di Telegram (es. «chat not found»). */
+export async function inviaTelegram(env, testo, fetchFn = fetch) {
+  if (!env.TELEGRAM_BOT_TOKEN) return { ok: false, errore: "Manca il secret TELEGRAM_BOT_TOKEN nel Worker." };
+  if (!env.TELEGRAM_CHAT_ID) return { ok: false, errore: "Manca il secret TELEGRAM_CHAT_ID nel Worker." };
   try {
-    const r = await fetchFn(`https://api.telegram.org/bot${env.TELEGRAM_BOT_TOKEN}/sendMessage`, { method: "POST", headers: { "content-type": "application/json" },
-      body: JSON.stringify({ chat_id: env.TELEGRAM_CHAT_ID, text: testo, disable_web_page_preview: true }) });
-    return r.ok;
-  } catch (e) { return false; }
+    const r = await fetchFn(`https://api.telegram.org/bot${String(env.TELEGRAM_BOT_TOKEN).trim()}/sendMessage`, { method: "POST", headers: { "content-type": "application/json" },
+      body: JSON.stringify({ chat_id: String(env.TELEGRAM_CHAT_ID).trim(), text: testo, disable_web_page_preview: true }) });
+    if (r.ok) return { ok: true };
+    const j = await r.json().catch(() => ({}));
+    return { ok: false, errore: `Telegram risponde ${r.status}: ${j.description || "errore sconosciuto"}` };
+  } catch (e) { return { ok: false, errore: "Telegram non raggiungibile dal Worker." }; }
 }
+export async function notificaTelegram(env, testo, fetchFn = fetch) { return (await inviaTelegram(env, testo, fetchFn)).ok; }
 
 export async function elenco(db) {
   await schema(db);
@@ -76,6 +81,20 @@ async function cf(env, percorso, fetchFn, init = {}) {
   const j = await r.json().catch(() => ({}));
   return { ok: r.ok && j.success !== false, stato: r.status, risultato: j.result, errori: j.errors };
 }
+const msgCf = (x) => (x && x.errori && x.errori[0] && x.errori[0].message ? ` — Cloudflare dice: «${x.errori[0].message}»` : "");
+/** Il token è valido? (token utente oppure token di account). */
+async function tokenValido(env, fetchFn) {
+  const prove = [`${API}/user/tokens/verify`, `${API}/accounts/${env.CF_ACCOUNT_ID}/tokens/verify`];
+  let ultimo = null;
+  for (const u of prove) {
+    try {
+      const r = await fetchFn(u, { headers: intest(env) }); const j = await r.json().catch(() => ({}));
+      if (r.ok && j.success !== false && j.result && j.result.status === "active") return { ok: true };
+      ultimo = { stato: r.status, errori: j.errors };
+    } catch (e) { ultimo = { stato: 0 }; }
+  }
+  return { ok: false, ...ultimo };
+}
 const conEmail = (p) => p && p.decision === "allow" && Array.isArray(p.include) && p.include.some((x) => x && x.email);
 /** Legge una regola: prima come «riutilizzabile», poi come regola di un'applicazione. */
 async function leggiPolicy(env, c, fetchFn) {
@@ -90,7 +109,11 @@ export async function trovaPolicy(env, fetchFn = fetch) {
   if (env.ACCESS_POLICY_ID) cand = [{ policyId: env.ACCESS_POLICY_ID, appId: env.ACCESS_APP_ID || "" }];
   else {
     const a = await cf(env, "apps?per_page=100", fetchFn);
-    if (!a.ok) return { ok: false, errore: "Cloudflare: elenco delle applicazioni Access non leggibile (" + a.stato + "): controlla il token e l'Account ID." };
+    if (!a.ok) {
+      const t = await tokenValido(env, fetchFn);
+      if (!t.ok) return { ok: false, errore: `Il token non è valido o è stato copiato male (${t.stato})${msgCf(t)}. Ricopialo per intero (senza spazi) nel secret CF_ACCESS_TOKEN oppure creane uno nuovo.` };
+      return { ok: false, errore: `Il token è valido ma Cloudflare rifiuta la lettura delle regole di Access (${a.stato})${msgCf(a)}. Controlla che abbia il permesso «Access: Apps and Policies Edit» a livello Account, per questo account, e che CF_ACCOUNT_ID sia giusto.` };
+    }
     for (const app of a.risultato || []) for (const p of app.policies || []) if (p && p.id) cand.push({ policyId: p.id, appId: app.id, appName: app.name });
   }
   const viste = new Set(), trovate = [];
