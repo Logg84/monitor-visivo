@@ -25,6 +25,7 @@
   <h2>Utenti</h2>
   <div class="tabella-wrap"><table id="ute"></table></div>
   <p class="muted" id="nota-access"></p>
+  <p><button class="az" id="prova-access" type="button">🔌 Verifica collegamento a Cloudflare Access</button> <span id="esito-access"></span></p>
   <p class="muted">Link da dare ai collaboratori: <b id="link"></b>. Chi non è ancora abilitato vede la schermata di Cloudflare: da lì può aprire la pagina <b>richiedi.html</b>.</p>
 </main>
 <script src="nav.js"></script>
@@ -56,6 +57,11 @@
       $("esito").innerHTML = manuale ? `<div class="msg av">Fatto. <b>Ricorda</b>: aggiungi/rimuovi a mano ${esc(b.dataset.e)} nella regola di Cloudflare Access.</div>` : '<div class="msg ok">Fatto.</div>';
     } else $("esito").innerHTML = `<div class="msg err">${esc((r.dati && r.dati.errore) || "errore " + r.stato)}</div>`;
     carica();
+  });
+  $("prova-access").addEventListener("click", async () => {
+    const e = $("esito-access"); e.textContent = "Verifico…";
+    const r = await api("/api/utenti/access-test"); const d = r.dati || {};
+    e.textContent = d.ok ? `✅ Collegato: regola «${d.regola}»${d.applicazione ? " (app «" + d.applicazione + "»)" : ""}, ${d.email} email ammesse.` : "❌ " + (d.errore || "errore " + r.stato);
   });
   carica();
 })();

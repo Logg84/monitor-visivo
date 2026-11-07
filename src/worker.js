@@ -223,7 +223,7 @@ export default {
       if (r.nuova) await ut.notificaTelegram(env, `👋 Nuova richiesta di accesso al portale\n${r.nome} <${r.email}>\nApprova o rifiuta dalla pagina Utenti.`);
       return json({ ok: true });
     }
-    if (url.pathname === "/api/utenti/me" || url.pathname === "/api/utenti" || url.pathname === "/api/utenti/azione") {
+    if (url.pathname === "/api/utenti/me" || url.pathname === "/api/utenti" || url.pathname === "/api/utenti/azione" || url.pathname === "/api/utenti/access-test") {
       const io = await identita(request, env);
       if (!io || io.modalita !== "access") return json({ errore: "non autenticato" }, 401);
       if (!env.DB) return json({ errore: "database non collegato" }, 503);
@@ -238,6 +238,7 @@ export default {
         return json({ email: io.email, admin: false, uid: q.uid, nome: q.nome, canale: q.canale, telegram_chat_id: q.telegram_chat_id, email_alert: q.email_alert });
       }
       if (!io.admin) return json({ errore: "riservato all'amministratore" }, 403);
+      if (url.pathname === "/api/utenti/access-test") return json(await ut.verificaAccess(env));
       if (url.pathname === "/api/utenti") return json({ ...(await ut.elenco(env.DB)), access_automatico: ut.accessConfigurato(env) });
       if (request.method !== "POST") return json({ errore: "metodo non consentito" }, 405);
       const r = b.azione === "approva" ? await ut.approva(env.DB, env, b.email)

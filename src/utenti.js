@@ -67,20 +67,51 @@ export async function elenco(db) {
 }
 
 // ── Cloudflare Access: elenco delle email ammesse nella regola ────────────────────────────────────────
-export const accessConfigurato = (env) => Boolean(env.CF_ACCOUNT_ID && env.CF_ACCESS_TOKEN && env.ACCESS_POLICY_ID);
+// Servono solo CF_ACCOUNT_ID e CF_ACCESS_TOKEN: la regola con le email si trova da sola (ACCESS_POLICY_ID / ACCESS_APP_ID la forzano).
+const API = "https://api.cloudflare.com/client/v4";
+export const accessConfigurato = (env) => Boolean(env.CF_ACCOUNT_ID && env.CF_ACCESS_TOKEN);
+const intest = (env) => ({ authorization: `Bearer ${env.CF_ACCESS_TOKEN}`, "content-type": "application/json" });
+async function cf(env, percorso, fetchFn, init = {}) {
+  const r = await fetchFn(`${API}/accounts/${env.CF_ACCOUNT_ID}/access/${percorso}`, { ...init, headers: intest(env) });
+  const j = await r.json().catch(() => ({}));
+  return { ok: r.ok && j.success !== false, stato: r.status, risultato: j.result, errori: j.errors };
+}
+const conEmail = (p) => p && p.decision === "allow" && Array.isArray(p.include) && p.include.some((x) => x && x.email);
+/** Legge una regola: prima come «riutilizzabile», poi come regola di un'applicazione. */
+async function leggiPolicy(env, c, fetchFn) {
+  if (!c.appId) { const g = await cf(env, `policies/${c.policyId}`, fetchFn); if (g.ok && g.risultato) return { url: `policies/${c.policyId}`, p: g.risultato, app: c.appName }; }
+  if (c.appId) { const g = await cf(env, `apps/${c.appId}/policies/${c.policyId}`, fetchFn); if (g.ok && g.risultato) return { url: `apps/${c.appId}/policies/${c.policyId}`, p: g.risultato, app: c.appName }; }
+  const g2 = await cf(env, `policies/${c.policyId}`, fetchFn); if (g2.ok && g2.risultato) return { url: `policies/${c.policyId}`, p: g2.risultato, app: c.appName };
+  return null;
+}
+/** Trova la regola «allow» che elenca le email degli utenti ammessi. */
+export async function trovaPolicy(env, fetchFn = fetch) {
+  let cand = [];
+  if (env.ACCESS_POLICY_ID) cand = [{ policyId: env.ACCESS_POLICY_ID, appId: env.ACCESS_APP_ID || "" }];
+  else {
+    const a = await cf(env, "apps?per_page=100", fetchFn);
+    if (!a.ok) return { ok: false, errore: "Cloudflare: elenco delle applicazioni Access non leggibile (" + a.stato + "): controlla il token e l'Account ID." };
+    for (const app of a.risultato || []) for (const p of app.policies || []) if (p && p.id) cand.push({ policyId: p.id, appId: app.id, appName: app.name });
+  }
+  const viste = new Set(), trovate = [];
+  for (const c of cand) {
+    if (viste.has(c.policyId)) continue; viste.add(c.policyId);
+    const l = await leggiPolicy(env, c, fetchFn);
+    if (l && conEmail(l.p)) trovate.push(l);
+  }
+  if (!trovate.length) return { ok: false, errore: "Nessuna regola di Access con elenco di email trovata: aggiungi le email a mano o indica ACCESS_POLICY_ID." };
+  if (trovate.length > 1) return { ok: false, errore: "Più regole con elenco di email (" + trovate.map((t) => t.p.name).join(", ") + "): indica quale con il secret ACCESS_POLICY_ID." };
+  return { ok: true, ...trovate[0] };
+}
 async function modificaPolicy(env, fn, fetchFn) {
-  // Regola riutilizzabile (solo ACCESS_POLICY_ID) oppure regola dentro un'applicazione (anche ACCESS_APP_ID).
-  const base = `https://api.cloudflare.com/client/v4/accounts/${env.CF_ACCOUNT_ID}/access/` + (env.ACCESS_APP_ID ? `apps/${env.ACCESS_APP_ID}/policies/` : "policies/") + env.ACCESS_POLICY_ID;
-  const h = { authorization: `Bearer ${env.CF_ACCESS_TOKEN}`, "content-type": "application/json" };
-  const g = await fetchFn(base, { headers: h });
-  const gj = await g.json().catch(() => ({}));
-  if (!g.ok || !gj.result) return { ok: false, errore: "Cloudflare Access: lettura della regola non riuscita (" + g.status + ")" };
-  const p = gj.result, include = Array.isArray(p.include) ? p.include : [];
-  const nuovo = fn(include);
+  const t = await trovaPolicy(env, fetchFn);
+  if (!t.ok) return t;
+  const p = t.p, nuovo = fn(Array.isArray(p.include) ? p.include : []);
   if (!nuovo) return { ok: true, invariato: true };
-  const corpo = { name: p.name, decision: p.decision, include: nuovo, exclude: p.exclude || [], require: p.require || [], precedence: p.precedence, session_duration: p.session_duration };
-  const w = await fetchFn(base, { method: "PUT", headers: h, body: JSON.stringify(corpo) });
-  if (!w.ok) return { ok: false, errore: "Cloudflare Access: aggiornamento della regola non riuscito (" + w.status + ")" };
+  const corpo = { ...p, include: nuovo };
+  for (const k of ["id", "uid", "created_at", "updated_at", "version", "app_count", "reusable", "archived_at"]) delete corpo[k];
+  const w = await cf(env, t.url, fetchFn, { method: "PUT", body: JSON.stringify(corpo) });
+  if (!w.ok) return { ok: false, errore: "Cloudflare Access: aggiornamento della regola non riuscito (" + w.stato + ")" + (w.errori && w.errori[0] ? ": " + w.errori[0].message : "") };
   return { ok: true };
 }
 const haEmail = (inc, e) => inc.some((x) => x && x.email && norm(x.email.email) === e);
@@ -93,6 +124,13 @@ export async function accessRimuovi(env, email, fetchFn = fetch) {
   if (!accessConfigurato(env)) return { ok: true, manuale: true };
   const e = norm(email);
   return modificaPolicy(env, (inc) => (haEmail(inc, e) ? inc.filter((x) => !(x && x.email && norm(x.email.email) === e)) : null), fetchFn);
+}
+/** Prova di collegamento (non scrive nulla). */
+export async function verificaAccess(env, fetchFn = fetch) {
+  if (!accessConfigurato(env)) return { ok: false, errore: "Mancano i secret CF_ACCESS_TOKEN e/o CF_ACCOUNT_ID nel Worker." };
+  const t = await trovaPolicy(env, fetchFn);
+  if (!t.ok) return t;
+  return { ok: true, regola: t.p.name, applicazione: t.app || null, email: t.p.include.filter((x) => x.email).length };
 }
 
 export async function approva(db, env, email, fetchFn = fetch, ora = new Date()) {
