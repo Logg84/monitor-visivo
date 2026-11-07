@@ -7,7 +7,7 @@
  * compatibile OpenAI (Groq, OpenRouter, Gemini compat…) via AI_BASE_URL / AI_MODEL.
  * L'AI vede SOLO i dati calcolati (index.json + fond/<ticker>.json): niente notizie.
  */
-import { uidValido, COL_COND, COL_PORT, costruisciTabella, csvLeggi, leggiEditor, leggiFile, modificaWatchlist, puoModificareCondiviso, scriviFile } from "./archivio.js";
+import { creaWatchlistPersonale, uidValido, COL_COND, COL_PORT, costruisciTabella, csvLeggi, leggiEditor, leggiFile, modificaWatchlist, puoModificareCondiviso, scriviFile } from "./archivio.js";
 import { avviaWorkflow } from "./dati.js";
 import * as ut from "./utenti.js";
 import { CHIAVE_PAGINA, corpoPagina, corpoScreening, eseguiCron, leggiPunteggi, ultimiLog, unisci } from "./dati.js";
@@ -264,7 +264,8 @@ export default {
       }
       if (url.pathname.startsWith("/api/dati/")) {
         if (request.method !== "GET") return json({ errore: "metodo non consentito" }, 405);
-        const f = await leggiFile(env, nome, fetch, uid);
+        let f = await leggiFile(env, nome, fetch, uid);
+        if (nome === "watchlist" && uid && f.ok && f.assente) f = await creaWatchlistPersonale(env, uid);
         if (!f.ok) return json({ errore: f.errore }, f.stato);
         const puo = personale ? true : puoModificareCondiviso(io, await leggiEditor(env));
         if (f.assente) return json(nome === "watchlist" ? { sha: null, puo_modificare: puo, dati: { entries: [] } } : { sha: null, righe: [], colonne: nome === "condiviso" ? COL_COND : COL_PORT, puo_modificare: puo });

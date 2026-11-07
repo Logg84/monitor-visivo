@@ -178,13 +178,28 @@ export function applicaOp(voci, op, now) {
   }
 }
 
+/** Prima volta di un utente: la sua watchlist parte dalle voci automatiche (origin "auto") di quella principale; poi la gestisce da sé. */
+export async function creaWatchlistPersonale(env, uid, fetchFn = fetch) {
+  const base = await leggiFile(env, "watchlist", fetchFn, "");
+  if (!base.ok) return base;
+  let entries = [];
+  if (!base.assente) { try { const d = JSON.parse(base.testo); entries = (d.entries || []).filter((e) => e && e.origin === "auto"); } catch (e) { return { ok: false, stato: 502, errore: "watchlist.json illeggibile" }; } }
+  const doc = { updated: adesso(), entries };
+  const testo = JSON.stringify(doc, null, 2) + "\n";
+  const w = await scriviFile(env, "watchlist", testo, null, `chore(portale): watchlist iniziale di ${uid} (voci automatiche)`, fetchFn, uid);
+  if (!w.ok && !w.conflitto) return w;                      // conflitto = creata nel frattempo da un'altra richiesta: si rilegge
+  const f = await leggiFile(env, "watchlist", fetchFn, uid);
+  return f;
+}
+
 /** Legge la watchlist, applica l'operazione e committa; un nuovo tentativo se il file è cambiato nel frattempo. */
 export async function modificaWatchlist(env, op, utente, fetchFn = fetch, uid = "") {
   for (let tentativo = 0; tentativo < 2; tentativo++) {
-    const f = await leggiFile(env, "watchlist", fetchFn, uid);
+    let f = await leggiFile(env, "watchlist", fetchFn, uid);
+    if (f.ok && f.assente && uid) f = await creaWatchlistPersonale(env, uid, fetchFn);
     if (!f.ok) return f;
     if (f.assente && !uid) return { ok: false, stato: 404, errore: "watchlist.json non trovato nel repo privato" };
-    let doc; try { doc = f.assente ? { entries: [] } : JSON.parse(f.testo); } catch (e) { return { ok: false, stato: 502, errore: "watchlist.json illeggibile" }; }
+    let doc; try { doc = JSON.parse(f.testo); } catch (e) { return { ok: false, stato: 502, errore: "watchlist.json illeggibile" }; }
     if (!doc || !Array.isArray(doc.entries)) return { ok: false, stato: 502, errore: "watchlist.json senza elenco" };
     const r = applicaOp(doc.entries, op);
     if (!r.ok) return { ok: false, stato: 400, errore: r.errore };
