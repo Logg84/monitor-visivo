@@ -67,9 +67,10 @@ export async function elenco(db) {
 }
 
 // ── Cloudflare Access: elenco delle email ammesse nella regola ────────────────────────────────────────
-const accessConfigurato = (env) => Boolean(env.CF_ACCOUNT_ID && env.CF_ACCESS_TOKEN && env.ACCESS_APP_ID && env.ACCESS_POLICY_ID);
+export const accessConfigurato = (env) => Boolean(env.CF_ACCOUNT_ID && env.CF_ACCESS_TOKEN && env.ACCESS_POLICY_ID);
 async function modificaPolicy(env, fn, fetchFn) {
-  const base = `https://api.cloudflare.com/client/v4/accounts/${env.CF_ACCOUNT_ID}/access/apps/${env.ACCESS_APP_ID}/policies/${env.ACCESS_POLICY_ID}`;
+  // Regola riutilizzabile (solo ACCESS_POLICY_ID) oppure regola dentro un'applicazione (anche ACCESS_APP_ID).
+  const base = `https://api.cloudflare.com/client/v4/accounts/${env.CF_ACCOUNT_ID}/access/` + (env.ACCESS_APP_ID ? `apps/${env.ACCESS_APP_ID}/policies/` : "policies/") + env.ACCESS_POLICY_ID;
   const h = { authorization: `Bearer ${env.CF_ACCESS_TOKEN}`, "content-type": "application/json" };
   const g = await fetchFn(base, { headers: h });
   const gj = await g.json().catch(() => ({}));

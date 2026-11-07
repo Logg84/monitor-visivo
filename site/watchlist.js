@@ -55,6 +55,8 @@
       const s = await api("/api/screening");
       if (s.ok && s.dati) { dataScr = s.dati.data; for (const x of s.dati.righe || []) scr[x.ticker] = x; }
       $("f-se").innerHTML = '<option value="">tutti</option>' + [...new Set(W.entries.map(nomeSett))].sort().map((x) => `<option>${esc(x)}</option>`).join("");
+      try { const o = localStorage.getItem("wl-origine"); if (o !== null && ["", "manual", "auto"].includes(o)) $("f-or").value = o; } catch (e) { /* facoltativo */ }
+      $("f-or").addEventListener("input", () => { try { localStorage.setItem("wl-origine", $("f-or").value); } catch (e) { /* facoltativo */ } });
       for (const id of ["f-q", "f-or", "f-se", "f-st"]) $(id).addEventListener("input", disegna);
       $("tab").addEventListener("click", (ev) => { const tr = ev.target.closest("tr[data-t]"); if (tr) { sel = tr.dataset.t; disegna(); $("det").scrollIntoView({ behavior: "smooth", block: "nearest" }); } });
       $("f-add").addEventListener("submit", (ev) => { ev.preventDefault();

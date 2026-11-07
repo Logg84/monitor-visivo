@@ -178,13 +178,45 @@ export function applicaOp(voci, op, now) {
   }
 }
 
+const haPersonale = (e) => Boolean(e && ((e.levels && Object.values(e.levels).some((v) => v)) || e.target_date));
+/** Allinea la watchlist di un utente alle voci automatiche della principale: aggiunge le nuove (tranne quelle che ha tolto: «esclusi»)
+ *  e toglie quelle che l'automazione ha tolto, se l'utente non ci ha messo livelli o data target. */
+export function sincronizza(doc, entriesBase) {
+  const auto = (entriesBase || []).filter((e) => e && e.origin === "auto");
+  const autoSet = new Set(auto.map((e) => e.ticker));
+  const esclusi = new Set((doc.esclusi || []).map(String));
+  const mie = new Set((doc.entries || []).map((e) => e.ticker));
+  let cambiato = false;
+  const entries = (doc.entries || []).filter((e) => { const via = e.origin === "auto" && !autoSet.has(e.ticker) && !haPersonale(e); if (via) cambiato = true; return !via; });
+  for (const e of auto) if (!mie.has(e.ticker) && !esclusi.has(e.ticker)) { entries.push({ ...e }); cambiato = true; }
+  return { doc: { ...doc, entries }, cambiato };
+}
+
+/** Watchlist personale allineata alla principale (se la principale è cambiata dall'ultima volta). {ok, sha, testo} come leggiFile. */
+export async function leggiWatchlistPersonale(env, uid, fetchFn = fetch) {
+  let f = await leggiFile(env, "watchlist", fetchFn, uid);
+  if (!f.ok) return f;
+  if (f.assente) return creaWatchlistPersonale(env, uid, fetchFn);
+  const base = await leggiFile(env, "watchlist", fetchFn, "");
+  if (!base.ok || base.assente) return f;                   // senza la principale si mostra com'è
+  let doc, bd;
+  try { doc = JSON.parse(f.testo); bd = JSON.parse(base.testo); } catch (e) { return f; }
+  if (doc.base_sha === base.sha) return f;                    // già allineata a questa versione della principale
+  const { doc: nuovo } = sincronizza(doc, bd.entries);
+  nuovo.base_sha = base.sha;
+  const testo = JSON.stringify({ ...nuovo, updated: adesso() }, null, 2) + "\n";
+  const w = await scriviFile(env, "watchlist", testo, f.sha, `chore(portale): allinea watchlist di ${uid} alle voci automatiche`, fetchFn, uid);
+  if (w.ok) return { ok: true, sha: w.sha, testo };
+  return w.conflitto ? leggiFile(env, "watchlist", fetchFn, uid) : f;
+}
+
 /** Prima volta di un utente: la sua watchlist parte dalle voci automatiche (origin "auto") di quella principale; poi la gestisce da sé. */
 export async function creaWatchlistPersonale(env, uid, fetchFn = fetch) {
   const base = await leggiFile(env, "watchlist", fetchFn, "");
   if (!base.ok) return base;
   let entries = [];
   if (!base.assente) { try { const d = JSON.parse(base.testo); entries = (d.entries || []).filter((e) => e && e.origin === "auto"); } catch (e) { return { ok: false, stato: 502, errore: "watchlist.json illeggibile" }; } }
-  const doc = { updated: adesso(), entries };
+  const doc = { updated: adesso(), base_sha: base.sha || null, entries };
   const testo = JSON.stringify(doc, null, 2) + "\n";
   const w = await scriviFile(env, "watchlist", testo, null, `chore(portale): watchlist iniziale di ${uid} (voci automatiche)`, fetchFn, uid);
   if (!w.ok && !w.conflitto) return w;                      // conflitto = creata nel frattempo da un'altra richiesta: si rilegge
@@ -204,7 +236,15 @@ export async function modificaWatchlist(env, op, utente, fetchFn = fetch, uid = 
     const r = applicaOp(doc.entries, op);
     if (!r.ok) return { ok: false, stato: 400, errore: r.errore };
     if (!r.cambiato) return { ok: true, invariato: true, entries: r.voci };
-    const testo = JSON.stringify({ ...doc, updated: adesso(), entries: r.voci }, null, 2) + "\n";
+    const nuovoDoc = { ...doc, updated: adesso(), entries: r.voci };
+    if (uid) {                                                  // se toglie una voce automatica, non deve tornare al prossimo allineamento
+      const t = String(op.ticker).toUpperCase(), prima = doc.entries.find((e) => e.ticker === t);
+      const esclusi = new Set(doc.esclusi || []);
+      if (op.op === "remove" && prima && prima.origin === "auto") esclusi.add(t);
+      if (op.op === "add") esclusi.delete(t);
+      nuovoDoc.esclusi = [...esclusi].sort();
+    }
+    const testo = JSON.stringify(nuovoDoc, null, 2) + "\n";
     const w = await scriviFile(env, "watchlist", testo, f.sha, `chore(portale): watchlist ${op.op} ${String(op.ticker).toUpperCase()} (${utente})`, fetchFn, uid);
     if (w.ok) return { ok: true, entries: r.voci };
     if (!w.conflitto) return w;

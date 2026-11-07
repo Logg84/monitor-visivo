@@ -1,6 +1,6 @@
 // File personali di un utente (data/users/<uid>/): creazione dalla base automatica e isolamento dalla watchlist principale.
 import assert from "node:assert/strict";
-import { creaWatchlistPersonale, modificaWatchlist, leggiFile, aB64, daB64 } from "../src/archivio.js";
+import { creaWatchlistPersonale, leggiWatchlistPersonale, sincronizza, modificaWatchlist, leggiFile, aB64, daB64 } from "../src/archivio.js";
 const repo = new Map([["data/watchlist.json", JSON.stringify({ updated: "x", entries: [
   { ticker: "AAA", origin: "auto", levels: {} }, { ticker: "MIO", origin: "manual", levels: { L1: 5 } }, { ticker: "BBB", origin: "auto", levels: {} }] })]]);
 const scritture = [];
@@ -23,4 +23,22 @@ const r2 = await modificaWatchlist(env, { op: "remove", ticker: "AAA" }, "luca@x
 assert.ok(r2.ok); assert.deepEqual(JSON.parse(repo.get("data/users/luca/watchlist.json")).entries.map((e) => e.ticker), ["BBB"]); console.log("✓ prima modifica di un nuovo utente: base automatica + modifica");
 // seconda lettura non ricrea
 const n = scritture.length; await leggiFile(env, "watchlist", fetchFn, "anna"); assert.equal(scritture.length, n); console.log("✓ nessuna ricreazione");
+
+// ── allineamento continuo alle voci automatiche ──
+// Anna aveva AAA,BBB (auto) + CCC (sua). Luca ha tolto AAA (esclusa). Ora l'automazione toglie BBB e aggiunge DDD, EEE.
+repo.set("data/watchlist.json", JSON.stringify({ updated: "y", entries: [{ ticker: "AAA", origin: "auto", levels: {} }, { ticker: "MIO", origin: "manual", levels: {} },
+  { ticker: "DDD", origin: "auto", levels: {} }, { ticker: "EEE", origin: "auto", levels: {} }] }));
+let a = await leggiWatchlistPersonale(env, "anna", fetchFn);
+assert.deepEqual(JSON.parse(a.testo).entries.map((e) => e.ticker).sort(), ["AAA", "CCC", "DDD", "EEE"]); console.log("✓ anna: arrivano DDD ed EEE, BBB (tolto dall'automazione) sparisce, CCC (sua) resta");
+let l = await leggiWatchlistPersonale(env, "luca", fetchFn);
+assert.deepEqual(JSON.parse(l.testo).entries.map((e) => e.ticker).sort(), ["DDD", "EEE"]); assert.ok(JSON.parse(l.testo).esclusi.includes("AAA")); console.log("✓ luca: AAA che aveva tolto NON torna; BBB sparisce; arrivano DDD ed EEE");
+const n2 = scritture.length; await leggiWatchlistPersonale(env, "anna", fetchFn); assert.equal(scritture.length, n2); console.log("✓ principale invariata: nessuna scrittura");
+// voce automatica con livelli personali non viene tolta
+const sx = sincronizza({ entries: [{ ticker: "ZZZ", origin: "auto", levels: { L1: 5 } }, { ticker: "YYY", origin: "auto", levels: {} }] }, []);
+assert.deepEqual(sx.doc.entries.map((e) => e.ticker), ["ZZZ"]); console.log("✓ voce automatica con livelli personali resta anche se l'automazione la toglie");
+// tolgo un'automatica → esclusa; la riaggiungo a mano → non più esclusa
+await modificaWatchlist(env, { op: "remove", ticker: "DDD" }, "anna@x.it", fetchFn, "anna");
+assert.ok(JSON.parse(repo.get("data/users/anna/watchlist.json")).esclusi.includes("DDD")); console.log("✓ rimozione di una voce automatica la mette tra gli esclusi");
+await modificaWatchlist(env, { op: "add", ticker: "ddd" }, "anna@x.it", fetchFn, "anna");
+assert.ok(!JSON.parse(repo.get("data/users/anna/watchlist.json")).esclusi.includes("DDD")); console.log("✓ riaggiunta a mano: non più esclusa");
 console.log("TUTTI I CHECK PASSATI (verifica_personali)");
