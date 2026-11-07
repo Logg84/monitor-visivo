@@ -3,3 +3,14 @@ RBLX   # esempio: discesa che rallenta
 WKL.AS # esempio: base già superata al rialzo
 TYL    # esempio: base superata (già nel vecchio portale)
 ADBE   # esempio: cambio trend dopo la discesa
+
+# Indici e materie prime della pagina «Indici / Materie prime»: solo grafici e range, nessun alert (#solo-grafico).
+SPY     # solo-grafico  S&P 500
+QQQ     # solo-grafico  Nasdaq 100
+ISF.L   # solo-grafico  FTSE 100
+EXS1.DE # solo-grafico  DAX
+CAC.PA  # solo-grafico  CAC 40
+6E=F    # solo-grafico  EUR/USD (future)
+GC=F    # solo-grafico  Oro
+SI=F    # solo-grafico  Argento
+CL=F    # solo-grafico  Petrolio WTI

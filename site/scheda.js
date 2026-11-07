@@ -60,7 +60,7 @@ window.Scheda = (() => {
     if (w) sez("Watchlist", [["Origine", w.origin === "manual" ? "👤 manuale" : "🤖 automatica"], ["Aggiunto", (w.created || "").slice(0, 10)], ["Ultima revisione", (w.last_reviewed || "").slice(0, 10)],
       ["Livelli personali", ["L1", "L2", "L3"].filter((k) => w.levels && w.levels[k]).map((k) => `${k} ${w.levels[k]}`).join(" · ") || "–"], ["Data target", w.target_date || "–"],
       ["Settore (file)", [w.sector, w.sub].filter(Boolean).join(" / ") || "–"]].filter(([, v]) => v !== "–" && v !== ""));
-    if (!g.children.length) g.append(el("p", "nota", "Dati riservati non disponibili: effettua il login, oppure lo screening non è ancora stato caricato."));
+    if (!g.children.length) g.append(el("p", "nota", "Nessuna scheda di screening per questo simbolo (indici e materie prime hanno solo grafico e range); se è un titolo, effettua il login."));
     return g;
   }
 

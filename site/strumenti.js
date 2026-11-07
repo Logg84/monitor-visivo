@@ -27,7 +27,7 @@
       else ruler = `<div><div class="ruler"></div><div class="rl">${pr.sopra ? `<span>${esc(breve(pr.sopra))} ↑</span>` : `<span>↓ ${esc(breve(pr.sotto))}</span>`}</div></div>`;
     }
     const iz = r["In zona"];
-    return `<div class="card ${tono}"><div class="h"><b>${esc(x.nome)}</b><span>${esc(x.simbolo)}</span></div><span class="b">${esc(b.icona)} ${esc(b.etichetta)}</span><div class="p">${px(r.Prezzo)}</div>` +
+    return `<div class="card ${tono}"><div class="h"><b>${esc(x.nome)}</b><span class="tk" data-scheda="${esc(x.simbolo)}" title="Apri il grafico">📈 ${esc(x.simbolo)}</span></div><span class="b">${esc(b.icona)} ${esc(b.etichetta)}</span><div class="p">${px(r.Prezzo)}</div>` +
       x.distanze.map((d) => `<div class="r"><span>${esc(d.nome)}</span><b>${n(d.dist) ? sg(d.dist) + "%" : "n/d"}</b></div>`).join("") + ruler +
       `<div class="foot">DD 5a ${sg(r["DD 5a %"])}% · Bottom ${esc(r.Bottom)}${n(r.Confluenza) ? " · Confluenza " + esc(r.Confluenza) : ""}${iz && iz !== "—" ? " · in zona " + esc(iz) : ""}</div></div>`;
   };
@@ -59,7 +59,7 @@
   function dettaglio() {
     const ok = D.strumenti.filter((x) => x.riga), x = ok.find((s) => s.nome === sel) || ok[0], r = x.riga, L = x.lettura;
     return `<h2>Dettaglio strumento</h2><section class="controlli"><label>Strumento<select id="sel">${ok.map((s) => `<option ${s.nome === x.nome ? "selected" : ""}>${esc(s.nome)}</option>`).join("")}</select></label></section>` +
-      `<div class="box"><b>${esc(x.nome)} (${esc(x.simbolo)}) — ${esc(L.quadro)}</b></div>` +
+      `<div class="box"><b>${esc(x.nome)} (<span class="tk" data-scheda="${esc(x.simbolo)}" title="Apri il grafico">📈 ${esc(x.simbolo)}</span>) — ${esc(L.quadro)}</b></div>` +
       `<div class="kpis"><div><span>Prezzo</span><b>${px(r.Prezzo)}</b></div><div><span>DD 5 anni</span><b>${sg(r["DD 5a %"])}%</b></div><div><span>RSI</span><b>${esc(r.RSI)}</b></div><div><span>Bottom</span><b>${esc(r.Bottom)}</b></div><div><span>Wyckoff</span><b>${esc(r.Wyckoff)}</b></div></div>` +
       `<h2 style="font-size:16px">Scala dei livelli</h2><div class="box">${scala(x.livelli)}<p class="muted" style="margin:6px 0 0">Ogni punto è un livello nostro (POC/zone, VWAP 60, VWAP ancorati, medie 50 e 200); il rombo è il prezzo attuale. Passa il mouse per distanza % e in ATR.</p></div>` +
       (L.sezioni || []).map(([t, txt]) => `<div class="box"><b>${esc(t)}</b><p style="margin:6px 0 0">${esc(txt)}</p></div>`).join("") +

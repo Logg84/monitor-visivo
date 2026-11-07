@@ -37,13 +37,17 @@ def main() -> int:
         print("::error::Mancano OLD_REPO / OLD_REPO_TOKEN (secrets del repo)")
         return 1
     tickers = bio.candidati_dal_vecchio_portale(repo, token)
+    silenziosi = set()
     print(f"Candidati dal vecchio portale: {len(tickers)}")
     # Titoli extra a mano (una riga per ticker, # per i commenti): servono per
     # provare casi che il vecchio portale non ha in watchlist.
     extra_file = ROOT / "tickers_extra.txt"
     if extra_file.exists():
-        extra = [r.split("#")[0].strip().upper() for r in extra_file.read_text().splitlines()]
+        righe = extra_file.read_text().splitlines()
+        extra = [r.split("#")[0].strip().upper() for r in righe]
         extra = [t for t in extra if t]
+        # «# solo-grafico»: serie e range sì, avvisi Telegram/email no (indici e materie prime).
+        silenziosi = {r.split("#")[0].strip().upper() for r in righe if "solo-grafico" in r and r.split("#")[0].strip()}
         tickers = sorted(dict.fromkeys(tickers + extra))
         print(f"Titoli extra a mano: {len(extra)}")
     prezzi = bio.scarica_giornalieri(tickers)
@@ -129,7 +133,9 @@ def main() -> int:
     # Avvisi SOLO per la rottura verso l'alto (scelta di Marco, 6/11/2026): l'uscita verso il basso resta
     # nello stato e nel sito, ma non genera Telegram né email.
     uscite = [e for e in eventi if e["tipo"] == "uscita_sopra"]
-    avvisi = uscite + retest
+    avvisi = [e for e in uscite + retest if e["ticker"] not in silenziosi]
+    uscite = [e for e in uscite if e["ticker"] not in silenziosi]
+    retest = [e for e in retest if e["ticker"] not in silenziosi]
     punteggi = alert.leggi_punteggi([e["ticker"] for e in avvisi])     # da D1; {} se non raggiungibile
     testi = [alert.messaggio_unificato(e, punteggi.get(e["ticker"]), oggi) for e in avvisi]
     for e, testo in zip(avvisi, testi):

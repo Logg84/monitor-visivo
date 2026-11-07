@@ -2,7 +2,7 @@
 (() => {
   const VOCI = [["./", "Basi di accumulo"], ["unificato.html", "Vista unificata"], ["screening.html", "Screening"], ["watchlist.html", "Watchlist"],
     ["portafoglio.html", "Portafoglio"], ["condiviso.html", "Condiviso"], ["insider.html", "Insider"], ["macro.html", "Regimi macro"],
-    ["settori.html", "Settori"], ["calendario.html", "Calendario"], ["strumenti.html", "Strumenti"], ["backtest.html", "Backtest"]];
+    ["settori.html", "Settori"], ["calendario.html", "Calendario"], ["strumenti.html", "Indici / Materie prime"], ["backtest.html", "Backtest"]];
   const corrente = (location.pathname.split("/").pop() || "").replace(/\.html$/, "") || "index";
   const nav = document.getElementById("menu"); if (!nav) return;
   for (const [href, nome] of VOCI) {
