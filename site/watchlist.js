@@ -20,7 +20,7 @@
     const testa = ["Ticker", "Orig.", "Settore", "Livelli personali", "Data target", "Rivisto", "Segnale", "Punti", "Prezzo", "DD%", "RSI", "Wyckoff"];
     $("tab").innerHTML = `<thead><tr>${testa.map((t) => `<th>${t}</th>`).join("")}</tr></thead><tbody>` + (d.length ? d.map((e) => {
       const x = scr[e.ticker] || {}, ex = x.extra || {};
-      return `<tr class="cl${e.ticker === sel ? " sel" : ""}" data-t="${esc(e.ticker)}"><td><b>${esc(e.ticker)}</b></td><td>${e.origin === "manual" ? "👤" : "🤖"}</td><td>${esc(nomeSett(e))}</td><td>${esc(lv(e)) || "–"}</td>
+      return `<tr class="cl${e.ticker === sel ? " sel" : ""}" data-t="${esc(e.ticker)}"><td><b class="tk" data-scheda="${esc(e.ticker)}">${esc(e.ticker)}</b></td><td>${e.origin === "manual" ? "👤" : "🤖"}</td><td>${esc(nomeSett(e))}</td><td>${esc(lv(e)) || "–"}</td>
         <td>${esc(dmy(e.target_date))}</td><td>${esc(dmy(e.last_reviewed))}${rivedere(e) ? " ⏳" : ""}</td><td>${esc(x.segnale || "–")}</td><td>${x.punti ?? "–"}</td>
         <td>${fmt(ex.Prezzo)}</td><td>${num(ex["DD%"]) === null ? "–" : fmt(ex["DD%"], 1) + "%"}</td><td>${num(ex.RSI) === null ? "–" : fmt(ex.RSI, 0)}</td><td>${esc(ex.Wyckoff || "–")}</td></tr>`;
     }).join("") : `<tr><td colspan="${testa.length}" class="vuoto">Nessun titolo con questi filtri.</td></tr>`) + "</tbody>";

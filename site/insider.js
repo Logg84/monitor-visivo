@@ -62,7 +62,7 @@
       ? [r.Ticker, r.Nome, dmy(r.Data), r.gf + " g", chi(r), usd(r["Importo_$"]), (num(r.Operazioni) ?? 1) > 1 ? "×" + r.Operazioni : "", (num(r.Pianificato_10b5) ?? 0) > 0 ? "📋" : "",
         r.Cluster ? "✅" : "", r.Insider_distinti ?? "", r.Fascia, cap(r["MarketCap_$"]), num(r.Prezzo_exec) === null ? "n/d" : num(r.Prezzo_exec).toFixed(2), dd(r), r.RSI ?? "", r.Wyckoff, r.Segnale, r.Rilevanza ?? "", linkA(r.Link_EDGAR, "🔗")]
       : [r.Ticker, r.Nome, dmy(r.Data), r.gf + " g", r.Chi, r.Ins, r.Acq, usd(r.Totale), r.Clu, r.Fascia, cap(r["MarketCap_$"]), num(r.Prezzo) === null ? "n/d" : num(r.Prezzo).toFixed(2), dd(r), r.RSI ?? "", r.Wyckoff, r.Segnale, r.Rilevanza ?? "", r.Wl ? "👀" : "", linkA(r.Link_EDGAR, "🔗")];
-    const html = (v, i) => (i === 0 ? `<td><b>${esc(v)}</b></td>` : i === testa.length - 1 ? `<td>${v}</td>` : `<td>${esc(v)}</td>`);
+    const html = (v, i) => (i === 0 ? `<td><b class="tk" data-scheda="${esc(v)}">${esc(v)}</b></td>` : i === testa.length - 1 ? `<td>${v}</td>` : `<td>${esc(v)}</td>`);
     $("tab").innerHTML = `<thead><tr>${testa.map((t) => `<th>${t}</th>`).join("")}</tr></thead><tbody>` +
       (righe.length ? righe.slice(0, 600).map((r, i) => `<tr class="cl" data-t="${esc(r.Ticker)}">${cella(r).map(html).join("")}</tr>`).join("")
         : `<tr><td colspan="${testa.length}" class="vuoto">Nessuna riga con questi filtri: allarga la finestra o abbassa la soglia.</td></tr>`) + "</tbody>";
@@ -93,7 +93,7 @@
     const testa = ["Ticker", "Nome", "Ultimo acquisto", "fa", "Clu", "N.👔", "Tot 30g", "Acq.", "Finestra", "Insider principale", "Ruolo top", "Ruoli", "10b5-1", "Cap", "Float", "Rilev.", "👀", "SEC"];
     $("tab-resto").innerHTML = `<thead><tr>${testa.map((t) => `<th>${t}</th>`).join("")}</tr></thead><tbody>` + (resto.length ? resto.map((r) => {
       const c = [r.Ticker, r.Nome, dmy(r.Data), (giorniFa(r.Data) ?? "–") + " g", r.Fresco ? "✅" : "🕰️", r.Insider_distinti, usd(r["Importo_30g_$"]), r.Acquisti, usd(r["Importo_finestra_$"]), r.Chi, r.Classe_top, r.Ruoli, r.Pianificati_10b5, r.Fascia, cap(r["Float_$"]), r.Rilevanza, r.In_watchlist ? "👀" : ""];
-      return `<tr><td><b>${esc(c[0])}</b></td>${c.slice(1).map((v) => `<td>${esc(v ?? "")}</td>`).join("")}<td>${linkA(r.Link_EDGAR, "🔗")}</td></tr>`;
+      return `<tr><td><b class="tk" data-scheda="${esc(c[0])}">${esc(c[0])}</b></td>${c.slice(1).map((v) => `<td>${esc(v ?? "")}</td>`).join("")}<td>${linkA(r.Link_EDGAR, "🔗")}</td></tr>`;
     }).join("") : `<tr><td colspan="${testa.length}" class="vuoto">Nessun cluster trovato finora nel resto del file.</td></tr>`) + "</tbody>";
   }
 

@@ -29,7 +29,7 @@
     }).sort((a, b) => ((b.punteggio?.punti ?? -1) - (a.punteggio?.punti ?? -1)) || (a.ticker < b.ticker ? -1 : 1));
     $("conteggio").textContent = `${v.length} titoli`;
     $("tab").innerHTML = `<thead><tr><th>Ticker</th><th>Da ATH</th><th>1D</th><th>Pos. 1D</th><th>1W</th><th>Pos. 1W</th><th>Punteggio</th><th>Segnale</th></tr></thead><tbody>` +
-      (v.length ? v.map((r) => `<tr><td><b>${esc(r.ticker)}</b></td><td>${r.dist_ath === null ? "" : (r.dist_ath * 100).toFixed(0) + "%"}</td>${celle(r, "1D")}${celle(r, "1W")}` +
+      (v.length ? v.map((r) => `<tr><td><b class="tk" data-scheda="${esc(r.ticker)}">${esc(r.ticker)}</b></td><td>${r.dist_ath === null ? "" : (r.dist_ath * 100).toFixed(0) + "%"}</td>${celle(r, "1D")}${celle(r, "1W")}` +
         `<td>${r.punteggio && r.punteggio.punti !== null ? `<b>${r.punteggio.punti}/6</b>` : '<span class="muted">–</span>'}</td><td>${esc(r.punteggio?.segnale || "")}</td></tr>`).join("")
         : `<tr><td colspan="8" class="vuoto">Nessun titolo con questi filtri.</td></tr>`) + "</tbody>";
   }

@@ -22,7 +22,7 @@
 <body>
 <header class="top">
   <div class="titolo"><h1>👀 Watchlist</h1><p id="sottotitolo" class="muted">Caricamento…</p></div>
-  <div style="display:flex;gap:8px;flex-wrap:wrap"><a href="portafoglio.html" class="btn sec">Portafoglio</a><a href="condiviso.html" class="btn sec">Condiviso</a><a href="insider.html" class="btn sec">Insider</a><a href="backtest.html" class="btn sec">Backtest</a><a href="strumenti.html" class="btn sec">Strumenti</a><a href="settori.html" class="btn sec">Settori</a><a href="calendario.html" class="btn sec">Calendario</a><a href="macro.html" class="btn sec">Regimi macro</a><a href="screening.html" class="btn sec">Screening</a><a href="unificato.html" class="btn sec">Vista unificata</a><a href="./" class="btn sec">← Basi di accumulo</a></div>
+  <nav class="menu" id="menu" aria-label="Pagine"></nav>
 </header>
 <main class="col">
   <p class="muted">La watchlist del repo privato (👤 manuale = tua, intoccabile dall'automazione; 🤖 auto = gestita dal sistema). Le modifiche vengono salvate come commit nel repo privato. Lettura, mai ordine.</p>
@@ -42,6 +42,9 @@
   <div id="det"></div>
 </main>
 <footer class="piede">Dati: data/watchlist.json del repo privato (letti dal vivo) + ultimo screening. Aggiungere, togliere e modificare i livelli crea un commit nel repo privato; i workflow usano subito il nuovo file.</footer>
+<script src="nav.js"></script>
+<script src="scheda.js"></script>
+<script src="ordina.js"></script>
 <script src="comune.js"></script>
 <script src="watchlist.js"></script>
 </body>

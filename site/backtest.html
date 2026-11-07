@@ -20,12 +20,7 @@
     <h1>🧪 Backtest</h1>
     <p id="sottotitolo" class="muted">Caricamento…</p>
   </div>
-  <div style="display:flex;gap:8px;flex-wrap:wrap">
-    <a href="watchlist.html" class="btn sec">Watchlist</a><a href="portafoglio.html" class="btn sec">Portafoglio</a><a href="condiviso.html" class="btn sec">Condiviso</a><a href="insider.html" class="btn sec">Insider</a><a href="strumenti.html" class="btn sec">Strumenti</a><a href="settori.html" class="btn sec">Settori</a>
-    <a href="calendario.html" class="btn sec">Calendario</a><a href="macro.html" class="btn sec">Regimi macro</a>
-    <a href="screening.html" class="btn sec">Screening</a><a href="unificato.html" class="btn sec">Vista unificata</a>
-    <a href="./" class="btn sec">← Basi di accumulo</a>
-  </div>
+  <nav class="menu" id="menu" aria-label="Pagine"></nav>
 </header>
 <main class="col">
   <p class="muted">Verifica storica dei punteggi e delle soglie, point-in-time. I filtri di qualità usano fondamentali attuali: sulla parte fondamentale c'è look-ahead e i risultati sono ottimistici. Numeri per decidere se cambiare una regola, non per prevedere il mercato. Nessuna scrittura.</p>
@@ -38,6 +33,7 @@
   <div id="report"></div>
 </main>
 <footer class="piede">I backtest misurano il passato del portale sui propri segnali: non prevedono il futuro e non sono consulenza. Le letture si aggiornano con i workflow «backtest» (mer/sab) e «scorecard» (domenica) del repo privato. I ricalcoli con parametri a scelta restano nel vecchio portale finché non viene spento.</footer>
+<script src="nav.js"></script>
 <script src="backtest.js"></script>
 </body>
 </html>

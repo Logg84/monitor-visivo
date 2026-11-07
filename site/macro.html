@@ -7,7 +7,7 @@
 <title>Regimi macro · basewatch</title>
 <link rel="stylesheet" href="style.css">
 <style>
-  main.col{max-width:1100px;margin:0 auto}
+  main.col{max-width:1500px;margin:0 auto}
   .box{background:var(--superficie);border:1px solid var(--bordo);border-radius:12px;padding:14px 18px;margin-bottom:14px}
   .regime{border-left:8px solid var(--c,#888)}
   .regime .g{font-size:28px;font-weight:700;margin:2px 0}
@@ -32,13 +32,7 @@
     <h1>Regimi macroeconomici</h1>
     <p id="sottotitolo" class="muted">Caricamento…</p>
   </div>
-  <div style="display:flex;gap:8px;flex-wrap:wrap">
-    <a href="settori.html" class="btn sec">Settori</a>
-    <a href="calendario.html" class="btn sec">Calendario</a><a href="strumenti.html" class="btn sec">Strumenti</a>
-    <a href="watchlist.html" class="btn sec">Watchlist</a><a href="portafoglio.html" class="btn sec">Portafoglio</a><a href="condiviso.html" class="btn sec">Condiviso</a><a href="insider.html" class="btn sec">Insider</a><a href="backtest.html" class="btn sec">Backtest</a><a href="screening.html" class="btn sec">Screening</a>
-    <a href="unificato.html" class="btn sec">Vista unificata</a>
-    <a href="./" class="btn sec">← Basi di accumulo</a>
-  </div>
+  <nav class="menu" id="menu" aria-label="Pagine"></nav>
 </header>
 <main class="col" id="main"></main>
 <footer class="piede">
@@ -46,6 +40,8 @@
   Lo studio sui settori descrive il passato su tutta la storia: nel test fuori campione non ha mostrato capacità predittiva, per questo non entra nei punteggi.
   Dati: FRED e Yahoo Finance.
 </footer>
+<script src="nav.js"></script>
+<script src="ordina.js"></script>
 <script src="macro.js"></script>
 </body>
 </html>

@@ -29,13 +29,7 @@
     <h1>Settori — trend e divergenza CW / EW</h1>
     <p id="sottotitolo" class="muted">Caricamento…</p>
   </div>
-  <div style="display:flex;gap:8px;flex-wrap:wrap">
-    <a href="macro.html" class="btn sec">Regimi macro</a>
-    <a href="calendario.html" class="btn sec">Calendario</a><a href="strumenti.html" class="btn sec">Strumenti</a>
-    <a href="watchlist.html" class="btn sec">Watchlist</a><a href="portafoglio.html" class="btn sec">Portafoglio</a><a href="condiviso.html" class="btn sec">Condiviso</a><a href="insider.html" class="btn sec">Insider</a><a href="backtest.html" class="btn sec">Backtest</a><a href="screening.html" class="btn sec">Screening</a>
-    <a href="unificato.html" class="btn sec">Vista unificata</a>
-    <a href="./" class="btn sec">← Basi di accumulo</a>
-  </div>
+  <nav class="menu" id="menu" aria-label="Pagine"></nav>
 </header>
 <main class="col">
   <p class="muted" id="intro">Δ = momentum della gamba a pesi uguali (EW) meno quello della gamba a capitalizzazione (CW), sullo stesso perimetro di titoli. Δ&gt;0 = moto diffuso; Δ&lt;0 = trascinano i pesi massimi. Il settore è contesto, mai un segnale: non aggiunge né toglie punti.</p>
@@ -52,6 +46,8 @@
   Lettura, mai ordine. Stato 0–100 = 30% trend (SMA50/SMA200) + 20% momentum 3m + 15% momentum 6m + 15% forza relativa 3m + 10% posizione su 52 settimane + 10% Δ.
   «n/d» non significa «neutro»: dove un ETF non esiste non c'è numero. I candidati usano l'ultimo screening.
 </footer>
+<script src="nav.js"></script>
+<script src="ordina.js"></script>
 <script src="settori.js"></script>
 </body>
 </html>

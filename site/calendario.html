@@ -21,13 +21,7 @@
     <h1>Calendario eventi multi-settore</h1>
     <p id="sottotitolo" class="muted">Caricamento…</p>
   </div>
-  <div style="display:flex;gap:8px;flex-wrap:wrap">
-    <a href="strumenti.html" class="btn sec">Strumenti</a><a href="settori.html" class="btn sec">Settori</a>
-    <a href="macro.html" class="btn sec">Regimi macro</a>
-    <a href="watchlist.html" class="btn sec">Watchlist</a><a href="portafoglio.html" class="btn sec">Portafoglio</a><a href="condiviso.html" class="btn sec">Condiviso</a><a href="insider.html" class="btn sec">Insider</a><a href="backtest.html" class="btn sec">Backtest</a><a href="screening.html" class="btn sec">Screening</a>
-    <a href="unificato.html" class="btn sec">Vista unificata</a>
-    <a href="./" class="btn sec">← Basi di accumulo</a>
-  </div>
+  <nav class="menu" id="menu" aria-label="Pagine"></nav>
 </header>
 <main class="col">
   <p class="muted">Eventi price-sensitive da fonti regolatorie ufficiali, ognuno con il link alla fonte primaria. Alcune date (es. completamento di un trial) sono stime dello sponsor e possono slittare: controlla sempre «Stato data». Lettura, mai ordine.</p>
@@ -43,6 +37,8 @@
   <details class="storiche"><summary>📋 Log controlli</summary><div id="log" class="muted"></div></details>
 </main>
 <footer class="piede">Le fonti sono ClinicalTrials.gov, SEC EDGAR, USPTO PTAB e FDA. Il Wyckoff viene dall'ultimo screening. Il calendario si aggiorna con il workflow «events» del repo privato.</footer>
+<script src="nav.js"></script>
+<script src="ordina.js"></script>
 <script src="calendario.js"></script>
 </body>
 </html>

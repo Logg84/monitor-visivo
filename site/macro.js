@@ -60,13 +60,13 @@
   function mappa() {
     const st = D.storico.filter((r) => r.G !== null && r.I !== null);
     if (!st.length) return "";
-    const coda = st.slice(-13), S = 340, X = (g) => 20 + (g + 1) / 2 * (S - 40), Y = (i) => S - 20 - (i + 1) / 2 * (S - 40), th = D.parametri.soglia_infl;
+    const coda = st.slice(-13), W = 900, S = 380, X = (g) => 30 + (g + 1) / 2 * (W - 60), Y = (i) => S - 24 - (i + 1) / 2 * (S - 48), th = D.parametri.soglia_infl;
     const quad = [["Rallentamento", -1, 0, -1, th], ["Stagflazione", -1, 0, th, 1], ["Espansione", 0, 1, -1, th], ["Reflazione", 0, 1, th, 1]];
-    let s = `<svg viewBox="0 0 ${S} ${S}" style="max-width:420px;width:100%;color:var(--testo)" role="img" aria-label="Mappa dei quadranti crescita per inflazione">`;
+    let s = `<svg viewBox="0 0 ${W} ${S}" style="width:100%;height:auto;max-height:480px;color:var(--testo)" role="img" aria-label="Mappa dei quadranti crescita per inflazione">`;
     for (const [n, x0, x1, y0, y1] of quad) s += `<rect x="${X(x0)}" y="${Y(y1)}" width="${X(x1) - X(x0)}" height="${Y(y0) - Y(y1)}" fill="${COL[n]}" opacity=".13"/><text x="${(X(x0) + X(x1)) / 2}" y="${y1 === 1 ? Y(y1) + 16 : Y(y0) - 8}" text-anchor="middle" style="fill:${COL[n]}">${n}</text>`;
     s += `<polyline fill="none" stroke="#888" stroke-width="1" points="${coda.map((r) => `${X(r.G)},${Y(r.I)}`).join(" ")}"/>` + coda.map((r) => `<circle cx="${X(r.G)}" cy="${Y(r.I)}" r="3" fill="#888"><title>${esc(r.index)}</title></circle>`).join("");
     const u = coda[coda.length - 1];
-    s += `<circle cx="${X(u.G)}" cy="${Y(u.I)}" r="7" fill="${COL[D.corrente.regime]}" stroke="#fff"><title>oggi</title></circle><text x="${S / 2}" y="${S - 4}" text-anchor="middle">Crescita (ΔG) →</text><text x="8" y="${S / 2}" transform="rotate(-90 8 ${S / 2})" text-anchor="middle">Inflazione (ΔI) →</text></svg>`;
+    s += `<circle cx="${X(u.G)}" cy="${Y(u.I)}" r="7" fill="${COL[D.corrente.regime]}" stroke="#fff"><title>oggi</title></circle><text x="${W / 2}" y="${S - 4}" text-anchor="middle">Crescita (ΔG) →</text><text x="8" y="${S / 2}" transform="rotate(-90 8 ${S / 2})" text-anchor="middle">Inflazione (ΔI) →</text></svg>`;
     return `<h2>Mappa dei quadranti</h2><div class="box">${s}<p class="muted" style="margin:6px 0 0">Ultimi 12 mesi; il cerchio colorato è oggi.</p></div>`;
   }
 

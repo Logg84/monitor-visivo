@@ -22,7 +22,7 @@
 
   function cella(r, k) {
     const v = val(r, k);
-    if (k === "Ticker") return `<td><b>${esc(v)}</b></td>`;
+    if (k === "Ticker") return `<td><b class="tk" data-scheda="${esc(v)}">${esc(v)}</b></td>`;
     if (k === "Range") return v ? `<td><span class="badge b-${esc(v)}">${esc(ETI[v] || v)}</span></td>` : `<td class="muted">–</td>`;
     if (v === undefined || v === null || v === "") return `<td class="muted">–</td>`;
     if (BOOL_SI.has(k) || typeof v === "boolean") return `<td>${v ? '<span class="si">✓</span>' : '<span class="no">·</span>'}</td>`;

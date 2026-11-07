@@ -96,3 +96,30 @@ body.blocca{overflow:hidden}
 .dettaglio h4{margin:0 0 4px;font-size:12px;text-transform:uppercase;color:var(--muto)}
 .dettaglio section div{display:flex;justify-content:space-between;gap:8px;font-size:12px;border-bottom:1px dotted var(--bordo);padding:2px 0}
 .dettaglio section div span{color:var(--muto)}
+.menu{display:flex;gap:8px;flex-wrap:wrap;width:100%}
+.menu a.btn[aria-current]{pointer-events:none}
+.scheda-ov{position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:50;display:flex;align-items:flex-start;justify-content:center;overflow:auto;padding:24px 12px}
+.scheda{background:var(--superficie);border:1px solid var(--bordo);border-radius:14px;width:min(1100px,100%);padding:16px 20px}
+.scheda-testa{display:flex;justify-content:space-between;align-items:center;gap:12px}.scheda-testa h2{margin:0}
+.scheda-badge{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin:8px 0}
+.scheda-barra{display:flex;gap:8px;margin:8px 0}
+.scheda-grafico{height:460px;width:100%}
+.scheda .livelli{display:flex;gap:12px;flex-wrap:wrap;font-size:13px;padding:6px 2px}.scheda .livelli label{display:flex;align-items:center;gap:4px;cursor:pointer}
+.scheda .sezioni{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:12px;margin-top:10px}
+.scheda h4{margin:0 0 4px;font-size:12px;text-transform:uppercase;color:var(--muto)}
+.scheda section div{display:flex;justify-content:space-between;gap:8px;font-size:13px;border-bottom:1px dotted var(--bordo);padding:2px 0}
+.scheda section div span{color:var(--muto)}
+.scheda a.link{color:var(--accento)}
+.tk{cursor:pointer;text-decoration:underline dotted}
+button.az{font:inherit;padding:6px 12px;border-radius:8px;border:1px solid var(--bordo);background:var(--superficie);color:var(--testo);cursor:pointer}button.az.pri{border-color:var(--accento);font-weight:600}
+/* layout comune */
+a{color:var(--accento)}
+input:not([type]),input[type=number],input[type=date],input[type=text],input[type=search],select{background:var(--superficie);color:var(--testo);border:1px solid var(--bordo);border-radius:8px;padding:8px 10px;font:inherit}
+input[type=number]{width:9em}
+.controlli select[multiple]{min-height:84px;padding:4px}
+.controlli label.chk{align-self:end;padding-bottom:9px}
+.controlli input[type=checkbox],.box input[type=checkbox]{accent-color:var(--accento)}
+.top h1{white-space:normal;line-height:1.25}
+main.col>p.muted{max-width:none}
+.controlli label.chk{display:flex;flex-direction:row;align-items:center;gap:6px;font-size:13px;color:var(--testo);padding-bottom:9px}
+#conteggio{align-self:end;padding-bottom:9px}
