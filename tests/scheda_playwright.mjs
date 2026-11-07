@@ -5,11 +5,13 @@ const j = (r, o, s = 200) => { r.writeHead(s, { "content-type": "application/jso
 const righe = [
   { ticker: "ADBE", segnale: "WATCH", punti: 4, priorita: "A", extra: { Prezzo: 290.5, "DD%": -35.2, RSI: 41, Z1c: 280, VWAP60: 295, Seg_Punti: 4, Settore: "Tech", Wyckoff: "Acc", Z1: "270.0–290.0" } },
   { ticker: "ZZZZ", segnale: "—", punti: 0, extra: { Prezzo: 10, "DD%": -50, RSI: 30 } }];
-const wl = { entries: [{ ticker: "ADBE", origin: "manual", created: "2026-09-16T00:00:00+00:00", levels: { L1: 250 }, sector: "tech" }, { ticker: "ZZZZ", origin: "auto", created: "2026-09-16T00:00:00+00:00", levels: {} }] };
+const wl = { entries: [{ ticker: "ADBE", origin: "manual", created: "2026-09-16T00:00:00+00:00", levels: { L1: 250 }, sector: "tech" }, { ticker: "AAAA", origin: "auto", created: "2026-09-16T00:00:00+00:00", levels: {} }] };
+const aggiunti = [];
 const srv = http.createServer((q, r) => {
   const u = q.url.split("?")[0];
   if (u === "/api/screening") return j(r, { data: "2026-11-05", righe });
   if (u === "/api/dati/watchlist") return j(r, { sha: "v1", puo_modificare: true, dati: wl });
+  if (u === "/api/watchlist" && q.method === "POST") { let b = ""; q.on("data", (x) => (b += x)); return q.on("end", () => { const o = JSON.parse(b); aggiunti.push(o); j(r, { ok: true }); }); }
   const f = path.join(root, u); fs.readFile(f, (e, d) => { if (e) { r.writeHead(404); return r.end(); }
     r.setHeader("content-type", f.endsWith(".js") ? "text/javascript" : f.endsWith(".json") ? "application/json" : f.endsWith(".css") ? "text/css" : "text/html"); r.end(d); });
 }).listen(8768, async () => {
@@ -32,6 +34,8 @@ const srv = http.createServer((q, r) => {
   await p.keyboard.press("Escape"); ok("Esc chiude", !(await p.$("#scheda-ov")));
   await p.click('[data-scheda="ZZZZ"]'); await p.waitForTimeout(600);
   ok("senza serie: messaggio", (await p.textContent("#scheda-ov")).includes("Grafico non disponibile"));
+  await p.click("#scheda-ov button:has-text('Aggiungi alla watchlist')"); await p.waitForTimeout(500);
+  ok("promuovi in watchlist: POST add ZZZZ... ", aggiunti.length === 1 && aggiunti[0].op === "add" && aggiunti[0].ticker === "ZZZZ");
   await p.mouse.click(5, 5); ok("clic fuori chiude", !(await p.$("#scheda-ov")));
   await p.goto("http://localhost:8768/watchlist.html"); await p.waitForTimeout(800);
   await p.click('#tab [data-scheda="ADBE"]'); await p.waitForTimeout(800);

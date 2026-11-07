@@ -18,7 +18,7 @@ window.Scheda = (() => {
     const scr = {}; for (const r of (sc && sc.righe) || []) scr[r.ticker] = r;
     const w = {}; for (const e of ((wl && wl.dati) || {}).entries || []) w[e.ticker] = e;
     const basi = {}; for (const b of (ix && ix.basi) || []) { const [t, tf] = String(b.chiave).split("|"); (basi[t] = basi[t] || {})[tf] = b; }
-    return (cache = { scr, w, basi, dataScr: sc && sc.data, ath: (ix && ix.titoli) || {} });
+    return (cache = { scr, w, basi, puoMod: !!(wl && wl.puo_modificare), dataScr: sc && sc.data, ath: (ix && ix.titoli) || {} });
   }
   class Rettangolo {
     constructor(t1, top, bottom, colore) { this.t1 = t1; this.top = top; this.bottom = bottom; this.colore = colore; }
@@ -85,6 +85,19 @@ window.Scheda = (() => {
     const tv = el("a", "link", "📈 TradingView"); tv.href = "https://www.tradingview.com/chart/?symbol=" + encodeURIComponent(ticker); tv.target = "_blank"; tv.rel = "noopener noreferrer";
     const yf = el("a", "link", "Yahoo Finance"); yf.href = "https://finance.yahoo.com/quote/" + encodeURIComponent(ticker); yf.target = "_blank"; yf.rel = "noopener noreferrer";
     badge.append(tv, yf); corpo.append(badge);
+    if (d.puoMod && !w) {                                           // «Promuovi in watchlist»: solo per chi può scrivere
+      const bw = el("button", "az pri", "👀 Aggiungi alla watchlist"); bw.type = "button";
+      const es = el("span", "muted"); bw.addEventListener("click", async () => {
+        bw.disabled = true; es.textContent = "Salvo…";
+        try {
+          const r = await fetch("/api/watchlist", { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ op: "add", ticker, levels: {}, target_date: null }) });
+          const j = await r.json().catch(() => ({}));
+          if (!r.ok) throw new Error(j.errore || "errore " + r.status);
+          d.w[ticker] = { ticker, origin: "manual", created: new Date().toISOString(), levels: {} }; bw.remove(); es.textContent = "✅ Aggiunto alla watchlist (👤 manuale)";
+        } catch (e) { bw.disabled = false; es.textContent = "❌ " + e.message; }
+      });
+      badge.append(bw, es);
+    }
 
     const serie = await fetch(`data/serie/${nomeFile(ticker)}.json`, { cache: "no-cache" }).then((r) => (r.ok ? r.json() : null)).catch(() => null);
     const tfs = ["1D", "1W"].filter((t) => serie && serie[t] && serie[t].length);
