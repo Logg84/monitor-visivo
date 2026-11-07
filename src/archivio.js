@@ -17,6 +17,9 @@ export const FILE = {
   editor: "data/portafoglio_condiviso_editor.json",
 };
 export const MAX_BYTE = 400_000;
+/** Percorso nel repo privato. uid vuoto = file storici dell'amministratore; altrimenti data/users/<uid>/. */
+export const percorso = (nome, uid) => (uid && (nome === "watchlist" || nome === "portafoglio") ? `data/users/${uid}/${FILE[nome].split("/").pop()}` : FILE[nome]);
+export const uidValido = (u) => typeof u === "string" && /^[a-z0-9][a-z0-9_-]{1,39}$/.test(u);
 
 export const COL_PORT = ["ID", "Ticker", "Direzione", "Data_Ingresso", "Prezzo_Ingresso", "Quantita", "SL", "TP1", "TP2", "TP3",
   "Stato", "Prezzo_Uscita", "Data_Uscita", "Note"];
@@ -47,10 +50,10 @@ const MSG = { 401: "token del repo privato non valido", 403: "il token del repo 
   404: "file o repo non trovato" };
 
 /** {ok, sha, testo} | {ok:true, assente:true} | {ok:false, stato, errore} */
-export async function leggiFile(env, nome, fetchFn = fetch) {
+export async function leggiFile(env, nome, fetchFn = fetch, uid = "") {
   if (!env.PRIVATE_REPO_TOKEN) return { ok: false, stato: 503, errore: "secret PRIVATE_REPO_TOKEN non configurato" };
   let r;
-  try { r = await fetchFn(`https://api.github.com/repos/${REPO_PRIVATO}/contents/${FILE[nome]}?ref=main`, { headers: intest(env) }); }
+  try { r = await fetchFn(`https://api.github.com/repos/${REPO_PRIVATO}/contents/${percorso(nome, uid)}?ref=main`, { headers: intest(env) }); }
   catch (e) { return { ok: false, stato: 502, errore: "GitHub non raggiungibile" }; }
   if (r.status === 404) return { ok: true, assente: true };
   if (!r.ok) return { ok: false, stato: r.status === 401 || r.status === 403 ? 503 : 502, errore: MSG[r.status] || `GitHub ha risposto ${r.status}` };
@@ -60,14 +63,14 @@ export async function leggiFile(env, nome, fetchFn = fetch) {
 }
 
 /** {ok, sha} | {ok:false, conflitto:true} | {ok:false, stato, errore} */
-export async function scriviFile(env, nome, testo, sha, messaggio, fetchFn = fetch) {
+export async function scriviFile(env, nome, testo, sha, messaggio, fetchFn = fetch, uid = "") {
   if (!env.PRIVATE_REPO_TOKEN) return { ok: false, stato: 503, errore: "secret PRIVATE_REPO_TOKEN non configurato" };
   if (testo.length > MAX_BYTE) return { ok: false, stato: 413, errore: "file troppo grande" };
   const corpo = { message: messaggio, content: aB64(testo), branch: "main" };
   if (sha) corpo.sha = sha;
   let r;
   try {
-    r = await fetchFn(`https://api.github.com/repos/${REPO_PRIVATO}/contents/${FILE[nome]}`,
+    r = await fetchFn(`https://api.github.com/repos/${REPO_PRIVATO}/contents/${percorso(nome, uid)}`,
       { method: "PUT", headers: { ...intest(env), "content-type": "application/json" }, body: JSON.stringify(corpo) });
   } catch (e) { return { ok: false, stato: 502, errore: "GitHub non raggiungibile" }; }
   if (r.status === 409 || r.status === 422) return { ok: false, conflitto: true, stato: 409, errore: "il file è stato modificato nel frattempo" };
@@ -176,18 +179,18 @@ export function applicaOp(voci, op, now) {
 }
 
 /** Legge la watchlist, applica l'operazione e committa; un nuovo tentativo se il file è cambiato nel frattempo. */
-export async function modificaWatchlist(env, op, utente, fetchFn = fetch) {
+export async function modificaWatchlist(env, op, utente, fetchFn = fetch, uid = "") {
   for (let tentativo = 0; tentativo < 2; tentativo++) {
-    const f = await leggiFile(env, "watchlist", fetchFn);
+    const f = await leggiFile(env, "watchlist", fetchFn, uid);
     if (!f.ok) return f;
-    if (f.assente) return { ok: false, stato: 404, errore: "watchlist.json non trovato nel repo privato" };
-    let doc; try { doc = JSON.parse(f.testo); } catch (e) { return { ok: false, stato: 502, errore: "watchlist.json illeggibile" }; }
+    if (f.assente && !uid) return { ok: false, stato: 404, errore: "watchlist.json non trovato nel repo privato" };
+    let doc; try { doc = f.assente ? { entries: [] } : JSON.parse(f.testo); } catch (e) { return { ok: false, stato: 502, errore: "watchlist.json illeggibile" }; }
     if (!doc || !Array.isArray(doc.entries)) return { ok: false, stato: 502, errore: "watchlist.json senza elenco" };
     const r = applicaOp(doc.entries, op);
     if (!r.ok) return { ok: false, stato: 400, errore: r.errore };
     if (!r.cambiato) return { ok: true, invariato: true, entries: r.voci };
     const testo = JSON.stringify({ ...doc, updated: adesso(), entries: r.voci }, null, 2) + "\n";
-    const w = await scriviFile(env, "watchlist", testo, f.sha, `chore(portale): watchlist ${op.op} ${String(op.ticker).toUpperCase()} (${utente})`, fetchFn);
+    const w = await scriviFile(env, "watchlist", testo, f.sha, `chore(portale): watchlist ${op.op} ${String(op.ticker).toUpperCase()} (${utente})`, fetchFn, uid);
     if (w.ok) return { ok: true, entries: r.voci };
     if (!w.conflitto) return w;
   }

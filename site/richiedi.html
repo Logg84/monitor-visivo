@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Richiedi accesso · basewatch</title>
+<link rel="stylesheet" href="style.css">
+<style>
+  main{max-width:520px;margin:48px auto}
+  .box{background:var(--superficie);border:1px solid var(--bordo);border-radius:12px;padding:20px 22px}
+  form{display:grid;gap:12px;margin-top:12px}label{display:grid;gap:4px;font-size:13px;color:var(--muto)}
+  input,textarea{width:100%;font:inherit;padding:8px 10px;background:var(--bg);color:var(--testo);border:1px solid var(--bordo);border-radius:8px}
+  .trappola{position:absolute;left:-9999px;height:0;overflow:hidden}
+  #esito{margin-top:12px}.ok{color:var(--verde)}.err{color:var(--rosso)}
+</style>
+</head>
+<body>
+<main>
+  <div class="box">
+    <h1 style="margin:0 0 4px">Richiedi accesso</h1>
+    <p class="muted" style="margin:0">Inserisci nome ed email di lavoro. Il responsabile riceve la richiesta e, se la approva, potrai entrare con un codice che ti arriva per email.</p>
+    <form id="f">
+      <label>Nome e cognome<input id="nome" required maxlength="80" autocomplete="name"></label>
+      <label>Email<input id="email" type="email" required maxlength="254" autocomplete="email"></label>
+      <label>Perché vuoi usarlo (facoltativo)<textarea id="msg" rows="2" maxlength="300"></textarea></label>
+      <div class="trappola" aria-hidden="true"><label>Sito<input id="sito" tabindex="-1" autocomplete="off"></label></div>
+      <button class="primario" type="submit">Invia la richiesta</button>
+    </form>
+    <div id="esito" role="status"></div>
+  </div>
+</main>
+<script>
+document.getElementById("f").addEventListener("submit", async (ev) => {
+  ev.preventDefault();
+  const es = document.getElementById("esito"), b = ev.target.querySelector("button"); b.disabled = true; es.className = ""; es.textContent = "Invio…";
+  try {
+    const r = await fetch("/api/richiedi", { method: "POST", headers: { "content-type": "application/json" },
+      body: JSON.stringify({ nome: nome.value, email: email.value, messaggio: msg.value, sito: sito.value }) });
+    const j = await r.json().catch(() => ({}));
+    if (!r.ok) throw new Error(j.errore || "errore " + r.status);
+    es.className = "ok"; es.textContent = "Richiesta inviata. Se verrà approvata, apri il portale e inserisci questa email: riceverai il codice di accesso."; ev.target.reset();
+  } catch (e) { es.className = "err"; es.textContent = e.message; b.disabled = false; }
+});
+</script>
+</body>
+</html>

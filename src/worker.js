@@ -7,8 +7,9 @@
  * compatibile OpenAI (Groq, OpenRouter, Gemini compat…) via AI_BASE_URL / AI_MODEL.
  * L'AI vede SOLO i dati calcolati (index.json + fond/<ticker>.json): niente notizie.
  */
-import { COL_COND, COL_PORT, costruisciTabella, csvLeggi, leggiEditor, leggiFile, modificaWatchlist, puoModificareCondiviso, scriviFile } from "./archivio.js";
+import { uidValido, COL_COND, COL_PORT, costruisciTabella, csvLeggi, leggiEditor, leggiFile, modificaWatchlist, puoModificareCondiviso, scriviFile } from "./archivio.js";
 import { avviaWorkflow } from "./dati.js";
+import * as ut from "./utenti.js";
 import { CHIAVE_PAGINA, corpoPagina, corpoScreening, eseguiCron, leggiPunteggi, ultimiLog, unisci } from "./dati.js";
 
 const SYSTEM = `Sei un assistente che riassume in italiano, in prosa chiara e discorsiva, dati di analisi tecnica e fondamentale già calcolati da un portale di monitoraggio personale. Regole assolute:
@@ -210,6 +211,41 @@ export default {
       } catch (e) { return json({ errore: "database non raggiungibile: " + e.message }, 502); }
     }
 
+    // ── Utenti: richiesta di accesso (pubblica), profilo e amministrazione ───────────────────────────────
+    if (url.pathname === "/api/richiedi") {
+      if (request.method !== "POST") return json({ errore: "metodo non consentito" }, 405);
+      const origine = request.headers.get("origin");
+      if (origine && origine !== url.origin) return json({ errore: "origine non consentita" }, 403);
+      if (!env.DB) return json({ errore: "servizio non disponibile" }, 503);
+      let b; try { b = await request.json(); } catch (e) { return json({ errore: "richiesta non valida" }, 400); }
+      const r = await ut.richiedi(env.DB, b);
+      if (!r.ok) return json({ errore: r.errore }, r.stato || 400);
+      if (r.nuova) await ut.notificaTelegram(env, `👋 Nuova richiesta di accesso al portale\n${r.nome} <${r.email}>\nApprova o rifiuta dalla pagina Utenti.`);
+      return json({ ok: true });
+    }
+    if (url.pathname === "/api/utenti/me" || url.pathname === "/api/utenti" || url.pathname === "/api/utenti/azione") {
+      const io = await identita(request, env);
+      if (!io || io.modalita !== "access") return json({ errore: "non autenticato" }, 401);
+      if (!env.DB) return json({ errore: "database non collegato" }, 503);
+      const origine = request.headers.get("origin");
+      if (request.method === "POST" && origine && origine !== url.origin) return json({ errore: "origine non consentita" }, 403);
+      let b = {}; if (request.method === "POST") { try { b = await request.json(); } catch (e) { return json({ errore: "richiesta non valida" }, 400); } }
+      if (url.pathname === "/api/utenti/me") {
+        if (io.admin) return json({ email: io.email, admin: true, uid: "" });
+        const p = await ut.profilo(env.DB, io.email);
+        if (request.method === "POST") { const r = await ut.aggiornaProfilo(env.DB, io.email, b); if (!r.ok) return json({ errore: r.errore }, r.stato); }
+        const q = request.method === "POST" ? await ut.profilo(env.DB, io.email) : p;
+        return json({ email: io.email, admin: false, uid: q.uid, nome: q.nome, canale: q.canale, telegram_chat_id: q.telegram_chat_id, email_alert: q.email_alert });
+      }
+      if (!io.admin) return json({ errore: "riservato all'amministratore" }, 403);
+      if (url.pathname === "/api/utenti") return json({ ...(await ut.elenco(env.DB)), access_automatico: Boolean(env.CF_ACCOUNT_ID && env.CF_ACCESS_TOKEN && env.ACCESS_APP_ID && env.ACCESS_POLICY_ID) });
+      if (request.method !== "POST") return json({ errore: "metodo non consentito" }, 405);
+      const r = b.azione === "approva" ? await ut.approva(env.DB, env, b.email)
+        : b.azione === "rifiuta" ? await ut.rifiuta(env.DB, b.email)
+        : b.azione === "rimuovi" ? await ut.rimuovi(env.DB, env, b.email) : { ok: false, stato: 400, errore: "azione sconosciuta" };
+      return r.ok ? json(r) : json({ errore: r.errore }, r.stato || 400);
+    }
+
     // ── Dati personali nel repo privato (watchlist, portafoglio, condiviso) ──────────────────────────────
     if (url.pathname.startsWith("/api/dati/") || ["/api/watchlist", "/api/portafoglio", "/api/condiviso"].includes(url.pathname)) {
       const io = await identita(request, env);
@@ -217,14 +253,21 @@ export default {
       const nome = url.pathname.split("/").pop();
       if (!["watchlist", "portafoglio", "condiviso"].includes(nome)) return json({ errore: "dato sconosciuto" }, 404);
       const personale = nome !== "condiviso";
-      // Per ora i file personali sono quelli storici (un solo utente): li gestisce solo l'amministratore.
-      if (personale && !io.admin) return json({ errore: "area personale non ancora abilitata per questo utente" }, 403);
+      // Amministratore: file storici (uid vuoto). Altri utenti: data/users/<uid>/ (watchlist e portafoglio); il condiviso è comune.
+      let uid = "";
+      if (personale && !io.admin) {
+        if (io.modalita !== "access" || !env.DB) return json({ errore: "area personale non abilitata" }, 403);
+        const p = await ut.profilo(env.DB, io.email);
+        if (!p || !p.attivo) return json({ errore: "utente disattivato" }, 403);
+        if (!uidValido(p.uid)) return json({ errore: "utente non valido" }, 403);
+        uid = p.uid;
+      }
       if (url.pathname.startsWith("/api/dati/")) {
         if (request.method !== "GET") return json({ errore: "metodo non consentito" }, 405);
-        const f = await leggiFile(env, nome);
+        const f = await leggiFile(env, nome, fetch, uid);
         if (!f.ok) return json({ errore: f.errore }, f.stato);
         const puo = personale ? true : puoModificareCondiviso(io, await leggiEditor(env));
-        if (f.assente) return json({ sha: null, righe: nome === "watchlist" ? undefined : [], puo_modificare: puo });
+        if (f.assente) return json(nome === "watchlist" ? { sha: null, puo_modificare: puo, dati: { entries: [] } } : { sha: null, righe: [], colonne: nome === "condiviso" ? COL_COND : COL_PORT, puo_modificare: puo });
         if (nome === "watchlist") {                  // JSON incollato come testo, mai riletto (CPU Free = 10 ms)
           const t = f.testo.trim();
           if (!(t.startsWith("{") && t.endsWith("}"))) return json({ errore: "watchlist.json illeggibile" }, 502);
@@ -239,13 +282,13 @@ export default {
       if (origine && origine !== url.origin) return json({ errore: "origine non consentita" }, 403);
       let b; try { b = await request.json(); } catch (e) { return json({ errore: "richiesta non valida" }, 400); }
       if (nome === "watchlist") {
-        const r = await modificaWatchlist(env, b, io.email);
+        const r = await modificaWatchlist(env, b, io.email, fetch, uid);
         return r.ok ? json({ ok: true, invariato: !!r.invariato }) : json({ errore: r.errore }, r.stato || 502);
       }
       if (nome === "condiviso" && !puoModificareCondiviso(io, await leggiEditor(env))) return json({ errore: "non hai il permesso di modificare il portafoglio condiviso" }, 403);
       const t = costruisciTabella(b.righe, nome === "condiviso");
       if (!t.ok) return json({ errore: t.errori.join(" · ") }, 400);
-      const w = await scriviFile(env, nome, t.testo, b.sha || null, `chore(portale): aggiorna ${nome === "condiviso" ? "portafoglio condiviso" : "portafoglio"} (${io.email})`);
+      const w = await scriviFile(env, nome, t.testo, b.sha || null, `chore(portale): aggiorna ${nome === "condiviso" ? "portafoglio condiviso" : "portafoglio"} (${io.email})`, fetch, uid);
       if (!w.ok) return json({ errore: w.conflitto ? "i dati sono stati modificati nel frattempo: ricarica la pagina" : w.errore }, w.stato || 502);
       let alert = null;
       if (nome === "condiviso")      // gli avvisi Telegram li invia il repo privato (diff del commit): qui si lancia solo il workflow

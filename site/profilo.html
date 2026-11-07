@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Profilo · basewatch</title>
+<link rel="stylesheet" href="style.css">
+<style>
+  main.col{max-width:760px;margin:0 auto}
+  .box{background:var(--superficie);border:1px solid var(--bordo);border-radius:12px;padding:16px 20px;margin:14px 0}
+  form{display:grid;gap:12px}label{display:grid;gap:4px;font-size:13px;color:var(--muto)}
+  input,select{width:100%;font:inherit;padding:8px 10px}
+  .ok{color:var(--verde)}.err{color:var(--rosso)}
+</style>
+</head>
+<body>
+<header class="top">
+  <div class="titolo"><h1>👤 Profilo e alert</h1><p id="sottotitolo" class="muted">Caricamento…</p></div>
+  <nav class="menu" id="menu" aria-label="Pagine"></nav>
+</header>
+<main class="col">
+  <div id="admin" class="box" hidden><b>Sei l'amministratore.</b> Usi i file storici del portale e gli alert del repo privato. Gestisci le richieste di accesso dalla pagina <a href="utenti.html">Utenti</a>.</div>
+  <form id="f" class="box" hidden>
+    <b>Come vuoi ricevere gli alert della tua watchlist?</b>
+    <label>Canale<select id="canale"><option value="telegram">Telegram</option><option value="email">Email</option><option value="entrambi">Telegram ed email</option><option value="nessuno">Nessuno (solo il sito)</option></select></label>
+    <label id="l-chat">Chat ID di Telegram<input id="chat" inputmode="numeric" placeholder="es. 123456789"></label>
+    <p id="aiuto-chat" class="muted" style="margin:-6px 0 0;font-size:12.5px">Per trovarlo: apri Telegram, scrivi a <b>@userinfobot</b> e copia il numero «Id». Poi scrivi un messaggio qualsiasi al bot degli alert di questo portale, altrimenti non potrà scriverti.</p>
+    <label id="l-mail">Email per gli alert<input id="mail" type="email" placeholder="nome@azienda.it"></label>
+    <label>Nome visualizzato<input id="nome" maxlength="80"></label>
+    <div><button class="primario" type="submit">Salva</button> <span id="esito" role="status"></span></div>
+    <p class="muted" style="font-size:12.5px;margin:0">Watchlist e portafoglio sono personali: li vedi solo tu (e l'amministratore del sistema). Tutte le altre pagine sono condivise.</p>
+  </form>
+</main>
+<script src="nav.js"></script>
+<script>
+(async () => {
+  const $ = (i) => document.getElementById(i);
+  const r = await fetch("/api/utenti/me", { cache: "no-store" });
+  if (!r.ok) { $("sottotitolo").textContent = r.status === 401 ? "Accesso richiesto." : "Errore " + r.status; return; }
+  const m = await r.json();
+  $("sottotitolo").textContent = m.email;
+  if (m.admin) { $("admin").hidden = false; return; }
+  $("f").hidden = false; $("canale").value = m.canale || "telegram"; $("chat").value = m.telegram_chat_id || ""; $("mail").value = m.email_alert || m.email; $("nome").value = m.nome || "";
+  const mostra = () => { const c = $("canale").value; $("l-chat").hidden = $("aiuto-chat").hidden = !(c === "telegram" || c === "entrambi"); $("l-mail").hidden = !(c === "email" || c === "entrambi"); };
+  $("canale").addEventListener("input", mostra); mostra();
+  $("f").addEventListener("submit", async (ev) => {
+    ev.preventDefault(); const es = $("esito"); es.className = ""; es.textContent = "Salvo…";
+    const x = await fetch("/api/utenti/me", { method: "POST", headers: { "content-type": "application/json" },
+      body: JSON.stringify({ canale: $("canale").value, telegram_chat_id: $("chat").value, email_alert: $("mail").value, nome: $("nome").value }) });
+    const j = await x.json().catch(() => ({}));
+    if (x.ok) { es.className = "ok"; es.textContent = "Salvato."; } else { es.className = "err"; es.textContent = j.errore || "errore " + x.status; }
+  });
+})();
+</script>
+</body>
+</html>
