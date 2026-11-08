@@ -25,6 +25,15 @@
   <nav class="menu" id="menu" aria-label="Pagine"></nav>
 </header>
 <main class="col">
+  <details class="box" style="margin:10px 0"><summary><b>Come aggiornare gli insider a mano</b></summary>
+    <p class="muted" style="margin:6px 0">I dati si aggiornano da soli ogni sera nei giorni feriali. Per forzare un giro adesso:</p>
+    <ol class="muted" style="margin:0 0 6px 18px;line-height:1.6">
+      <li>Apri su GitHub il repo privato <b>Logg84/monitor-trading-marco</b> → scheda <b>Actions</b>.</li>
+      <li>A sinistra scegli il workflow <b>insiders</b> → <b>Run workflow</b> (ramo main).</li>
+      <li><b>Aggiorna ora</b> = lascia la casella «force» spenta (circa 2–5 minuti). <b>Scan completo</b> = spunta «force»: rilegge tutti i Form 4, circa 25 minuti di Actions: usalo di rado.</li>
+      <li>Quando il workflow è verde, lancia <b>esporta-pagine-d1</b> (pagina <b>insider</b>) per far apparire i dati qui.</li>
+    </ol></details>
+
   <p class="muted">Fonte: <b>SEC EDGAR</b>, i Form 4 depositati dagli insider. Codice <b>P</b> = acquisto a mercato con denaro proprio; esclusi assegnazioni, esercizi di opzioni, ritenute, donazioni e qualsiasi vendita. Solo universo USA, solo sotto la soglia di capitalizzazione indicata. <b>Lettura, mai ordine</b>: non è un segnale operativo. Il cluster (≥2 insider distinti in 30 giorni) è contesto informativo.</p>
   <section class="controlli" aria-label="Filtri">
     <label>Finestra (giorni)<input type="number" id="f-gg" min="5" value="60"></label>
