@@ -181,6 +181,7 @@ export async function approva(db, env, email, fetchFn = fetch, ora = new Date())
   const uid = creaUid(r.nome, e, usati);
   await db.batch([
     db.prepare("INSERT OR IGNORE INTO utenti (email,uid,nome,canale,creato) VALUES (?,?,?,?,?)").bind(e, uid, r.nome, "telegram", ora.toISOString()),
+    db.prepare("UPDATE utenti SET attivo=1 WHERE email=?").bind(e),   // ri-approvazione di un utente rimosso
     db.prepare("DELETE FROM richieste WHERE email=?").bind(e),
   ]);
   return { ok: true, uid, access: a.nonNecessario ? "non_necessario" : a.manuale ? "manuale" : "aggiunto" };
