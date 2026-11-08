@@ -13,6 +13,7 @@
   }
   // Solo l'amministratore vede «Utenti» (richieste di accesso); per gli altri la voce non esiste.
   fetch("/api/utenti/me", { cache: "no-store" }).then((r) => (r.ok ? r.json() : null)).then((m) => {
+    if (m && m.abilitato === false) { location.replace("richiedi.html"); return; }     // verificato da Access ma non ancora abilitato
     if (!m || !m.admin) return;
     const a = document.createElement("a"); a.href = "utenti.html"; a.textContent = "Utenti"; a.className = "btn" + (corrente === "utenti" ? "" : " sec");
     if (corrente === "utenti") a.setAttribute("aria-current", "page");

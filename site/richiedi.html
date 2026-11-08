@@ -22,7 +22,7 @@
     <p class="muted" style="margin:0">Inserisci nome ed email di lavoro. Il responsabile riceve la richiesta e, se la approva, potrai entrare con un codice che ti arriva per email.</p>
     <form id="f">
       <label>Nome e cognome<input id="nome" required maxlength="80" autocomplete="name"></label>
-      <label>Email<input id="email" type="email" required maxlength="254" autocomplete="email"></label>
+      <label id="l-email">Email<input id="email" type="email" required maxlength="254" autocomplete="email"></label>
       <label>Perché vuoi usarlo (facoltativo)<textarea id="msg" rows="2" maxlength="300"></textarea></label>
       <div class="trappola" aria-hidden="true"><label>Sito<input id="sito" tabindex="-1" autocomplete="off"></label></div>
       <button class="primario" type="submit">Invia la richiesta</button>
@@ -31,15 +31,31 @@
   </div>
 </main>
 <script>
+let verificata = false;   // true se Access ha già verificato l'email di chi apre la pagina
+(async () => {
+  try {
+    const r = await fetch("/api/utenti/me", { cache: "no-store" });
+    if (!r.ok) return;
+    const m = await r.json();
+    if (m.admin || m.abilitato) { location.replace("index.html"); return; }
+    verificata = true; document.getElementById("email").value = m.email; document.getElementById("email").readOnly = true;
+    const es = document.getElementById("esito");
+    if (m.stato === "attesa") { document.getElementById("f").hidden = true; es.className = "ok"; es.textContent = "La tua richiesta è in attesa di approvazione. Appena approvata, ricarica questa pagina."; }
+    else if (m.stato === "rifiutata") { document.getElementById("f").hidden = true; es.className = "err"; es.textContent = "La richiesta non è stata approvata. Contatta il responsabile."; }
+    else if (m.stato === "disattivato") { document.getElementById("f").hidden = true; es.className = "err"; es.textContent = "Il tuo accesso è stato disattivato. Contatta il responsabile."; }
+  } catch (e) { /* pagina pubblica: si usa il modulo normale */ }
+})();
 document.getElementById("f").addEventListener("submit", async (ev) => {
   ev.preventDefault();
   const es = document.getElementById("esito"), b = ev.target.querySelector("button"); b.disabled = true; es.className = ""; es.textContent = "Invio…";
   try {
-    const r = await fetch("/api/richiedi", { method: "POST", headers: { "content-type": "application/json" },
+    const r = await fetch(verificata ? "/api/utenti/richiesta" : "/api/richiedi", { method: "POST", headers: { "content-type": "application/json" },
       body: JSON.stringify({ nome: nome.value, email: email.value, messaggio: msg.value, sito: sito.value }) });
     const j = await r.json().catch(() => ({}));
     if (!r.ok) throw new Error(j.errore || "errore " + r.status);
-    es.className = "ok"; es.textContent = "Richiesta inviata. Se verrà approvata, apri il portale e inserisci questa email: riceverai il codice di accesso."; ev.target.reset();
+    ev.target.hidden = verificata; es.className = "ok";
+    es.textContent = verificata ? "Richiesta inviata. Appena viene approvata, ricarica questa pagina per entrare." : "Richiesta inviata. Se verrà approvata, apri il portale e inserisci questa email: riceverai il codice di accesso.";
+    if (!verificata) ev.target.reset();
   } catch (e) { es.className = "err"; es.textContent = e.message; b.disabled = false; }
 });
 </script>

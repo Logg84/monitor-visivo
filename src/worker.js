@@ -165,6 +165,16 @@ export default {
     const url = new URL(request.url);
     if (!url.pathname.startsWith("/api/")) return env.ASSETS.fetch(request);
 
+    // Porta del portale: chi passa da Access ma non è amministratore né abilitato vede solo la richiesta di accesso.
+    if (modoAccess(env) && env.DB && url.pathname !== "/api/richiedi" && url.pathname !== "/api/access-info" && url.pathname !== "/api/me"
+        && url.pathname !== "/api/utenti/me" && url.pathname !== "/api/utenti/richiesta") {
+      const io0 = await identita(request, env);
+      if (io0 && io0.modalita === "access" && !io0.admin) {
+        const st = await ut.statoAccesso(env.DB, io0.email);
+        if (st.stato !== "abilitato") return json({ errore: "non_abilitato", stato: st.stato }, 403);
+      }
+    }
+
     if (url.pathname === "/api/me") {              // chi sono e cosa posso fare
       const io = await identita(request, env);
       if (io) return json({ modalita: io.modalita, email: io.email, admin: io.admin });
@@ -234,19 +244,29 @@ export default {
       if (r.nuova) await ut.notificaTelegram(env, `👋 Nuova richiesta di accesso al portale\n${r.nome} <${r.email}>\nApprova o rifiuta dalla pagina Utenti.`);
       return json({ ok: true });
     }
-    if (url.pathname === "/api/utenti/me" || url.pathname === "/api/utenti" || url.pathname === "/api/utenti/azione" || url.pathname === "/api/utenti/access-test" || url.pathname === "/api/utenti/telegram-test") {
+    if (url.pathname === "/api/utenti/me" || url.pathname === "/api/utenti/richiesta" || url.pathname === "/api/utenti" || url.pathname === "/api/utenti/azione" || url.pathname === "/api/utenti/access-test" || url.pathname === "/api/utenti/telegram-test") {
       const io = await identita(request, env);
       if (!io || io.modalita !== "access") return json({ errore: "non autenticato" }, 401);
       if (!env.DB) return json({ errore: "database non collegato" }, 503);
       const origine = request.headers.get("origin");
       if (request.method === "POST" && origine && origine !== url.origin) return json({ errore: "origine non consentita" }, 403);
       let b = {}; if (request.method === "POST") { try { b = await request.json(); } catch (e) { return json({ errore: "richiesta non valida" }, 400); } }
+      if (url.pathname === "/api/utenti/richiesta") {            // richiesta fatta da chi ha già verificato la propria email con Access
+        if (request.method !== "POST") return json({ errore: "metodo non consentito" }, 405);
+        if (io.admin) return json({ errore: "sei già amministratore" }, 400);
+        const r = await ut.richiedi(env.DB, { email: io.email, nome: b.nome, messaggio: b.messaggio });
+        if (!r.ok) return json({ errore: r.errore }, r.stato || 400);
+        if (r.nuova) await ut.notificaTelegram(env, `👋 Nuova richiesta di accesso al portale\n${r.nome} <${r.email}> (email verificata)\nApprova o rifiuta dalla pagina Utenti.`);
+        return json({ ok: true, stato: (await ut.statoAccesso(env.DB, io.email)).stato });
+      }
       if (url.pathname === "/api/utenti/me") {
         if (io.admin) return json({ email: io.email, admin: true, uid: "" });
+        const st = await ut.statoAccesso(env.DB, io.email);
+        if (st.stato !== "abilitato") return json({ email: io.email, admin: false, abilitato: false, stato: st.stato });
         const p = await ut.profilo(env.DB, io.email);
         if (request.method === "POST") { const r = await ut.aggiornaProfilo(env.DB, io.email, b); if (!r.ok) return json({ errore: r.errore }, r.stato); }
         const q = request.method === "POST" ? await ut.profilo(env.DB, io.email) : p;
-        return json({ email: io.email, admin: false, uid: q.uid, nome: q.nome, canale: q.canale, telegram_chat_id: q.telegram_chat_id, email_alert: q.email_alert });
+        return json({ email: io.email, admin: false, abilitato: true, uid: q.uid, nome: q.nome, canale: q.canale, telegram_chat_id: q.telegram_chat_id, email_alert: q.email_alert });
       }
       if (!io.admin) return json({ errore: "riservato all'amministratore" }, 403);
       if (url.pathname === "/api/utenti/telegram-test") {
@@ -254,7 +274,7 @@ export default {
         return json(await ut.inviaTelegram(env, "✅ Prova dal portale: gli avvisi sulle richieste di accesso arriveranno qui."));
       }
       if (url.pathname === "/api/utenti/access-test") return json(await ut.verificaAccess(env));
-      if (url.pathname === "/api/utenti") return json({ ...(await ut.elenco(env.DB)), access_automatico: ut.accessConfigurato(env) });
+      if (url.pathname === "/api/utenti") return json({ ...(await ut.elenco(env.DB)), access_automatico: ut.accessConfigurato(env), accesso_aperto: ut.accessAperto(env) });
       if (request.method !== "POST") return json({ errore: "metodo non consentito" }, 405);
       const r = b.azione === "approva" ? await ut.approva(env.DB, env, b.email)
         : b.azione === "rifiuta" ? await ut.rifiuta(env.DB, b.email)

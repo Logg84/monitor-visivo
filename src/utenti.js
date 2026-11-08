@@ -64,6 +64,16 @@ export async function inviaTelegram(env, testo, fetchFn = fetch) {
 }
 export async function notificaTelegram(env, testo, fetchFn = fetch) { return (await inviaTelegram(env, testo, fetchFn)).ok; }
 
+/** Stato di un'email già autenticata da Access: abilitato | disattivato | attesa | rifiutata | nuovo. Non crea nulla. */
+export async function statoAccesso(db, email) {
+  await schema(db);
+  const e = norm(email);
+  const r = await db.prepare("SELECT attivo FROM utenti WHERE email=?").bind(e).first();
+  if (r) return { stato: r.attivo ? "abilitato" : "disattivato" };
+  const q = await db.prepare("SELECT stato FROM richieste WHERE email=?").bind(e).first();
+  return { stato: q ? q.stato : "nuovo" };
+}
+
 export async function elenco(db) {
   await schema(db);
   const r = await db.prepare("SELECT email,nome,messaggio,creato,stato FROM richieste ORDER BY creato DESC LIMIT 100").all();
@@ -75,6 +85,8 @@ export async function elenco(db) {
 // Servono solo CF_ACCOUNT_ID e CF_ACCESS_TOKEN: la regola con le email si trova da sola (ACCESS_POLICY_ID / ACCESS_APP_ID la forzano).
 const API = "https://api.cloudflare.com/client/v4";
 export const accessConfigurato = (env) => Boolean(env.CF_ACCOUNT_ID && env.CF_ACCESS_TOKEN);
+/** Con ACCESSO_APERTO=1 la regola di Access lascia entrare chiunque verifichi la propria email: è il portale a decidere chi è abilitato. */
+export const accessAperto = (env) => String(env.ACCESSO_APERTO || "") === "1";
 const intest = (env) => ({ authorization: `Bearer ${env.CF_ACCESS_TOKEN}`, "content-type": "application/json" });
 async function cf(env, percorso, fetchFn, init = {}) {
   const r = await fetchFn(`${API}/accounts/${env.CF_ACCOUNT_ID}/access/${percorso}`, { ...init, headers: intest(env) });
@@ -139,11 +151,13 @@ async function modificaPolicy(env, fn, fetchFn) {
 }
 const haEmail = (inc, e) => inc.some((x) => x && x.email && norm(x.email.email) === e);
 export async function accessAggiungi(env, email, fetchFn = fetch) {
+  if (accessAperto(env)) return { ok: true, nonNecessario: true };
   if (!accessConfigurato(env)) return { ok: true, manuale: true };
   const e = norm(email);
   return modificaPolicy(env, (inc) => (haEmail(inc, e) ? null : [...inc, { email: { email: e } }]), fetchFn);
 }
 export async function accessRimuovi(env, email, fetchFn = fetch) {
+  if (accessAperto(env)) return { ok: true, nonNecessario: true };
   if (!accessConfigurato(env)) return { ok: true, manuale: true };
   const e = norm(email);
   return modificaPolicy(env, (inc) => (haEmail(inc, e) ? inc.filter((x) => !(x && x.email && norm(x.email.email) === e)) : null), fetchFn);
@@ -169,7 +183,7 @@ export async function approva(db, env, email, fetchFn = fetch, ora = new Date())
     db.prepare("INSERT OR IGNORE INTO utenti (email,uid,nome,canale,creato) VALUES (?,?,?,?,?)").bind(e, uid, r.nome, "telegram", ora.toISOString()),
     db.prepare("DELETE FROM richieste WHERE email=?").bind(e),
   ]);
-  return { ok: true, uid, access: a.manuale ? "manuale" : "aggiunto" };
+  return { ok: true, uid, access: a.nonNecessario ? "non_necessario" : a.manuale ? "manuale" : "aggiunto" };
 }
 export async function rifiuta(db, email) {
   await schema(db);
@@ -182,7 +196,7 @@ export async function rimuovi(db, env, email, fetchFn = fetch) {
   const a = await accessRimuovi(env, e, fetchFn);
   if (!a.ok) return { ok: false, stato: 502, errore: a.errore };
   await db.prepare("UPDATE utenti SET attivo=0 WHERE email=?").bind(e).run();   // i dati personali restano nel repo
-  return { ok: true, access: a.manuale ? "manuale" : "rimosso" };
+  return { ok: true, access: a.nonNecessario ? "non_necessario" : a.manuale ? "manuale" : "rimosso" };
 }
 
 /** Profilo dell'utente (None per l'amministratore). Se l'email passa da Access ma non ha riga, la crea (canale: telegram). */

@@ -27,7 +27,7 @@
   <p class="muted" id="nota-access"></p>
   <p><button class="az" id="prova-access" type="button">🔌 Verifica collegamento a Cloudflare Access</button> <span id="esito-access"></span></p>
   <p><button class="az" id="prova-tg" type="button">✈️ Invia messaggio di prova su Telegram</button> <span id="esito-tg"></span></p>
-  <p class="muted">Link da dare ai collaboratori: <b id="link"></b>. Chi non è ancora abilitato vede la schermata di Cloudflare: da lì può aprire la pagina <b>richiedi.html</b>.</p>
+  <p class="muted" id="nota-link">Link da dare ai collaboratori: <b id="link"></b>.</p>
 </main>
 <script src="nav.js"></script>
 <script src="comune.js"></script>
@@ -40,7 +40,11 @@
     if (!r.ok) { $("sottotitolo").textContent = r.stato === 403 ? "Pagina riservata all'amministratore." : (r.dati && r.dati.errore) || "Errore " + r.stato; return; }
     const d = r.dati; $("sottotitolo").textContent = `${d.richieste.filter((x) => x.stato === "attesa").length} richieste in attesa · ${d.utenti.filter((u) => u.attivo).length} utenti attivi`;
     $("link").textContent = location.origin;
-    $("nota-access").textContent = d.access_automatico ? "Le approvazioni aggiungono l'email a Cloudflare Access in automatico." : "⚠️ Cloudflare Access non è collegato: dopo ogni approvazione devi aggiungere tu l'email nella regola di Access (vedi istruzioni).";
+    $("nota-link").innerHTML = d.accesso_aperto
+      ? `Link da dare ai collaboratori: <b>${esc(location.origin)}</b>. Entrano con la loro email e un codice; la prima volta compilano la richiesta e tu approvi qui sopra.`
+      : `Link da dare ai collaboratori: <b>${esc(location.origin)}</b>. Chi non è ancora abilitato vede la schermata di Cloudflare: da lì può aprire la pagina <b>richiedi.html</b>.`;
+    $("prova-access").parentElement.hidden = !!d.accesso_aperto;
+    $("nota-access").textContent = d.accesso_aperto ? "Accesso aperto: l'approvazione qui è sufficiente, non serve toccare Cloudflare." : d.access_automatico ? "Le approvazioni aggiungono l'email a Cloudflare Access in automatico." : "⚠️ Cloudflare Access non è collegato: dopo ogni approvazione devi aggiungere tu l'email nella regola di Access (vedi istruzioni).";
     $("rich").innerHTML = "<thead><tr><th>Nome</th><th>Email</th><th>Richiesta</th><th>Messaggio</th><th>Stato</th><th></th></tr></thead><tbody>" +
       (d.richieste.length ? d.richieste.map((x) => `<tr><td>${esc(x.nome)}</td><td>${esc(x.email)}</td><td>${dmy(x.creato)}</td><td style="white-space:normal">${esc(x.messaggio)}</td><td>${esc(x.stato)}</td>
         <td>${x.stato === "attesa" ? `<button class="az pri" data-a="approva" data-e="${esc(x.email)}">✅ Approva</button> <button class="az" data-a="rifiuta" data-e="${esc(x.email)}">❌ Rifiuta</button>` : ""}</td></tr>`).join("") : '<tr><td colspan="6" class="muted">Nessuna richiesta.</td></tr>') + "</tbody>";
