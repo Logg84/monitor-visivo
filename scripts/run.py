@@ -79,7 +79,7 @@ def main() -> int:
             b = stato.get(f"{t}|{tf}")
             # il grafico serve per le basi attive e per le uscite osservate da noi;
             # le uscite «storiche» (già uscite alla prima vista) restano solo in tabella.
-            if b and (b["stato"] in ("rallenta", "in_range") or not b.get("prima_vista")):
+            if t in silenziosi or (b and (b["stato"] in ("rallenta", "in_range") or not b.get("prima_vista"))):   # indici/materie prime: grafico sempre
                 serie.setdefault(t, {})[tf] = bio.serie_grafico(df, BARRE_GRAFICO[tf])
     # titoli usciti dall'elenco del vecchio portale: si tolgono
     for k in [k for k in stato if k.split("|")[0] not in prezzi]:
