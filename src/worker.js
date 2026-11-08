@@ -211,6 +211,17 @@ export default {
       } catch (e) { return json({ errore: "database non raggiungibile: " + e.message }, 502); }
     }
 
+    // Diagnosi del login: mostra cosa contiene il tuo biglietto di Cloudflare Access (solo il tuo, senza firmarlo né fidarsi di lui).
+    if (url.pathname === "/api/access-info") {
+      const cookie = /(?:^|;\s*)CF_Authorization=([^;]+)/.exec(request.headers.get("cookie") || "");
+      const tok = request.headers.get("cf-access-jwt-assertion") || (cookie && cookie[1]);
+      if (!tok) return json({ biglietto: false, spiegazione: "Nessun biglietto di Cloudflare Access: l'indirizzo non è protetto da un'applicazione Access, oppure non hai fatto il login." });
+      try {
+        const p = JSON.parse(new TextDecoder().decode(b64u(String(tok).split(".")[1])));
+        const aud = Array.isArray(p.aud) ? p.aud : [p.aud];
+        return json({ biglietto: true, email: p.email, aud: aud[0], team_domain: String(p.iss || "").replace("https://", ""), aud_configurato: env.ACCESS_AUD || null, coincide: aud.includes(env.ACCESS_AUD), team_coincide: p.iss === `https://${env.ACCESS_TEAM_DOMAIN}` });
+      } catch (e) { return json({ biglietto: true, errore: "biglietto illeggibile" }); }
+    }
     // ── Utenti: richiesta di accesso (pubblica), profilo e amministrazione ───────────────────────────────
     if (url.pathname === "/api/richiedi") {
       if (request.method !== "POST") return json({ errore: "metodo non consentito" }, 405);
