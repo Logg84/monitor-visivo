@@ -38,6 +38,7 @@ let verificata = false;   // true se Access ha già verificato l'email di chi ap
     if (!r.ok) return;
     const m = await r.json();
     if (m.admin || m.abilitato) { location.replace("index.html"); return; }
+    if (m.abilitato !== false) return;
     verificata = true; document.getElementById("email").value = m.email; document.getElementById("email").readOnly = true;
     const es = document.getElementById("esito");
     if (m.stato === "attesa") { document.getElementById("f").hidden = true; es.className = "ok"; es.textContent = "La tua richiesta è in attesa di approvazione. Appena approvata, ricarica questa pagina."; }
