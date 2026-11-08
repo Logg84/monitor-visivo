@@ -264,7 +264,7 @@ export default {
         const st = await ut.statoAccesso(env.DB, io.email);
         if (st.stato !== "abilitato") return json({ email: io.email, admin: false, abilitato: false, stato: st.stato });
         const p = await ut.profilo(env.DB, io.email);
-        if (request.method === "POST") { const r = await ut.aggiornaProfilo(env.DB, io.email, b); if (!r.ok) return json({ errore: r.errore }, r.stato); }
+        if (request.method === "POST") { const r = await ut.aggiornaProfilo(env.DB, io.email, b); if (!r.ok) return json({ errore: r.errore }, r.stato); await ut.esportaUtentiAlert(env.DB, env); }
         const q = request.method === "POST" ? await ut.profilo(env.DB, io.email) : p;
         return json({ email: io.email, admin: false, abilitato: true, uid: q.uid, nome: q.nome, canale: q.canale, telegram_chat_id: q.telegram_chat_id, email_alert: q.email_alert });
       }
@@ -279,6 +279,7 @@ export default {
       const r = b.azione === "approva" ? await ut.approva(env.DB, env, b.email)
         : b.azione === "rifiuta" ? await ut.rifiuta(env.DB, b.email)
         : b.azione === "rimuovi" ? await ut.rimuovi(env.DB, env, b.email) : { ok: false, stato: 400, errore: "azione sconosciuta" };
+      if (r.ok && (b.azione === "approva" || b.azione === "rimuovi")) await ut.esportaUtentiAlert(env.DB, env);
       return r.ok ? json(r) : json({ errore: r.errore }, r.stato || 400);
     }
 

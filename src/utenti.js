@@ -226,3 +226,20 @@ export async function aggiornaProfilo(db, email, d) {
     .bind(canale, chat || null, ea || null, pulisci(d.nome, 80), norm(email)).run();
   return { ok: true };
 }
+
+/** Elenco degli utenti da avvisare su Telegram, scritto nel repo privato (data/utenti_portale.json):
+ *  lo legge il workflow degli alert. Solo utenti attivi con canale telegram|entrambi e Chat ID valido. Best-effort. */
+export async function esportaUtentiAlert(db, env, fetchFn = fetch) {
+  try {
+    const { leggiFile, scriviFile } = await import("./archivio.js");
+    await schema(db);
+    const righe = ((await db.prepare("SELECT uid,nome,canale,telegram_chat_id FROM utenti WHERE attivo=1 ORDER BY uid").all()).results || [])
+      .filter((u) => (u.canale === "telegram" || u.canale === "entrambi") && /^-?\d{5,16}$/.test(String(u.telegram_chat_id || "")))
+      .map((u) => ({ uid: u.uid, nome: u.nome || u.uid, telegram_chat_id: String(u.telegram_chat_id) }));
+    const testo = JSON.stringify({ utenti: righe }, null, 2) + "\n";
+    const att = await leggiFile(env, "utenti_alert", fetchFn);
+    if (!att.ok) return att;
+    if (att.testo === testo) return { ok: true, invariato: true };
+    return await scriviFile(env, "utenti_alert", testo, att.sha, "chore: utenti per gli alert Telegram", fetchFn);
+  } catch (e) { return { ok: false, errore: String(e && e.message || e) }; }
+}

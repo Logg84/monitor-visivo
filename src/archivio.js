@@ -15,6 +15,7 @@ export const FILE = {
   portafoglio: "data/portafoglio.csv",
   condiviso: "data/portafoglio_condiviso.csv",
   editor: "data/portafoglio_condiviso_editor.json",
+  utenti_alert: "data/utenti_portale.json",
 };
 export const MAX_BYTE = 400_000;
 /** Percorso nel repo privato. uid vuoto = file storici dell'amministratore; altrimenti data/users/<uid>/. */
