@@ -19,6 +19,6 @@
     "ACCESS_AUD": "5a2884b915c8478a754fb0bb5b208d919763697f279841616b820e30cf1b2e28",
     "ADMIN_EMAILS": "lorenzetti1984@gmail.com",
     // «1» quando la regola di Access lascia entrare chiunque verifichi la propria email (il portale decide chi è abilitato).
-    "ACCESSO_APERTO": "0"
+    "ACCESSO_APERTO": "1"
   }
 }
