@@ -48,6 +48,14 @@ assert.equal(typeof ultimoContenuto, "string"); ok("modello senza visione: le im
 env.AI_VISION = "true";
 const env2 = { ...env, AI_KEY: "" };
 assert.equal((await worker.fetch(new Request("https://x.dev/api/analisi", { method: "POST", body: "{}" }), env2, ctx)).status, 503); ok("senza chiave → 503");
+// titolo senza base di accumulo: la spiegazione parte dalla riga dello screening (D1)
+const riga = { ticker: "CCC", data: "2026-11-06", segnale: "—", punti: 3, extra: JSON.stringify({ Prezzo: 12.5, RSI: 33, "DD%": -41, Settore: "Tech", Interno: "x" }) };
+env.DB = { prepare: (q) => ({ bind: (...a) => ({ first: async () => (q.includes("WHERE") ? (a[1] === "CCC" ? riga : null) : null) }), first: async () => "2026-11-06" }) };
+const rc = await post({ ticker: "CCC" }); const jc = await rc.json();
+assert.equal(rc.status, 200); assert.equal(jc.aggiornato, "2026-11-06"); assert.ok(ultimoPrompt.includes("NON c'è una base") && ultimoPrompt.includes("RSI: 33") && !ultimoPrompt.includes("Interno")); ok("titolo senza base: prompt dallo screening, solo colonne note");
+assert.equal((await post({ ticker: "NOPE" })).status, 404); ok("titolo assente anche dallo screening → 404");
+assert.equal((await post({ ticker: "A'; DROP" })).status, 404); ok("ticker con caratteri strani → 404");
+delete env.DB;
 const st = await worker.fetch(new Request("https://x.dev/data/index.json"), env, ctx);
 assert.equal(st.status, 200); ok("altri percorsi → file statici");
 globalThis.fetch = async () => new Response("err", { status: 429 });

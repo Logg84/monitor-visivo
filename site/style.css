@@ -124,3 +124,5 @@ main.col>p.muted{max-width:none}
 .controlli label.chk{display:flex;flex-direction:row;align-items:center;gap:6px;font-size:13px;color:var(--testo);padding-bottom:9px}
 #conteggio{align-self:end;padding-bottom:9px}
 [hidden]{display:none!important}
+
+.scheda-ai{border:1px solid var(--bordo,#d0d7de);border-radius:8px;padding:10px 14px;margin:8px 0;max-width:80ch}.scheda-ai h4{margin:10px 0 2px;font-size:12px;letter-spacing:.05em}.scheda-ai p{margin:4px 0;line-height:1.5}

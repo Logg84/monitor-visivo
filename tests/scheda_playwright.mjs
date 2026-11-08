@@ -10,6 +10,7 @@ const aggiunti = [];
 const srv = http.createServer((q, r) => {
   const u = q.url.split("?")[0];
   if (u === "/api/screening") return j(r, { data: "2026-11-05", righe });
+  if (u === "/api/analisi" && q.method === "POST") return j(r, { testo: "TECNICA\nIl titolo è sotto la media.\nFONDAMENTALE\nDati parziali.", aggiornato: "2026-11-05" });
   if (u === "/api/dati/watchlist") return j(r, { sha: "v1", puo_modificare: true, dati: wl });
   if (u === "/api/watchlist" && q.method === "POST") { let b = ""; q.on("data", (x) => (b += x)); return q.on("end", () => { const o = JSON.parse(b); aggiunti.push(o); j(r, { ok: true }); }); }
   const f = path.join(root, u); fs.readFile(f, (e, d) => { if (e) { r.writeHead(404); return r.end(); }
@@ -36,6 +37,8 @@ const srv = http.createServer((q, r) => {
   ok("senza serie: messaggio", (await p.textContent("#scheda-ov")).includes("Grafico non disponibile"));
   await p.click("#scheda-ov button:has-text('Aggiungi alla watchlist')"); await p.waitForTimeout(500);
   ok("promuovi in watchlist: POST add ZZZZ... ", aggiunti.length === 1 && aggiunti[0].op === "add" && aggiunti[0].ticker === "ZZZZ");
+  await p.click("text=🧠 Spiegazione AI"); await p.waitForTimeout(500);
+  ok("spiegazione AI mostrata con titoli di sezione", (await p.$$eval("#scheda-ov .scheda-ai h4", (e) => e.map((x) => x.textContent))).join() === "TECNICA,FONDAMENTALE" && (await p.textContent(".scheda-ai")).includes("sotto la media"));
   await p.mouse.click(5, 5); ok("clic fuori chiude", !(await p.$("#scheda-ov")));
   await p.goto("http://localhost:8768/watchlist.html"); await p.waitForTimeout(800);
   await p.click('#tab [data-scheda="ADBE"]'); await p.waitForTimeout(800);

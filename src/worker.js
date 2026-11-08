@@ -84,6 +84,28 @@ export function costruisciPrompt(ticker, stati, titolo, fond) {
     `DATI FONDAMENTALI (da Yahoo Finance):\n${f}`;
 }
 
+const CHIAVI_PROMPT = ["Segnale", "Seg_Punti", "Priorità", "Confluenza", "Trend", "Prezzo", "DD%", "DD_2a%", "RSI", "ATR%", "SMA50", "SMA200", "Dist_SMA200%", "Ret_4s%", "RS_4s%",
+  "Z1c", "VWAP60", "Z1", "Z2", "Bottom", "Bottom_DD", "Bottom_RSI", "Bottom_Zona", "Bottom_Decel", "Health", "H_ROE", "H_DE", "H_Margine", "H_Crescita", "H_FCF", "PE_trailing", "PE_forward",
+  "EV_EBITDA", "P_S", "Wyckoff", "W_Score", "Insider_Cluster", "Short_Float_%", "Squeeze", "Settore", "Sotto-settore", "SectorScore", "Z_Sconto_Settore", "Bonus_Totale"];
+/** Prompt per un titolo senza base di accumulo: usa la riga dello screening (stessi numeri della scheda). */
+export function costruisciPromptScreening(ticker, riga, fond) {
+  const x = (riga && riga.extra) || {};
+  const righe = CHIAVI_PROMPT.filter((k) => x[k] !== undefined && x[k] !== null && x[k] !== "" && x[k] !== "—").map((k) => `- ${k}: ${typeof x[k] === "number" ? Math.round(x[k] * 100) / 100 : x[k]}`);
+  const f = fond ? descriviFond(fond) : "NON DISPONIBILI come bilancio completo: usa solo gli indicatori di qualità presenti sopra (se ce ne sono) e dichiara il resto nella sezione FONDAMENTALE senza inventare nulla.";
+  return `Titolo: ${ticker}\n\nPer questo titolo NON c'è una base di accumulo riconosciuta: nella sezione TECNICA descrivi la situazione con gli indicatori dello screening (data ${riga.data}; punteggio ${riga.punti ?? "n.d."}/6, segnale ${riga.segnale || "nessuno"}). Non inventare range.\n\n` +
+    `DATI DELLO SCREENING:\n${righe.join("\n") || "(nessuno)"}\n\nDATI FONDAMENTALI (da Yahoo Finance):\n${f}`;
+}
+async function rigaScreening(db, ticker) {
+  try {
+    const d = await db.prepare("SELECT MAX(data) AS d FROM punteggi").first("d");
+    if (!d) return null;
+    const r = await db.prepare("SELECT ticker, data, segnale, punti, extra FROM punteggi WHERE data = ? AND ticker = ?").bind(d, ticker).first();
+    if (!r) return null;
+    let extra = null; try { extra = typeof r.extra === "string" ? JSON.parse(r.extra) : r.extra; } catch (e) { /* extra illeggibile */ }
+    return { ...r, extra };
+  } catch (e) { return null; }
+}
+
 async function leggi(env, base, path) {
   try {
     const r = await env.ASSETS.fetch(new Request(base + path));
@@ -360,10 +382,12 @@ export default {
     const base = url.origin;
     const idx = await leggi(env, base, "/data/index.json");
     const stati = ((idx && idx.basi) || []).filter((b) => b.chiave.split("|")[0] === ticker);
-    if (!stati.length) return json({ errore: "titolo sconosciuto" }, 404);
+    const riga = stati.length || !env.DB || !/^[A-Za-z0-9.\-=^_]{1,20}$/.test(ticker) ? null : await rigaScreening(env.DB, ticker);
+    if (!stati.length && !riga) return json({ errore: "titolo sconosciuto" }, 404);
+    const aggiornato = riga ? riga.data : idx.aggiornato;
 
     // Stessa analisi richiesta più volte nello stesso giro di dati: dalla cache.
-    const chiaveCache = new Request(`${base}/__cache/analisi/${encodeURIComponent(ticker)}/${idx.aggiornato}`);
+    const chiaveCache = new Request(`${base}/__cache/analisi/${encodeURIComponent(ticker)}/${aggiornato}`);
     const cache = typeof caches !== "undefined" ? caches.default : null;
     if (cache && !body.rigenera) {
       try { const hit = await cache.match(chiaveCache); if (hit) return json({ ...(await hit.json()), cache: true }); } catch (e) { /* cache non disponibile */ }
@@ -374,7 +398,7 @@ export default {
     const immagini = (String(env.AI_VISION) !== "true" ? [] : Array.isArray(body.immagini) ? body.immagini : []).slice(0, 2)
       .filter((i) => i && typeof i.img === "string" && i.img.length < 1_500_000 && /^data:image\/(jpeg|png);base64,[A-Za-z0-9+/=]+$/.test(i.img));
     const fond = ff && ff.dati && Object.keys(ff.dati).length ? ff.dati : null;
-    let prompt = costruisciPrompt(ticker, stati, (idx.titoli || {})[ticker], fond);
+    let prompt = riga ? costruisciPromptScreening(ticker, riga, fond) : costruisciPrompt(ticker, stati, (idx.titoli || {})[ticker], fond);
     let contenuto = prompt;
     if (immagini.length) {
       prompt += "\n\nIMMAGINI ALLEGATE: " + immagini.map((i) => (i.tf === "1W" ? "grafico settimanale" : "grafico giornaliero")).join(", ") + ".";
@@ -398,7 +422,7 @@ export default {
     try { testo = ((await r.json()).choices?.[0]?.message?.content || "").replace(/<think>[\s\S]*?<\/think>/g, "").trim(); } catch (e) { /* vuoto */ }
     if (!testo) return json({ errore: "il motore AI non ha restituito testo" }, 502);
 
-    const esito = { testo, aggiornato: idx.aggiornato, fondamentali: Boolean(fond), immagini: immagini.length };
+    const esito = { testo, aggiornato, fondamentali: Boolean(fond), immagini: immagini.length };
     if (cache) {
       try { ctx.waitUntil(cache.put(chiaveCache, new Response(JSON.stringify(esito), { headers: { "cache-control": "max-age=86400" } }))); } catch (e) { /* ok */ }
     }

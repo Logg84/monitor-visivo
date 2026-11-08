@@ -98,6 +98,23 @@ window.Scheda = (() => {
       });
       badge.append(bw, es);
     }
+    {                                                               // spiegazione AI (stesso motore di «Basi di accumulo»)
+      const ba = el("button", "az", "🧠 Spiegazione AI"); ba.type = "button";
+      const box = el("div", "scheda-ai"); box.hidden = true;
+      ba.addEventListener("click", async () => {
+        ba.disabled = true; box.hidden = false; box.replaceChildren(el("p", "nota", "Sto preparando la spiegazione… (può richiedere qualche secondo)"));
+        try {
+          const r = await fetch("/api/analisi", { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ ticker }) });
+          const j = await r.json().catch(() => ({}));
+          if (!r.ok) throw new Error(j.errore || "errore " + r.status);
+          box.replaceChildren();
+          for (const riga of String(j.testo).split(/\n+/).map((x) => x.trim()).filter(Boolean)) box.append(/^[A-ZÀ-Ü' ]{6,}:?$/.test(riga) ? el("h4", null, riga.replace(/:$/, "")) : el("p", null, riga));
+          box.append(el("p", "nota", `Riassunto automatico dei numeri del portale (dati del ${j.aggiornato || "?"}${j.cache ? ", da cache" : ""}): non è un consiglio operativo.`));
+        } catch (e) { box.replaceChildren(el("p", "nota", "❌ " + e.message)); }
+        ba.disabled = false;
+      });
+      badge.append(ba); corpo.append(box);
+    }
 
     const serie = await fetch(`data/serie/${nomeFile(ticker)}.json`, { cache: "no-cache" }).then((r) => (r.ok ? r.json() : null)).catch(() => null);
     const tfs = ["1D", "1W"].filter((t) => serie && serie[t] && serie[t].length);
