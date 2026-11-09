@@ -49,6 +49,36 @@ def _chiavi(ticker: str, tf: str) -> str:
     return f"{ticker}|{tf}"
 
 
+TOLLERANZA_RIALLINEO = 0.0005   # 0,05%: oltre questo scarto sulla stessa barra i prezzi sono stati rettificati
+
+
+def _riallinea(prec: dict, c: pd.Series, oggi: dt.date) -> None:
+    """Yahoo (auto_adjust) rettifica RETROATTIVAMENTE lo storico per dividendi e
+    frazionamenti: i livelli di un range già congelato restano invece sulla vecchia
+    scala e darebbero uscite false (es. split 2:1 → «uscita sotto» inesistente).
+    Si confronta la chiusura che avevamo salvato per l'ultima barra vista (`ultimo`
+    alla data `data_ultimo`) con quella di oggi per la STESSA barra: se il rapporto
+    non è 1, top/bottom (e `ultimo`) si riscalano e il cambio si registra
+    (`riallineato_il`, `fattore`). Nessun alert: è un cambio di scala, non di prezzo."""
+    dato, vecchio = prec.get("data_ultimo"), prec.get("ultimo")
+    if not dato or not vecchio or float(vecchio) <= 0:
+        return
+    try:
+        nuovo = c.loc[pd.Timestamp(dato)]
+    except KeyError:
+        return
+    if isinstance(nuovo, pd.Series):
+        nuovo = nuovo.iloc[-1]
+    nuovo = float(nuovo)
+    if nuovo <= 0:
+        return
+    f = nuovo / float(vecchio)
+    if abs(f - 1) <= TOLLERANZA_RIALLINEO:
+        return
+    prec.update(top=round(float(prec["top"]) * f, 4), bottom=round(float(prec["bottom"]) * f, 4),
+                ultimo=round(nuovo, 4), riallineato_il=str(oggi), fattore=round(f, 6))
+
+
 def aggiorna(stato: dict, ticker: str, tf: str, close: pd.Series,
              oggi: dt.date, ov: dict | None = None) -> list[dict]:
     """Aggiorna lo stato di (ticker, tf) con le chiusure di barre CHIUSE.
@@ -96,6 +126,8 @@ def aggiorna(stato: dict, ticker: str, tf: str, close: pd.Series,
         prec = stato.get(k)
 
     stato_prec = prec.get("stato") if prec else None
+    if prec and stato_prec in ("in_range", "uscito_sopra", "uscito_sotto"):
+        _riallinea(prec, c, oggi)
 
     # 1) Range congelato: si controlla solo l'uscita, mai si ricalcola.
     if stato_prec == "in_range":

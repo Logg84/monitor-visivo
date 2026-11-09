@@ -243,4 +243,26 @@ with mock.patch("smtplib.SMTP", side_effect=OSError("rete giù")):
 for k in ("SMTP_USER", "SMTP_PASSWORD", "EMAIL_TO"):
     os.environ.pop(k, None)
 
+
+# ── riallineo dopo rettifica retroattiva dei prezzi (split/dividendi, auto_adjust) ──
+base_r = costruisci([lineare(100, 60, 30), range_oscillante(60, 6, 60, cicli=4)])
+st_r = {}
+engine.aggiorna(st_r, "SPL", "1W", base_r, dt.date(2026, 11, 6))
+b0 = dict(st_r["SPL|1W"])
+check("riallineo: base congelata in_range", b0["stato"] == "in_range")
+dimezzata = base_r / 2          # frazionamento 2:1: tutta la storia rettificata
+ev_r = engine.aggiorna(st_r, "SPL", "1W", dimezzata, dt.date(2026, 11, 9))
+b1 = st_r["SPL|1W"]
+check("riallineo: split 2:1 → nessuna uscita falsa, stato resta in_range", ev_r == [] and b1["stato"] == "in_range")
+check("riallineo: top/bottom riscalati (÷2) e fattore registrato",
+      abs(b1["top"] - b0["top"] / 2) < 1e-3 and abs(b1["bottom"] - b0["bottom"] / 2) < 1e-3 and abs(b1["fattore"] - 0.5) < 1e-6)
+engine.aggiorna(st_r, "SPL", "1W", dimezzata, dt.date(2026, 11, 10))
+check("riallineo: secondo giro con gli stessi dati non cambia più nulla", st_r["SPL|1W"]["riallineato_il"] == "2026-11-09")
+rett = base_r * 0.99            # dividendo: storico -1%
+engine.aggiorna(st_r, "DIV", "1W", base_r, dt.date(2026, 11, 6))
+d0 = dict(st_r["DIV|1W"]); engine.aggiorna(st_r, "DIV", "1W", rett, dt.date(2026, 11, 9))
+check("riallineo: rettifica dividendo (-1%) riscala i livelli", abs(st_r["DIV|1W"]["top"] - d0["top"] * 0.99) < 1e-3)
+engine.aggiorna(st_r, "NOP", "1W", base_r, dt.date(2026, 11, 6)); n0 = dict(st_r["NOP|1W"])
+engine.aggiorna(st_r, "NOP", "1W", base_r, dt.date(2026, 11, 9))
+check("riallineo: dati identici → nessun riallineo", "riallineato_il" not in st_r["NOP|1W"] and st_r["NOP|1W"]["top"] == n0["top"])
 print("\nTUTTI I CHECK PASSATI (verifica_basi)")
