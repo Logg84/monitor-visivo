@@ -17,7 +17,6 @@
   let me = { modalita: "codice" };           // chi sono: da /api/me (Cloudflare Access) o modalità a codice
   const cacheSerie = new Map();
   const nomeFile = (t) => [...t].map((c) => (/[A-Za-z0-9\-_.]/.test(c) ? c : "_")).join("");
-  const leggiToken = () => { try { return localStorage.getItem("bw_token") || ""; } catch (e) { return ""; } };
   async function serieDi(ticker) {
     if (!cacheSerie.has(ticker)) {
       cacheSerie.set(ticker, fetch(`data/serie/${nomeFile(ticker)}.json`, { cache: "no-cache" })
@@ -319,25 +318,7 @@
   });
 
   // ── Modifica a mano del range (salvata nel repo: data/override.json) ──────
-  const b64 = (txt) => btoa(String.fromCharCode(...new TextEncoder().encode(txt)));
-  const deb64 = (b) => new TextDecoder().decode(Uint8Array.from(atob(b.replace(/\n/g, "")), (c) => c.charCodeAt(0)));
 
-  async function salvaOverride(chiave, valori, token) {
-    const url = `https://api.github.com/repos/${REPO}/contents/${FILE_OVERRIDE}`;
-    const h = { Authorization: `Bearer ${token}`, Accept: "application/vnd.github+json" };
-    for (let tentativo = 0; tentativo < 2; tentativo++) {
-      let sha, attuale = {};
-      const r = await fetch(url, { headers: h, cache: "no-store" });
-      if (r.ok) { const j = await r.json(); sha = j.sha; try { attuale = JSON.parse(deb64(j.content)); } catch (e) { attuale = {}; } }
-      else if (r.status !== 404) throw new Error(r.status === 401 || r.status === 403 ? "token non valido o senza permesso di scrittura" : `GitHub ${r.status}`);
-      attuale[chiave] = valori;
-      const p = await fetch(url, { method: "PUT", headers: h, body: JSON.stringify({
-        message: `override range ${chiave}`, content: b64(JSON.stringify(attuale, null, 1) + "\n"), sha }) });
-      if (p.ok) return;
-      if (p.status !== 409 && p.status !== 422) throw new Error(p.status === 401 || p.status === 403 ? "token non valido o senza permesso di scrittura" : `GitHub ${p.status}`);
-    }
-    throw new Error("conflitto di salvataggio, riprova");
-  }
 
   function pannelloModifica(g, tf, contenitore) {
     const b = g.tfs[tf];
@@ -370,23 +351,7 @@
         } catch (e) { esito.textContent = "Non salvato: " + e.message; salva.disabled = false; }
         return;
       }
-      let token = leggiToken();
-      if (!token) {
-        token = (prompt("Token GitHub (fine-grained, solo repo monitor-visivo, Contents: Read and write).\nResta salvato solo in questo browser:") || "").trim();
-        if (!token) return;
-      }
-      salva.disabled = true; esito.textContent = "Salvataggio…";
-      try {
-        await salvaOverride(`${g.ticker}|${tf}`, { top, bottom }, token);
-        try { localStorage.setItem("bw_token", token); } catch (e) { /* senza storage va richiesto ogni volta */ }
-        Object.assign(b, { top, bottom, manuale: [top, bottom], ampiezza: top / bottom - 1 });
-        disegnaCard(g, tf); osserva(g);
-        g.card.querySelector(".azioni").append(eEl("span", "esito", "Salvato. Il motore lo applica al prossimo giro (circa 2 minuti): fino ad allora vale solo qui."));
-      } catch (e) {
-        esito.textContent = "Non salvato: " + e.message;
-        if (/token/.test(e.message)) { try { localStorage.removeItem("bw_token"); } catch (x) { /* nulla */ } }
-        salva.disabled = false;
-      }
+      esito.textContent = "Solo l'amministratore può correggere un range.";   // il vecchio salvataggio con token GitHub nel browser è stato tolto
     });
     form.append(salva, annulla, esito);
     contenitore.append(form);

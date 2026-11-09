@@ -1,12 +1,11 @@
 name: bases
 
-# Giro giornaliero dopo la chiusura di Wall Street (20:00 UTC d'estate, 21:00
+# Lo lancia ogni sera il Worker Cloudflare (cron 22:30 UTC, lun-ven) con workflow_dispatch: nessun cron qui,
+# altrimenti il giro partirebbe due volte. Giro giornaliero dopo la chiusura di Wall Street (20:00 UTC d'estate, 21:00
 # d'inverno): legge i candidati dal vecchio portale, scarica i prezzi,
 # aggiorna lo stato delle basi e manda l'alert Telegram per le uscite dal range
 # (con il punteggio 1–6 letto da D1) e per i retest tenuti. Scrive data/bases.json (stato) e site/data/*.json (per il sito).
 on:
-  schedule:
-    - cron: "30 22 * * 1-5"
   push:                      # un range corretto a mano dal sito rilancia il giro
     paths: ["data/override.json"]
   workflow_dispatch:
