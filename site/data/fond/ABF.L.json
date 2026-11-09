@@ -1,58 +1,61 @@
 {
- "aggiornato": "2026-11-02",
+ "aggiornato": "2026-11-09",
  "dati": {
-  "beta": 0.875,
+  "beta": 0.87,
   "bilancio_annuale": {
    "ricavi": {
     "2023": 19750000000.0,
     "2024": 20073000000.0,
-    "2025": 19459000000.0
+    "2025": 19459000000.0,
+    "2026": 19582000000.0
    },
    "utile_netto": {
     "2023": 1044000000.0,
     "2024": 1455000000.0,
-    "2025": 1025000000.0
+    "2025": 1025000000.0,
+    "2026": 930000000.0
    },
    "utile_operativo": {
     "2023": 1340000000.0,
     "2024": 1834000000.0,
-    "2025": 1577000000.0
+    "2025": 1577000000.0,
+    "2026": 1364000000.0
    }
   },
   "currency": "GBp",
-  "currentRatio": 1.507,
-  "debito_netto": 3027000064,
-  "debito_netto_su_ebitda": 1.37,
-  "debtToEquity": 32.183,
-  "dividendYield": 3.28,
-  "earningsGrowth": -0.118,
-  "ebitda": 2204000000,
-  "enterpriseToEbitda": 7.638,
-  "fiftyTwoWeekHigh": 2359.0,
+  "currentRatio": 1.5,
+  "debito_netto": 2842999936,
+  "debito_netto_su_ebitda": 1.31,
+  "debtToEquity": 32.736,
+  "dividendYield": 3.17,
+  "earningsGrowth": -0.018,
+  "ebitda": 2176999936,
+  "enterpriseToEbitda": 7.811,
+  "fiftyTwoWeekHigh": 2288.0,
   "fiftyTwoWeekLow": 1729.45,
   "financialCurrency": "GBP",
-  "forwardPE": 13.1841,
-  "freeCashflow": 737124992,
-  "grossMargins": 0.0743,
+  "forwardPE": 13.6752,
+  "freeCashflow": 628625024,
+  "grossMargins": 0.0697,
   "industry": "Packaged Foods",
   "longName": "Associated British Foods plc",
-  "marketCap": 13582101504,
-  "numberOfAnalystOpinions": 17,
-  "operatingCashflow": 2256999936,
-  "operatingMargins": 0.0664,
-  "payoutRatio": 0.4727,
-  "priceToBook": 1.2038,
-  "profitMargins": 0.0489,
-  "quickRatio": 0.627,
+  "marketCap": 13998141440,
+  "numberOfAnalystOpinions": 18,
+  "operatingCashflow": 2483000064,
+  "operatingMargins": 0.0818,
+  "payoutRatio": 0.4776,
+  "priceToBook": 1.206,
+  "profitMargins": 0.0475,
+  "quickRatio": 0.639,
   "recommendationKey": "underperform",
-  "returnOnAssets": 0.0492,
-  "returnOnEquity": 0.0845,
-  "revenueGrowth": -0.004,
+  "returnOnAssets": 0.046,
+  "returnOnEquity": 0.0818,
+  "revenueGrowth": 0.016,
   "sector": "Consumer Defensive",
-  "targetMeanPrice": 1798.824,
-  "totalCash": 712000000,
-  "totalDebt": 3739000064,
-  "trailingPE": 14.609
+  "targetMeanPrice": 1810.556,
+  "totalCash": 1010000000,
+  "totalDebt": 3852999936,
+  "trailingPE": 15.1591
  },
  "v": 2
 }

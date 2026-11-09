@@ -1,5 +1,5 @@
 {
- "aggiornato": "2026-11-02",
+ "aggiornato": "2026-11-09",
  "dati": {
   "beta": 1.964,
   "bilancio_annuale": {
@@ -30,21 +30,21 @@
   "dividendYield": 0.0,
   "earningsGrowth": 0.243,
   "ebitda": 2508570880,
-  "enterpriseToEbitda": 9.503,
+  "enterpriseToEbitda": 9.567,
   "fiftyTwoWeekHigh": 25.13,
   "fiftyTwoWeekLow": 13.63,
   "financialCurrency": "USD",
-  "forwardPE": 12.4703,
-  "freeCashflow": -1029625600,
+  "forwardPE": 12.9514,
+  "freeCashflow": -1046450624,
   "grossMargins": 0.414,
   "industry": "Travel Services",
   "longName": "Norwegian Cruise Line Holdings Ltd.",
-  "marketCap": 8239401984,
+  "marketCap": 8464446976,
   "numberOfAnalystOpinions": 23,
   "operatingCashflow": 2165469952,
   "operatingMargins": 0.2128,
   "payoutRatio": 0.0,
-  "priceToBook": 2.6167,
+  "priceToBook": 2.6882,
   "profitMargins": 0.082,
   "quickRatio": 0.087,
   "recommendationKey": "buy",
@@ -52,10 +52,10 @@
   "returnOnEquity": 0.3118,
   "revenueGrowth": 0.003,
   "sector": "Consumer Cyclical",
-  "targetMeanPrice": 19.5652,
+  "targetMeanPrice": 19.6087,
   "totalCash": 256508000,
   "totalDebt": 16026825728,
-  "trailingPE": 9.9116
+  "trailingPE": 10.1823
  },
  "v": 2
 }

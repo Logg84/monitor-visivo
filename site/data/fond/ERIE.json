@@ -1,5 +1,5 @@
 {
- "aggiornato": "2026-11-02",
+ "aggiornato": "2026-11-09",
  "dati": {
   "beta": 0.22,
   "bilancio_annuale": {
@@ -21,23 +21,23 @@
   "debito_netto": -329529992,
   "debito_netto_su_ebitda": -0.4,
   "debtToEquity": 2.127,
-  "dividendYield": 2.24,
+  "dividendYield": 2.14,
   "earningsGrowth": -0.005,
   "ebitda": 834124992,
-  "enterpriseToEbitda": 15.991,
+  "enterpriseToEbitda": 16.723,
   "fiftyTwoWeekHigh": 301.61,
   "fiftyTwoWeekLow": 204.63,
   "financialCurrency": "USD",
-  "forwardPE": 20.5499,
+  "forwardPE": 20.2941,
   "freeCashflow": 509237888,
   "grossMargins": 0.1785,
   "industry": "Insurance Brokers",
   "longName": "Erie Indemnity Company",
-  "marketCap": 14323763200,
+  "marketCap": 14145454080,
   "operatingCashflow": 691776000,
   "operatingMargins": 0.1976,
   "payoutRatio": 0.5313,
-  "priceToBook": 5.6113,
+  "priceToBook": 5.5414,
   "profitMargins": 0.1398,
   "quickRatio": 1.174,
   "recommendationKey": "strong_buy",
@@ -47,7 +47,7 @@
   "sector": "Financial Services",
   "totalCash": 383836992,
   "totalDebt": 54307000,
-  "trailingPE": 24.8801
+  "trailingPE": 24.5704
  },
  "v": 2
 }

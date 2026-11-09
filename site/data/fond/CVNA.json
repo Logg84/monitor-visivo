@@ -1,5 +1,5 @@
 {
- "aggiornato": "2026-11-02",
+ "aggiornato": "2026-11-09",
  "dati": {
   "beta": 3.65,
   "bilancio_annuale": {
@@ -30,21 +30,21 @@
   "dividendYield": 0.0,
   "earningsGrowth": 0.857,
   "ebitda": 2671000064,
-  "enterpriseToEbitda": 19.748,
+  "enterpriseToEbitda": 21.176,
   "fiftyTwoWeekHigh": 97.378,
   "fiftyTwoWeekLow": 54.464,
   "financialCurrency": "USD",
-  "forwardPE": 33.964,
+  "forwardPE": 35.8984,
   "freeCashflow": 652499968,
   "grossMargins": 0.1904,
   "industry": "Auto & Truck Dealerships",
   "longName": "Carvana Co.",
-  "marketCap": 79809388544,
+  "marketCap": 113772912640,
   "numberOfAnalystOpinions": 21,
   "operatingCashflow": 1330000000,
   "operatingMargins": 0.089,
   "payoutRatio": 0.0,
-  "priceToBook": 11.9423,
+  "priceToBook": 12.6489,
   "profitMargins": 0.0621,
   "quickRatio": 1.849,
   "recommendationKey": "buy",
@@ -52,10 +52,10 @@
   "returnOnEquity": 0.5467,
   "revenueGrowth": 0.424,
   "sector": "Consumer Cyclical",
-  "targetMeanPrice": 80.8571,
+  "targetMeanPrice": 81.1429,
   "totalCash": 3606000128,
   "totalDebt": 5696999936,
-  "trailingPE": 34.6154
+  "trailingPE": 36.6635
  },
  "v": 2
 }

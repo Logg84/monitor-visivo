@@ -1,7 +1,7 @@
 {
- "aggiornato": "2026-11-02",
+ "aggiornato": "2026-11-09",
  "dati": {
-  "beta": 1.17,
+  "beta": 1.171,
   "bilancio_annuale": {
    "ricavi": {
     "2023": 4712000000.0,
@@ -21,24 +21,24 @@
   "debito_netto": 625999936,
   "debito_netto_su_ebitda": 0.11,
   "debtToEquity": 4.083,
-  "dividendYield": 3.45,
+  "dividendYield": 3.35,
   "earningsGrowth": -0.35,
   "ebitda": 5450999808,
-  "enterpriseToEbitda": 4.686,
-  "fiftyTwoWeekHigh": 4403.0,
+  "enterpriseToEbitda": 4.92,
+  "fiftyTwoWeekHigh": 4351.0,
   "fiftyTwoWeekLow": 1825.0,
   "financialCurrency": "GBP",
-  "forwardPE": 4.1464,
+  "forwardPE": 4.2107,
   "freeCashflow": 3390374912,
   "grossMargins": 1.0,
   "industry": "Asset Management",
-  "longName": "3i Group plc",
-  "marketCap": 25633617920,
+  "longName": "3i Group Ord",
+  "marketCap": 26083459072,
   "numberOfAnalystOpinions": 11,
   "operatingCashflow": 998000000,
   "operatingMargins": 0.9719,
   "payoutRatio": 0.1467,
-  "priceToBook": 0.8331,
+  "priceToBook": 0.8479,
   "profitMargins": 0.9484,
   "quickRatio": 5.681,
   "recommendationKey": "buy",
@@ -46,10 +46,10 @@
   "returnOnEquity": 0.1908,
   "revenueGrowth": -0.334,
   "sector": "Financial Services",
-  "targetMeanPrice": 3402.636,
+  "targetMeanPrice": 3382.636,
   "totalCash": 635000000,
   "totalDebt": 1260999936,
-  "trailingPE": 4.6902
+  "trailingPE": 4.7737
  },
  "v": 2
 }

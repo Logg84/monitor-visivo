@@ -1,5 +1,5 @@
 {
- "aggiornato": "2026-11-02",
+ "aggiornato": "2026-11-09",
  "dati": {
   "bilancio_annuale": {
    "ricavi": {
@@ -24,14 +24,13 @@
   "currency": "USD",
   "fiftyTwoWeekHigh": 70.41,
   "fiftyTwoWeekLow": 43.87,
-  "forwardPE": 6.5468,
+  "forwardPE": 7.9671,
   "longName": "Fiserv, Inc.",
-  "marketCap": 27614646272,
-  "numberOfAnalystOpinions": 27,
-  "priceToBook": 1.0249,
+  "marketCap": 33795670016,
+  "numberOfAnalystOpinions": 26,
+  "priceToBook": 1.6016,
   "recommendationKey": "hold",
-  "targetMeanPrice": 57.5548,
-  "trailingPE": 9.9674
+  "targetMeanPrice": 61.9223
  },
  "v": 2
 }

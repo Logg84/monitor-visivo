@@ -1,7 +1,7 @@
 {
- "aggiornato": "2026-11-02",
+ "aggiornato": "2026-11-09",
  "dati": {
-  "beta": 1.43,
+  "beta": 1.439,
   "bilancio_annuale": {
    "ricavi": {
     "2022": 5862000000.0,
@@ -30,21 +30,21 @@
   "dividendYield": 1.87,
   "earningsGrowth": 0.624,
   "ebitda": 5425399808,
-  "enterpriseToEbitda": 7.21,
+  "enterpriseToEbitda": 7.186,
   "fiftyTwoWeekHigh": 4475.0,
   "fiftyTwoWeekLow": 2496.0,
   "financialCurrency": "USD",
-  "forwardPE": 22.5322,
+  "forwardPE": 22.8923,
   "freeCashflow": 574662528,
   "grossMargins": 0.5383,
   "industry": "Copper",
   "longName": "Antofagasta plc",
-  "marketCap": 32069918720,
+  "marketCap": 32582563840,
   "numberOfAnalystOpinions": 21,
   "operatingCashflow": 3511200000,
   "operatingMargins": 0.42,
   "payoutRatio": 0.3821,
-  "priceToBook": 3.9948,
+  "priceToBook": 4.0587,
   "profitMargins": 0.1779,
   "quickRatio": 2.203,
   "recommendationKey": "hold",
@@ -52,10 +52,10 @@
   "returnOnEquity": 0.1785,
   "revenueGrowth": 0.179,
   "sector": "Basic Materials",
-  "targetMeanPrice": 3775.9663,
+  "targetMeanPrice": 3768.7253,
   "totalCash": 4160100096,
   "totalDebt": 8126199808,
-  "trailingPE": 26.024
+  "trailingPE": 26.44
  },
  "v": 2
 }

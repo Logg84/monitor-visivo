@@ -1,5 +1,5 @@
 {
- "aggiornato": "2026-11-02",
+ "aggiornato": "2026-11-09",
  "dati": {
   "beta": 1.539,
   "bilancio_annuale": {
@@ -29,20 +29,20 @@
   "debtToEquity": 98.596,
   "dividendYield": 0.0,
   "ebitda": 258000000,
-  "enterpriseToEbitda": 172.108,
+  "enterpriseToEbitda": 145.92,
   "fiftyTwoWeekHigh": 299.86,
   "fiftyTwoWeekLow": 73.52,
   "financialCurrency": "USD",
-  "forwardPE": -39.2987,
+  "forwardPE": -40.6695,
   "freeCashflow": -9614650368,
   "grossMargins": 0.7426,
   "industry": "Internet Content & Information",
-  "marketCap": 38437609472,
+  "marketCap": 38453919744,
   "numberOfAnalystOpinions": 20,
   "operatingCashflow": 5257999872,
   "operatingMargins": -0.0022,
   "payoutRatio": 0.0,
-  "priceToBook": 3.7482,
+  "priceToBook": 3.7498,
   "profitMargins": 0.0313,
   "quickRatio": 3.605,
   "recommendationKey": "buy",
@@ -50,10 +50,10 @@
   "returnOnEquity": 0.006,
   "revenueGrowth": 4.54,
   "sector": "Communication Services",
-  "targetMeanPrice": 281.0,
+  "targetMeanPrice": 278.05,
   "totalCash": 8042100224,
   "totalDebt": 10195300352,
-  "trailingPE": 110.4609
+  "trailingPE": 110.5078
  },
  "v": 2
 }

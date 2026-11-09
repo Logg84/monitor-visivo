@@ -1,5 +1,5 @@
 {
- "aggiornato": "2026-11-02",
+ "aggiornato": "2026-11-09",
  "dati": {
   "beta": 1.184,
   "bilancio_annuale": {
@@ -30,21 +30,21 @@
   "dividendYield": 0.0,
   "earningsGrowth": 0.893,
   "ebitda": 2075485952,
-  "enterpriseToEbitda": 46.661,
+  "enterpriseToEbitda": 45.077,
   "fiftyTwoWeekHigh": 539.48,
   "fiftyTwoWeekLow": 362.55,
   "financialCurrency": "USD",
-  "forwardPE": 25.0863,
+  "forwardPE": 25.0447,
   "freeCashflow": 3425542400,
   "grossMargins": 0.8292,
   "industry": "Software - Infrastructure",
   "longName": "Synopsys, Inc.",
-  "marketCap": 89317998592,
+  "marketCap": 89488564224,
   "numberOfAnalystOpinions": 25,
   "operatingCashflow": 2938341120,
   "operatingMargins": 0.1452,
   "payoutRatio": 0.0,
-  "priceToBook": 2.8666,
+  "priceToBook": 2.8721,
   "profitMargins": 0.1143,
   "quickRatio": 1.166,
   "recommendationKey": "strong_buy",
@@ -52,10 +52,10 @@
   "returnOnEquity": 0.0366,
   "revenueGrowth": 0.424,
   "sector": "Technology",
-  "targetMeanPrice": 586.946,
+  "targetMeanPrice": 589.546,
   "totalCash": 3607668992,
   "totalDebt": 10841789440,
-  "trailingPE": 82.3463
+  "trailingPE": 82.5035
  },
  "v": 2
 }

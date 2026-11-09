@@ -1,5 +1,5 @@
 {
- "aggiornato": "2026-11-02",
+ "aggiornato": "2026-11-09",
  "dati": {
   "beta": 1.037,
   "bilancio_annuale": {
@@ -27,24 +27,24 @@
   "debito_netto": 480500000,
   "debito_netto_su_ebitda": 0.61,
   "debtToEquity": 39.219,
-  "dividendYield": 2.41,
+  "dividendYield": 2.35,
   "earningsGrowth": -0.011,
   "ebitda": 785699968,
-  "enterpriseToEbitda": 11.394,
+  "enterpriseToEbitda": 11.647,
   "fiftyTwoWeekHigh": 81.87,
   "fiftyTwoWeekLow": 54.16,
   "financialCurrency": "USD",
-  "forwardPE": 17.2921,
+  "forwardPE": 17.2466,
   "freeCashflow": 430500000,
   "grossMargins": 0.3862,
   "industry": "Specialty Industrial Machinery",
   "longName": "A. O. Smith Corporation",
-  "marketCap": 8787800064,
+  "marketCap": 8758247424,
   "numberOfAnalystOpinions": 10,
   "operatingCashflow": 612499968,
   "operatingMargins": 0.1863,
   "payoutRatio": 0.4022,
-  "priceToBook": 4.8202,
+  "priceToBook": 4.804,
   "profitMargins": 0.1301,
   "quickRatio": 0.983,
   "recommendationKey": "hold",
@@ -52,10 +52,10 @@
   "returnOnEquity": 0.2697,
   "revenueGrowth": -0.002,
   "sector": "Industrials",
-  "targetMeanPrice": 66.3,
+  "targetMeanPrice": 66.5,
   "totalCash": 234500000,
   "totalDebt": 715000000,
-  "trailingPE": 18.2737
+  "trailingPE": 18.2123
  },
  "v": 2
 }

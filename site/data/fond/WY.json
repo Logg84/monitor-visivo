@@ -1,5 +1,5 @@
 {
- "aggiornato": "2026-11-02",
+ "aggiornato": "2026-11-09",
  "dati": {
   "beta": 0.951,
   "bilancio_annuale": {
@@ -27,24 +27,24 @@
   "debito_netto": 5027999936,
   "debito_netto_su_ebitda": 6.85,
   "debtToEquity": 57.312,
-  "dividendYield": 4.13,
+  "dividendYield": 4.0,
   "earningsGrowth": -0.273,
   "ebitda": 734000000,
-  "enterpriseToEbitda": 26.822,
+  "enterpriseToEbitda": 27.44,
   "fiftyTwoWeekHigh": 27.75,
   "fiftyTwoWeekLow": 18.26,
   "financialCurrency": "USD",
-  "forwardPE": 41.86,
+  "forwardPE": 48.6956,
   "freeCashflow": 583124992,
   "grossMargins": 0.1496,
   "industry": "REIT - Specialty",
   "longName": "Weyerhaeuser Company",
-  "marketCap": 15336124416,
+  "marketCap": 15220868096,
   "numberOfAnalystOpinions": 11,
   "operatingCashflow": 530000000,
   "operatingMargins": 0.05,
   "payoutRatio": 1.3333,
-  "priceToBook": 1.6347,
+  "priceToBook": 1.6224,
   "profitMargins": 0.0647,
   "quickRatio": 0.918,
   "recommendationKey": "strong_buy",
@@ -52,10 +52,10 @@
   "returnOnEquity": 0.0481,
   "revenueGrowth": 0.084,
   "sector": "Real Estate",
-  "targetMeanPrice": 26.4546,
+  "targetMeanPrice": 26.6364,
   "totalCash": 349000000,
   "totalDebt": 5376999936,
-  "trailingPE": 33.7936
+  "trailingPE": 33.5397
  },
  "v": 2
 }

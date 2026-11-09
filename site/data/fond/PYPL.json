@@ -1,5 +1,5 @@
 {
- "aggiornato": "2026-11-02",
+ "aggiornato": "2026-11-09",
  "dati": {
   "beta": 1.316,
   "bilancio_annuale": {
@@ -27,24 +27,24 @@
   "debito_netto": 3971000320,
   "debito_netto_su_ebitda": 0.61,
   "debtToEquity": 73.146,
-  "dividendYield": 0.98,
+  "dividendYield": 0.95,
   "earningsGrowth": -0.038,
   "ebitda": 6520999936,
-  "enterpriseToEbitda": 7.871,
-  "fiftyTwoWeekHigh": 70.35,
+  "enterpriseToEbitda": 8.155,
+  "fiftyTwoWeekHigh": 67.99,
   "fiftyTwoWeekLow": 38.46,
   "financialCurrency": "USD",
-  "forwardPE": 9.9871,
+  "forwardPE": 10.1754,
   "freeCashflow": 4487374848,
   "grossMargins": 0.4055,
   "industry": "Credit Services",
   "longName": "PayPal Holdings, Inc.",
-  "marketCap": 48826093568,
+  "marketCap": 49881030656,
   "numberOfAnalystOpinions": 33,
   "operatingCashflow": 7093000192,
   "operatingMargins": 0.1841,
   "payoutRatio": 0.1069,
-  "priceToBook": 2.5252,
+  "priceToBook": 2.5798,
   "profitMargins": 0.1378,
   "quickRatio": 0.232,
   "recommendationKey": "hold",
@@ -52,10 +52,10 @@
   "returnOnEquity": 0.2382,
   "revenueGrowth": 0.02,
   "sector": "Financial Services",
-  "targetMeanPrice": 57.1015,
+  "targetMeanPrice": 57.1318,
   "totalCash": 10279999488,
   "totalDebt": 14250999808,
-  "trailingPE": 11.2176
+  "trailingPE": 11.4599
  },
  "v": 2
 }

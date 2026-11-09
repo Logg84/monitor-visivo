@@ -1,7 +1,7 @@
 {
- "aggiornato": "2026-11-02",
+ "aggiornato": "2026-11-09",
  "dati": {
-  "beta": 1.097,
+  "beta": 1.101,
   "bilancio_annuale": {
    "ricavi": {
     "2022": 2472100000.0,
@@ -27,24 +27,24 @@
   "debito_netto": 1448600000,
   "debito_netto_su_ebitda": 2.78,
   "debtToEquity": 91.086,
-  "dividendYield": 1.65,
+  "dividendYield": 1.79,
   "earningsGrowth": 0.156,
   "ebitda": 521800000,
-  "enterpriseToEbitda": 15.967,
+  "enterpriseToEbitda": 14.454,
   "fiftyTwoWeekHigh": 3580.0,
   "fiftyTwoWeekLow": 2254.0,
   "financialCurrency": "GBP",
-  "forwardPE": 18.246,
+  "forwardPE": 16.4945,
   "freeCashflow": 124050000,
   "grossMargins": 0.3927,
   "industry": "Specialty Industrial Machinery",
   "longName": "Weir PLC",
-  "marketCap": 6916065280,
-  "numberOfAnalystOpinions": 20,
+  "marketCap": 6152805376,
+  "numberOfAnalystOpinions": 21,
   "operatingCashflow": 368800000,
   "operatingMargins": 0.1615,
   "payoutRatio": 0.4096,
-  "priceToBook": 3.4281,
+  "priceToBook": 3.0498,
   "profitMargins": 0.1001,
   "quickRatio": 1.539,
   "recommendationKey": "buy",
@@ -52,10 +52,10 @@
   "returnOnEquity": 0.1393,
   "revenueGrowth": 0.062,
   "sector": "Industrials",
-  "targetMeanPrice": 3268.9998,
+  "targetMeanPrice": 3199.524,
   "totalCash": 386600000,
   "totalDebt": 1835200000,
-  "trailingPE": 26.3762
+  "trailingPE": 23.4653
  },
  "v": 2
 }

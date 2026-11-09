@@ -1,5 +1,5 @@
 {
- "aggiornato": "2026-11-02",
+ "aggiornato": "2026-11-09",
  "dati": {
   "beta": -0.079,
   "bilancio_annuale": {
@@ -30,21 +30,21 @@
   "dividendYield": 0.0,
   "earningsGrowth": -0.112,
   "ebitda": 99100975104,
-  "enterpriseToEbitda": -3.441,
+  "enterpriseToEbitda": -3.378,
   "fiftyTwoWeekHigh": 139.12,
   "fiftyTwoWeekLow": 71.94,
   "financialCurrency": "CNY",
-  "forwardPE": 6.6083,
+  "forwardPE": 6.5128,
   "freeCashflow": 74635272192,
   "grossMargins": 0.5632,
   "industry": "Internet Retail",
   "longName": "PDD Holdings Inc.",
-  "marketCap": 116263026688,
+  "marketCap": 114583412736,
   "numberOfAnalystOpinions": 33,
   "operatingCashflow": 111894691840,
   "operatingMargins": 0.2471,
   "payoutRatio": 0.0,
-  "priceToBook": 1.7136,
+  "priceToBook": 1.6889,
   "profitMargins": 0.2043,
   "quickRatio": 2.214,
   "recommendationKey": "buy",
@@ -52,10 +52,10 @@
   "returnOnEquity": 0.2275,
   "revenueGrowth": 0.081,
   "sector": "Consumer Cyclical",
-  "targetMeanPrice": 115.4989,
+  "targetMeanPrice": 113.6409,
   "totalCash": 456414003200,
   "totalDebt": 4844000256,
-  "trailingPE": 9.1879
+  "trailingPE": 9.0551
  },
  "v": 2
 }

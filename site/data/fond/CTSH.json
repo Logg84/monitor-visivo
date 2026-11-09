@@ -1,5 +1,5 @@
 {
- "aggiornato": "2026-11-02",
+ "aggiornato": "2026-11-09",
  "dati": {
   "beta": 0.827,
   "bilancio_annuale": {
@@ -27,24 +27,24 @@
   "debito_netto": 580000000,
   "debito_netto_su_ebitda": 0.14,
   "debtToEquity": 14.478,
-  "dividendYield": 2.03,
+  "dividendYield": 2.04,
   "earningsGrowth": 1.482,
   "ebitda": 4107000064,
-  "enterpriseToEbitda": 7.228,
+  "enterpriseToEbitda": 7.186,
   "fiftyTwoWeekHigh": 87.03,
   "fiftyTwoWeekLow": 37.08,
   "financialCurrency": "USD",
-  "forwardPE": 10.3662,
+  "forwardPE": 10.1319,
   "freeCashflow": 2079250048,
   "grossMargins": 0.3342,
   "industry": "Information Technology Services",
   "longName": "Cognizant Technology Solutions Corporation",
-  "marketCap": 29097209856,
+  "marketCap": 28431134720,
   "numberOfAnalystOpinions": 25,
   "operatingCashflow": 2694000128,
   "operatingMargins": 0.163,
   "payoutRatio": 0.2372,
-  "priceToBook": 1.9802,
+  "priceToBook": 1.9348,
   "profitMargins": 0.1175,
   "quickRatio": 1.76,
   "recommendationKey": "buy",
@@ -52,10 +52,10 @@
   "returnOnEquity": 0.1737,
   "revenueGrowth": 0.046,
   "sector": "Technology",
-  "targetMeanPrice": 69.504,
+  "targetMeanPrice": 69.784,
   "totalCash": 1552000000,
   "totalDebt": 2132000000,
-  "trailingPE": 11.8777
+  "trailingPE": 11.6058
  },
  "v": 2
 }

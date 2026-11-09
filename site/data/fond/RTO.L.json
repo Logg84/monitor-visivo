@@ -1,7 +1,7 @@
 {
- "aggiornato": "2026-11-02",
+ "aggiornato": "2026-11-09",
  "dati": {
-  "beta": 0.469,
+  "beta": 0.462,
   "bilancio_annuale": {
    "ricavi": {
     "2022": 4494681172.925415,
@@ -27,24 +27,24 @@
   "debito_netto": 3669000192,
   "debito_netto_su_ebitda": 2.93,
   "debtToEquity": 111.353,
-  "dividendYield": 2.68,
+  "dividendYield": 2.67,
   "earningsGrowth": 0.042,
   "ebitda": 1252000000,
-  "enterpriseToEbitda": 9.992,
+  "enterpriseToEbitda": 10.051,
   "fiftyTwoWeekHigh": 507.0,
   "fiftyTwoWeekLow": 293.5,
   "financialCurrency": "USD",
-  "forwardPE": 15.7711,
+  "forwardPE": 15.6292,
   "freeCashflow": 1050875008,
   "grossMargins": 0.1401,
   "industry": "Specialty Business Services",
   "longName": "Rentokil Initial plc",
-  "marketCap": 8980459520,
+  "marketCap": 8875778048,
   "numberOfAnalystOpinions": 19,
   "operatingCashflow": 930000000,
   "operatingMargins": 0.1279,
   "payoutRatio": 0.9716,
-  "priceToBook": 2.1888,
+  "priceToBook": 2.1649,
   "profitMargins": 0.067,
   "quickRatio": 0.972,
   "recommendationKey": "buy",
@@ -52,10 +52,10 @@
   "returnOnEquity": 0.0597,
   "revenueGrowth": 0.067,
   "sector": "Industrials",
-  "targetMeanPrice": 441.4886,
+  "targetMeanPrice": 440.8055,
   "totalCash": 2471000064,
   "totalDebt": 6140000256,
-  "trailingPE": 39.6556
+  "trailingPE": 39.2222
  },
  "v": 2
 }

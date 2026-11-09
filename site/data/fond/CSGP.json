@@ -1,5 +1,5 @@
 {
- "aggiornato": "2026-11-02",
+ "aggiornato": "2026-11-09",
  "dati": {
   "beta": 0.78,
   "bilancio_annuale": {
@@ -29,21 +29,21 @@
   "debtToEquity": 14.665,
   "dividendYield": 0.0,
   "ebitda": 558000000,
-  "enterpriseToEbitda": 22.988,
-  "fiftyTwoWeekHigh": 70.63,
+  "enterpriseToEbitda": 23.262,
+  "fiftyTwoWeekHigh": 70.57,
   "fiftyTwoWeekLow": 25.89,
   "financialCurrency": "USD",
-  "forwardPE": 17.9845,
+  "forwardPE": 17.6567,
   "freeCashflow": 442449984,
   "grossMargins": 0.7831,
   "industry": "Real Estate Services",
   "longName": "CoStar Group, Inc.",
-  "marketCap": 12802374656,
+  "marketCap": 12569018368,
   "numberOfAnalystOpinions": 20,
   "operatingCashflow": 617000000,
   "operatingMargins": 0.0882,
   "payoutRatio": 0.0,
-  "priceToBook": 1.6036,
+  "priceToBook": 1.5744,
   "profitMargins": 0.0487,
   "quickRatio": 1.131,
   "recommendationKey": "buy",
@@ -54,7 +54,7 @@
   "targetMeanPrice": 35.85,
   "totalCash": 500000000,
   "totalDebt": 1172000000,
-  "trailingPE": 74.0
+  "trailingPE": 72.6512
  },
  "v": 2
 }

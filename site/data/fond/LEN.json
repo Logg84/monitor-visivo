@@ -1,5 +1,5 @@
 {
- "aggiornato": "2026-11-02",
+ "aggiornato": "2026-11-09",
  "dati": {
   "beta": 1.381,
   "bilancio_annuale": {
@@ -27,24 +27,24 @@
   "debito_netto": 4917744768,
   "debito_netto_su_ebitda": 2.48,
   "debtToEquity": 28.201,
-  "dividendYield": 2.3,
+  "dividendYield": 2.25,
   "earningsGrowth": -0.482,
   "ebitda": 1982134016,
-  "enterpriseToEbitda": 12.985,
+  "enterpriseToEbitda": 13.201,
   "fiftyTwoWeekHigh": 133.76,
   "fiftyTwoWeekLow": 71.78,
   "financialCurrency": "USD",
-  "forwardPE": 17.4319,
+  "forwardPE": 17.5391,
   "freeCashflow": 1227246208,
   "grossMargins": 0.1601,
   "industry": "Residential Construction",
   "longName": "Lennar Corporation",
-  "marketCap": 21653678080,
+  "marketCap": 21786904576,
   "numberOfAnalystOpinions": 15,
   "operatingCashflow": 937302976,
   "operatingMargins": 0.0569,
   "payoutRatio": 0.3788,
-  "priceToBook": 1.0044,
+  "priceToBook": 1.0106,
   "profitMargins": 0.0409,
   "quickRatio": 1.092,
   "recommendationKey": "underperform",
@@ -52,10 +52,10 @@
   "returnOnEquity": 0.0596,
   "revenueGrowth": -0.087,
   "sector": "Consumer Cyclical",
-  "targetMeanPrice": 77.7333,
+  "targetMeanPrice": 77.6,
   "totalCash": 1200945024,
   "totalDebt": 6118689792,
-  "trailingPE": 17.2386
+  "trailingPE": 17.3447
  },
  "v": 2
 }

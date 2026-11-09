@@ -1,5 +1,5 @@
 {
- "aggiornato": "2026-11-02",
+ "aggiornato": "2026-11-09",
  "dati": {
   "beta": 1.972,
   "bilancio_annuale": {
@@ -30,21 +30,21 @@
   "dividendYield": 0.0,
   "earningsGrowth": 0.916,
   "ebitda": 1710000000,
-  "enterpriseToEbitda": 44.071,
-  "fiftyTwoWeekHigh": 258.0,
+  "enterpriseToEbitda": 44.244,
+  "fiftyTwoWeekHigh": 239.0,
   "fiftyTwoWeekLow": 143.3,
   "financialCurrency": "USD",
-  "forwardPE": 23.7077,
+  "forwardPE": 22.5714,
   "freeCashflow": 6371375104,
   "grossMargins": 0.5266,
   "industry": "Internet Retail",
   "longName": "DoorDash, Inc.",
-  "marketCap": 82866020352,
+  "marketCap": 78894276608,
   "numberOfAnalystOpinions": 40,
   "operatingCashflow": 2952999936,
   "operatingMargins": 0.1003,
   "payoutRatio": 0.0,
-  "priceToBook": 7.7318,
+  "priceToBook": 7.3612,
   "profitMargins": 0.0623,
   "quickRatio": 1.16,
   "recommendationKey": "buy",
@@ -52,10 +52,10 @@
   "returnOnEquity": 0.1048,
   "revenueGrowth": 0.34,
   "sector": "Consumer Cyclical",
-  "targetMeanPrice": 251.234,
+  "targetMeanPrice": 249.2215,
   "totalCash": 5982000128,
   "totalDebt": 3297999872,
-  "trailingPE": 78.8672
+  "trailingPE": 75.0871
  },
  "v": 2
 }
