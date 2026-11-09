@@ -296,8 +296,24 @@ export default {
         return json(await ut.inviaTelegram(env, "✅ Prova dal portale: gli avvisi sulle richieste di accesso arriveranno qui."));
       }
       if (url.pathname === "/api/utenti/access-test") return json(await ut.verificaAccess(env));
-      if (url.pathname === "/api/utenti") return json({ ...(await ut.elenco(env.DB)), access_automatico: ut.accessConfigurato(env), accesso_aperto: ut.accessAperto(env) });
+      if (url.pathname === "/api/utenti") return json({ ...(await ut.elenco(env.DB)), editors: await leggiEditor(env), access_automatico: ut.accessConfigurato(env), accesso_aperto: ut.accessAperto(env) });
       if (request.method !== "POST") return json({ errore: "metodo non consentito" }, 405);
+      if (b.azione === "editor") {                                // permesso di scrittura sul portafoglio condiviso
+        const mail = String(b.email || "").trim().toLowerCase();
+        const u = await env.DB.prepare("SELECT 1 AS x FROM utenti WHERE email=? AND attivo=1").bind(mail).first();
+        if (!u) return json({ errore: "utente non attivo" }, 400);
+        for (let t = 0; t < 2; t++) {
+          const f = await leggiFile(env, "editor");
+          if (!f.ok) return json({ errore: f.errore }, f.stato || 502);
+          let lista = [];
+          if (!f.assente) { try { const l = JSON.parse(f.testo).editors; if (Array.isArray(l)) lista = l.map((x) => String(x).trim().toLowerCase()); } catch (e) { /* file rovinato: riparto da vuoto */ } }
+          const s = new Set(lista); if (b.attivo) s.add(mail); else s.delete(mail);
+          const w2 = await scriviFile(env, "editor", JSON.stringify({ editors: [...s].sort() }, null, 2) + "\n", f.assente ? null : f.sha, `Portale: permesso portafoglio condiviso ${b.attivo ? "dato a" : "tolto a"} ${mail}`);
+          if (w2.ok) return json({ ok: true, editors: [...s].sort() });
+          if (!w2.conflitto) return json({ errore: w2.errore }, w2.stato || 502);
+        }
+        return json({ errore: "file modificato nel frattempo: riprova" }, 409);
+      }
       const r = b.azione === "approva" ? await ut.approva(env.DB, env, b.email)
         : b.azione === "rifiuta" ? await ut.rifiuta(env.DB, b.email)
         : b.azione === "rimuovi" ? await ut.rimuovi(env.DB, env, b.email) : { ok: false, stato: 400, errore: "azione sconosciuta" };

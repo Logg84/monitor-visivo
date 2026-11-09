@@ -9,7 +9,7 @@ const srv = http.createServer(async (q, r) => {
   if (u === "/api/richiedi") { inviata = await body(q); return j(r, { ok: true }); }
   if (u === "/api/utenti/me") { if (q.method === "POST") { salvato = await body(q); if (salvato.canale === "telegram" && !salvato.telegram_chat_id) return j(r, { errore: "Per gli alert su Telegram serve il tuo Chat ID." }, 400); return j(r, {}); }
     return j(r, admin ? { email: "m@x.it", admin: true, uid: "" } : { email: "anna@x.it", admin: false, uid: "anna", nome: "Anna", canale: "telegram", telegram_chat_id: "", email_alert: null }); }
-  if (u === "/api/utenti" ) return j(r, { access_automatico: false, richieste, utenti: [{ email: "luca@x.it", uid: "luca", nome: "Luca", canale: "email", creato: "2026-11-01T10:00:00Z", attivo: 1 }] });
+  if (u === "/api/utenti" ) return j(r, { access_automatico: false, richieste, editors: [], utenti: [{ email: "luca@x.it", uid: "luca", nome: "Luca", canale: "email", creato: "2026-11-01T10:00:00Z", attivo: 1 }] });
   if (u === "/api/utenti/azione") { const b = await body(q); azioni.push(b); richieste = []; return j(r, { ok: true, access: "manuale" }); }
   const f = path.join(root, u); fs.readFile(f, (e, d) => { if (e) { r.writeHead(404); return r.end(); }
     r.setHeader("content-type", f.endsWith(".js") ? "text/javascript" : f.endsWith(".css") ? "text/css" : "text/html"); r.end(d); });
@@ -36,6 +36,8 @@ const srv = http.createServer(async (q, r) => {
   ok("utenti: avviso Access manuale", (await p.textContent("#nota-access")).includes("Cloudflare Access non è collegato"));
   await p.click('button[data-a="approva"]'); await p.waitForTimeout(500);
   ok("utenti: approva invia l'azione e ricorda l'aggiunta manuale", azioni[0].azione === "approva" && azioni[0].email === "anna@x.it" && (await p.textContent("#esito")).includes("Ricorda"));
+  await p.check('input[data-ed="luca@x.it"]'); await p.waitForTimeout(400);
+  ok("utenti: interruttore portafoglio condiviso invia l'azione editor", azioni.some((a) => a.azione === "editor" && a.email === "luca@x.it" && a.attivo === true));
   await p.screenshot({ path: out + "/utenti.png", fullPage: true });
   await b.close(); srv.close();
 });

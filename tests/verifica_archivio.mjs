@@ -1,6 +1,8 @@
 // Test senza rete di src/archivio.js e delle rotte /api/dati|watchlist|portafoglio|condiviso (GitHub simulato).
 import assert from "node:assert/strict";
+import { DatabaseSync } from "node:sqlite";
 import worker from "../src/worker.js";
+import * as ut from "../src/utenti.js";
 import { applicaOp, costruisciTabella, csvLeggi, csvScrivi, aB64, daB64, COL_PORT } from "../src/archivio.js";
 const ok = (n) => console.log("✓ " + n);
 
@@ -91,5 +93,23 @@ r = await chiama("/api/dati/condiviso", "estraneo@x.it"); assert.equal(r.status,
 r = await chiama("/api/condiviso", "amico@x.it", { metodo: "POST", body: { sha: null, righe: [cond] } }); j = await r.json();
 assert.equal(r.status, 200); assert.equal(j.alert, "avviato"); assert.equal(dispatch.length, 1); assert.ok(repo.get("data/portafoglio_condiviso.csv").includes("MU")); ok("condiviso: editor scrive e parte il workflow degli avvisi");
 r = await chiama("/api/dati/condiviso", A); assert.equal((await r.json()).puo_modificare, true); ok("admin è sempre editor");
+// ── permesso «può modificare il portafoglio condiviso» dato dall'admin (pagina Utenti) ──
+{
+  const sq = new DatabaseSync(":memory:");
+  env.DB = { prepare: (q) => { const st = sq.prepare(q); let a = [];
+    const o = { bind: (...x) => { a = x; return o; }, first: async () => st.get(...a) || null, all: async () => ({ results: st.all(...a) }), run: async () => { st.run(...a); return {}; }, _run: () => st.run(...a) }; return o; },
+    batch: async (l) => { for (const s of l) s._run(); } };
+  await ut.profilo(env.DB, "master@x.it", "Master");
+  const az = (b, who = A) => chiama("/api/utenti/azione", who, { metodo: "POST", body: b });
+  r = await az({ azione: "editor", email: "master@x.it", attivo: true }, "master@x.it"); assert.equal(r.status, 403); ok("editor: solo l'admin può dare il permesso");
+  r = await az({ azione: "editor", email: "sconosciuto@x.it", attivo: true }); assert.equal(r.status, 400); ok("editor: utente non attivo rifiutato");
+  r = await az({ azione: "editor", email: "Master@x.it", attivo: true }); j = await r.json();
+  assert.equal(r.status, 200); assert.deepEqual(j.editors, ["amico@x.it", "master@x.it"]); ok("editor: permesso dato (lista aggiornata nel repo)");
+  assert.deepEqual(JSON.parse(repo.get("data/portafoglio_condiviso_editor.json")).editors, ["amico@x.it", "master@x.it"]);
+  r = await chiama("/api/dati/condiviso", "master@x.it"); assert.equal((await r.json()).puo_modificare, true); ok("editor: il collega ora può scrivere");
+  r = await chiama("/api/utenti", A); assert.deepEqual((await r.json()).editors, ["amico@x.it", "master@x.it"]); ok("editor: l'elenco utenti riporta i permessi");
+  r = await az({ azione: "editor", email: "master@x.it", attivo: false }); j = await r.json(); assert.deepEqual(j.editors, ["amico@x.it"]); ok("editor: permesso tolto");
+  delete env.DB;
+}
 delete env.PRIVATE_REPO_TOKEN; r = await chiama("/api/dati/watchlist", A); assert.equal(r.status, 503); ok("token mancante → 503 chiaro");
 console.log("OK: verifica_archivio");

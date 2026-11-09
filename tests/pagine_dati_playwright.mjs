@@ -22,7 +22,7 @@ const srv = http.createServer(async (q, r) => {
     r.setHeader("content-type", f.endsWith(".js") ? "text/javascript" : f.endsWith(".json") ? "application/json" : f.endsWith(".css") ? "text/css" : "text/html"); r.end(d); });
 }).listen(8767, async () => {
   const b = await chromium.launch(), p = await b.newPage({ viewport: { width: 1400, height: 1000 } });
-  p.on("pageerror", (e) => console.log("ERR", e.message)); p.on("dialog", (d) => d.accept());
+  p.on("pageerror", (e) => console.log("ERR", e.message)); let rifiuta = false; p.on("dialog", (d) => (rifiuta ? d.dismiss() : d.accept()));
   const ok = (n, c) => console.log((c ? "✓ " : "✗ ") + n);
   await p.goto("http://localhost:8767/watchlist.html"); await p.waitForTimeout(700);
   ok("watchlist: 2 righe", (await p.$$eval("#tab tbody tr", (e) => e.length)) === 2);
@@ -32,6 +32,12 @@ const srv = http.createServer(async (q, r) => {
   ok("watchlist: modifica livelli", st.wl.entries.find((e) => e.ticker === "NVDA").levels.L2 === 90);
   await p.click('tr[data-t="NVDA"]'); await p.click("#b-del"); await p.waitForTimeout(600);
   ok("watchlist: rimozione", !st.wl.entries.some((e) => e.ticker === "NVDA"));
+  ok("watchlist: modulo di inserimento in cima", await p.evaluate(() => document.getElementById("f-add").compareDocumentPosition(document.getElementById("tab")) & Node.DOCUMENT_POSITION_FOLLOWING));
+  const prima = st.wl.entries.length, tk = await p.$eval("button.del", (b) => b.dataset.del);
+  rifiuta = true; await p.click("button.del"); await p.waitForTimeout(400); rifiuta = false;
+  ok("watchlist: annulla conferma → non rimuove", st.wl.entries.length === prima);
+  await p.click(`button.del[data-del="${tk}"]`); await p.waitForTimeout(600);
+  ok("watchlist: 🗑️ di riga rimuove (anche senza aprire il dettaglio)", st.wl.entries.length === prima - 1 && !st.wl.entries.some((e) => e.ticker === tk) && (await p.$$eval("#det .box", (e) => e.length)) === 0);
   await p.screenshot({ path: out + "/wl.png", fullPage: true });
   await p.goto("http://localhost:8767/portafoglio.html"); await p.waitForTimeout(700);
   ok("portafoglio: ADBE con prezzo dallo screening", (await p.textContent("#tab")).includes("290,50"));

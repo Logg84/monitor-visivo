@@ -25,8 +25,11 @@
   <nav class="menu" id="menu" aria-label="Pagine"></nav>
 </header>
 <main class="col">
-  <p class="muted">La watchlist del repo privato (👤 manuale = tua, intoccabile dall'automazione; 🤖 auto = gestita dal sistema). Le modifiche vengono salvate come commit nel repo privato. Lettura, mai ordine.</p>
+  <p class="muted">La tua watchlist personale: ognuno vede e modifica solo la propria (👤 manuale = inserito da te; 🤖 auto = aggiunto dal sistema). Puoi togliere qualsiasi titolo col pulsante 🗑️ in fondo alla riga. Le modifiche vengono salvate come commit nel repo privato. Lettura, mai ordine.</p>
   <div id="esito"></div>
+  <div class="box"><h3>➕ Aggiungi titolo (👤 manuale)</h3>
+    <form id="f-add"><label>Ticker (es. CPR.MI o CPR)<input id="a-t" required></label><label>L1 (supporto forte)<input id="a-l1" type="number" step="any" min="0"></label><label>L2 (supporto medio)<input id="a-l2" type="number" step="any" min="0"></label><label>L3 (resistenza)<input id="a-l3" type="number" step="any" min="0"></label><label>Data target (alert)<input id="a-td" type="date"></label><button class="az pri" type="submit">Aggiungi</button></form>
+    <p class="muted">Il ticker va scritto come su Yahoo Finance (suffisso di borsa incluso). Settore e VWAP li compila il sistema alla prossima riconciliazione. L1/L2/L3 sono livelli personali, non entrano nei calcoli.</p></div>
   <section class="controlli" aria-label="Filtri">
     <label>Cerca<input id="f-q" placeholder="ticker o nome"></label>
     <label>Origine<select id="f-or"><option value="">tutte</option><option value="manual">👤 solo i miei (manuali)</option><option value="auto">🤖 solo automatici</option></select></label>
@@ -36,9 +39,6 @@
   </section>
   <div class="kpis" id="kpi"></div>
   <div class="tabella-wrap"><table id="tab"></table></div>
-  <div class="box"><h3>➕ Aggiungi titolo (👤 manuale)</h3>
-    <form id="f-add"><label>Ticker (es. CPR.MI o CPR)<input id="a-t" required></label><label>L1 (supporto forte)<input id="a-l1" type="number" step="any" min="0"></label><label>L2 (supporto medio)<input id="a-l2" type="number" step="any" min="0"></label><label>L3 (resistenza)<input id="a-l3" type="number" step="any" min="0"></label><label>Data target (alert)<input id="a-td" type="date"></label><button class="az pri" type="submit">Aggiungi</button></form>
-    <p class="muted">Il ticker va scritto come su Yahoo Finance (suffisso di borsa incluso). Settore e VWAP li compila il sistema alla prossima riconciliazione. L1/L2/L3 sono livelli personali, non entrano nei calcoli.</p></div>
   <div id="det"></div>
 </main>
 <footer class="piede">Dati: data/watchlist.json del repo privato (letti dal vivo) + ultimo screening. Aggiungere, togliere e modificare i livelli crea un commit nel repo privato; i workflow usano subito il nuovo file.</footer>
