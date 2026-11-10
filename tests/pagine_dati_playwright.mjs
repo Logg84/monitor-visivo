@@ -11,7 +11,7 @@ const j = (r, o, s = 200) => { r.writeHead(s, { "content-type": "application/jso
 const body = (q) => new Promise((ok) => { let b = ""; q.on("data", (d) => (b += d)); q.on("end", () => ok(b ? JSON.parse(b) : {})); });
 const srv = http.createServer(async (q, r) => {
   const u = q.url.split("?")[0];
-  if (u === "/api/screening") return j(r, { data: "2026-11-05", righe: [{ ticker: "ADBE", segnale: "WATCH", punti: 3, extra: { Prezzo: 290.5, "DD%": -35.2, RSI: 41, Wyckoff: "Acc" } }, { ticker: "CASY", segnale: null, punti: 2, extra: { Prezzo: 650 } }] });
+  if (u === "/api/screening") return j(r, { data: "2026-11-05", righe: [{ ticker: "ADBE", segnale: "WATCH", punti: 3, extra: { Prezzo: 290.5, "DD%": -35.2, RSI: 41, Wyckoff: "Acc" } }, { ticker: "CASY", segnale: null, punti: 2, extra: { Prezzo: 650, Qualita_Dati: "⚠️ dato fermo da 2 sedute (ultima barra 2026-11-03); 2 barre da fonte di backup (tiingo)" } }] });
   if (u === "/api/dati/watchlist") return j(r, { sha: "v" + versione, puo_modificare: true, dati: st.wl });
   if (u === "/api/watchlist") { const b = await body(q); const x = applicaOp(st.wl.entries, b); if (!x.ok) return j(r, { errore: x.errore }, 400); st.wl.entries = x.voci; versione++; return j(r, { ok: true }); }
   if (u === "/api/dati/portafoglio") return j(r, { sha: "v" + versione, puo_modificare: true, colonne: COL_PORT, righe: st.port });
@@ -26,6 +26,7 @@ const srv = http.createServer(async (q, r) => {
   const ok = (n, c) => console.log((c ? "✓ " : "✗ ") + n);
   await p.goto("http://localhost:8767/watchlist.html"); await p.waitForTimeout(700);
   ok("watchlist: 2 righe", (await p.$$eval("#tab tbody tr", (e) => e.length)) === 2);
+  ok("watchlist: badge «dato fermo da 2 sedute» solo su CASY, testo completo nel tooltip", (await p.$$eval("#tab .bq", (e) => e.map((x) => x.textContent + "|" + x.title))).join() === "⚠️ dato fermo da 2 sedute|dato fermo da 2 sedute (ultima barra 2026-11-03); 2 barre da fonte di backup (tiingo)");
   await p.fill("#a-t", "nvda"); await p.fill("#a-l1", "100"); await p.click("#f-add button"); await p.waitForTimeout(600);
   ok("watchlist: aggiunta NVDA", st.wl.entries.some((e) => e.ticker === "NVDA" && e.levels.L1 === 100));
   await p.click('tr[data-t="NVDA"]'); await p.fill("#e-l2", "90"); await p.click("#f-ed button[type=submit]"); await p.waitForTimeout(600);

@@ -129,3 +129,5 @@ main.col>p.muted{max-width:none}
 
 .banner-api{position:sticky;top:0;z-index:60;background:#fef3c7;color:#78350f;border-bottom:2px solid #d97706;padding:8px 16px;font-size:14px;font-weight:600}
 @media print{.banner-api{display:none}}
+
+.bq{display:inline-block;padding:1px 7px;border-radius:10px;border:1px solid var(--ambra);background:color-mix(in srgb,var(--ambra) 16%,transparent);font-size:.78rem;white-space:nowrap;max-width:15rem;overflow:hidden;text-overflow:ellipsis;vertical-align:middle}

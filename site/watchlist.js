@@ -5,6 +5,12 @@
   const MESI4 = 4 * 30.5 * 864e5;
   const rivedere = (e) => { const t = Date.parse(e.last_reviewed || e.created); return Number.isFinite(t) && Date.now() - t > MESI4; };
   const nomeSett = (e) => e.sector || "n/d";
+  // «Qualità dati» dello screening: «—» = nessun problema; altrimenti l'etichetta (es. «dato fermo da 2 sedute», «2 barre da fonte di backup»).
+  function badgeDati(ex) {
+    const q = String((ex && ex.Qualita_Dati) || "").replace(/^⚠️\s*/, "").trim();
+    if (!q || q === "—") return "";
+    return `<span class="bq" title="${esc(q)}">⚠️ ${esc(q.split(";")[0].replace(/\s*\(.*$/, ""))}</span>`;
+  }
   const lv = (e) => ["L1", "L2", "L3"].map((k) => (e.levels && num(e.levels[k]) !== null ? `${k} ${fmt(e.levels[k])}` : "")).filter(Boolean).join(" · ");
 
   function filtrate() {
@@ -17,12 +23,12 @@
     $("conteggio").textContent = `${d.length} su ${tot.length}`;
     $("kpi").innerHTML = [["Titoli", tot.length], ["👤 manuali", tot.filter((e) => e.origin === "manual").length], ["🤖 auto", tot.filter((e) => e.origin !== "manual").length],
       ["Da rivedere", tot.filter(rivedere).length], ["Con data target", tot.filter((e) => e.target_date).length]].map(([k, v]) => `<div><span>${k}</span><b>${v}</b></div>`).join("");
-    const testa = ["Ticker", "Orig.", "Settore", "Livelli personali", "Data target", "Rivisto", "Segnale", "Punti", "Prezzo", "DD%", "RSI", "Wyckoff", ""];
+    const testa = ["Ticker", "Orig.", "Settore", "Livelli personali", "Data target", "Rivisto", "Segnale", "Punti", "Prezzo", "DD%", "RSI", "Wyckoff", "Dati", ""];
     $("tab").innerHTML = `<thead><tr>${testa.map((t) => `<th>${t}</th>`).join("")}</tr></thead><tbody>` + (d.length ? d.map((e) => {
       const x = scr[e.ticker] || {}, ex = x.extra || {};
       return `<tr class="cl${e.ticker === sel ? " sel" : ""}" data-t="${esc(e.ticker)}"><td><b class="tk" data-scheda="${esc(e.ticker)}">${esc(e.ticker)}</b></td><td>${e.origin === "manual" ? "👤" : "🤖"}</td><td>${esc(nomeSett(e))}</td><td>${esc(lv(e)) || "–"}</td>
         <td>${esc(dmy(e.target_date))}</td><td>${esc(dmy(e.last_reviewed))}${rivedere(e) ? " ⏳" : ""}</td><td>${esc(x.segnale || "–")}</td><td>${x.punti ?? "–"}</td>
-        <td>${fmt(ex.Prezzo)}</td><td>${num(ex["DD%"]) === null ? "–" : fmt(ex["DD%"], 1) + "%"}</td><td>${num(ex.RSI) === null ? "–" : fmt(ex.RSI, 0)}</td><td>${esc(ex.Wyckoff || "–")}</td><td><button type="button" class="az del" data-del="${esc(e.ticker)}" title="Rimuovi ${esc(e.ticker)} dalla watchlist" aria-label="Rimuovi ${esc(e.ticker)}">🗑️</button></td></tr>`;
+        <td>${fmt(ex.Prezzo)}</td><td>${num(ex["DD%"]) === null ? "–" : fmt(ex["DD%"], 1) + "%"}</td><td>${num(ex.RSI) === null ? "–" : fmt(ex.RSI, 0)}</td><td>${esc(ex.Wyckoff || "–")}</td><td>${badgeDati(ex)}</td><td><button type="button" class="az del" data-del="${esc(e.ticker)}" title="Rimuovi ${esc(e.ticker)} dalla watchlist" aria-label="Rimuovi ${esc(e.ticker)}">🗑️</button></td></tr>`;
     }).join("") : `<tr><td colspan="${testa.length}" class="vuoto">Nessun titolo con questi filtri.</td></tr>`) + "</tbody>";
     dettaglio();
   }
