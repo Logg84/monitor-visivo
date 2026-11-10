@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Report · basewatch</title>
+<link rel="stylesheet" href="style.css">
+<style>
+  main.col{max-width:980px;margin:0 auto}
+  .rep-sez{background:var(--superficie);border:1px solid var(--bordo);border-radius:12px;padding:14px 18px;margin:14px 0;break-inside:avoid}
+  .rep-sez h2{margin:0 0 8px;font-size:18px}
+  .rep-kpi{display:flex;gap:14px;flex-wrap:wrap;margin:8px 0}.rep-kpi div{border:1px solid var(--bordo);border-radius:10px;padding:6px 12px;display:grid}.rep-kpi span{font-size:12px;color:var(--muto)}.rep-kpi b{font-size:17px}
+  .pos{color:var(--ok,#1a7f37)}.neg{color:var(--errore,#cf222e)}
+  .nota-fin{font-size:13px;border-left:4px solid var(--bordo);padding:6px 12px}
+  @media print{
+    .top .menu,#azioni,.piede,.btn{display:none !important}
+    body{background:#fff;color:#000}
+    .rep-sez{border:1px solid #999;box-shadow:none}
+    main.col{max-width:none}
+  }
+</style>
+</head>
+<body>
+<header class="top">
+  <div class="titolo">
+    <h1>📰 Report quindicinale</h1>
+    <p id="sottotitolo" class="muted">Caricamento…</p>
+  </div>
+  <nav class="menu" id="menu" aria-label="Pagine"></nav>
+</header>
+<main class="col">
+  <p id="azioni"><button type="button" class="btn" id="stampa">🖨️ Stampa / salva in PDF</button></p>
+  <div id="rep"></div>
+</main>
+<footer class="piede">Il report esce il 1° e il 3° lunedì del mese. I numeri sono calcolati dal portale; il riquadro «In breve» è riscritto da un'AI solo se non cita numeri assenti dai dati. Lettura, mai ordine.</footer>
+<script src="nav.js"></script>
+<script src="report.js"></script>
+</body>
+</html>
