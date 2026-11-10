@@ -126,3 +126,6 @@ main.col>p.muted{max-width:none}
 [hidden]{display:none!important}
 
 .scheda-ai{border:1px solid var(--bordo,#d0d7de);border-radius:8px;padding:10px 14px;margin:8px 0;max-width:80ch}.scheda-ai h4{margin:10px 0 2px;font-size:12px;letter-spacing:.05em}.scheda-ai p{margin:4px 0;line-height:1.5}
+
+.banner-api{position:sticky;top:0;z-index:60;background:#fef3c7;color:#78350f;border-bottom:2px solid #d97706;padding:8px 16px;font-size:14px;font-weight:600}
+@media print{.banner-api{display:none}}

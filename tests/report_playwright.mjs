@@ -12,7 +12,7 @@ let modo = "ok";
 const srv = http.createServer((q, r) => {
   const u = q.url.split("?")[0];
   if (u === "/api/utenti/me") return j(r, { abilitato: true, admin: false });
-  if (u === "/api/pagina/report") return modo === "404" ? j(r, { errore: "pagina non ancora caricata" }, 404) : j(r, { aggiornato: "2026-11-16T05:10:00+00:00", dati: { report: R, archivio: ["2026-11-16"] } });
+  if (u === "/api/pagina/report") return modo === "404" ? j(r, { errore: "pagina non ancora caricata" }, 404) : modo === "502" ? j(r, { errore: "x" }, 502) : j(r, { aggiornato: "2026-11-16T05:10:00+00:00", dati: { report: R, archivio: ["2026-11-16"] } });
   const f = path.join(root, u); fs.readFile(f, (e, d) => { if (e) { r.writeHead(404); return r.end(); }
     r.setHeader("content-type", f.endsWith(".js") ? "text/javascript" : f.endsWith(".css") ? "text/css" : "text/html"); r.end(d); });
 }).listen(8771, async () => {
@@ -34,6 +34,9 @@ const srv = http.createServer((q, r) => {
   await p.screenshot({ path: out + "/report.png", fullPage: true });
   modo = "404"; await p.goto("http://localhost:8771/report.html"); await p.waitForTimeout(400);
   ok("report: 404 → messaggio chiaro", (await p.textContent("#sottotitolo")).includes("Nessun report ancora"));
+  ok("banner API: assente con 404", (await p.$$("#banner-api")).length === 0);
+  modo = "502"; await p.goto("http://localhost:8771/report.html"); await p.waitForTimeout(400);
+  ok("banner API: giallo e visibile con errore 5xx", (await p.$$("#banner-api")).length === 1 && (await p.textContent("#banner-api")).includes("502"));
   ok("report: nessun errore JS", err === 0);
   await b.close(); srv.close();
 });
