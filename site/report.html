@@ -8,16 +8,35 @@
 <link rel="stylesheet" href="style.css">
 <style>
   main.col{max-width:980px;margin:0 auto}
-  .rep-sez{background:var(--superficie);border:1px solid var(--bordo);border-radius:12px;padding:14px 18px;margin:14px 0;break-inside:avoid}
-  .rep-sez h2{margin:0 0 8px;font-size:18px}
-  .rep-kpi{display:flex;gap:14px;flex-wrap:wrap;margin:8px 0}.rep-kpi div{border:1px solid var(--bordo);border-radius:10px;padding:6px 12px;display:grid}.rep-kpi span{font-size:12px;color:var(--muto)}.rep-kpi b{font-size:17px}
-  .pos{color:var(--ok,#1a7f37)}.neg{color:var(--errore,#cf222e)}
-  .nota-fin{font-size:13px;border-left:4px solid var(--bordo);padding:6px 12px}
+  .hero{background:linear-gradient(120deg,var(--accento),#7c3aed);color:#fff;border-radius:14px;padding:18px 22px;margin:8px 0 14px;display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;align-items:center}
+  .hero h2{margin:0;font-size:22px;color:#fff}.hero p{margin:4px 0 0;opacity:.9;font-size:13px}
+  .badge-reg{font-size:18px;font-weight:700;padding:8px 18px;border-radius:999px;background:rgba(255,255,255,.18);border:2px solid rgba(255,255,255,.7)}
+  .rep-sez{background:var(--superficie);border:1px solid var(--bordo);border-left:5px solid var(--accento);border-radius:12px;padding:14px 18px;margin:14px 0}
+  .rep-sez h2{margin:0 0 10px;font-size:18px;display:flex;align-items:center;gap:10px}
+  .num{display:inline-grid;place-items:center;width:26px;height:26px;border-radius:50%;background:var(--accento);color:#fff;font-size:14px;font-weight:700}
+  .s1{border-left-color:#2563eb}.s1 .num{background:#2563eb}.s2{border-left-color:#0d9488}.s2 .num{background:#0d9488}.s3{border-left-color:#d97706}.s3 .num{background:#d97706}
+  .s4{border-left-color:#7c3aed}.s4 .num{background:#7c3aed}.s5{border-left-color:#db2777}.s5 .num{background:#db2777}.s6{border-left-color:#64748b}.s6 .num{background:#64748b}
+  .rep-kpi{display:flex;gap:12px;flex-wrap:wrap;margin:8px 0}.rep-kpi div{border:1px solid var(--bordo);border-radius:10px;padding:6px 14px;display:grid;background:var(--bg)}.rep-kpi span{font-size:12px;color:var(--muto)}.rep-kpi b{font-size:18px}
+  .chips{display:flex;gap:8px;flex-wrap:wrap;margin:6px 0}.sch{padding:5px 14px;border-radius:999px;font-weight:700;color:#fff;font-size:14px}
+  table.rt{width:100%;border-collapse:collapse}table.rt th{font-size:12px;color:var(--muto);text-align:left;padding:6px 8px;border-bottom:2px solid var(--bordo)}table.rt td{padding:6px 8px;border-bottom:1px solid var(--bordo)}
+  table.rt tr.gr td{font-weight:700;color:#fff;padding:7px 10px}
+  .pt{display:inline-block;min-width:34px;text-align:center;padding:2px 8px;border-radius:6px;font-weight:700;font-size:13px;color:#fff}.p6{background:#15803d}.p5{background:#4d9f3a}.p4{background:#d97706}
+  .dd{display:inline-block;height:8px;border-radius:4px;background:#e11d48;vertical-align:middle;margin-left:6px;opacity:.75}
+  .pos{color:var(--verde);font-weight:700}.neg{color:var(--rosso);font-weight:700}
+  .avv{background:rgba(217,119,6,.12);border:1px solid #d97706;border-radius:8px;padding:8px 12px;font-size:13px;margin-top:8px}
+  .nota-fin{font-size:13px;border-left:4px solid var(--bordo);padding:6px 12px;margin:0}
+  @page{size:A4;margin:11mm}
   @media print{
+    :root{--bg:#fff;--superficie:#fff;--bordo:#cbd5e1;--testo:#111827;--muto:#475569;--accento:#2563eb;--verde:#15803d;--rosso:#be123c}
+    *{-webkit-print-color-adjust:exact;print-color-adjust:exact}
     .top .menu,#azioni,.piede,.btn{display:none !important}
-    body{background:#fff;color:#000}
-    .rep-sez{border:1px solid #999;box-shadow:none}
-    main.col{max-width:none}
+    html,body{height:auto;background:#fff;color:#111827}
+    .top{padding:0;border:0}.top .titolo{display:none}
+    main.col{max-width:none;padding:0}
+    .hero{margin:0 0 8px}
+    .rep-sez{margin:8px 0;padding:10px 14px;box-shadow:none;break-inside:auto}
+    table.rt{font-size:11px}table.rt td{padding:3px 8px}.rep-sez h2{margin-bottom:6px}.rep-kpi div{padding:4px 12px}thead{display:table-header-group}tr{break-inside:avoid}tr.gr{break-after:avoid}
+    .rep-sez h2{break-after:avoid}
   }
 </style>
 </head>
@@ -31,6 +50,7 @@
 </header>
 <main class="col">
   <p id="azioni"><button type="button" class="btn" id="stampa">🖨️ Stampa / salva in PDF</button></p>
+  <div class="hero" id="hero" hidden></div>
   <div id="rep"></div>
 </main>
 <footer class="piede">Il report esce il 1° e il 3° lunedì del mese. I numeri sono calcolati dal portale; il riquadro «In breve» è riscritto da un'AI solo se non cita numeri assenti dai dati. Lettura, mai ordine.</footer>
