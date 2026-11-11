@@ -26,7 +26,13 @@
     <p class="muted" style="margin:0;font-size:12.5px">Gli alert della tua watchlist arrivano sulla tua chat Telegram (dopo il prossimo giro automatico dopo il salvataggio). Gli avvisi su email non sono ancora attivi: per ora scegli Telegram.</p>
     <label>Canale<select id="canale"><option value="telegram">Telegram</option><option value="email">Email (non ancora attiva)</option><option value="entrambi">Telegram ed email (email non ancora attiva)</option><option value="nessuno">Nessuno (solo il sito)</option></select></label>
     <label id="l-chat">Chat ID di Telegram<input id="chat" inputmode="numeric" placeholder="es. 123456789"></label>
-    <p id="aiuto-chat" class="muted" style="margin:-6px 0 0;font-size:12.5px">Per trovarlo: apri Telegram, scrivi a <b>@userinfobot</b> e copia il numero «Id». Poi scrivi un messaggio qualsiasi al bot degli alert di questo portale, altrimenti non potrà scriverti.</p>
+    <div id="aiuto-chat" class="muted" style="font-size:12.5px">
+      <p style="margin:-6px 0 6px">Il modo più semplice: premi il pulsante, poi scrivi al bot degli alert di questo portale il messaggio <b>/start CODICE</b>. Il collegamento è automatico, senza cercare il Chat ID.</p>
+      <button type="button" id="gen">Genera codice di collegamento</button>
+      <div id="cod" hidden style="margin-top:8px">Scrivi al bot su Telegram: <b id="cod-txt" style="font-size:16px;letter-spacing:1px;user-select:all"></b><br><span id="cod-info"></span></div>
+      <details style="margin-top:8px"><summary>Preferisco inserire il Chat ID a mano</summary>
+        <p style="margin:6px 0 0">Apri Telegram, scrivi a <b>@userinfobot</b> e copia il numero «Id»; poi scrivi un messaggio qualsiasi al bot degli alert, altrimenti non potrà scriverti.</p></details>
+    </div>
     <label id="l-mail">Email per gli alert<input id="mail" type="email" placeholder="nome@azienda.it"></label>
     <label>Nome visualizzato<input id="nome" maxlength="80"></label>
     <div><button class="primario" type="submit">Salva</button> <span id="esito" role="status"></span></div>
@@ -45,6 +51,21 @@
   $("f").hidden = false; $("canale").value = m.canale || "telegram"; $("chat").value = m.telegram_chat_id || ""; $("mail").value = m.email_alert || m.email; $("nome").value = m.nome || "";
   const mostra = () => { const c = $("canale").value; $("l-chat").hidden = $("aiuto-chat").hidden = !(c === "telegram" || c === "entrambi"); $("l-mail").hidden = !(c === "email" || c === "entrambi"); };
   $("canale").addEventListener("input", mostra); mostra();
+  let timer = null;
+  $("gen").addEventListener("click", async () => {
+    const x = await fetch("/api/utenti/collegamento", { method: "POST", headers: { "content-type": "application/json" }, body: "{}" });
+    const j = await x.json().catch(() => ({}));
+    if (!x.ok) { $("cod").hidden = false; $("cod-txt").textContent = ""; $("cod-info").textContent = j.errore || "errore " + x.status; return; }
+    $("cod").hidden = false; $("cod-txt").textContent = "/start " + j.codice;
+    $("cod-info").textContent = "Il codice vale " + j.scade_in_min + " minuti e si usa una volta sola. Aspetto il tuo messaggio…";
+    clearInterval(timer); const fine = Date.now() + j.scade_in_min * 60000;
+    timer = setInterval(async () => {
+      if (Date.now() > fine) { clearInterval(timer); $("cod-info").textContent = "Codice scaduto: generane un altro."; return; }
+      const y = await fetch("/api/utenti/me", { cache: "no-store" }); if (!y.ok) return;
+      const m2 = await y.json();
+      if (m2.telegram_chat_id && m2.telegram_chat_id !== $("chat").value) { clearInterval(timer); $("chat").value = m2.telegram_chat_id; $("canale").value = m2.canale; mostra(); $("cod-info").textContent = "✅ Collegato! Il Chat ID è stato compilato."; }
+    }, 4000);
+  });
   $("f").addEventListener("submit", async (ev) => {
     ev.preventDefault(); const es = $("esito"); es.className = ""; es.textContent = "Salvo…";
     const x = await fetch("/api/utenti/me", { method: "POST", headers: { "content-type": "application/json" },

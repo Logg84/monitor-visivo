@@ -179,6 +179,13 @@ export async function scriviOverride(env, chiave, valori, utente) {
   throw new Error("conflitto di salvataggio, riprova");
 }
 
+/** Confronto di stringhe a tempo costante (lunghezze diverse → falso). */
+function ugualeCostante(a, b) {
+  if (a.length !== b.length) return false;
+  let d = 0; for (let i = 0; i < a.length; i++) d |= a.charCodeAt(i) ^ b.charCodeAt(i);
+  return d === 0;
+}
+
 export default {
   async scheduled(controller, env, ctx) {
     ctx.waitUntil(eseguiCron(controller.cron, env));
@@ -186,6 +193,18 @@ export default {
   async fetch(request, env, ctx) {
     const url = new URL(request.url);
     if (!url.pathname.startsWith("/api/")) return env.ASSETS.fetch(request);
+
+    // Webhook di Telegram: senza login (Access lo lascia passare con una policy Bypass su questo solo percorso).
+    // L'unica difesa è l'header segreto: nessuna lettura/scrittura D1 né chiamata a Telegram prima del controllo.
+    if (url.pathname === "/api/telegram/webhook") {
+      if (request.method !== "POST") return json({ errore: "metodo non consentito" }, 405);
+      const atteso = String(env.TELEGRAM_WEBHOOK_SECRET || "");
+      if (!atteso) return json({ errore: "webhook non configurato" }, 503);
+      if (!ugualeCostante(request.headers.get("x-telegram-bot-api-secret-token") || "", atteso)) return json({ errore: "vietato" }, 403);
+      let upd; try { upd = await request.json(); } catch (e) { return json({ ok: true }); }
+      if (env.DB) ctx.waitUntil(ut.gestisciUpdate(env.DB, env, upd).catch(() => {}));
+      return json({ ok: true });
+    }
 
     // Porta del portale: chi passa da Access ma non è amministratore né abilitato vede solo la richiesta di accesso.
     if (modoAccess(env) && env.DB && url.pathname !== "/api/richiedi" && url.pathname !== "/api/access-info" && url.pathname !== "/api/me"
@@ -266,7 +285,7 @@ export default {
       if (r.nuova) await ut.notificaTelegram(env, `👋 Nuova richiesta di accesso al portale\n${r.nome} <${r.email}>\nApprova o rifiuta dalla pagina Utenti.`);
       return json({ ok: true });
     }
-    if (url.pathname === "/api/utenti/me" || url.pathname === "/api/utenti/richiesta" || url.pathname === "/api/utenti" || url.pathname === "/api/utenti/azione" || url.pathname === "/api/utenti/access-test" || url.pathname === "/api/utenti/telegram-test") {
+    if (url.pathname === "/api/utenti/me" || url.pathname === "/api/utenti/richiesta" || url.pathname === "/api/utenti" || url.pathname === "/api/utenti/azione" || url.pathname === "/api/utenti/access-test" || url.pathname === "/api/utenti/telegram-test" || url.pathname === "/api/utenti/collegamento") {
       const io = await identita(request, env);
       if (!io || io.modalita !== "access") return json({ errore: "non autenticato" }, 401);
       if (!env.DB) return json({ errore: "database non collegato" }, 503);
@@ -289,6 +308,13 @@ export default {
         if (request.method === "POST") { const r = await ut.aggiornaProfilo(env.DB, io.email, b); if (!r.ok) return json({ errore: r.errore }, r.stato); await ut.esportaUtentiAlert(env.DB, env); }
         const q = request.method === "POST" ? await ut.profilo(env.DB, io.email) : p;
         return json({ email: io.email, admin: false, abilitato: true, uid: q.uid, nome: q.nome, canale: q.canale, telegram_chat_id: q.telegram_chat_id, email_alert: q.email_alert });
+      }
+      if (url.pathname === "/api/utenti/collegamento") {          // codice monouso per collegare la propria chat Telegram
+        if (request.method !== "POST") return json({ errore: "metodo non consentito" }, 405);
+        if (io.admin) return json({ errore: "l'amministratore usa gli alert del repo privato" }, 400);
+        if (!env.TELEGRAM_WEBHOOK_SECRET) return json({ errore: "Il collegamento automatico non è ancora attivo: inserisci il Chat ID a mano." }, 503);
+        const r = await ut.generaCodice(env.DB, io.email);
+        return r.ok ? json({ codice: r.codice, scade_in_min: r.scade_in_min }) : json({ errore: r.errore }, r.stato || 400);
       }
       if (!io.admin) return json({ errore: "riservato all'amministratore" }, 403);
       if (url.pathname === "/api/utenti/telegram-test") {

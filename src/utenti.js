@@ -15,6 +15,7 @@ export async function schema(db) {
   await db.batch([
     db.prepare("CREATE TABLE IF NOT EXISTS utenti (email TEXT PRIMARY KEY, uid TEXT NOT NULL UNIQUE, nome TEXT, canale TEXT NOT NULL DEFAULT 'telegram', telegram_chat_id TEXT, email_alert TEXT, creato TEXT NOT NULL, attivo INTEGER NOT NULL DEFAULT 1)"),
     db.prepare("CREATE TABLE IF NOT EXISTS richieste (email TEXT PRIMARY KEY, nome TEXT, messaggio TEXT, creato TEXT NOT NULL, stato TEXT NOT NULL DEFAULT 'attesa')"),
+    db.prepare("CREATE TABLE IF NOT EXISTS codici (codice TEXT PRIMARY KEY, email TEXT NOT NULL, creato TEXT NOT NULL, scadenza TEXT NOT NULL, usato TEXT)"),
   ]);
   pronto = true;
 }
@@ -242,4 +243,89 @@ export async function esportaUtentiAlert(db, env, fetchFn = fetch) {
     if (att.testo === testo) return { ok: true, invariato: true };
     return await scriviFile(env, "utenti_alert", testo, att.sha, "chore: utenti per gli alert Telegram", fetchFn);
   } catch (e) { return { ok: false, errore: String(e && e.message || e) }; }
+}
+
+
+// ── Collegamento automatico del Chat ID Telegram ──────────────────────────────────────────────────
+// L'utente (già autenticato da Access) genera un codice dal Profilo e scrive «/start CODICE» al bot:
+// il webhook (src/worker.js) collega la chat al suo profilo. Il furto di un codice dirotta solo gli alert di
+// chi l'ha generato; non espone dati. Codice monouso, 15 minuti, solo chat private.
+export const TTL_CODICE_MIN = 15;
+const ALFABETO = "ABCDEFGHJKMNPQRSTUVWXYZ23456789";            // senza 0/O, 1/I/L
+const FORMA_CODICE = /^[A-Z2-9]{8}$/;
+
+export function nuovoCodice() {
+  const b = crypto.getRandomValues(new Uint8Array(8));
+  return Array.from(b, (x) => ALFABETO[x % ALFABETO.length]).join("");    // 31 simboli: bias trascurabile, ~39 bit
+}
+
+/** Genera un codice per un utente abilitato (non l'admin, che non ha riga). Un solo codice attivo per email. */
+export async function generaCodice(db, email, ora = new Date()) {
+  await schema(db);
+  const e = norm(email);
+  const u = await db.prepare("SELECT attivo FROM utenti WHERE email=?").bind(e).first();
+  if (!u || !u.attivo) return { ok: false, stato: 403, errore: "Utente non abilitato." };
+  const adesso = ora.toISOString();
+  await db.prepare("DELETE FROM codici WHERE scadenza < ? OR (email=? AND usato IS NULL)").bind(adesso, e).run();
+  const codice = nuovoCodice();
+  const scadenza = new Date(ora.getTime() + TTL_CODICE_MIN * 60000).toISOString();
+  await db.prepare("INSERT INTO codici (codice,email,creato,scadenza,usato) VALUES (?,?,?,?,NULL)").bind(codice, e, adesso, scadenza).run();
+  return { ok: true, codice, scade_in_min: TTL_CODICE_MIN };
+}
+
+/** Consuma il codice in modo atomico (vince il primo) e collega la chat. {ok, email, nome, precedente} | {ok:false} */
+export async function collegaChat(db, codice, chatId, ora = new Date()) {
+  await schema(db);
+  const c = String(codice || "").trim().toUpperCase();
+  const chat = String(chatId || "");
+  if (!FORMA_CODICE.test(c) || !/^\d{5,16}$/.test(chat)) return { ok: false };   // solo chat private (id positivo)
+  const r = await db.prepare("UPDATE codici SET usato=? WHERE codice=? AND usato IS NULL AND scadenza > ? RETURNING email")
+    .bind(ora.toISOString(), c, ora.toISOString()).first();
+  if (!r) return { ok: false };
+  const u = await db.prepare("SELECT nome,canale,telegram_chat_id,attivo FROM utenti WHERE email=?").bind(r.email).first();
+  if (!u || !u.attivo) return { ok: false };
+  const canale = u.canale === "nessuno" ? "telegram" : u.canale === "email" ? "entrambi" : u.canale;
+  await db.prepare("UPDATE utenti SET telegram_chat_id=?, canale=? WHERE email=?").bind(chat, canale, r.email).run();
+  const prec = u.telegram_chat_id && String(u.telegram_chat_id) !== chat ? String(u.telegram_chat_id) : null;
+  return { ok: true, email: r.email, nome: u.nome || r.email, precedente: prec };
+}
+
+/** Invia un messaggio a una chat precisa (risposte del bot). Best-effort. */
+export async function inviaTelegramA(env, chatId, testo, fetchFn = fetch) {
+  if (!env.TELEGRAM_BOT_TOKEN) return { ok: false };
+  try {
+    const r = await fetchFn(`https://api.telegram.org/bot${String(env.TELEGRAM_BOT_TOKEN).trim()}/sendMessage`, { method: "POST", headers: { "content-type": "application/json" },
+      body: JSON.stringify({ chat_id: String(chatId), text: testo, disable_web_page_preview: true }) });
+    return { ok: r.ok };
+  } catch (e) { return { ok: false }; }
+}
+
+/** Gestisce un update del webhook. Risponde solo a /start CODICE, /stato, /scollega nelle chat private; il resto: silenzio. */
+export async function gestisciUpdate(db, env, update, fetchFn = fetch, ora = new Date()) {
+  const m = update && update.message;
+  if (!m || !m.chat || m.chat.type !== "private" || typeof m.text !== "string") return { azione: "ignorato" };
+  const chat = String(m.chat.id);
+  const [cmd0, ...resto] = m.text.trim().split(/\s+/);
+  const cmd = cmd0.toLowerCase().replace(/@\w+$/, "");
+  const invia = (t) => inviaTelegramA(env, chat, t, fetchFn);
+  if (cmd === "/start" && resto.length) {
+    const r = await collegaChat(db, resto[0], chat, ora);
+    if (!r.ok) { await invia("Codice non valido, scaduto o già usato. Generane uno nuovo dalla pagina Profilo del portale."); return { azione: "codice_errato" }; }
+    await invia(`✅ Collegato: gli alert della watchlist di ${r.nome} arriveranno su questa chat.\n/stato per verificare, /scollega per disattivare.`);
+    if (r.precedente) await inviaTelegramA(env, r.precedente, "ℹ️ La tua chat Telegram per gli alert è stata sostituita con un'altra. Se non sei stato tu, rigenera il collegamento dal Profilo.", fetchFn);
+    await esportaUtentiAlert(db, env, fetchFn);
+    return { azione: "collegato", email: r.email };
+  }
+  if (cmd === "/stato") {
+    const u = await db.prepare("SELECT nome,email,canale FROM utenti WHERE telegram_chat_id=? AND attivo=1").bind(chat).first();
+    await invia(u ? `Questa chat è collegata a ${u.nome || u.email} (canale: ${u.canale}).` : "Questa chat non è collegata a nessun profilo.");
+    return { azione: "stato" };
+  }
+  if (cmd === "/scollega") {
+    const u = await db.prepare("UPDATE utenti SET telegram_chat_id=NULL WHERE telegram_chat_id=? RETURNING email").bind(chat).first();
+    await invia(u ? "Chat scollegata: non riceverai più gli alert su Telegram." : "Questa chat non era collegata.");
+    if (u) await esportaUtentiAlert(db, env, fetchFn);
+    return { azione: "scollegato" };
+  }
+  return { azione: "ignorato" };
 }

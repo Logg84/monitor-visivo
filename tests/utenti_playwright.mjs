@@ -1,14 +1,15 @@
 // Prova nel browser: Richiedi accesso, Profilo, Utenti (API simulata).
 import { createRequire } from "node:module"; const { chromium } = createRequire(import.meta.url)("playwright"); import http from "node:http"; import fs from "node:fs"; import path from "node:path";
 const root = new URL("../site/", import.meta.url).pathname, out = process.argv[2] || "/tmp";
-let admin = false, richieste = [], salvato = null, azioni = [], inviata = null;
+let admin = false, richieste = [], salvato = null, azioni = [], inviata = null, codiciGenerati = 0, collegata = "";
 const j = (r, o, s = 200) => { r.writeHead(s, { "content-type": "application/json" }); r.end(JSON.stringify(o)); };
 const body = (q) => new Promise((ok) => { let b = ""; q.on("data", (d) => (b += d)); q.on("end", () => ok(b ? JSON.parse(b) : {})); });
 const srv = http.createServer(async (q, r) => {
   const u = q.url.split("?")[0];
   if (u === "/api/richiedi") { inviata = await body(q); return j(r, { ok: true }); }
   if (u === "/api/utenti/me") { if (q.method === "POST") { salvato = await body(q); if (salvato.canale === "telegram" && !salvato.telegram_chat_id) return j(r, { errore: "Per gli alert su Telegram serve il tuo Chat ID." }, 400); return j(r, {}); }
-    return j(r, admin ? { email: "m@x.it", admin: true, uid: "" } : { email: "anna@x.it", admin: false, uid: "anna", nome: "Anna", canale: "telegram", telegram_chat_id: "", email_alert: null }); }
+    return j(r, admin ? { email: "m@x.it", admin: true, uid: "" } : { email: "anna@x.it", admin: false, uid: "anna", nome: "Anna", canale: "telegram", telegram_chat_id: collegata, email_alert: null }); }
+  if (u === "/api/utenti/collegamento") { codiciGenerati++; return j(r, { codice: "K7M2QX9P", scade_in_min: 15 }); }
   if (u === "/api/utenti" ) return j(r, { access_automatico: false, richieste, editors: [], utenti: [{ email: "luca@x.it", uid: "luca", nome: "Luca", canale: "email", creato: "2026-11-01T10:00:00Z", attivo: 1 }] });
   if (u === "/api/utenti/azione") { const b = await body(q); azioni.push(b); richieste = []; return j(r, { ok: true, access: "manuale" }); }
   const f = path.join(root, u); fs.readFile(f, (e, d) => { if (e) { r.writeHead(404); return r.end(); }
@@ -23,6 +24,12 @@ const srv = http.createServer(async (q, r) => {
   ok("richiedi: campo-trappola vuoto", inviata.sito === "");
   await p.goto("http://localhost:8769/profilo.html"); await p.waitForTimeout(500);
   ok("profilo: form visibile, chat Telegram mostrata", await p.isVisible("#f") && await p.isVisible("#chat") && !(await p.isVisible("#mail")));
+  ok("profilo: pulsante di collegamento automatico visibile, codice nascosto", await p.isVisible("#gen") && !(await p.isVisible("#cod")));
+  await p.click("#gen"); await p.waitForTimeout(300);
+  ok("profilo: codice mostrato come «/start CODICE»", codiciGenerati === 1 && (await p.textContent("#cod-txt")) === "/start K7M2QX9P" && (await p.textContent("#cod-info")).includes("15 minuti"));
+  collegata = "424242424"; await p.waitForTimeout(4600);
+  ok("profilo: dopo il /start al bot il Chat ID si compila da solo", (await p.inputValue("#chat")) === "424242424" && (await p.textContent("#cod-info")).includes("Collegato"));
+  collegata = ""; await p.fill("#chat", "");
   await p.click("#f button[type=submit]"); await p.waitForTimeout(300);
   ok("profilo: errore se manca il Chat ID", (await p.textContent("#esito")).includes("Chat ID"));
   await p.selectOption("#canale", "entrambi"); ok("profilo: entrambi mostra i due campi", await p.isVisible("#chat") && await p.isVisible("#mail"));

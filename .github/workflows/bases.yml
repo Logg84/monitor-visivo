@@ -44,6 +44,8 @@ jobs:
           python tests/verifica_alert.py
           node tests/verifica_worker.mjs
           node tests/verifica_access.mjs
+          node tests/verifica_utenti.mjs
+          node tests/verifica_collegamento.mjs
       - name: Giro basi
         env:
           OLD_REPO: ${{ secrets.OLD_REPO }}
