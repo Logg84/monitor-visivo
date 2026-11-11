@@ -1,0 +1,55 @@
+{
+ "aggiornato": "2026-11-11",
+ "dati": {
+  "beta": 0.507,
+  "bilancio_annuale": {
+   "ricavi": {
+    "2022": 982000000.0,
+    "2023": 949700000.0,
+    "2024": 852400000.0,
+    "2025": 949100000.0
+   },
+   "utile_netto": {
+    "2022": 503900000.0,
+    "2023": 365000000.0,
+    "2024": 307700000.0,
+    "2025": 380400000.0
+   },
+   "utile_operativo": {
+    "2022": 479200000.0,
+    "2023": 358800000.0,
+    "2024": 242300000.0,
+    "2025": 340700000.0
+   }
+  },
+  "currency": "GBp",
+  "currentRatio": 3.119,
+  "debito_netto": -887000000,
+  "debtToEquity": 32.559,
+  "dividendYield": 4.51,
+  "earningsGrowth": 0.01,
+  "fiftyTwoWeekHigh": 1956.0,
+  "fiftyTwoWeekLow": 919.0,
+  "financialCurrency": "GBP",
+  "forwardPE": 7.3902,
+  "grossMargins": 0.4788,
+  "industry": "Capital Markets",
+  "longName": "IG Group Holdings plc",
+  "marketCap": 3189212672,
+  "numberOfAnalystOpinions": 8,
+  "operatingCashflow": 400828640,
+  "operatingMargins": 0.3593,
+  "payoutRatio": 0.4424,
+  "priceToBook": 1.7182,
+  "profitMargins": 0.4227,
+  "quickRatio": 3.042,
+  "recommendationKey": "strong_buy",
+  "revenueGrowth": 0.165,
+  "sector": "Financial Services",
+  "targetMeanPrice": 1477.25,
+  "totalCash": 1505200000,
+  "totalDebt": 618200000,
+  "trailingPE": 9.2143
+ },
+ "v": 2
+}

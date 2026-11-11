@@ -1,0 +1,61 @@
+{
+ "aggiornato": "2026-11-11",
+ "dati": {
+  "beta": 0.64,
+  "bilancio_annuale": {
+   "ricavi": {
+    "2022": 21995000000.0,
+    "2023": 22522000000.0,
+    "2024": 22096000000.0,
+    "2025": 22465000000.0
+   },
+   "utile_netto": {
+    "2022": 1547000000.0,
+    "2023": 1663000000.0,
+    "2024": 1671000000.0,
+    "2025": 1601000000.0
+   },
+   "utile_operativo": {
+    "2022": 2559000000.0,
+    "2023": 2584000000.0,
+    "2024": 2532000000.0,
+    "2025": 2501000000.0
+   }
+  },
+  "currency": "EUR",
+  "currentRatio": 1.279,
+  "debito_netto": 7907000320,
+  "debito_netto_su_ebitda": 2.56,
+  "debtToEquity": 87.509,
+  "dividendYield": 2.76,
+  "earningsGrowth": -0.307,
+  "ebitda": 3083000064,
+  "enterpriseToEbitda": 9.3,
+  "fiftyTwoWeekHigh": 153.05,
+  "fiftyTwoWeekLow": 85.62,
+  "financialCurrency": "EUR",
+  "forwardPE": 8.6215,
+  "freeCashflow": 1901874944,
+  "grossMargins": 0.2683,
+  "industry": "Information Technology Services",
+  "longName": "Capgemini SE",
+  "marketCap": 20241307648,
+  "numberOfAnalystOpinions": 17,
+  "operatingCashflow": 2468999936,
+  "operatingMargins": 0.112,
+  "payoutRatio": 0.432,
+  "priceToBook": 1.7964,
+  "profitMargins": 0.0587,
+  "quickRatio": 1.14,
+  "recommendationKey": "buy",
+  "returnOnAssets": 0.0599,
+  "returnOnEquity": 0.122,
+  "revenueGrowth": 0.088,
+  "sector": "Technology",
+  "targetMeanPrice": 150.9076,
+  "totalCash": 2279000064,
+  "totalDebt": 10186000384,
+  "trailingPE": 15.7497
+ },
+ "v": 2
+}
