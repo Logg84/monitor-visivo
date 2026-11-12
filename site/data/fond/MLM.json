@@ -1,0 +1,61 @@
+{
+ "aggiornato": "2026-11-12",
+ "dati": {
+  "beta": 1.029,
+  "bilancio_annuale": {
+   "ricavi": {
+    "2022": 6161000000.0,
+    "2023": 5851000000.0,
+    "2024": 5662000000.0,
+    "2025": 6150000000.0
+   },
+   "utile_netto": {
+    "2022": 867000000.0,
+    "2023": 1169000000.0,
+    "2024": 1995000000.0,
+    "2025": 1137000000.0
+   },
+   "utile_operativo": {
+    "2022": 1216000000.0,
+    "2023": 1325000000.0,
+    "2024": 1251000000.0,
+    "2025": 1455000000.0
+   }
+  },
+  "currency": "USD",
+  "currentRatio": 1.628,
+  "debito_netto": 13109999872,
+  "debito_netto_su_ebitda": 5.88,
+  "debtToEquity": 75.024,
+  "dividendYield": 0.64,
+  "earningsGrowth": -0.425,
+  "ebitda": 2231000064,
+  "enterpriseToEbitda": 22.585,
+  "fiftyTwoWeekHigh": 710.97,
+  "fiftyTwoWeekLow": 464.92,
+  "financialCurrency": "USD",
+  "forwardPE": 28.9782,
+  "freeCashflow": 1672625024,
+  "grossMargins": 0.2674,
+  "industry": "Building Materials",
+  "longName": "Martin Marietta Materials, Inc.",
+  "marketCap": 36791730176,
+  "numberOfAnalystOpinions": 24,
+  "operatingCashflow": 1524999936,
+  "operatingMargins": 0.2021,
+  "payoutRatio": 0.2485,
+  "priceToBook": 2.0834,
+  "profitMargins": 0.3188,
+  "quickRatio": 0.834,
+  "recommendationKey": "buy",
+  "returnOnAssets": 0.0327,
+  "returnOnEquity": 0.0602,
+  "revenueGrowth": 0.283,
+  "sector": "Basic Materials",
+  "targetMeanPrice": 627.0417,
+  "totalCash": 140000000,
+  "totalDebt": 13249999872,
+  "trailingPE": 38.6067
+ },
+ "v": 2
+}

@@ -1,0 +1,61 @@
+{
+ "aggiornato": "2026-11-12",
+ "dati": {
+  "beta": 0.89,
+  "bilancio_annuale": {
+   "ricavi": {
+    "2023": 6619000000.0,
+    "2024": 7097000000.0,
+    "2025": 7523000000.0,
+    "2026": 8445000000.0
+   },
+   "utile_netto": {
+    "2023": 770000000.0,
+    "2024": 1199000000.0,
+    "2025": 1166000000.0,
+    "2026": 1502000000.0
+   },
+   "utile_operativo": {
+    "2023": 1265000000.0,
+    "2024": 1694000000.0,
+    "2025": 1793000000.0,
+    "2026": 2045000000.0
+   }
+  },
+  "currency": "GBp",
+  "currentRatio": 0.854,
+  "debito_netto": 5263999936,
+  "debito_netto_su_ebitda": 2.07,
+  "debtToEquity": 100.322,
+  "dividendYield": 1.74,
+  "earningsGrowth": 0.231,
+  "ebitda": 2540000000,
+  "enterpriseToEbitda": 12.571,
+  "fiftyTwoWeekHigh": 3510.0,
+  "fiftyTwoWeekLow": 2203.0,
+  "financialCurrency": "USD",
+  "forwardPE": 17.4775,
+  "freeCashflow": 911249984,
+  "grossMargins": 0.4201,
+  "industry": "Consulting Services",
+  "longName": "Experian plc",
+  "marketCap": 25964154880,
+  "numberOfAnalystOpinions": 18,
+  "operatingCashflow": 2239000064,
+  "operatingMargins": 0.2496,
+  "payoutRatio": 0.3841,
+  "priceToBook": 6.4386,
+  "profitMargins": 0.1779,
+  "quickRatio": 0.847,
+  "recommendationKey": "buy",
+  "returnOnAssets": 0.097,
+  "returnOnEquity": 0.2826,
+  "revenueGrowth": 0.123,
+  "sector": "Industrials",
+  "targetMeanPrice": 3712.5857,
+  "totalCash": 337000000,
+  "totalDebt": 5600999936,
+  "trailingPE": 24.2951
+ },
+ "v": 2
+}

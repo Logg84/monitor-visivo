@@ -1,0 +1,61 @@
+{
+ "aggiornato": "2026-11-12",
+ "dati": {
+  "beta": 0.669,
+  "bilancio_annuale": {
+   "ricavi": {
+    "2022": 6350500000.0,
+    "2023": 6662200000.0,
+    "2024": 6723700000.0,
+    "2025": 6840300000.0
+   },
+   "utile_netto": {
+    "2022": 682000000.0,
+    "2023": 680600000.0,
+    "2024": 788500000.0,
+    "2025": 789400000.0
+   },
+   "utile_operativo": {
+    "2022": 917400000.0,
+    "2023": 1024200000.0,
+    "2024": 1069800000.0,
+    "2025": 1091900000.0
+   }
+  },
+  "currency": "USD",
+  "currentRatio": 0.657,
+  "debito_netto": 4687100064,
+  "debito_netto_su_ebitda": 3.12,
+  "debtToEquity": 66.141,
+  "dividendYield": 4.09,
+  "earningsGrowth": -0.571,
+  "ebitda": 1504099968,
+  "enterpriseToEbitda": 11.901,
+  "fiftyTwoWeekHigh": 72.41,
+  "fiftyTwoWeekLow": 43.25,
+  "financialCurrency": "USD",
+  "forwardPE": 14.4629,
+  "freeCashflow": 742000000,
+  "grossMargins": 0.3891,
+  "industry": "Packaged Foods",
+  "longName": "McCormick & Company, Incorporated",
+  "marketCap": 12487282688,
+  "numberOfAnalystOpinions": 14,
+  "operatingCashflow": 1140800000,
+  "operatingMargins": 0.1634,
+  "payoutRatio": 0.3418,
+  "priceToBook": 1.7831,
+  "profitMargins": 0.1939,
+  "quickRatio": 0.263,
+  "recommendationKey": "buy",
+  "returnOnAssets": 0.0525,
+  "returnOnEquity": 0.2262,
+  "revenueGrowth": 0.174,
+  "sector": "Consumer Defensive",
+  "targetMeanPrice": 54.0979,
+  "totalCash": 331100000,
+  "totalDebt": 5018200064,
+  "trailingPE": 8.3924
+ },
+ "v": 2
+}

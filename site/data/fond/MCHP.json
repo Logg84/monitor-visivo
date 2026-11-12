@@ -1,0 +1,61 @@
+{
+ "aggiornato": "2026-11-12",
+ "dati": {
+  "beta": 1.852,
+  "bilancio_annuale": {
+   "ricavi": {
+    "2023": 8438700000.0,
+    "2024": 7634400000.0,
+    "2025": 4401600000.0,
+    "2026": 4713100000.0
+   },
+   "utile_netto": {
+    "2023": 2237700000.0,
+    "2024": 1906900000.0,
+    "2025": -500000.0,
+    "2026": 230000000.0
+   },
+   "utile_operativo": {
+    "2023": 3112000000.0,
+    "2024": 2558700000.0,
+    "2025": 375500000.0,
+    "2026": 529800000.0
+   }
+  },
+  "currency": "USD",
+  "currentRatio": 2.242,
+  "debito_netto": 5097800128,
+  "debito_netto_su_ebitda": 2.73,
+  "debtToEquity": 83.647,
+  "dividendYield": 2.93,
+  "earningsGrowth": 25.418,
+  "ebitda": 1866300032,
+  "enterpriseToEbitda": 20.849,
+  "fiftyTwoWeekHigh": 105.91,
+  "fiftyTwoWeekLow": 48.52,
+  "financialCurrency": "USD",
+  "forwardPE": 14.0034,
+  "freeCashflow": 1538937472,
+  "grossMargins": 0.627,
+  "industry": "Semiconductors",
+  "longName": "Microchip Technology Incorporated",
+  "marketCap": 33785403392,
+  "numberOfAnalystOpinions": 25,
+  "operatingCashflow": 1529100032,
+  "operatingMargins": 0.2157,
+  "payoutRatio": 1.3684,
+  "priceToBook": 5.0877,
+  "profitMargins": 0.1496,
+  "quickRatio": 1.16,
+  "recommendationKey": "strong_buy",
+  "returnOnAssets": 0.0519,
+  "returnOnEquity": 0.1257,
+  "revenueGrowth": 0.422,
+  "sector": "Technology",
+  "targetMeanPrice": 86.48,
+  "totalCash": 457000000,
+  "totalDebt": 5554800128,
+  "trailingPE": 46.6767
+ },
+ "v": 2
+}

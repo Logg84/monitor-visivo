@@ -1,7 +1,7 @@
 {
- "aggiornato": "2026-11-05",
+ "aggiornato": "2026-11-12",
  "dati": {
-  "beta": 1.141,
+  "beta": 1.134,
   "bilancio_annuale": {
    "ricavi": {
     "2022": 22511000000.0,
@@ -25,24 +25,26 @@
   "currency": "EUR",
   "currentRatio": 1.418,
   "debito_netto": 4332999936,
-  "debito_netto_su_ebitda": 1.76,
+  "debito_netto_su_ebitda": 1.46,
   "debtToEquity": 89.85,
-  "dividendYield": 1.67,
+  "dividendYield": 1.57,
   "earningsGrowth": 0.581,
-  "ebitda": 2455500032,
-  "enterpriseToEbitda": 14.565,
+  "ebitda": 2958000128,
+  "enterpriseToEbitda": 11.916,
   "fiftyTwoWeekHigh": 188.8,
   "fiftyTwoWeekLow": 129.95,
   "financialCurrency": "EUR",
-  "forwardPE": 15.2958,
+  "forwardPE": 15.0894,
+  "freeCashflow": 1745549952,
   "grossMargins": 0.5227,
   "industry": "Footwear & Accessories",
   "longName": "adidas AG",
-  "marketCap": 30363695104,
-  "numberOfAnalystOpinions": 29,
-  "operatingMargins": 0.1391,
+  "marketCap": 29915676672,
+  "numberOfAnalystOpinions": 30,
+  "operatingCashflow": 2996999936,
+  "operatingMargins": 0.0918,
   "payoutRatio": 0.3021,
-  "priceToBook": 4.9685,
+  "priceToBook": 4.8773,
   "profitMargins": 0.0609,
   "quickRatio": 0.593,
   "recommendationKey": "buy",
@@ -50,10 +52,10 @@
   "returnOnEquity": 0.2633,
   "revenueGrowth": 0.094,
   "sector": "Consumer Cyclical",
-  "targetMeanPrice": 199.069,
+  "targetMeanPrice": 198.4667,
   "totalCash": 1651000064,
   "totalDebt": 5984000000,
-  "trailingPE": 19.3743
+  "trailingPE": 19.0885
  },
  "v": 2
 }

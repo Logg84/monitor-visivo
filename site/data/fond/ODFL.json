@@ -1,0 +1,61 @@
+{
+ "aggiornato": "2026-11-12",
+ "dati": {
+  "beta": 1.151,
+  "bilancio_annuale": {
+   "ricavi": {
+    "2022": 6260077000.0,
+    "2023": 5866152000.0,
+    "2024": 5814810000.0,
+    "2025": 5496389000.0
+   },
+   "utile_netto": {
+    "2022": 1377159000.0,
+    "2023": 1239502000.0,
+    "2024": 1186073000.0,
+    "2025": 1023703000.0
+   },
+   "utile_operativo": {
+    "2022": 1840632000.0,
+    "2023": 1640673000.0,
+    "2024": 1543998000.0,
+    "2025": 1361045000.0
+   }
+  },
+  "currency": "USD",
+  "currentRatio": 2.044,
+  "debito_netto": -446226000,
+  "debito_netto_su_ebitda": -0.24,
+  "debtToEquity": 0.428,
+  "dividendYield": 0.68,
+  "earningsGrowth": 0.289,
+  "ebitda": 1881671040,
+  "enterpriseToEbitda": 18.432,
+  "fiftyTwoWeekHigh": 252.03,
+  "fiftyTwoWeekLow": 126.01,
+  "financialCurrency": "USD",
+  "forwardPE": 25.4011,
+  "freeCashflow": 997019136,
+  "grossMargins": 0.3988,
+  "industry": "Trucking",
+  "longName": "Old Dominion Freight Line, Inc.",
+  "marketCap": 35368808448,
+  "numberOfAnalystOpinions": 21,
+  "operatingCashflow": 1426096000,
+  "operatingMargins": 0.2617,
+  "payoutRatio": 0.2065,
+  "priceToBook": 7.5926,
+  "profitMargins": 0.2008,
+  "quickRatio": 1.9,
+  "recommendationKey": "buy",
+  "returnOnAssets": 0.1659,
+  "returnOnEquity": 0.2601,
+  "revenueGrowth": 0.131,
+  "sector": "Industrials",
+  "targetMeanPrice": 213.381,
+  "totalCash": 466224000,
+  "totalDebt": 19998000,
+  "trailingPE": 30.8187
+ },
+ "v": 2
+}

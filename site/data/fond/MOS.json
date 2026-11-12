@@ -1,0 +1,59 @@
+{
+ "aggiornato": "2026-11-12",
+ "dati": {
+  "beta": 0.858,
+  "bilancio_annuale": {
+   "ricavi": {
+    "2022": 19125200000.0,
+    "2023": 13696100000.0,
+    "2024": 11122800000.0,
+    "2025": 12052400000.0
+   },
+   "utile_netto": {
+    "2022": 3582800000.0,
+    "2023": 1164900000.0,
+    "2024": 174900000.0,
+    "2025": 540700000.0
+   },
+   "utile_operativo": {
+    "2022": 4785300000.0,
+    "2023": 1281600000.0,
+    "2024": 621500000.0,
+    "2025": 1078700000.0
+   }
+  },
+  "currency": "USD",
+  "currentRatio": 1.498,
+  "debito_netto": 5852400192,
+  "debito_netto_su_ebitda": 4.78,
+  "debtToEquity": 53.371,
+  "dividendYield": 3.86,
+  "ebitda": 1223900032,
+  "enterpriseToEbitda": 10.849,
+  "fiftyTwoWeekHigh": 32.25,
+  "fiftyTwoWeekLow": 16.99,
+  "financialCurrency": "USD",
+  "forwardPE": 15.5413,
+  "freeCashflow": -512462496,
+  "grossMargins": 0.0763,
+  "industry": "Agricultural Inputs",
+  "longName": "The Mosaic Company",
+  "marketCap": 6917583360,
+  "numberOfAnalystOpinions": 18,
+  "operatingCashflow": 499900000,
+  "operatingMargins": -0.002,
+  "payoutRatio": 6.2857,
+  "priceToBook": 0.6123,
+  "profitMargins": -0.0943,
+  "quickRatio": 0.445,
+  "recommendationKey": "buy",
+  "returnOnAssets": -0.0006,
+  "returnOnEquity": -0.0904,
+  "revenueGrowth": -0.102,
+  "sector": "Basic Materials",
+  "targetMeanPrice": 25.1611,
+  "totalCash": 272600000,
+  "totalDebt": 6125000192
+ },
+ "v": 2
+}

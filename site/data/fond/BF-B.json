@@ -1,0 +1,61 @@
+{
+ "aggiornato": "2026-11-12",
+ "dati": {
+  "beta": 0.31,
+  "bilancio_annuale": {
+   "ricavi": {
+    "2023": 4228000000.0,
+    "2024": 4178000000.0,
+    "2025": 3975000000.0,
+    "2026": 3928000000.0
+   },
+   "utile_netto": {
+    "2023": 783000000.0,
+    "2024": 1024000000.0,
+    "2025": 869000000.0,
+    "2026": 715000000.0
+   },
+   "utile_operativo": {
+    "2023": 1127000000.0,
+    "2024": 1154000000.0,
+    "2025": 1214000000.0,
+    "2026": 1152000000.0
+   }
+  },
+  "currency": "USD",
+  "currentRatio": 3.263,
+  "debito_netto": 2139999936,
+  "debito_netto_su_ebitda": 1.8,
+  "debtToEquity": 61.502,
+  "dividendYield": 3.07,
+  "earningsGrowth": 0.057,
+  "ebitda": 1186000000,
+  "enterpriseToEbitda": 13.45,
+  "fiftyTwoWeekHigh": 31.92,
+  "fiftyTwoWeekLow": 22.61,
+  "financialCurrency": "USD",
+  "forwardPE": 17.5278,
+  "freeCashflow": 685625024,
+  "grossMargins": 0.6066,
+  "industry": "Beverages - Wineries & Distilleries",
+  "longName": "Brown-Forman Corporation",
+  "marketCap": 13784283136,
+  "numberOfAnalystOpinions": 17,
+  "operatingCashflow": 1013000000,
+  "operatingMargins": 0.282,
+  "payoutRatio": 0.5932,
+  "priceToBook": 3.4716,
+  "profitMargins": 0.1842,
+  "quickRatio": 0.926,
+  "recommendationKey": "hold",
+  "returnOnAssets": 0.0863,
+  "returnOnEquity": 0.1812,
+  "revenueGrowth": -0.014,
+  "sector": "Consumer Defensive",
+  "targetMeanPrice": 28.2588,
+  "totalCash": 301000000,
+  "totalDebt": 2440999936,
+  "trailingPE": 19.3806
+ },
+ "v": 2
+}

@@ -1,0 +1,61 @@
+{
+ "aggiornato": "2026-11-12",
+ "dati": {
+  "beta": 0.921,
+  "bilancio_annuale": {
+   "ricavi": {
+    "2023": 14368000000.0,
+    "2024": 16285000000.0,
+    "2025": 18831000000.0,
+    "2026": 21448000000.0
+   },
+   "utile_netto": {
+    "2023": 2384000000.0,
+    "2024": 2963000000.0,
+    "2025": 3869000000.0,
+    "2026": 4566000000.0
+   },
+   "utile_operativo": {
+    "2023": 3141000000.0,
+    "2024": 3853000000.0,
+    "2025": 4938000000.0,
+    "2026": 6177000000.0
+   }
+  },
+  "currency": "USD",
+  "currentRatio": 1.507,
+  "debito_netto": 1221000192,
+  "debito_netto_su_ebitda": 0.18,
+  "debtToEquity": 44.34,
+  "dividendYield": 1.61,
+  "earningsGrowth": -0.014,
+  "ebitda": 6848999936,
+  "enterpriseToEbitda": 13.547,
+  "fiftyTwoWeekHigh": 682.27,
+  "fiftyTwoWeekLow": 252.84,
+  "financialCurrency": "USD",
+  "forwardPE": 12.6324,
+  "freeCashflow": 6353625088,
+  "grossMargins": 0.8098,
+  "industry": "Software - Application",
+  "longName": "Intuit Inc.",
+  "marketCap": 90905673728,
+  "numberOfAnalystOpinions": 31,
+  "operatingCashflow": 8837999616,
+  "operatingMargins": 0.288,
+  "payoutRatio": 0.2916,
+  "priceToBook": 4.8071,
+  "profitMargins": 0.2129,
+  "quickRatio": 0.782,
+  "recommendationKey": "buy",
+  "returnOnAssets": 0.1047,
+  "returnOnEquity": 0.236,
+  "revenueGrowth": 0.137,
+  "sector": "Technology",
+  "targetMeanPrice": 407.8884,
+  "totalCash": 7200000000,
+  "totalDebt": 8421000192,
+  "trailingPE": 20.6665
+ },
+ "v": 2
+}
