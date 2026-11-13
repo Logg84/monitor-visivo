@@ -37,6 +37,27 @@ def sezione(titolo: str, tab: pd.DataFrame) -> list[str]:
     return righe + [""]
 
 
+def fmt_m(m: dict) -> str:
+    if not m or m.get("n", 0) < 3:
+        return "n<3"
+    pf = "∞" if m["pf"] == float("inf") else f"{m['pf']:.2f}"
+    r = "" if m["exp_r"] != m["exp_r"] else f" · exp {m['exp_r']:+.2f}R (mediana {m['exp_r_med']:+.2f}R)"
+    return f"n={m['n']} · media {m['media'] * 100:+.2f}% · hit {m['hit'] * 100:.0f}% · PF {pf}{r} · DD max {m['dd_max'] * 100:.0f} pt cumulati"
+
+
+def sezione_metriche(titolo: str, tab: pd.DataFrame, con_r: bool) -> list[str]:
+    """Profit factor, expectancy in R, drawdown massimo e N per regime di mercato (a 60 sedute)."""
+    righe = [f"### {titolo}", ""]
+    if tab.empty:
+        return righe + ["Nessun evento.", ""]
+    righe.append(f"- tutti: {fmt_m(bt.metriche(tab, con_r=con_r))}")
+    if "regime" in tab.columns:
+        for reg in ("rialzista", "ribassista"):
+            righe.append(f"- mercato {reg}: {fmt_m(bt.metriche(tab[tab['regime'] == reg], con_r=con_r))}")
+        righe.append(f"- regime non calcolabile (storico < {bt.SMA_REGIME} sedute): n={int(tab['regime'].isna().sum())}")
+    return righe + [""]
+
+
 def main() -> int:
     ap = argparse.ArgumentParser()
     ap.add_argument("--eventi", default=str(ROOT / "data" / "eventi_range.csv"))
@@ -59,6 +80,9 @@ def main() -> int:
     for nome, tab in (("sopra", sopra), ("sotto", sotto)):
         tab = tab[tab["ticker"].isin(prezzi)]
         risultati[nome] = bt.ritorni(tab, pan)
+    reg = bt.regime_mercato(pan)
+    for nome in risultati:                       # regime di mercato al giorno dell'alert (solo prezzi, nessun look-ahead)
+        risultati[nome]["regime"] = risultati[nome]["data_alert"].map(lambda d: reg.get(pd.Timestamp(d)))
     out = Path(a.out)
     out.mkdir(parents=True, exist_ok=True)
     pd.concat([risultati["sopra"].assign(direzione="sopra"), risultati["sotto"].assign(direzione="sotto")]) \
@@ -84,6 +108,15 @@ def main() -> int:
             r += [f"Criterio: {c['motivo']} (n={c['n']})", ""]
     for tf in ("1D", "1W"):
         r += sezione(f"Uscita dal basso — {tf} (controllo)", risultati["sotto"][risultati["sotto"]["tf"] == tf])
+    r += ["## Metriche aggiuntive (a 60 sedute, descrittive: non entrano nel criterio)", "",
+          "PF = profit factor (somma dei guadagni / somma delle perdite). Exp = expectancy in multipli di R, con R = distanza "
+          f"ingresso → minimo del range (minimo {bt.R_MIN * 100:.0f}%), solo uscite dall'alto. DD max = massimo calo dal picco "
+          "della curva che somma i rendimenti degli eventi per data d'alert: indicativo, gli eventi si sovrappongono. "
+          f"Regime = indice equal-weight dell'universo sopra/sotto la media a {bt.SMA_REGIME} sedute.", ""]
+    for tf in ("1D", "1W"):
+        r += sezione_metriche(f"Uscita dall'alto — {tf}", risultati["sopra"][risultati["sopra"]["tf"] == tf], True)
+    for tf in ("1D", "1W"):
+        r += sezione_metriche(f"Uscita dal basso — {tf} (controllo)", risultati["sotto"][risultati["sotto"]["tf"] == tf], False)
     (out / "backtest_range_report.md").write_text("\n".join(r) + "\n", encoding="utf-8")
     print("\n".join(r))
     return 0

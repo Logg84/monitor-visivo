@@ -114,4 +114,34 @@ check("un solo cluster → t NaN (non inventa significatività)",
       np.isnan(bt.stat(pd.Series(g.normal(0.1, 0.1, 30)), pd.Series(["2020-01"] * 30))["t"]))
 check("campione minuscolo → n riportato, niente crash", bt.stat(pd.Series([0.1, 0.2]), pd.Series(["a", "b"]))["n"] == 2)
 
+
+# 8) metriche aggiuntive: profit factor, expectancy in R, drawdown massimo (valori fatti a mano)
+ev = pd.DataFrame({"data_alert": ["2020-01-01", "2020-02-01", "2020-03-01", "2020-04-01"], "ticker": list("ABCD"), "tf": "1D",
+                   "r60": [0.10, -0.05, 0.20, -0.10], "apertura_succ": [100.0] * 4, "bottom": [90.0, 95.0, 80.0, 99.5]})
+m = bt.metriche(ev)
+check("profit factor = 0,30 / 0,15 = 2", abs(m["pf"] - 2.0) < 1e-9)
+check("hit rate 50% e media +3,75%", abs(m["hit"] - 0.5) < 1e-9 and abs(m["media"] - 0.0375) < 1e-9)
+# R = (100-bottom)/100: 0,10 · 0,05 · 0,20 · max(0,005; 1%)=0,01 → 1,0 · -1,0 · 1,0 · -10,0 → media -2,25, mediana 0
+check("expectancy in R con rischio minimo dell'1% (evento D)", abs(m["exp_r"] - (-2.25)) < 1e-9 and abs(m["exp_r_med"] - 0.0) < 1e-9)
+# curva: 0 → .10 → .05 → .25 → .15 ; picco .25 poi .15 ⇒ drawdown -0,10
+check("drawdown massimo dalla curva cumulata = -0,10", abs(m["dd_max"] - (-0.10)) < 1e-9)
+check("ordine d'ingresso nel file irrilevante (si ordina per data)", abs(bt.metriche(ev.iloc[::-1])["dd_max"] - m["dd_max"]) < 1e-9)
+check("senza perdite → profit factor infinito", bt.metriche(ev.assign(r60=[0.1, 0.2, 0.3, 0.4]))["pf"] == float("inf"))
+check("senza guadagni né perdite → NaN, non un numero inventato", np.isnan(bt.metriche(ev.assign(r60=[0.0] * 4))["pf"]))
+check("con_r=False (uscite dal basso): nessuna expectancy in R", np.isnan(bt.metriche(ev, con_r=False)["exp_r"]))
+check("sotto 3 eventi: solo n, tutto il resto NaN", bt.metriche(ev.iloc[:2])["n"] == 2 and np.isnan(bt.metriche(ev.iloc[:2])["pf"]))
+check("eventi senza rendimento (NaN) esclusi dal conteggio", bt.metriche(ev.assign(r60=[0.1, np.nan, 0.2, -0.1]))["n"] == 3)
+
+# 9) regime di mercato: indice equal-weight sopra/sotto la media a 200 sedute, senza look-ahead
+idx = pd.bdate_range("2018-01-01", periods=500)
+su = pd.DataFrame({t: 100 * np.exp(np.linspace(0, 0.8, 500)) for t in "ABC"}, index=idx)
+giu = pd.DataFrame({t: 100 * np.exp(np.linspace(0, -0.8, 500)) for t in "ABC"}, index=idx)
+rg_su, rg_giu = bt.regime_mercato({"Close": su}), bt.regime_mercato({"Close": giu})
+check("storico < 200 sedute → regime NaN (non si inventa)", rg_su.iloc[:199].isna().all() and rg_su.iloc[199:].notna().all())
+check("mercato in salita costante → rialzista", (rg_su.dropna() == "rialzista").all())
+check("mercato in discesa costante → ribassista", (rg_giu.dropna() == "ribassista").all())
+cambia = su.copy(); cambia.iloc[400:] *= 0.5            # crollo al giorno 400: i giorni PRIMA non cambiano
+check("nessun look-ahead: cambiare il futuro non cambia il regime passato",
+      (bt.regime_mercato({"Close": cambia}).iloc[:400].dropna() == rg_su.iloc[:400].dropna()).all())
+
 print("OK: verifica_backtest")

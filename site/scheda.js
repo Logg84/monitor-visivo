@@ -7,7 +7,11 @@ window.Scheda = (() => {
   const nz = (x) => (typeof x === "number" && Number.isFinite(x) ? x : null);
   const nomeFile = (t) => [...t].map((c) => (/[A-Za-z0-9\-_.]/.test(c) ? c : "_")).join("");
   const fmt = (v) => (nz(v) === null ? "–" : Number(v).toLocaleString("it-IT", { maximumFractionDigits: 2 }));
-  let cache = null, libP = null, chart = null;
+  let cache = null, libP = null, chart = null, sinP = null;
+  const sintesiLib = () => sinP || (sinP = window.Sintesi ? Promise.resolve() : new Promise((ok, ko) => {
+    const s = document.createElement("script"); s.src = "sintesi.js"; s.onload = ok; s.onerror = ko; document.head.append(s); }));
+  const vistaSalvata = () => { try { return localStorage.getItem("scheda-vista") === "completa" ? "completa" : "semplice"; } catch (e) { return "semplice"; } };
+  const salvaVista = (v) => { try { localStorage.setItem("scheda-vista", v); } catch (e) { /* senza storage resta solo per questa apertura */ } };
 
   const libreria = () => libP || (libP = window.LightweightCharts ? Promise.resolve() : new Promise((ok, ko) => {
     const s = document.createElement("script"); s.src = LIB; s.onload = ok; s.onerror = ko; document.head.append(s); }));
@@ -119,6 +123,26 @@ window.Scheda = (() => {
       badge.append(ba); corpo.append(box);
     }
 
+    // Livello 1 («vista semplice»): 3 frasi + grafico. Livello 2 («vista completa»): tutte le sezioni quantitative.
+    const pro = el("div", "scheda-pro");
+    let vista = vistaSalvata();
+    const barraVista = el("div", "scheda-vista");
+    const applicaVista = () => { pro.hidden = vista !== "completa"; [...barraVista.children].forEach((b) => b.classList.toggle("pri", b.dataset.vista === vista)); };
+    for (const [v, n] of [["semplice", "Vista semplice"], ["completa", "Vista completa"]]) {
+      const bv = el("button", "az", n); bv.type = "button"; bv.dataset.vista = v;
+      bv.addEventListener("click", () => { vista = v; salvaVista(v); applicaVista(); }); barraVista.append(bv);
+    }
+    corpo.append(barraVista);
+    try {
+      await sintesiLib();
+      const s = window.Sintesi.frasi({ basi, ath: d.ath[ticker], punti: sc && sc.punti, segnale: sc && sc.segnale });
+      if (s.frasi.length) {
+        const bx = el("section", "sintesi" + (s.tf && basi[s.tf] ? " s-" + basi[s.tf].stato : "")); bx.setAttribute("aria-label", "In sintesi");
+        bx.append(el("h3", null, "In sintesi"));
+        const ol = el("ol"); for (const f of s.frasi) ol.append(el("li", null, f)); bx.append(ol, el("p", "nota", s.avviso));
+        corpo.append(bx);
+      }
+    } catch (e) { /* senza sintesi la scheda funziona come prima */ }
     const serie = await fetch(`data/serie/${nomeFile(ticker)}.json`, { cache: "no-cache" }).then((r) => (r.ok ? r.json() : null)).catch(() => null);
     const tfs = ["1D", "1W"].filter((t) => serie && serie[t] && serie[t].length);
     if (tfs.length) {
@@ -171,8 +195,9 @@ window.Scheda = (() => {
       corpo.append(barraTf, box, barraLiv); disegna().catch(() => box.replaceChildren(el("p", "nota", "Grafico non disponibile.")));
       const b = basi[tf]; if (b) corpo.append(el("p", "nota", `Range ${tf === "1W" ? "settimanale" : "giornaliero"}: ${fmt(b.bottom)} – ${fmt(b.top)} · ampiezza ${nz(b.ampiezza) !== null ? Math.round(b.ampiezza * 100) + "%" : "–"} · ${b.barre ?? "–"} barre`));
     } else corpo.append(el("p", "nota", "Grafico non disponibile: questo titolo non è nell'universo dei range di basewatch (le serie si generano solo per i titoli in watchlist con un range)."));
-    corpo.append(sezioni(sc, w));
-    if (sc && d.dataScr) corpo.append(el("p", "nota", `Dati dello screening del ${d.dataScr}. Lettura, mai ordine.`));
+    pro.append(sezioni(sc, w));
+    if (sc && d.dataScr) pro.append(el("p", "nota", `Dati dello screening del ${d.dataScr}. Lettura, mai ordine.`));
+    corpo.append(pro); applicaVista();
   }
   document.addEventListener("click", (e) => { const t = e.target.closest("[data-scheda]"); if (t) { e.preventDefault(); e.stopPropagation(); apri(t.dataset.scheda); } }, true);
   return { apri, chiudi };

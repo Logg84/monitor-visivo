@@ -23,6 +23,8 @@ ORIZZONTE_CRITERIO = 60
 T_MIN = 2.0
 HIT_MIN = 0.5
 FFILL_MAX = 5          # sedute di ffill massimo (festività diverse tra borse)
+R_MIN = 0.01           # rischio minimo (1% dell'ingresso) per i multipli di R: evita rischi quasi nulli
+SMA_REGIME = 200       # sedute della media mobile che separa mercato rialzista e ribassista
 
 
 def prime_uscite(ev: pd.DataFrame, direzione: str = "sopra") -> pd.DataFrame:
@@ -109,3 +111,49 @@ def prima_uscita_per_base(ev: pd.DataFrame, da: str, direzione: str = "sopra") -
     b = us.groupby(chiavi, as_index=False).first()
     b = b[b.data_alert >= da]
     return b.sort_values(["data_alert", "ticker", "tf"], kind="stable").reset_index(drop=True)
+
+
+def metriche(tab: pd.DataFrame, h: int = ORIZZONTE_CRITERIO, con_r: bool = True) -> dict:
+    """Metriche descrittive a h sedute su un insieme di eventi. NON entrano nel criterio pre-registrato.
+
+      - n: eventi con rendimento disponibile;
+      - profit factor = somma dei rendimenti positivi / somma dei rendimenti negativi in valore assoluto
+        (∞ se non ci sono perdite);
+      - expectancy in R = media di rendimento / rischio, con rischio = distanza in % tra ingresso
+        (apertura della seduta dopo l'alert) e minimo del range (il livello che invalida la lettura),
+        con un minimo di R_MIN. Solo per le uscite dall'alto (`con_r`): dal basso il minimo del range
+        è sopra l'ingresso e il rischio non ha senso;
+      - drawdown massimo = massimo calo dal picco della curva che somma i rendimenti degli eventi in
+        ordine di data d'alert (un'unità per evento, nessun dimensionamento). È indicativo: gli
+        eventi si sovrappongono nel tempo, quindi non è il drawdown di un portafoglio reale.
+    """
+    d = tab.dropna(subset=[f"r{h}"]).sort_values(["data_alert", "ticker", "tf"], kind="stable")
+    n = len(d)
+    vuoto = {"n": n, "media": np.nan, "hit": np.nan, "pf": np.nan, "exp_r": np.nan, "exp_r_med": np.nan, "dd_max": np.nan}
+    if n < 3:
+        return vuoto
+    r = d[f"r{h}"].astype(float)
+    guadagni, perdite = r[r > 0].sum(), -r[r < 0].sum()
+    pf = guadagni / perdite if perdite > 0 else (np.inf if guadagni > 0 else np.nan)
+    curva = np.concatenate([[0.0], r.cumsum().to_numpy()])
+    out = {"n": n, "media": float(r.mean()), "hit": float((r > 0).mean()), "pf": float(pf),
+           "exp_r": np.nan, "exp_r_med": np.nan, "dd_max": float((curva - np.maximum.accumulate(curva)).min())}
+    if con_r and {"apertura_succ", "bottom"} <= set(d.columns):
+        entry = d["apertura_succ"].astype(float)
+        rischio = ((entry - d["bottom"].astype(float)) / entry).clip(lower=R_MIN)
+        rr = (r / rischio).replace([np.inf, -np.inf], np.nan).dropna()
+        if len(rr):
+            out["exp_r"], out["exp_r_med"] = float(rr.mean()), float(rr.median())
+    return out
+
+
+def regime_mercato(pan: dict[str, pd.DataFrame], sma: int = SMA_REGIME) -> pd.Series:
+    """Regime di mercato per data, solo dai prezzi: indice equal-weight dell'universo sopra (`rialzista`)
+    o sotto (`ribassista`) la sua media mobile a `sma` sedute. NaN finché la media non è calcolabile.
+    Usa solo dati fino al giorno stesso (nessun look-ahead)."""
+    cl = pan["Close"].ffill(limit=FFILL_MAX)
+    rend = cl.pct_change(fill_method=None).mean(axis=1, skipna=True).fillna(0.0)
+    indice = (1.0 + rend).cumprod()
+    media = indice.rolling(sma, min_periods=sma).mean()
+    return pd.Series(np.where(indice > media, "rialzista", "ribassista"), index=indice.index).where(media.notna())
+

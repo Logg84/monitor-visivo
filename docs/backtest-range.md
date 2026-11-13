@@ -82,3 +82,12 @@ Finestra: eventi dal 2016-11-04. Prime uscite dall'alto: B = 289 (269 con punteg
 
 ## Alert unico (5/11/2026)
 L'alert di uscita include ora il punteggio 1–6 dell'ultimo screening (letto da D1) e, per le uscite verso l'alto, la frequenza storica del retest (61–66% entro 30 sedute). Un avviso separato segnala il primo retest tenuto di un'uscita osservata. Sono informazioni di lettura: nessun vantaggio dimostrato (vedi sopra e docs/backtest-retest.md).
+
+## Metriche aggiuntive (13/11/2026, descrittive)
+
+Il report del backtest (`data/backtest_range_report.md`) riporta anche, a 60 sedute e per ogni timeframe: **profit factor**
+(somma dei guadagni / somma delle perdite), **expectancy in R** (rendimento / rischio, con rischio = distanza in % tra ingresso e
+minimo del range, minimo 1%, solo uscite dall'alto), **drawdown massimo** (calo massimo dal picco della curva che somma i
+rendimenti degli eventi per data d'alert: indicativo, gli eventi si sovrappongono) e il **numero di eventi per regime di mercato**
+(indice equal-weight dell'universo sopra/sotto la media a 200 sedute, calcolato solo dai prezzi). **Non entrano nel criterio
+pre-registrato** del 4/11 e non cambiano nessun segnale: servono a leggere meglio gli stessi eventi.

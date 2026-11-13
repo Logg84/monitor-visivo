@@ -135,3 +135,27 @@ main.col>p.muted{max-width:none}
 /* Testi lunghi nelle tabelle: ellipsis in cella + tooltip col testo completo
    (attributo title impostato dalle pagine quando avvolgono il testo in .taglia). */
 .taglia{display:inline-block;max-width:22rem;overflow:hidden;text-overflow:ellipsis;vertical-align:bottom}
+
+/* «In sintesi» e vista semplice/completa della scheda (colori di stato = quelli dei badge) */
+.scheda-vista{display:flex;gap:8px;margin:8px 0}
+.sintesi{border:1px solid var(--bordo);border-left:4px solid var(--accento);border-radius:10px;padding:10px 14px;margin:10px 0;max-width:80ch}
+.sintesi h3{margin:0 0 6px;font-size:12px;text-transform:uppercase;letter-spacing:.05em;color:var(--muto)}
+.sintesi ol{margin:0;padding-left:20px}.sintesi li{margin:4px 0}
+.sintesi.s-in_range{border-left-color:var(--verde)}.sintesi.s-rallenta{border-left-color:var(--ambra)}
+.sintesi.s-uscito_sopra{border-left-color:var(--accento)}.sintesi.s-uscito_sotto{border-left-color:var(--rosso)}
+
+/* Tabelle → card verticali su schermi stretti (cardmobile.js mette data-label e la classe .cm) */
+@media (max-width:640px){
+  .tabella-wrap{overflow-x:visible}
+  table.cm,table.cm tbody{display:block}
+  table.cm thead{display:none}
+  table.cm tr{display:block;border:1px solid var(--bordo);border-radius:10px;padding:6px 12px;margin:0 0 10px;background:var(--superficie)}
+  table.cm td{display:flex;justify-content:space-between;align-items:baseline;gap:12px;border:0;padding:3px 0;white-space:normal;text-align:right;min-width:0}
+  table.cm td::before{content:attr(data-label);flex:none;color:var(--muto);font-size:12px;text-align:left}
+  table.cm td:first-child{justify-content:flex-start;font-size:16px;padding-bottom:4px;margin-bottom:3px;border-bottom:1px solid var(--bordo)}
+  table.cm td:first-child::before,table.cm td:not([data-label])::before{content:none}
+  table.cm td:empty{display:none}
+  table.cm td:not([data-label]){display:block;text-align:center}
+  table.cm .taglia{max-width:58vw}
+  .scheda-grafico{height:320px}
+}

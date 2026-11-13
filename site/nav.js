@@ -19,6 +19,7 @@
       throw e;
     }
   };
+  { const s = document.createElement("script"); s.src = "cardmobile.js"; s.defer = true; document.head.append(s); }   // tabelle → card su mobile
   const VOCI = [["./", "Basi di accumulo"], ["unificato.html", "Vista unificata"], ["screening.html", "Screening"], ["watchlist.html", "Watchlist"],
     ["portafoglio.html", "Portafoglio"], ["condiviso.html", "Condiviso"], ["insider.html", "Insider"], ["macro.html", "Regimi macro"],
     ["settori.html", "Settori"], ["calendario.html", "Calendario"], ["strumenti.html", "Indici / Materie prime"], ["report.html", "Report"], ["backtest.html", "Backtest"], ["profilo.html", "Profilo"]];
