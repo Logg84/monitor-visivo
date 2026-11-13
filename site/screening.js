@@ -30,6 +30,8 @@
       const t = NUM_1.has(k) ? v.toFixed(1) : Number.isInteger(v) ? String(v) : v.toFixed(2);
       return `<td${(k === "DD%" || k === "RS_4s%") && v < 0 ? ' class="neg"' : ""}>${t}</td>`;
     }
+    // Testo lungo in cella: ellipsis + tooltip col testo completo (title).
+    if (typeof v === "string" && v.length > 24) return `<td><span class="taglia" title="${esc(v)}">${esc(v)}</span></td>`;
     return `<td>${esc(v)}</td>`;
   }
   const ordinabile = (a, b, k) => {

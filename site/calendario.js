@@ -4,6 +4,8 @@
   const esc = (s) => String(s ?? "").replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
   let D, scr = null, vis = [], sel = -1;
   const okLink = (u) => /^https?:\/\//i.test(String(u || ""));
+  // Testo lungo in cella: ellipsis + tooltip col testo completo (title), mai un taglio secco.
+  const taglia = (s) => { const t = String(s ?? "").trim(); return t.length > 24 ? `<span class="taglia" title="${esc(t)}">${esc(t)}</span>` : esc(t); };
 
   function disegna() {
     const set = $("f-set").value, soloScr = $("f-scr").checked && scr, rec = $("f-rec").checked;
@@ -17,7 +19,7 @@
     $("conteggio").textContent = `${vis.length} eventi · orizzonte: ${rec ? "da " + inizio : "tutti"}`;
     const wy = {}; if (scr) scr.righe.forEach((r) => { if (r.extra && r.extra.Wyckoff) wy[r.ticker] = r.extra.Wyckoff; });
     $("tab").innerHTML = "<thead><tr><th>Data</th><th>Ticker</th><th>Nome</th><th>Settore</th><th>Tipo</th><th>Descrizione</th><th>Fonte</th><th>Stato data</th><th></th><th>Link</th><th>Verif.</th></tr></thead><tbody>" +
-      (vis.length ? vis.map((e, i) => `<tr data-i="${i}"><td>${esc(e.data_attesa)}</td><td><b>${esc(e.ticker || "—")}</b></td><td>${esc(e.nome)}</td><td>${esc(e.settore)}</td><td>${esc(e.tipo)}</td><td>${esc(String(e.descrizione || "").slice(0, 80))}</td><td>${esc(e.fonte)}</td><td>${esc(e.stato_data || "—")}</td><td>${e.orientamento === "passato" ? "🕓 passato" : "🔮 futuro"}</td><td>${okLink(e.link_ufficiale) ? `<a href="${esc(e.link_ufficiale)}" target="_blank" rel="noopener noreferrer">🔗</a>` : "—"}</td><td>${e.verified ? "✅" : "❌"}</td></tr>`).join("")
+      (vis.length ? vis.map((e, i) => `<tr data-i="${i}"><td>${esc(e.data_attesa)}</td><td><b>${esc(e.ticker || "—")}</b></td><td>${taglia(e.nome)}</td><td>${esc(e.settore)}</td><td>${esc(e.tipo)}</td><td>${taglia(e.descrizione)}</td><td>${esc(e.fonte)}</td><td>${esc(e.stato_data || "—")}</td><td>${e.orientamento === "passato" ? "🕓 passato" : "🔮 futuro"}</td><td>${okLink(e.link_ufficiale) ? `<a href="${esc(e.link_ufficiale)}" target="_blank" rel="noopener noreferrer">🔗</a>` : "—"}</td><td>${e.verified ? "✅" : "❌"}</td></tr>`).join("")
         : `<tr><td colspan="11" class="vuoto">Nessun evento corrisponde ai filtri selezionati.</td></tr>`) + "</tbody>";
     $("tab").dataset.wy = JSON.stringify(wy);
   }

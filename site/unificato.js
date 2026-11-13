@@ -3,6 +3,8 @@
   const $ = (id) => document.getElementById(id);
   const ETI = { in_range: "in range", rallenta: "rallenta", uscito_sopra: "uscito sopra", uscito_sotto: "uscito sotto" };
   const esc = (s) => String(s ?? "").replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+  // Testo lungo in cella: ellipsis + tooltip col testo completo (title).
+  const taglia = (s) => { const t = String(s ?? ""); return t.length > 24 ? `<span class="taglia" title="${esc(t)}">${esc(t)}</span>` : esc(t); };
   let righe = [];
 
   const celle = (r, tf) => {
@@ -30,7 +32,7 @@
     $("conteggio").textContent = `${v.length} titoli`;
     $("tab").innerHTML = `<thead><tr><th>Ticker</th><th>Da ATH</th><th>1D</th><th>Pos. 1D</th><th>1W</th><th>Pos. 1W</th><th>Punteggio</th><th>Segnale</th></tr></thead><tbody>` +
       (v.length ? v.map((r) => `<tr><td><b class="tk" data-scheda="${esc(r.ticker)}">${esc(r.ticker)}</b></td><td>${r.dist_ath === null ? "" : (r.dist_ath * 100).toFixed(0) + "%"}</td>${celle(r, "1D")}${celle(r, "1W")}` +
-        `<td>${r.punteggio && r.punteggio.punti !== null ? `<b>${r.punteggio.punti}/6</b>` : '<span class="muted">–</span>'}</td><td>${esc(r.punteggio?.segnale || "")}</td></tr>`).join("")
+        `<td>${r.punteggio && r.punteggio.punti !== null ? `<b>${r.punteggio.punti}/6</b>` : '<span class="muted">–</span>'}</td><td>${taglia(r.punteggio?.segnale || "")}</td></tr>`).join("")
         : `<tr><td colspan="8" class="vuoto">Nessun titolo con questi filtri.</td></tr>`) + "</tbody>";
   }
 
@@ -51,7 +53,7 @@
     if (j.scheduler) {
       $("sched").hidden = false;
       $("tab-sched").innerHTML = "<thead><tr><th>Quando (UTC)</th><th>Lavoro</th><th>Esito</th><th>Dettaglio</th></tr></thead><tbody>" +
-        (j.scheduler.length ? j.scheduler.map((s) => `<tr><td>${esc(s.quando.slice(0, 16).replace("T", " "))}</td><td>${esc(s.job)}</td><td>${esc(s.esito)}</td><td>${esc(s.dettaglio)}</td></tr>`).join("")
+        (j.scheduler.length ? j.scheduler.map((s) => `<tr><td>${esc(s.quando.slice(0, 16).replace("T", " "))}</td><td>${esc(s.job)}</td><td>${esc(s.esito)}</td><td>${taglia(s.dettaglio)}</td></tr>`).join("")
           : '<tr><td colspan="4" class="muted">Nessun lancio registrato.</td></tr>') + "</tbody>";
     }
     for (const id of ["f-mostra", "f-tf", "f-min"]) $(id).addEventListener("change", disegna);

@@ -48,6 +48,10 @@
     }
   }
 
+  // Due etichette di livello più vicine di così (in pixel verticale) si accavallano:
+  // sui range stretti le etichette si tolgono (la linea resta), top e bottom mai.
+  const SOGLIA_ETICHETTE_PX = 14;
+
   function creaGrafico(box, b, barre, altro, dim, extra) {
     const colTesto = css("--muto"), colGriglia = css("--griglia-chart"), colBordo = css("--bordo");
     const chart = LW.createChart(box, {
@@ -66,20 +70,37 @@
     const attivo = b.stato === "in_range" || b.stato === "rallenta";
     const colore = attivo ? (b.stato === "in_range" ? "rgba(46,166,111,.14)" : "rgba(217,162,59,.14)") : "rgba(76,141,255,.12)";
     candele.attachPrimitive(new Rettangolo(b.inizio, b.top, b.bottom, colore));
-    candele.createPriceLine({ price: b.top, color: css("--verde"), lineWidth: 1, lineStyle: 2, axisLabelVisible: true, title: "top" });
-    candele.createPriceLine({ price: b.bottom, color: css("--rosso"), lineWidth: 1, lineStyle: 2, axisLabelVisible: true, title: "bottom" });
+    chart.timeScale().fitContent();          // prima il range visibile, poi si misurano le Y dei livelli
+    // Linee di livello: top e bottom del range tengono SEMPRE l'etichetta; le
+    // altre (altro timeframe, POC, VWAP, livelli personali) la perdono se stanno
+    // a meno di SOGLIA_ETICHETTE_PX pixel da un'etichetta già visibile. La linea
+    // resta disegnata; il valore resta nel dettaglio sotto il grafico.
+    const linee = [
+      { prezzo: b.top, nome: "top", colore: css("--verde"), stile: 2, fissa: true },
+      { prezzo: b.bottom, nome: "bottom", colore: css("--rosso"), stile: 2, fissa: true },
+    ];
     if (altro) {   // riferimenti dell'altro timeframe: stesse soglie viste da qui
       const t = altro.tf === "1W" ? "sett." : "giorn.";
-      for (const [prezzo, nome] of [[altro.b.top, "top " + t], [altro.b.bottom, "bottom " + t]]) {
-        candele.createPriceLine({ price: prezzo, color: css("--altro"), lineWidth: 1, lineStyle: 1,
-                                  axisLabelVisible: true, title: nome });
-      }
+      linee.push({ prezzo: altro.b.top, nome: "top " + t, colore: css("--altro"), stile: 1 });
+      linee.push({ prezzo: altro.b.bottom, nome: "bottom " + t, colore: css("--altro"), stile: 1 });
     }
     if (extra) {   // livelli del titolo: POC, VWAP, zone volumetriche, livelli personali
       for (const z of extra.bande || []) candele.attachPrimitive(new Rettangolo(barre[0].t, z.top, z.bottom, z.colore));
-      for (const l of extra.linee || []) candele.createPriceLine({ price: l.prezzo, color: l.colore, lineWidth: 1, lineStyle: l.stile, axisLabelVisible: true, title: l.nome });
+      for (const l of extra.linee || []) linee.push({ prezzo: l.prezzo, nome: l.nome, colore: l.colore, stile: l.stile });
     }
-    chart.timeScale().fitContent();
+    const visibili = [];
+    for (const l of linee) {
+      const y = candele.priceToCoordinate(l.prezzo);
+      const libera = y == null || visibili.every((v) => v.y == null || Math.abs(v.y - y) >= SOGLIA_ETICHETTE_PX);
+      if (l.fissa || libera) {
+        l.y = y;
+        visibili.push(l);
+        candele.createPriceLine({ price: l.prezzo, color: l.colore, lineWidth: 1, lineStyle: l.stile, axisLabelVisible: true, title: l.nome });
+      } else {
+        candele.createPriceLine({ price: l.prezzo, color: l.colore, lineWidth: 1, lineStyle: l.stile, axisLabelVisible: false, title: "" });
+      }
+    }
+    box.dataset.etichette = visibili.map((l) => l.nome).join(" · ");   // quali etichette sono visibili (test e screen reader)
     return chart;
   }
 

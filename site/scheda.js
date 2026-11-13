@@ -36,6 +36,9 @@ window.Scheda = (() => {
     }
   }
   const zona = (t) => { const m = /([\d.]+)\s*[–-]\s*([\d.]+)/.exec(String(t || "")); return m ? [Number(m[1]), Number(m[2])] : null; };
+  // Due etichette di livello più vicine di così (in pixel verticale) si accavallano:
+  // sui range stretti le etichette si tolgono (la linea resta), top e bottom mai.
+  const SOGLIA_ETICHETTE_PX = 14;
   const SEZ = [
     ["Segnale", ["Segnale", "Seg_Punti", "Origine_Segnale", "Priorità", "Confluenza", "Trend", "In zona", "Sifrediana_Today"]],
     ["Prezzo e tecnica", ["Prezzo", "DD%", "DD_2a%", "RSI", "ATR%", "SMA50", "SMA200", "Dist_SMA200%", "Sopra_SMA200", "W_SMA13", "W_SMA52", "Ret_4s%", "RS_4s%"]],
@@ -130,17 +133,34 @@ window.Scheda = (() => {
           timeScale: { borderColor: css("--bordo"), timeVisible: false, rightOffset: 6 }, crosshair: { mode: 0 } });
         const c = chart.addSeries(LW.CandlestickSeries, { upColor: css("--verde"), downColor: css("--rosso"), borderVisible: false, wickUpColor: css("--verde"), wickDownColor: css("--rosso") });
         c.setData(barre.map((q) => ({ time: q.t, open: q.o, high: q.h, low: q.l, close: q.c })));
-        const linea = (prezzo, nome, colore, stile) => c.createPriceLine({ price: prezzo, color: colore, lineWidth: 1, lineStyle: stile, axisLabelVisible: true, title: nome });
+        const n = barre.length, v = tf === "1W" ? 156 : 260;
+        if (n > v) chart.timeScale().setVisibleLogicalRange({ from: n - v, to: n + 5 }); else chart.timeScale().fitContent();
+        // prima il range visibile (l'autoscala dipende dalle barre visibili),
+        // poi si raccolgono le linee e si decide QUALI tengono l'etichetta:
+        // top e bottom del range sempre; le altre solo se non si accavallano.
+        const linee = [];
         if (b && lv.range) {
           c.attachPrimitive(new Rettangolo(b.inizio, b.top, b.bottom, b.stato === "in_range" ? "rgba(46,166,111,.14)" : b.stato === "rallenta" ? "rgba(217,162,59,.14)" : "rgba(76,141,255,.12)"));
-          linea(b.top, "top", css("--verde"), 2); linea(b.bottom, "bottom", css("--rosso"), 2);
+          linee.push({ prezzo: b.top, nome: "top", colore: css("--verde"), stile: 2, fissa: true });
+          linee.push({ prezzo: b.bottom, nome: "bottom", colore: css("--rosso"), stile: 2, fissa: true });
         }
-        if (lv.poc && nz(xx.Z1c) !== null) linea(xx.Z1c, "POC", "#f59e0b", 0);
-        if (lv.vwap && nz(xx.VWAP60) !== null) linea(xx.VWAP60, "VWAP60", "#a855f7", 0);
-        if (lv.anc) ["VWA1", "VWA2", "VWA3"].forEach((k, i) => { if (nz(xx[k]) !== null) linea(xx[k], "VWAP anc." + (i + 1), "#ec4899", 3); });
+        if (lv.poc && nz(xx.Z1c) !== null) linee.push({ prezzo: xx.Z1c, nome: "POC", colore: "#f59e0b", stile: 0 });
+        if (lv.vwap && nz(xx.VWAP60) !== null) linee.push({ prezzo: xx.VWAP60, nome: "VWAP60", colore: "#a855f7", stile: 0 });
+        if (lv.anc) ["VWA1", "VWA2", "VWA3"].forEach((k, i) => { if (nz(xx[k]) !== null) linee.push({ prezzo: xx[k], nome: "VWAP anc." + (i + 1), colore: "#ec4899", stile: 3 }); });
         if (lv.zone) for (const [k, col] of [["Z1", "rgba(245,158,11,.13)"], ["Z2", "rgba(245,158,11,.07)"]]) { const z = zona(xx[k]); if (z) c.attachPrimitive(new Rettangolo(barre[0].t, Math.max(...z), Math.min(...z), col)); }
-        if (lv.miei && w && w.levels) for (const k of ["L1", "L2", "L3"]) if (nz(w.levels[k]) !== null && w.levels[k] > 0) linea(w.levels[k], k + " (mio)", "#38bdf8", 1);
-        const n = barre.length, v = tf === "1W" ? 156 : 260; if (n > v) chart.timeScale().setVisibleLogicalRange({ from: n - v, to: n + 5 }); else chart.timeScale().fitContent();
+        if (lv.miei && w && w.levels) for (const k of ["L1", "L2", "L3"]) if (nz(w.levels[k]) !== null && w.levels[k] > 0) linee.push({ prezzo: w.levels[k], nome: k + " (mio)", colore: "#38bdf8", stile: 1 });
+        const visibili = [];
+        for (const l of linee) {
+          const y = c.priceToCoordinate(l.prezzo);
+          const libera = y == null || visibili.every((g) => g.y == null || Math.abs(g.y - y) >= SOGLIA_ETICHETTE_PX);
+          if (l.fissa || libera) {
+            l.y = y; visibili.push(l);
+            c.createPriceLine({ price: l.prezzo, color: l.colore, lineWidth: 1, lineStyle: l.stile, axisLabelVisible: true, title: l.nome });
+          } else {
+            c.createPriceLine({ price: l.prezzo, color: l.colore, lineWidth: 1, lineStyle: l.stile, axisLabelVisible: false, title: "" });
+          }
+        }
+        box.dataset.etichette = visibili.map((l) => l.nome).join(" · ");   // quali etichette sono visibili (test e screen reader)
       };
       for (const t of tfs) { const bt = el("button", "az" + (t === tf ? " pri" : ""), t === "1W" ? "Settimanale" : "Giornaliero"); bt.type = "button";
         bt.addEventListener("click", () => { tf = t; [...barraTf.children].forEach((x2) => x2.classList.toggle("pri", x2 === bt)); disegna(); }); barraTf.append(bt); }

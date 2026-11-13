@@ -131,3 +131,7 @@ main.col>p.muted{max-width:none}
 @media print{.banner-api{display:none}}
 
 .bq{display:inline-block;padding:1px 7px;border-radius:10px;border:1px solid var(--ambra);background:color-mix(in srgb,var(--ambra) 16%,transparent);font-size:.78rem;white-space:nowrap;max-width:15rem;overflow:hidden;text-overflow:ellipsis;vertical-align:middle}
+
+/* Testi lunghi nelle tabelle: ellipsis in cella + tooltip col testo completo
+   (attributo title impostato dalle pagine quando avvolgono il testo in .taglia). */
+.taglia{display:inline-block;max-width:22rem;overflow:hidden;text-overflow:ellipsis;vertical-align:bottom}

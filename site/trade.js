@@ -23,6 +23,8 @@ window.Trade = (cfg) => {
   }
   const cl = (v) => (v > 0 ? "pos" : v < 0 ? "neg" : "");
   const euro = (v) => (v === null ? "–" : `<span class="${cl(v)}">${v > 0 ? "+" : ""}${fmt(v)} €</span>`);
+  // Testo lungo in cella (note e motivazioni): ellipsis + tooltip col testo completo (title).
+  const taglia = (s) => { const t = String(s ?? ""); return t.length > 24 ? `<span class="taglia" title="${esc(t)}">${esc(t)}</span>` : esc(t); };
 
   function disegna() {
     const aperti = righe.filter((r) => r.Stato !== "Chiuso"), chiusi = righe.filter((r) => r.Stato === "Chiuso");
@@ -35,11 +37,11 @@ window.Trade = (cfg) => {
     const rowA = (r) => { const p = num(px[r.Ticker]), l = livello(r, p), n = cfg.condiviso ? pnl(r, p) : null, pc = pnlPct(r, p);
       return `<tr class="cl${r.ID === sel ? " sel" : ""}" data-i="${esc(r.ID)}"><td><b>${esc(r.Ticker)}</b></td><td>${esc(r.Direzione)}</td><td>${dmy(r.Data_Ingresso)}</td><td>${fmt(r.Prezzo_Ingresso)}</td><td>${fmt(p)}</td><td>${fmt(r.Quantita, 0)}</td>
         <td>${fmt(r.SL)}</td><td>${fmt(r.TP1)}</td><td>${fmt(r.TP2)}</td><td>${fmt(r.TP3)}</td>${cfg.condiviso ? `<td>${euro(n && n.netto)}</td><td>${n ? `<span class="${cl(n.pct)}">${fmt(n.pct)}%</span>` : "–"}</td>` : `<td>${pc === null ? "–" : `<span class="${cl(pc)}">${fmt(pc)}%</span>`}</td>`}
-        <td>${LIV[l]}</td><td>${esc((cfg.condiviso ? r.Motivazione : r.Note) || "")}</td></tr>`; };
+        <td>${LIV[l]}</td><td>${taglia((cfg.condiviso ? r.Motivazione : r.Note) || "")}</td></tr>`; };
     const ch = ["Ticker", "Dir.", "Ingresso il", "Uscita il", "Ingresso", "Uscita", "Qtà", cfg.condiviso ? "Costi €" : "", cfg.condiviso ? "Guadagno/perdita € (netto)" : "Rend. %", cfg.condiviso ? "Rend. netto %" : "", cfg.condiviso ? "Motivo uscita" : "Note"].filter(Boolean);
     const rowC = (r) => { const n = pnl(r), pc = pnlPct(r, num(r.Prezzo_Uscita));
       return `<tr class="cl${r.ID === sel ? " sel" : ""}" data-i="${esc(r.ID)}"><td><b>${esc(r.Ticker)}</b></td><td>${esc(r.Direzione)}</td><td>${dmy(r.Data_Ingresso)}</td><td>${dmy(r.Data_Uscita)}</td><td>${fmt(r.Prezzo_Ingresso)}</td><td>${fmt(r.Prezzo_Uscita)}</td><td>${fmt(r.Quantita, 0)}</td>
-        ${cfg.condiviso ? `<td>${n ? fmt(n.costi) : "–"}</td><td>${euro(n && n.netto)}</td><td>${n ? `<span class="${cl(n.pct)}">${fmt(n.pct)}%</span>` : "–"}</td><td>${esc(r.Motivo_Uscita || "")}</td>` : `<td>${pc === null ? "–" : `<span class="${cl(pc)}">${fmt(pc)}%</span>`}</td><td>${esc(r.Note || "")}</td>`}</tr>`; };
+        ${cfg.condiviso ? `<td>${n ? fmt(n.costi) : "–"}</td><td>${euro(n && n.netto)}</td><td>${n ? `<span class="${cl(n.pct)}">${fmt(n.pct)}%</span>` : "–"}</td><td>${taglia(r.Motivo_Uscita || "")}</td>` : `<td>${pc === null ? "–" : `<span class="${cl(pc)}">${fmt(pc)}%</span>`}</td><td>${taglia(r.Note || "")}</td>`}</tr>`; };
     $("tab").innerHTML = (aperti.length ? `<caption style="text-align:left;font-weight:600;padding:6px 0">Trade aperti</caption>${th(ap)}<tbody>${aperti.map(rowA).join("")}</tbody>` : "")
       + (chiusi.length ? `<tbody><tr><td colspan="${ch.length}" style="font-weight:600;padding-top:14px">Trade chiusi</td></tr></tbody>${th(ch)}<tbody>${chiusi.map(rowC).join("")}</tbody>` : "")
       + (!righe.length ? `<tbody><tr><td class="vuoto">Nessun trade registrato.</td></tr></tbody>` : "");
