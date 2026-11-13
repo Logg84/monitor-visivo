@@ -228,20 +228,29 @@ export async function aggiornaProfilo(db, email, d) {
   return { ok: true };
 }
 
-/** Elenco degli utenti da avvisare su Telegram, scritto nel repo privato (data/utenti_portale.json):
- *  lo legge il workflow degli alert. Solo utenti attivi con canale telegram|entrambi e Chat ID valido. Best-effort. */
+/** Elenco degli utenti da avvisare, scritto nel repo privato (data/utenti_portale.json): lo legge il workflow degli alert.
+ *  Solo utenti attivi con almeno un canale utilizzabile: Telegram (canale telegram|entrambi + Chat ID valido) e/o email
+ *  (canale email|entrambi + indirizzo valido). «canale» è quello effettivo (un canale senza dato valido decade). Best-effort. */
 export async function esportaUtentiAlert(db, env, fetchFn = fetch) {
   try {
     const { leggiFile, scriviFile } = await import("./archivio.js");
     await schema(db);
-    const righe = ((await db.prepare("SELECT uid,nome,canale,telegram_chat_id FROM utenti WHERE attivo=1 ORDER BY uid").all()).results || [])
-      .filter((u) => (u.canale === "telegram" || u.canale === "entrambi") && /^-?\d{5,16}$/.test(String(u.telegram_chat_id || "")))
-      .map((u) => ({ uid: u.uid, nome: u.nome || u.uid, telegram_chat_id: String(u.telegram_chat_id) }));
+    const righe = ((await db.prepare("SELECT uid,nome,canale,telegram_chat_id,email_alert FROM utenti WHERE attivo=1 ORDER BY uid").all()).results || [])
+      .map((u) => {
+        const tg = (u.canale === "telegram" || u.canale === "entrambi") && /^-?\d{5,16}$/.test(String(u.telegram_chat_id || ""));
+        const em = (u.canale === "email" || u.canale === "entrambi") && emailOk(norm(u.email_alert));
+        if (!tg && !em) return null;
+        const r = { uid: u.uid, nome: u.nome || u.uid, canale: tg && em ? "entrambi" : tg ? "telegram" : "email" };
+        if (tg) r.telegram_chat_id = String(u.telegram_chat_id);
+        if (em) r.email_alert = norm(u.email_alert);
+        return r;
+      })
+      .filter(Boolean);
     const testo = JSON.stringify({ utenti: righe }, null, 2) + "\n";
     const att = await leggiFile(env, "utenti_alert", fetchFn);
     if (!att.ok) return att;
     if (att.testo === testo) return { ok: true, invariato: true };
-    return await scriviFile(env, "utenti_alert", testo, att.sha, "chore: utenti per gli alert Telegram", fetchFn);
+    return await scriviFile(env, "utenti_alert", testo, att.sha, "chore: utenti per gli alert (Telegram/email)", fetchFn);
   } catch (e) { return { ok: false, errore: String(e && e.message || e) }; }
 }
 
