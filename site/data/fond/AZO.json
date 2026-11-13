@@ -1,0 +1,59 @@
+{
+ "aggiornato": "2026-11-13",
+ "dati": {
+  "beta": 0.373,
+  "bilancio_annuale": {
+   "ricavi": {
+    "2023": 17457209000.0,
+    "2024": 18490268000.0,
+    "2025": 18938717000.0,
+    "2026": 20338555000.0
+   },
+   "utile_netto": {
+    "2023": 2528426000.0,
+    "2024": 2662427000.0,
+    "2025": 2498247000.0,
+    "2026": 2572777000.0
+   },
+   "utile_operativo": {
+    "2023": 3473986000.0,
+    "2024": 3788708000.0,
+    "2025": 3610156000.0,
+    "2026": 3723314000.0
+   }
+  },
+  "currency": "USD",
+  "currentRatio": 0.901,
+  "debito_netto": 12824784608,
+  "debito_netto_su_ebitda": 3.0,
+  "dividendYield": 0.0,
+  "earningsGrowth": 0.15,
+  "ebitda": 4279979008,
+  "enterpriseToEbitda": 15.226,
+  "fiftyTwoWeekHigh": 3996.25,
+  "fiftyTwoWeekLow": 2730.65,
+  "financialCurrency": "USD",
+  "forwardPE": 16.9673,
+  "freeCashflow": 1196151552,
+  "grossMargins": 0.5171,
+  "industry": "Auto Parts",
+  "longName": "AutoZone, Inc.",
+  "marketCap": 52462723072,
+  "numberOfAnalystOpinions": 23,
+  "operatingCashflow": 3249116928,
+  "operatingMargins": 0.1768,
+  "payoutRatio": 0.0,
+  "priceToBook": -21.0669,
+  "profitMargins": 0.1265,
+  "quickRatio": 0.108,
+  "recommendationKey": "strong_buy",
+  "returnOnAssets": 0.1097,
+  "revenueGrowth": 0.056,
+  "sector": "Consumer Cyclical",
+  "targetMeanPrice": 3665.6086,
+  "totalCash": 340084000,
+  "totalDebt": 13164868608,
+  "trailingPE": 21.3681
+ },
+ "v": 2
+}

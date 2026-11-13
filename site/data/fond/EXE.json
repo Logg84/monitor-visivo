@@ -1,0 +1,61 @@
+{
+ "aggiornato": "2026-11-13",
+ "dati": {
+  "beta": 0.37,
+  "bilancio_annuale": {
+   "ricavi": {
+    "2022": 11443000000.0,
+    "2023": 7775000000.0,
+    "2024": 4221000000.0,
+    "2025": 12189000000.0
+   },
+   "utile_netto": {
+    "2022": 4936000000.0,
+    "2023": 2419000000.0,
+    "2024": -714000000.0,
+    "2025": 1819000000.0
+   },
+   "utile_operativo": {
+    "2022": 3727000000.0,
+    "2023": 2368000000.0,
+    "2024": -697000000.0,
+    "2025": 2771000000.0
+   }
+  },
+  "currency": "USD",
+  "currentRatio": 0.904,
+  "debito_netto": 4552000128,
+  "debito_netto_su_ebitda": 0.68,
+  "debtToEquity": 23.949,
+  "dividendYield": 2.62,
+  "earningsGrowth": -0.018,
+  "ebitda": 6688999936,
+  "enterpriseToEbitda": 3.712,
+  "fiftyTwoWeekHigh": 126.621,
+  "fiftyTwoWeekLow": 83.25,
+  "financialCurrency": "USD",
+  "forwardPE": 11.1544,
+  "freeCashflow": 1366749952,
+  "grossMargins": 0.4586,
+  "industry": "Oil & Gas E&P",
+  "longName": "Expand Energy Corporation",
+  "marketCap": 20446652416,
+  "numberOfAnalystOpinions": 27,
+  "operatingCashflow": 5631000064,
+  "operatingMargins": 0.2893,
+  "payoutRatio": 0.1984,
+  "priceToBook": 1.0485,
+  "profitMargins": 0.2126,
+  "quickRatio": 0.502,
+  "recommendationKey": "buy",
+  "returnOnAssets": 0.0817,
+  "returnOnEquity": 0.1462,
+  "revenueGrowth": 0.116,
+  "sector": "Energy",
+  "targetMeanPrice": 122.7778,
+  "totalCash": 118000000,
+  "totalDebt": 4670000128,
+  "trailingPE": 7.6385
+ },
+ "v": 2
+}

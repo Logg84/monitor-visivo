@@ -1,0 +1,61 @@
+{
+ "aggiornato": "2026-11-13",
+ "dati": {
+  "beta": 0.986,
+  "bilancio_annuale": {
+   "ricavi": {
+    "2023": 1852800000.0,
+    "2024": 2034100000.0,
+    "2025": 2248100000.0,
+    "2026": 2582300000.0
+   },
+   "utile_netto": {
+    "2023": 234500000.0,
+    "2024": 268800000.0,
+    "2025": 296400000.0,
+    "2026": 372300000.0
+   },
+   "utile_operativo": {
+    "2023": 308400000.0,
+    "2024": 367700000.0,
+    "2025": 409500000.0,
+    "2026": 525800000.0
+   }
+  },
+  "currency": "GBp",
+  "currentRatio": 2.143,
+  "debito_netto": 770000000,
+  "debito_netto_su_ebitda": 1.24,
+  "debtToEquity": 42.131,
+  "dividendYield": 0.69,
+  "earningsGrowth": 0.16,
+  "ebitda": 622800000,
+  "enterpriseToEbitda": 22.352,
+  "fiftyTwoWeekHigh": 4902.0,
+  "fiftyTwoWeekLow": 3198.0,
+  "financialCurrency": "GBP",
+  "forwardPE": 23.4188,
+  "freeCashflow": 261262496,
+  "grossMargins": 0.4996,
+  "industry": "Conglomerates",
+  "longName": "Halma plc",
+  "marketCap": 13150757888,
+  "numberOfAnalystOpinions": 18,
+  "operatingCashflow": 480600000,
+  "operatingMargins": 0.2054,
+  "payoutRatio": 0.2419,
+  "priceToBook": 6.0662,
+  "profitMargins": 0.1442,
+  "quickRatio": 1.412,
+  "recommendationKey": "buy",
+  "returnOnAssets": 0.0951,
+  "returnOnEquity": 0.1831,
+  "revenueGrowth": 0.146,
+  "sector": "Industrials",
+  "targetMeanPrice": 4401.667,
+  "totalCash": 143400000,
+  "totalDebt": 913400000,
+  "trailingPE": 35.8969
+ },
+ "v": 2
+}

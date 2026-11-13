@@ -1,0 +1,61 @@
+{
+ "aggiornato": "2026-11-13",
+ "dati": {
+  "beta": 0.986,
+  "bilancio_annuale": {
+   "ricavi": {
+    "2022": 8634652000.0,
+    "2023": 9871649000.0,
+    "2024": 11313853000.0,
+    "2025": 11925601000.0
+   },
+   "utile_netto": {
+    "2022": 899101000.0,
+    "2023": 1228737000.0,
+    "2024": 1534110000.0,
+    "2025": 1535761000.0
+   },
+   "utile_operativo": {
+    "2022": 1211102000.0,
+    "2023": 1633114000.0,
+    "2024": 1985179000.0,
+    "2025": 2012808000.0
+   }
+  },
+  "currency": "USD",
+  "currentRatio": 0.81,
+  "debito_netto": 4696466816,
+  "debito_netto_su_ebitda": 2.08,
+  "debtToEquity": 228.053,
+  "dividendYield": 0.0,
+  "earningsGrowth": -0.062,
+  "ebitda": 2261161984,
+  "enterpriseToEbitda": 21.752,
+  "fiftyTwoWeekHigh": 41.42,
+  "fiftyTwoWeekLow": 27.31,
+  "financialCurrency": "USD",
+  "forwardPE": 26.6339,
+  "freeCashflow": 1184089728,
+  "grossMargins": 0.3931,
+  "industry": "Restaurants",
+  "longName": "Chipotle Mexican Grill, Inc.",
+  "marketCap": 44628316160,
+  "numberOfAnalystOpinions": 30,
+  "operatingCashflow": 2347982080,
+  "operatingMargins": 0.1472,
+  "payoutRatio": 0.0,
+  "priceToBook": 18.1762,
+  "profitMargins": 0.1083,
+  "quickRatio": 0.693,
+  "recommendationKey": "buy",
+  "returnOnAssets": 0.125,
+  "returnOnEquity": 0.4852,
+  "revenueGrowth": 0.096,
+  "sector": "Consumer Cyclical",
+  "targetMeanPrice": 40.5667,
+  "totalCash": 902563968,
+  "totalDebt": 5599030784,
+  "trailingPE": 32.972
+ },
+ "v": 2
+}

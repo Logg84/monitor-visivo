@@ -1,0 +1,54 @@
+{
+ "aggiornato": "2026-11-13",
+ "dati": {
+  "beta": 1.439,
+  "bilancio_annuale": {
+   "ricavi": {
+    "2022": 6222200000.0,
+    "2023": 7124100000.0,
+    "2024": 8352100000.0,
+    "2025": 10064700000.0
+   },
+   "utile_operativo": {
+    "2022": 1577100000.0,
+    "2023": 1766800000.0,
+    "2024": 2348900000.0,
+    "2025": 2945500000.0
+   }
+  },
+  "currency": "USD",
+  "currentRatio": 3.327,
+  "debito_netto": -4042500096,
+  "debito_netto_su_ebitda": -0.9,
+  "dividendYield": 0.0,
+  "earningsGrowth": -0.236,
+  "ebitda": 4470700032,
+  "enterpriseToEbitda": 33.233,
+  "fiftyTwoWeekHigh": 603.88,
+  "fiftyTwoWeekLow": 328.57,
+  "financialCurrency": "USD",
+  "forwardPE": 35.5761,
+  "freeCashflow": 3434800128,
+  "grossMargins": 0.6664,
+  "industry": "Medical Instruments & Supplies",
+  "longName": "Intuitive Surgical, Inc.",
+  "marketCap": 153767690240,
+  "numberOfAnalystOpinions": 30,
+  "operatingCashflow": 4089499904,
+  "operatingMargins": 0.317,
+  "payoutRatio": 0.0,
+  "priceToBook": 9.6175,
+  "profitMargins": 0.2554,
+  "quickRatio": 2.316,
+  "recommendationKey": "buy",
+  "returnOnAssets": 0.1185,
+  "returnOnEquity": 0.1793,
+  "revenueGrowth": 0.217,
+  "sector": "Healthcare",
+  "targetMeanPrice": 486.5667,
+  "totalCash": 4042500096,
+  "totalDebt": 0,
+  "trailingPE": 53.6384
+ },
+ "v": 2
+}

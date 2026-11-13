@@ -1,0 +1,61 @@
+{
+ "aggiornato": "2026-11-13",
+ "dati": {
+  "beta": 1.295,
+  "bilancio_annuale": {
+   "ricavi": {
+    "2022": 5663000000.0,
+    "2023": 6640000000.0,
+    "2024": 7430000000.0,
+    "2025": 8252000000.0
+   },
+   "utile_netto": {
+    "2022": 469000000.0,
+    "2023": 765000000.0,
+    "2024": 1155000000.0,
+    "2025": 1508000000.0
+   },
+   "utile_operativo": {
+    "2022": 975000000.0,
+    "2023": 1226000000.0,
+    "2024": 1654000000.0,
+    "2025": 2130000000.0
+   }
+  },
+  "currency": "USD",
+  "currentRatio": 1.859,
+  "debito_netto": 4114000192,
+  "debito_netto_su_ebitda": 1.35,
+  "debtToEquity": 80.198,
+  "dividendYield": 0.25,
+  "earningsGrowth": 0.495,
+  "ebitda": 3056999936,
+  "enterpriseToEbitda": 30.368,
+  "fiftyTwoWeekHigh": 310.0,
+  "fiftyTwoWeekLow": 183.52,
+  "financialCurrency": "USD",
+  "forwardPE": 33.222,
+  "freeCashflow": 1291250048,
+  "grossMargins": 0.3663,
+  "industry": "Aerospace & Defense",
+  "longName": "Howmet Aerospace Inc.",
+  "marketCap": 87811391488,
+  "numberOfAnalystOpinions": 21,
+  "operatingCashflow": 2399000064,
+  "operatingMargins": 0.2808,
+  "payoutRatio": 0.098,
+  "priceToBook": 15.2395,
+  "profitMargins": 0.211,
+  "quickRatio": 0.733,
+  "recommendationKey": "strong_buy",
+  "returnOnAssets": 0.1397,
+  "returnOnEquity": 0.3765,
+  "revenueGrowth": 0.294,
+  "sector": "Industrials",
+  "targetMeanPrice": 296.2857,
+  "totalCash": 507000000,
+  "totalDebt": 4621000192,
+  "trailingPE": 43.298
+ },
+ "v": 2
+}

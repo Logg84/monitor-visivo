@@ -1,0 +1,61 @@
+{
+ "aggiornato": "2026-11-13",
+ "dati": {
+  "beta": 0.378,
+  "bilancio_annuale": {
+   "ricavi": {
+    "2022": 79571000000.0,
+    "2023": 78558000000.0,
+    "2024": 81400000000.0,
+    "2025": 88309000000.0
+   },
+   "utile_netto": {
+    "2022": 2590000000.0,
+    "2023": 8317000000.0,
+    "2024": 11339000000.0,
+    "2025": 10992000000.0
+   },
+   "utile_operativo": {
+    "2022": 8107000000.0,
+    "2023": 14241000000.0,
+    "2024": 18010000000.0,
+    "2025": 18557000000.0
+   }
+  },
+  "currency": "USD",
+  "currentRatio": 0.91,
+  "debito_netto": 113367997440,
+  "debito_netto_su_ebitda": 3.21,
+  "debtToEquity": 211.32,
+  "dividendYield": 2.74,
+  "earningsGrowth": 0.336,
+  "ebitda": 35362000896,
+  "enterpriseToEbitda": 8.329,
+  "fiftyTwoWeekHigh": 224.75,
+  "fiftyTwoWeekLow": 143.75,
+  "financialCurrency": "USD",
+  "forwardPE": 11.9216,
+  "freeCashflow": 16360999936,
+  "grossMargins": 0.6298,
+  "industry": "Telecom Services",
+  "longName": "T-Mobile US, Inc.",
+  "marketCap": 180023377920,
+  "numberOfAnalystOpinions": 25,
+  "operatingCashflow": 28717000704,
+  "operatingMargins": 0.2273,
+  "payoutRatio": 0.3934,
+  "priceToBook": 3.2079,
+  "profitMargins": 0.1205,
+  "quickRatio": 0.678,
+  "recommendationKey": "buy",
+  "returnOnAssets": 0.0619,
+  "returnOnEquity": 0.1935,
+  "revenueGrowth": 0.074,
+  "sector": "Communication Services",
+  "targetMeanPrice": 225.64,
+  "totalCash": 5619999744,
+  "totalDebt": 118987997184,
+  "trailingPE": 16.3886
+ },
+ "v": 2
+}

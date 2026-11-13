@@ -1,0 +1,60 @@
+{
+ "aggiornato": "2026-11-13",
+ "dati": {
+  "beta": 0.754,
+  "bilancio_annuale": {
+   "ricavi": {
+    "2022": 4110000000.0,
+    "2023": 10372000000.0,
+    "2024": 11298000000.0,
+    "2025": 13017000000.0
+   },
+   "utile_netto": {
+    "2022": 1832000000.0,
+    "2023": 1221000000.0,
+    "2024": 1446000000.0,
+    "2025": 1627000000.0
+   },
+   "utile_operativo": {
+    "2022": -770000000.0,
+    "2023": 2355000000.0,
+    "2024": 2466000000.0,
+    "2025": 3089000000.0
+   }
+  },
+  "currency": "USD",
+  "currentRatio": 0.826,
+  "debito_netto": 12601999872,
+  "debito_netto_su_ebitda": 2.83,
+  "dividendYield": 3.05,
+  "earningsGrowth": -0.22,
+  "ebitda": 4446000128,
+  "enterpriseToEbitda": 8.432,
+  "fiftyTwoWeekHigh": 70.45,
+  "fiftyTwoWeekLow": 35.03,
+  "financialCurrency": "USD",
+  "forwardPE": 13.1736,
+  "freeCashflow": 2107374976,
+  "grossMargins": 0.7862,
+  "industry": "Resorts & Casinos",
+  "longName": "Las Vegas Sands Corp.",
+  "marketCap": 25324132352,
+  "numberOfAnalystOpinions": 19,
+  "operatingCashflow": 3487000064,
+  "operatingMargins": 0.2224,
+  "payoutRatio": 0.4713,
+  "priceToBook": -73.5701,
+  "profitMargins": 0.1185,
+  "quickRatio": 0.762,
+  "recommendationKey": "buy",
+  "returnOnAssets": 0.0924,
+  "returnOnEquity": 2.0708,
+  "revenueGrowth": -0.035,
+  "sector": "Consumer Cyclical",
+  "targetMeanPrice": 49.5684,
+  "totalCash": 2857999872,
+  "totalDebt": 15459999744,
+  "trailingPE": 16.5533
+ },
+ "v": 2
+}

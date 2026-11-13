@@ -1,5 +1,5 @@
 {
- "aggiornato": "2026-11-06",
+ "aggiornato": "2026-11-13",
  "dati": {
   "beta": 2.108,
   "bilancio_annuale": {
@@ -27,24 +27,24 @@
   "debito_netto": -354799872,
   "debito_netto_su_ebitda": -0.11,
   "debtToEquity": 61.012,
-  "dividendYield": 0.14,
+  "dividendYield": 0.12,
   "earningsGrowth": 0.912,
   "ebitda": 3188199936,
-  "enterpriseToEbitda": 21.234,
+  "enterpriseToEbitda": 25.208,
   "fiftyTwoWeekHigh": 379.935,
   "fiftyTwoWeekLow": 147.82,
   "financialCurrency": "USD",
-  "forwardPE": 18.5789,
+  "forwardPE": 20.3726,
   "freeCashflow": 2962249984,
   "grossMargins": 0.3811,
   "industry": "Electrical Equipment & Parts",
   "longName": "Vertiv Holdings Co",
-  "marketCap": 70412148736,
-  "numberOfAnalystOpinions": 28,
+  "marketCap": 77809164288,
+  "numberOfAnalystOpinions": 29,
   "operatingCashflow": 3665499904,
-  "operatingMargins": 0.2377,
+  "operatingMargins": 0.2111,
   "payoutRatio": 0.0467,
-  "priceToBook": 12.7964,
+  "priceToBook": 14.1407,
   "profitMargins": 0.16,
   "quickRatio": 0.929,
   "recommendationKey": "strong_buy",
@@ -52,10 +52,10 @@
   "returnOnEquity": 0.4657,
   "revenueGrowth": 0.612,
   "sector": "Industrials",
-  "targetMeanPrice": 339.0714,
+  "targetMeanPrice": 337.5372,
   "totalCash": 3711699968,
   "totalDebt": 3356900096,
-  "trailingPE": 34.1794
+  "trailingPE": 37.7701
  },
  "v": 2
 }
