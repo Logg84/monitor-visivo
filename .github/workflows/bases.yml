@@ -48,6 +48,7 @@ jobs:
           node tests/verifica_collegamento.mjs
           node tests/verifica_sintesi.mjs
           node tests/verifica_tvlink.mjs
+          node tests/verifica_livelli.mjs
           node tests/verifica_briefing.mjs
       - name: Giro basi
         env:

@@ -29,7 +29,7 @@
   <div id="esito"></div>
   <div class="box"><h3>➕ Aggiungi titolo (👤 manuale)</h3>
     <form id="f-add"><label>Ticker (es. CPR.MI o CPR)<input id="a-t" required></label><label>L1 (supporto forte)<input id="a-l1" type="number" step="any" min="0"></label><label>L2 (supporto medio)<input id="a-l2" type="number" step="any" min="0"></label><label>L3 (resistenza)<input id="a-l3" type="number" step="any" min="0"></label><label>Data target (alert)<input id="a-td" type="date"></label><button class="az pri" type="submit">Aggiungi</button></form>
-    <p class="muted">Il ticker va scritto come su Yahoo Finance (suffisso di borsa incluso). Settore e VWAP li compila il sistema alla prossima riconciliazione. L1/L2/L3 sono livelli personali, non entrano nei calcoli.</p></div>
+    <p class="muted">Il ticker va scritto come su Yahoo Finance (suffisso di borsa incluso). Settore e VWAP li compila il sistema alla prossima riconciliazione. L1/L2/L3 sono livelli personali, non entrano nei calcoli; se sono in ordine strano o lontani dal prezzo compare «⚠️ livelli?» (puoi aver sbagliato una cifra).</p></div>
   <section class="controlli" aria-label="Filtri">
     <label>Cerca<input id="f-q" placeholder="ticker o nome"></label>
     <label>Origine<select id="f-or"><option value="">tutte</option><option value="manual">👤 solo i miei (manuali)</option><option value="auto">🤖 solo automatici</option></select></label>
@@ -46,6 +46,7 @@
 <script src="scheda.js"></script>
 <script src="ordina.js"></script>
 <script src="comune.js"></script>
+<script src="livelli.js"></script>
 <script src="watchlist.js"></script>
 </body>
 </html>

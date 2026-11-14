@@ -7,7 +7,7 @@
 
   function ricostruisci() {
     if (!ctx) return;
-    const md = window.Briefing.costruisci(ctx, { watchlist: $("o-wl").checked, portafoglio: $("o-pf").checked });
+    const md = window.Briefing.costruisci(ctx, { istruzioni: $("o-ist").checked, watchlist: $("o-wl").checked, portafoglio: $("o-pf").checked });
     $("anteprima").value = md;
     $("info").textContent = `${(md.length / 1024).toFixed(0)} KB · ~${Math.round(md.length / 3.5 / 1000)}k token`;
     for (const id of ["scarica", "copia"]) $(id).disabled = false;
@@ -27,7 +27,7 @@
     ricostruisci();
   }
 
-  $("o-wl").addEventListener("change", ricostruisci); $("o-pf").addEventListener("change", ricostruisci);
+  $("o-ist").addEventListener("change", ricostruisci); $("o-wl").addEventListener("change", ricostruisci); $("o-pf").addEventListener("change", ricostruisci);
   $("scarica").addEventListener("click", () => {
     const md = ricostruisci(); if (!md) return;
     const a = document.createElement("a"); a.href = URL.createObjectURL(new Blob([md], { type: "text/markdown;charset=utf-8" }));

@@ -12,6 +12,12 @@
     return `<span class="bq" title="${esc(q)}">⚠️ ${esc(q.split(";")[0].replace(/\s*\(.*$/, ""))}</span>`;
   }
   const lv = (e) => ["L1", "L2", "L3"].map((k) => (e.levels && num(e.levels[k]) !== null ? `${k} ${fmt(e.levels[k])}` : "")).filter(Boolean).join(" · ");
+  // ⚠️ accanto ai livelli personali se sono incoerenti (ordine invertito, livello lontano dal prezzo): solo un avviso, tooltip col dettaglio.
+  const avvisoLivelli = (e, ex) => {
+    if (!window.Livelli) return "";
+    const a = window.Livelli.controlla(e.levels, ex && ex.Prezzo).avvisi;
+    return a.length ? ` <span class="bq" title="${esc(a.join(" · "))}">⚠️ livelli?</span>` : "";
+  };
   // Testo lungo in cella: ellipsis + tooltip col testo completo (title).
   const taglia = (s) => { const t = String(s ?? ""); return t.length > 24 ? `<span class="taglia" title="${esc(t)}">${esc(t)}</span>` : esc(t); };
 
@@ -28,7 +34,7 @@
     const testa = ["Ticker", "Orig.", "Settore", "Livelli personali", "Data target", "Rivisto", "Segnale", "Punti", "Prezzo", "DD%", "RSI", "Wyckoff", "Dati", ""];
     $("tab").innerHTML = `<thead><tr>${testa.map((t) => `<th>${t}</th>`).join("")}</tr></thead><tbody>` + (d.length ? d.map((e) => {
       const x = scr[e.ticker] || {}, ex = x.extra || {};
-      return `<tr class="cl${e.ticker === sel ? " sel" : ""}" data-t="${esc(e.ticker)}"><td><b class="tk" data-scheda="${esc(e.ticker)}">${esc(e.ticker)}</b></td><td>${e.origin === "manual" ? "👤" : "🤖"}</td><td>${taglia(nomeSett(e))}</td><td>${taglia(lv(e)) || "–"}</td>
+      return `<tr class="cl${e.ticker === sel ? " sel" : ""}" data-t="${esc(e.ticker)}"><td><b class="tk" data-scheda="${esc(e.ticker)}">${esc(e.ticker)}</b></td><td>${e.origin === "manual" ? "👤" : "🤖"}</td><td>${taglia(nomeSett(e))}</td><td>${taglia(lv(e)) || "–"}${avvisoLivelli(e, ex)}</td>
         <td>${esc(dmy(e.target_date))}</td><td>${esc(dmy(e.last_reviewed))}${rivedere(e) ? " ⏳" : ""}</td><td>${taglia(x.segnale || "–")}</td><td>${x.punti ?? "–"}</td>
         <td>${fmt(ex.Prezzo)}</td><td>${num(ex["DD%"]) === null ? "–" : fmt(ex["DD%"], 1) + "%"}</td><td>${num(ex.RSI) === null ? "–" : fmt(ex.RSI, 0)}</td><td>${taglia(ex.Wyckoff || "–")}</td><td>${badgeDati(ex)}</td><td><button type="button" class="az del" data-del="${esc(e.ticker)}" title="Rimuovi ${esc(e.ticker)} dalla watchlist" aria-label="Rimuovi ${esc(e.ticker)}">🗑️</button></td></tr>`;
     }).join("") : `<tr><td colspan="${testa.length}" class="vuoto">Nessun titolo con questi filtri.</td></tr>`) + "</tbody>";

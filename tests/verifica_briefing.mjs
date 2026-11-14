@@ -16,12 +16,12 @@ ok("settori: ordinati per score decrescente", sez(2).indexOf("Health Care") < se
 ok("strumenti: stato, DD, distanze da MA50/MA200/VWAP; riga senza dati esclusa", /EUR\/USD \| 6E=F \| 1\.1036 \| In correzione[^|]*\| -7\.9 \| 32\.4 \| 0\.57 \| -1\.2 \| -2\.5 \| -0\.9/.test(sez(3)) && !/Senza dati/.test(sez(3)));
 ok("tassi: valore con unità e percentile", /Rendimento Treasury 10 anni \| 5\.10 p\.p\. \| 2026-11-12 \| -0\.14 \| \+0\.42 \| 98/.test(sez(3)));
 ok("screening: solo punti ≥ 4 (CCC escluso), ordinati per priorità (BBB prima di AAA)", sez(4).indexOf("| BBB |") > 0 && sez(4).indexOf("| BBB |") < sez(4).indexOf("| AAA |") && !/\| CCC \|/.test(sez(4)));
-ok("screening: «⚠️» tolto dal settore, vento e score presenti, cluster sì", /\| AAA \| Information Technology \| 39 \| contro \| 5\/6 \| 100\.00 \| -40\.0 \| -42 \|/.test(sez(4)) && /\| sì \|/.test(sez(4)));
+ok("screening: «⚠️» tolto dal settore, vento e score presenti, cluster sì", /\| AAA \| USD \| Information Technology \| 39 \| contro \| 5\/6 \| 100\.00 \| -40\.0 \| -42 \|/.test(sez(4)) && /\| sì \|/.test(sez(4)));
 ok("range: prezzo sopra il massimo, dentro (pos), sotto il minimo, assente", /uscito_sopra; 70\.00–90\.00; prezzo 11% sopra il massimo/.test(sez(4)) && /in_range; 80\.00–120\.00; pos 50%/.test(sez(4)) && /uscito_sotto; 55\.00–70\.00; prezzo 9% sotto il minimo/.test(sez(4)) && /assente/.test(sez(4)));
 ok("screening: conteggi dell'universo", /3 titoli nell'universo; 2 con calo ≥ 25%/.test(sez(4)) && /≥4\/6: 2/.test(sez(4)));
 ok("insider: cluster, importo formattato, «|» nel nome non rompe la tabella", /Titoli con cluster: AAA/.test(sez(5)) && /1,500,000/.test(sez(5)) && /Mario \/ Rossi/.test(sez(5)));
 ok("calendario: solo eventi nelle prossime 3 settimane", /2026-11-18/.test(sez(6)) && !/Lontano/.test(sez(6)) && !/Passato/.test(sez(6)));
-ok("watchlist: livelli compatti, origine, punti dallo screening", /AAA \| manuale \| tech \| L1 95 \| 2026-12-01 \| da seguire \| 5\/6/.test(sez(7)) && /ZZZ \| auto/.test(sez(7)));
+ok("watchlist: livelli compatti, origine, punti dallo screening", /AAA \| USD \| manuale \| tech \| L1 95 \(\+5%\) \| ok \| 2026-12-01 \| da seguire \| 5\/6/.test(sez(7)) && /ZZZ \| USD \| auto/.test(sez(7)));
 ok("portafoglio: P/L long con ultimo prezzo, short chiuso con prezzo di uscita", /AAA \| Long \| Aperto .* \| \+25\.0 \|/.test(sez(8)) && /BBB \| Short \| Chiuso .* \| \+10\.0 \|/.test(sez(8)));
 
 // ogni riga di tabella ha lo stesso numero di colonne della sua intestazione
@@ -39,5 +39,18 @@ ok("opzioni: senza watchlist e portafoglio le sezioni 7 e 8 non ci sono", !/## 7
 const vuoto = costruisci({ ora: "2026-11-14 14:00 UTC", macro: null, settori: null, strumenti: null, screening: null, insider: null, calendario: null, watchlist: null, portafoglio: null, errori: ["regime macro", "screening"] });
 ok("fonti mancanti: nessuna eccezione, ogni sezione dichiara «Non disponibile», elenco errori in testa", (vuoto.match(/_Non disponibile\._/g) || []).length === 8 && /Fonti non disponibili in questo briefing: regime macro; screening/.test(vuoto));
 ok("input vuoto: non lancia", typeof costruisci() === "string" && typeof costruisci({}, {}) === "string");
+ok("istruzioni: cercare FUORI dal file, per titolo e per macro, con fonti citate e etichette", /## 0\. Istruzioni per l'LLM/.test(md) && /anche FUORI dal file/.test(md) && /notizie e comunicati degli ultimi 30 giorni/.test(md) && /prossimo bilancio/.test(md) && /cita ogni fonte esterna/i.test(md) && /dato esterno verificato/.test(md) && /Non inventare numeri/.test(md));
+ok("istruzioni: la spunta le toglie (sezione 0 assente)", !/## 0\./.test(costruisci(ctx, { istruzioni: false })) && /anche FUORI dal file/.test(md));
+ok("istruzioni: prima di tutti i dati (sezione 0 prima della 1)", md.indexOf("## 0.") > 0 && md.indexOf("## 0.") < md.indexOf("## 1."));
+ok("valuta: USA USD, Londra GBp, Parigi/Francoforte EUR", /\| AAA \| USD \|/.test(sez(4)) && !/n\/d \| n\/d \| n\/d \| n\/d \| n\/d \| n\/d \| n\/d \| n\/d \| n\/d \| n\/d \| n\/d \| n\/d \|/.test(sez(4)));
+const sx = costruisci({ screening: { data: "2026-11-13", righe: ["X.L", "Y.DE", "Z.PA"].map((t, i) => ({ ticker: t, punti: 4, priorita: 10 - i, extra: { Settore: "S" } })) }, indice: { basi: [] } });
+ok("valuta per suffisso", /\| X\.L \| GBp \(pence\) \|/.test(sx) && /\| Y\.DE \| EUR \|/.test(sx) && /\| Z\.PA \| EUR \|/.test(sx));
+ok("tipo di setup: già esteso / sotto il minimo / senza range", /già esteso \(>10% sopra il massimo\) \[1D\]/.test(sez(4)) && /sotto il minimo del range \[1D\]/.test(sez(4)) && /senza range/.test(sx));
+const ix = (ult, stato = "in_range") => ({ basi: [{ chiave: "T|1D", stato, bottom: 100, top: 200, ultimo: ult }] });
+const set = (i) => costruisci({ screening: { data: "d", righe: [{ ticker: "T", punti: 4, priorita: 1, extra: {} }] }, indice: i }).match(/\| (breakout[^|]*|già esteso[^|]*|dentro il range[^|]*|range che si stringe[^|]*|rientrato[^|]*|sotto il minimo[^|]*|senza range) \|/)[1].trim();
+ok("setup: 202→breakout recente, 215→in corso, 230→già esteso", /breakout recente/.test(set(ix(202, "uscito_sopra"))) && /breakout in corso/.test(set(ix(215, "uscito_sopra"))) && /già esteso/.test(set(ix(230, "uscito_sopra"))));
+ok("setup: parte bassa/centrale/alta, stringe, rientrato", /parte bassa \(pos 20%\)/.test(set(ix(120))) && /parte centrale/.test(set(ix(150))) && /parte alta \(pos 90%\)/.test(set(ix(190))) && /range che si stringe/.test(set(ix(150, "rallenta"))) && /rientrato nel range/.test(set(ix(190, "uscito_sopra"))));
+ok("date delle fonti in testa alle sezioni (aggiornato)", /Dati aggiornati al: 2026-11-14/.test(sez(1)) && /Dati aggiornati al: 2026-11-14/.test(sez(6)) && /range \(basi di accumulo\) aggiornati al 2026-11-13 22:31 UTC/.test(sez(4)));
+ok("watchlist: controllo livelli segnala refusi (GE-like: L3 28 con prezzo 301)", /⚠ L3 \(28\) dista 91%[^|]*manca una cifra \(280\)/.test(costruisci({ ...ctx, watchlist: { entries: [{ ticker: "GE", origin: "manual", sector: "ind", levels: { L1: 305, L2: 285, L3: 28 } }] }, indice: { titoli: { GE: { ultimo: 301, dist_ath: -0.1 } }, basi: [] } })));
 ok("nessun imperativo operativo nel testo fisso («compra», «vendi»)", !/\b(compra|vendi|acquista|apri una posizione)\b/i.test(md.replace(/\| [^\n]*\n/g, "")));
 console.log(`\nVERIFICA BRIEFING: ${n} controlli ok`);

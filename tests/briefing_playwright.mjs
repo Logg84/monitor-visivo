@@ -25,7 +25,10 @@ const srv = http.createServer((q, r) => {
   let md = await p.inputValue("#anteprima");
   ok("anteprima: tutte le sezioni con dati", ["## 1.", "## 2.", "## 3.", "## 4.", "## 5.", "## 6.", "## 7.", "## 8."].every((k) => md.includes(k)) && !md.includes("Non disponibile"));
   ok("pulsanti attivi e dimensione mostrata", !(await p.$eval("#scarica", (e) => e.disabled)) && /KB/.test(await p.textContent("#info")));
-  ok("watchlist e portafoglio presi dal Worker (AAA, P/L +25.0)", /AAA \| manuale/.test(md) && /\+25\.0/.test(md));
+  ok("watchlist e portafoglio presi dal Worker (AAA, P/L +25.0)", /AAA \| USD \| manuale/.test(md) && /\+25\.0/.test(md));
+  ok("istruzioni per l'LLM incluse di default, con «FUORI dal file»", md.includes("## 0. Istruzioni per l'LLM") && md.includes("FUORI dal file"));
+  await p.uncheck("#o-ist"); ok("spunta istruzioni: tolta → sezione 0 assente", !(await p.inputValue("#anteprima")).includes("## 0.")); await p.check("#o-ist");
+  ok("controllo livelli attivo nel browser (colonna presente)", md.includes("Controllo livelli") && md.includes("L1 95 (+5%)"));
   await p.uncheck("#o-wl"); await p.uncheck("#o-pf"); md = await p.inputValue("#anteprima");
   ok("opzioni: togliendo le spunte spariscono le sezioni personali", !md.includes("## 7.") && !md.includes("## 8.") && md.includes("## 6."));
   await p.check("#o-wl");
