@@ -46,6 +46,9 @@ jobs:
           node tests/verifica_access.mjs
           node tests/verifica_utenti.mjs
           node tests/verifica_collegamento.mjs
+          node tests/verifica_sintesi.mjs
+          node tests/verifica_tvlink.mjs
+          node tests/verifica_briefing.mjs
       - name: Giro basi
         env:
           OLD_REPO: ${{ secrets.OLD_REPO }}

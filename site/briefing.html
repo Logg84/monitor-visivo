@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Briefing per LLM · basewatch</title>
+<link rel="stylesheet" href="style.css">
+<style>
+  main.col{max-width:980px;margin:0 auto}
+  #anteprima{width:100%;min-height:420px;font:12px/1.45 ui-monospace,Menlo,Consolas,monospace;background:var(--bg);color:var(--testo);border:1px solid var(--bordo);border-radius:10px;padding:10px;box-sizing:border-box;resize:vertical}
+  .opz{display:flex;gap:18px;flex-wrap:wrap;align-items:center;margin:8px 0}
+  .opz label{display:flex;gap:6px;align-items:center}
+</style>
+</head>
+<body>
+<header class="top">
+  <div class="titolo">
+    <h1>🤖 Briefing per un LLM</h1>
+    <p id="sottotitolo" class="muted">Caricamento…</p>
+  </div>
+  <nav class="menu" id="menu" aria-label="Pagine"></nav>
+</header>
+<main class="col">
+  <section class="box">
+    <p>Un unico file Markdown con regime, settori, indici, screening, insider e calendario, scritto a tabelle e unità esplicite per essere letto da un LLM esterno (quello che usi tu). Scaricalo o copialo e daglielo come punto di partenza.</p>
+    <div class="opz">
+      <label><input type="checkbox" id="o-wl" checked> Includi la mia watchlist</label>
+      <label><input type="checkbox" id="o-pf" checked> Includi il mio portafoglio</label>
+    </div>
+    <p id="azioni">
+      <button type="button" class="btn" id="scarica" disabled>⬇️ Scarica .md</button>
+      <button type="button" class="btn sec" id="copia" disabled>📋 Copia</button>
+      <span id="info" class="muted"></span>
+    </p>
+  </section>
+  <div id="avviso" class="avv" hidden></div>
+  <textarea id="anteprima" readonly aria-label="Anteprima del briefing" spellcheck="false"></textarea>
+</main>
+<footer class="piede">Watchlist e portafoglio restano nel tuo browser: il file viene composto qui e non viene inviato a nessuno. Descrive dati e stati calcolati dal portale: non è un consiglio di investimento.</footer>
+<script src="nav.js"></script>
+<script src="briefing.js"></script>
+<script src="briefing-pagina.js"></script>
+</body>
+</html>
