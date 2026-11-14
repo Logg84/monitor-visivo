@@ -10,6 +10,10 @@ window.Scheda = (() => {
   let cache = null, libP = null, chart = null, sinP = null;
   const sintesiLib = () => sinP || (sinP = window.Sintesi ? Promise.resolve() : new Promise((ok, ko) => {
     const s = document.createElement("script"); s.src = "sintesi.js"; s.onload = ok; s.onerror = ko; document.head.append(s); }));
+  let tvP = null;
+  const tvMappa = () => tvP || (tvP = (window.TvLink ? Promise.resolve() : new Promise((ok) => {
+    const s = document.createElement("script"); s.src = "tvlink.js"; s.onload = ok; s.onerror = ok; document.head.append(s); }))
+    .then(() => fetch("borse_us.json").then((r) => (r.ok ? r.json() : {})).catch(() => ({}))));
   const vistaSalvata = () => { try { return localStorage.getItem("scheda-vista") === "completa" ? "completa" : "semplice"; } catch (e) { return "semplice"; } };
   const salvaVista = (v) => { try { localStorage.setItem("scheda-vista", v); } catch (e) { /* senza storage resta solo per questa apertura */ } };
 
@@ -89,7 +93,7 @@ window.Scheda = (() => {
     for (const tf of ["1W", "1D"]) { const b = basi[tf]; if (b) badge.append(el("span", "badge", `${tf === "1W" ? "Sett." : "Giorn."}: ${({ in_range: "in range", rallenta: "rallenta", uscito_sopra: "uscito sopra", uscito_sotto: "uscito sotto" })[b.stato] || b.stato}`)); }
     if (sc && sc.punti != null && sc.segnale && sc.segnale !== "—") badge.append(el("span", "badge", `punteggio ${sc.punti}/6`));
     if (w) badge.append(el("span", "badge", w.origin === "manual" ? "👀 watchlist 👤" : "👀 watchlist 🤖"));
-    const tv = el("a", "link", "📈 TradingView"); tv.href = "https://www.tradingview.com/chart/?symbol=" + encodeURIComponent(ticker); tv.target = "_blank"; tv.rel = "noopener noreferrer";
+    const tv = el("a", "link", "📈 TradingView"); tv.href = "https://www.tradingview.com/chart/?symbol=" + encodeURIComponent(ticker); tvMappa().then((m) => { if (window.TvLink) tv.href = window.TvLink.url(ticker, m); }); tv.target = "_blank"; tv.rel = "noopener noreferrer";
     const yf = el("a", "link", "Yahoo Finance"); yf.href = "https://finance.yahoo.com/quote/" + encodeURIComponent(ticker); yf.target = "_blank"; yf.rel = "noopener noreferrer";
     badge.append(tv, yf); corpo.append(badge);
     if (d.puoMod && !w) {                                           // «Promuovi in watchlist»: solo per chi può scrivere
