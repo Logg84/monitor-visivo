@@ -5,22 +5,82 @@
  * esecuzione di cron, 50 richieste in uscita, D1 5 milioni di righe lette al giorno. Quindi:
  *  - il Worker NON scrive i punteggi: li carica il repo privato con l'API REST di D1 (tabella `punteggi`);
  *  - qui si legge SOLO l'ultima data (indice su `data`), ~700 righe per richiesta;
- *  - `scheduler_log` è l'unica tabella creata e scritta dal Worker (ultime 200 righe).
+ *  - `scheduler_log` è l'unica tabella creata e scritta dal Worker (ultime MAX_LOG righe).
  */
 
-export const MAX_LOG = 200;
+export const MAX_LOG = 400;
 
 const DDL_LOG = `CREATE TABLE IF NOT EXISTS scheduler_log (
   id INTEGER PRIMARY KEY AUTOINCREMENT, quando TEXT NOT NULL, job TEXT NOT NULL, esito TEXT NOT NULL, dettaglio TEXT)`;
 
-// ── Scheduler: cron → workflow GitHub (workflow_dispatch) ────────────────────
-// ATTENZIONE: nel cron di Cloudflare i giorni vanno da 1 = DOMENICA a 7 = sabato (non come in GitHub).
-// Per questo si usano i nomi nel cron e si filtra il giorno ANCHE nel codice (getUTCDay: 0 = domenica).
-export const PIANO = {
-  "30 22 * * mon-fri": [
-    { id: "bases", repo: "Logg84/monitor-visivo", workflow: "bases.yml", ref: "main", token: "GITHUB_TOKEN", giorni: [1, 2, 3, 4, 5] },
-  ],
-};
+// ── Scheduler: UN solo cron ogni 5 minuti → workflow GitHub (workflow_dispatch) ──────────────────────
+// Il piano Free ammette al massimo 5 espressioni cron: invece di una per orario, il Worker si sveglia ogni 5 minuti
+// e il codice decide quali lavori della tabella PIANO sono «dovuti» in quel momento (ora UTC).
+//  - Un lavoro è dovuto se l'ora del tick cade nella finestra [ora, ora + FINESTRA_MIN): se un tick salta o ritarda,
+//    quello successivo lo recupera; scheduler_log (esito «ok» nella stessa finestra) impedisce il doppio lancio.
+//  - Giorni: getUTCDay (0 = domenica, 1 = lunedì…); `giornoMese` (opzionale) per i lavori mensili.
+//  - `attivo: false` = definito ma NON lanciato (il workflow ha ancora il suo cron su GitHub). Si passa a `true`
+//    lavoro per lavoro; solo allora va tolto lo `schedule:` dal workflow, altrimenti parte due volte.
+//  - Nel log finiscono solo i lanci riusciti e gli errori (non i tick a vuoto).
+export const CRON_UNICO = "*/5 * * * *";
+export const FINESTRA_MIN = 10;
+const REPO_PUB = "Logg84/monitor-visivo", REPO_PRIV = "Logg84/monitor-trading-marco";
+const LV = [1, 2, 3, 4, 5];
+const pub = (id, workflow, ora, giorni, extra = {}) => ({ id, repo: REPO_PUB, workflow, ref: "main", token: "GITHUB_TOKEN", ora, giorni, attivo: true, ...extra });
+const priv = (id, workflow, ora, giorni, extra = {}) => ({ id, repo: REPO_PRIV, workflow, ref: "main", token: "PRIVATE_REPO_TOKEN", ora, giorni, attivo: false, ...extra });
+export const PIANO = [
+  pub("bases", "bases.yml", "22:30", LV),
+  // PILOTA (15/11/2026): canary settimanale. Su GitHub ha ancora il suo cron (lunedì 12:30): la prima settimana partono
+  // entrambi e il confronto degli orari misura la puntualità; poi si toglie lo `schedule:` dal workflow.
+  priv("canary-fonti", "canary_fonti.yml", "12:30", [1], { attivo: true }),
+  // Orari = quelli oggi nei cron dei workflow del repo privato (UTC). Tutti spenti finché non si decide di migrarli.
+  priv("report-quindicinale", "report_quindicinale.yml", "05:00", [1]),
+  priv("digest", "digest.yml", "06:00", [6]),
+  priv("screening-0630", "screening.yml", "06:30", LV),
+  priv("alerts-0700", "alerts.yml", "07:00", LV),
+  priv("salute", "salute.yml", "07:10", LV),
+  priv("events", "events.yml", "07:30", LV),
+  priv("consumo", "consumo.yml", "07:30", [1]),
+  priv("braccio-destro", "braccio_destro.yml", "08:00", [1]),
+  priv("backtest", "backtest.yml", "08:00", [3, 6]),
+  priv("scorecard", "scorecard.yml", "09:00", [0]),
+  priv("regime-sabato", "regime.yml", "09:30", [6]),
+  priv("registro-segnali", "registro_segnali.yml", "10:00", [0]),
+  priv("alerts-1100", "alerts.yml", "11:00", LV),
+  priv("screening-1430", "screening.yml", "14:30", LV),
+  priv("alerts-1550", "alerts.yml", "15:50", LV),
+  priv("alerts-2130", "alerts.yml", "21:30", LV),
+  priv("screening-2145", "screening.yml", "21:45", LV),
+  priv("settori", "settori.yml", "22:00", LV),
+  priv("strumenti", "strumenti.yml", "22:30", LV),
+  priv("regime", "regime.yml", "23:00", LV),
+  priv("insiders", "insiders.yml", "23:30", LV),
+  priv("indici-mensile", "indices.yml", "06:30", [0, 1, 2, 3, 4, 5, 6], { giornoMese: 1 }),
+  priv("macro-calendar-mensile", "macro_calendar.yml", "07:00", [0, 1, 2, 3, 4, 5, 6], { giornoMese: 1 }),
+];
+
+const minutiDi = (hhmm) => { const [h, m] = String(hhmm).split(":").map(Number); return h * 60 + m; };
+
+/** Lavori attivi dovuti all'istante `adesso` (UTC): giorno della settimana (e del mese) previsto, ora nella finestra. */
+export function lavoriDovuti(adesso, piano = PIANO) {
+  const min = adesso.getUTCHours() * 60 + adesso.getUTCMinutes();
+  return piano.filter((l) => l.attivo && l.giorni.includes(adesso.getUTCDay())
+    && (!l.giornoMese || l.giornoMese === adesso.getUTCDate())
+    && min >= minutiDi(l.ora) && min < minutiDi(l.ora) + FINESTRA_MIN);
+}
+
+/** Coppie di lavori ATTIVI dello stesso repo a meno di `distanzaMin` minuti nello stesso giorno: nel gruppo di concurrency
+ *  condiviso un lavoro in coda viene scartato dal successivo (AGENTS.md, «Orari serali»). Vuoto = nessun rischio. */
+export function conflitti(piano = PIANO, distanzaMin = 30) {
+  const att = piano.filter((l) => l.attivo), out = [];
+  for (let i = 0; i < att.length; i++) for (let j = i + 1; j < att.length; j++) {
+    const a = att[i], b = att[j];
+    if (a.repo !== b.repo) continue;
+    const comuni = a.giorni.some((g) => b.giorni.includes(g)) && (!a.giornoMese || !b.giornoMese || a.giornoMese === b.giornoMese);
+    if (comuni && Math.abs(minutiDi(a.ora) - minutiDi(b.ora)) < distanzaMin) out.push([a.id, b.id]);
+  }
+  return out;
+}
 
 const MESSAGGI = {
   401: "token GitHub non valido",
@@ -45,34 +105,44 @@ export async function avviaWorkflow(env, lavoro, fetchFn = fetch) {
   return { ok: false, stato: r.status, dettaglio: MESSAGGI[r.status] || `GitHub ha risposto ${r.status}` };
 }
 
-export async function scriviLog(env, job, esito, dettaglio = "") {
+/** Scrive una riga nel log (ultime MAX_LOG). `quando` = istante del tick (default: adesso). */
+export async function scriviLog(env, job, esito, dettaglio = "", quando = new Date()) {
   if (!env.DB) return;
   try {
     await env.DB.prepare(DDL_LOG).run();
     await env.DB.batch([
       env.DB.prepare("INSERT INTO scheduler_log (quando, job, esito, dettaglio) VALUES (?, ?, ?, ?)")
-        .bind(new Date().toISOString(), job, esito, String(dettaglio).slice(0, 300)),
+        .bind(quando.toISOString(), job, esito, String(dettaglio).slice(0, 300)),
       env.DB.prepare(`DELETE FROM scheduler_log WHERE id <= (SELECT MAX(id) FROM scheduler_log) - ${MAX_LOG}`),
     ]);
   } catch (e) { console.log("log scheduler non scritto:", e.message); }
 }
 
-/** Esegue i lavori del cron `cron`. Ritorna la lista degli esiti (anche per i test). */
+/** Il lavoro è già partito (esito «ok») in QUESTA finestra? Se il log non è leggibile: false (meglio un doppio lancio che nessuno). */
+async function giaLanciato(env, l, adesso) {
+  if (!env.DB) return false;
+  const da = Date.UTC(adesso.getUTCFullYear(), adesso.getUTCMonth(), adesso.getUTCDate(), 0, minutiDi(l.ora));
+  const inizio = new Date(da).toISOString(), fine = new Date(da + FINESTRA_MIN * 60000).toISOString();     // stessa finestra [ora, ora + FINESTRA_MIN)
+  try { return Boolean(await env.DB.prepare("SELECT 1 FROM scheduler_log WHERE job=? AND esito='ok' AND quando>=? AND quando<? LIMIT 1").bind(l.id, inizio, fine).first()); }
+  catch (e) { return false; }
+}
+
+/** Esegue i lavori dovuti al tick `adesso` (`cron` non influisce, vedi sotto). Ritorna la lista degli esiti (anche per i test). Nessuna riga di log per i tick a vuoto. */
 export async function eseguiCron(cron, env, opz = {}) {
   const adesso = opz.adesso || new Date();
   const fetchFn = opz.fetchFn || fetch;
   const pausa = opz.pausa || ((ms) => new Promise((r) => setTimeout(r, ms)));
-  const chiave = String(cron || "").trim().toLowerCase();
-  const lavori = PIANO[chiave] || (cron ? [] : Object.values(PIANO).flat());
-  if (!lavori.length) { await scriviLog(env, "cron", "sconosciuto", `espressione non prevista: ${cron}`); return [{ id: "cron", esito: "sconosciuto" }]; }
+  const piano = opz.piano || PIANO;
+  // L'espressione cron è solo il «sveglia»: i lavori dovuti si decidono dall'ora del tick, qualunque sia l'espressione.
+  // Così, se dopo una pubblicazione restasse attivo il vecchio cron (30 22 * * mon-fri), bases partirebbe comunque.
   const esiti = [];
-  for (const l of lavori) {
-    if (!l.giorni.includes(adesso.getUTCDay())) { esiti.push({ id: l.id, esito: "saltato" }); await scriviLog(env, l.id, "saltato", "giorno non previsto"); continue; }
-    if (!env[l.token]) { esiti.push({ id: l.id, esito: "token_mancante" }); await scriviLog(env, l.id, "errore", `secret ${l.token} mancante`); continue; }
+  for (const l of lavoriDovuti(adesso, piano)) {
+    if (await giaLanciato(env, l, adesso)) { esiti.push({ id: l.id, esito: "gia_eseguito" }); continue; }
+    if (!env[l.token]) { esiti.push({ id: l.id, esito: "token_mancante" }); await scriviLog(env, l.id, "errore", `secret ${l.token} mancante`, adesso); continue; }
     let r = await avviaWorkflow(env, l, fetchFn);
     if (!r.ok && (r.rete || r.stato >= 500)) { await pausa(2000); r = await avviaWorkflow(env, l, fetchFn); }     // un solo nuovo tentativo
     esiti.push({ id: l.id, esito: r.ok ? "ok" : "errore", stato: r.stato, dettaglio: r.dettaglio });
-    await scriviLog(env, l.id, r.ok ? "ok" : "errore", r.dettaglio);
+    await scriviLog(env, l.id, r.ok ? "ok" : "errore", r.dettaglio, adesso);
   }
   return esiti;
 }

@@ -1,6 +1,6 @@
 name: bases
 
-# Lo lancia ogni sera il Worker Cloudflare (cron 22:30 UTC, lun-ven) con workflow_dispatch: nessun cron qui,
+# Lo lancia ogni sera il Worker Cloudflare (tabella PIANO in src/dati.js: 22:30 UTC, lun-ven) con workflow_dispatch: nessun cron qui,
 # altrimenti il giro partirebbe due volte. Giro giornaliero dopo la chiusura di Wall Street (20:00 UTC d'estate, 21:00
 # d'inverno): legge i candidati dal vecchio portale, scarica i prezzi,
 # aggiorna lo stato delle basi e manda l'alert Telegram per le uscite dal range
@@ -50,6 +50,7 @@ jobs:
           node tests/verifica_tvlink.mjs
           node tests/verifica_livelli.mjs
           node tests/verifica_briefing.mjs
+          node tests/verifica_dati.mjs
       - name: Giro basi
         env:
           OLD_REPO: ${{ secrets.OLD_REPO }}

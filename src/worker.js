@@ -188,7 +188,9 @@ function ugualeCostante(a, b) {
 
 export default {
   async scheduled(controller, env, ctx) {
-    ctx.waitUntil(eseguiCron(controller.cron, env));
+    // scheduledTime = istante previsto del tick (ms): decide quali lavori sono dovuti anche se l'esecuzione parte con qualche secondo di ritardo.
+    const tick = controller.scheduledTime ? new Date(controller.scheduledTime) : undefined;
+    ctx.waitUntil(eseguiCron(controller.cron, env, { adesso: tick }));
   },
   async fetch(request, env, ctx) {
     const url = new URL(request.url);
