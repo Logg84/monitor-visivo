@@ -1,0 +1,90 @@
+name: insider-resto
+# Giro «resto del file SEC» dell'insider (tier 2): cerca cluster di acquisti a mercato (Form 4,
+# codice P) sui titoli fuori dall'universo screening. Prima girava sul repo privato (~17 min a run,
+# la quota maggiore dei suoi minuti Actions); qui i minuti sono gratuiti.
+#
+# Il CODICE è quello del repo privato (checkout con un token di sola lettura): nessuna copia da
+# tenere allineata. Lo STATO sta in un file SQLite dedicato su una release di questo repo
+# (insider-resto-latest/insider_rest.db); il repo privato lo importa nel proprio cache.db
+# (scripts/importa_insider_resto.py) ogni sera nel workflow «insiders».
+#
+# Secret richiesti in questo repo (Settings → Secrets → Actions):
+#   PRIVATE_REPO_TOKEN  fine-grained PAT, SOLO lettura (Contents: read) sul repo monitor-trading-marco
+#   SEC_CONTACT_EMAIL   contatto richiesto da SEC EDGAR nello User-Agent (lo stesso del repo privato)
+# Senza di essi il job termina con un avviso, senza errori.
+on:
+  schedule:
+    - cron: "17 20 * * 1-5"      # prima del run insider privato (23:30 UTC), orario sfalsato
+  workflow_dispatch:
+permissions:
+  contents: write                # serve per pubblicare l'asset sulla release
+concurrency:
+  group: insider-resto
+  cancel-in-progress: false
+jobs:
+  giro:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    env:
+      TAG: insider-resto-latest
+      ASSET_URL: https://github.com/${{ github.repository }}/releases/download/insider-resto-latest/insider_rest.db
+    steps:
+      - name: Controlla i secret
+        id: chk
+        env:
+          T: ${{ secrets.PRIVATE_REPO_TOKEN }}
+          E: ${{ secrets.SEC_CONTACT_EMAIL }}
+        run: |
+          if [ -z "$T" ] || [ -z "$E" ]; then
+            echo "::warning::Mancano PRIVATE_REPO_TOKEN e/o SEC_CONTACT_EMAIL: giro non eseguito."
+            echo "ok=0" >> "$GITHUB_OUTPUT"
+          else
+            echo "ok=1" >> "$GITHUB_OUTPUT"
+          fi
+      - uses: actions/checkout@v4
+        if: steps.chk.outputs.ok == '1'
+      - name: Codice dal repo privato (sola lettura)
+        if: steps.chk.outputs.ok == '1'
+        uses: actions/checkout@v4
+        with:
+          repository: Logg84/monitor-trading-marco
+          token: ${{ secrets.PRIVATE_REPO_TOKEN }}
+          path: privato
+          persist-credentials: false
+      - uses: actions/setup-python@v5
+        if: steps.chk.outputs.ok == '1'
+        with:
+          python-version: "3.12"
+          cache: "pip"
+          cache-dependency-path: privato/requirements-jobs.txt
+      - name: Installa dipendenze
+        if: steps.chk.outputs.ok == '1'
+        run: pip install -r privato/requirements-jobs.txt
+      - name: Ripristina lo stato (release, altrimenti seme nel repo)
+        if: steps.chk.outputs.ok == '1'
+        run: |
+          mkdir -p privato/data
+          if curl -fsSL -o privato/data/insider_rest.db "$ASSET_URL" && [ "$(stat -c %s privato/data/insider_rest.db)" -gt 4096 ]; then
+            echo "Stato ripristinato dalla release."
+          else
+            echo "Release assente: parto dal seme del repo (cursore e letture già fatte)."
+            cp data/insider/insider_rest_seed.db privato/data/insider_rest.db
+          fi
+      - name: Giro resto del file SEC
+        if: steps.chk.outputs.ok == '1'
+        working-directory: privato
+        env:
+          CACHE_DB_PATH: ${{ github.workspace }}/privato/data/insider_rest.db
+          INSIDER_SOLO_RESTO: "1"
+          INSIDER_REST_BUDGET_MIN: "25"
+          SEC_CONTACT_EMAIL: ${{ secrets.SEC_CONTACT_EMAIL }}
+          SEC_USER_AGENT: ${{ secrets.SEC_USER_AGENT }}
+        run: python scripts/download_insiders.py
+      - name: Pubblica lo stato sulla release
+        if: steps.chk.outputs.ok == '1'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh release view "$TAG" >/dev/null 2>&1 || gh release create "$TAG" --title "Stato insider (resto SEC)" \
+            --notes "File SQLite dello stato del giro insider tier 2, sostituito a ogni run."
+          gh release upload "$TAG" privato/data/insider_rest.db --clobber
