@@ -21,7 +21,12 @@ ok("range: prezzo sopra il massimo, dentro (pos), sotto il minimo, assente", /us
 ok("screening: conteggi dell'universo", /3 titoli nell'universo; 2 con calo ≥ 25%/.test(sez(4)) && /≥4\/6: 2/.test(sez(4)));
 ok("insider: cluster, importo formattato, «|» nel nome non rompe la tabella", /Titoli con cluster: AAA/.test(sez(5)) && /1,500,000/.test(sez(5)) && /Mario \/ Rossi/.test(sez(5)));
 ok("calendario: solo eventi nelle prossime 3 settimane", /2026-11-18/.test(sez(6)) && !/Lontano/.test(sez(6)) && !/Passato/.test(sez(6)));
-ok("watchlist: livelli compatti, origine, punti dallo screening", /AAA \| USD \| manuale \| tech \| L1 95 \(\+5%\) \| ok \| 2026-12-01 \| da seguire \| 5\/6/.test(sez(7)) && /ZZZ \| USD \| auto/.test(sez(7)));
+ok("watchlist: livelli compatti, origine, punti dallo screening", /AAA \| USD \| manuale \| tech \| L1 95 \(\+5%\) \| ok \| 2026-12-01 \| da seguire \| in portafoglio: Long dal 2026-10-24 a 80\.00 \| 3 gg \(2026-11-18\) \| 5\/6/.test(sez(7)) && /ZZZ \| USD \| auto/.test(sez(7)) && /ZZZ \|[^\n]*solo osservato/.test(sez(7)));
+ok("sezione 4: maschera B-C-G-D-E, qualità, fondamentali, trimestrale, RVOL/OBV, stagionalità", /AAA \| B1 C1 G0 D1 E1 \| ROE ok, Debito KO, Margine ok, Crescita ok, FCF ok \| n\/d \| 14\.6 \|/.test(sez(4)) && /3 gg \(2026-11-18\) \| 1\.80 \| 1\.20 \| \+0\.31 \| -0\.10 \| conferma rialzista \| 5a \+1\.2% \/ 60% \| 5a \+2\.0% \/ 70%/.test(sez(4)) && /BBB \| n\/d \| n\/d/.test(sez(4)));
+ok("insider: riepilogo cluster con insider distinti, ruoli e totale", /Riepilogo dei cluster/.test(sez(5)) && /AAA \| 1 \| 1 \| CEO \| 1,500,000/.test(sez(5)));
+const obs = costruisci({ screening: { data: "d", righe: [{ ticker: "T", punti: 4, priorita: 1, extra: {} }] }, indice: { basi: [{ chiave: "T|1W", stato: "uscito_sopra", top: 10, bottom: 8, ultimo: 170 }] } });
+ok("range obsoleto: prezzo oltre il doppio del massimo → non operativo", /RANGE OBSOLETO/.test(obs) || /range obsoleto/.test(obs));
+ok("posizione: non rivelata se il portafoglio non è incluso", /n\/d \(portafoglio non incluso\)/.test(costruisci(ctx, { portafoglio: false })));
 ok("portafoglio: P/L long con ultimo prezzo, short chiuso con prezzo di uscita", /AAA \| Long \| Aperto .* \| \+25\.0 \|/.test(sez(8)) && /BBB \| Short \| Chiuso .* \| \+10\.0 \|/.test(sez(8)));
 
 // ogni riga di tabella ha lo stesso numero di colonne della sua intestazione

@@ -21,7 +21,9 @@
     const b = ((indice && indice.basi) || []).find((x) => x.chiave === `${ticker}|${tf}`);
     if (!b) return "assente";
     if (nz(b.top) === null || nz(b.bottom) === null || !(b.top > b.bottom) || nz(b.ultimo) === null) return `${t(b.stato)}; ${px(b.bottom)}–${px(b.top)}`;
-    const u = b.ultimo, dove = u > b.top ? `prezzo ${f((u / b.top - 1) * 100, 0)}% sopra il massimo` : u < b.bottom ? `prezzo ${f((1 - u / b.bottom) * 100, 0)}% sotto il minimo` : `pos ${Math.round(((u - b.bottom) / (b.top - b.bottom)) * 100)}%`;
+    const u = b.ultimo;
+    if (u > b.top * 2 || u < b.bottom * 0.5) return `${t(b.stato)}; ${px(b.bottom)}–${px(b.top)}; RANGE OBSOLETO (prezzo ${u > b.top ? f((u / b.top - 1) * 100, 0) + "% sopra il massimo" : f((1 - u / b.bottom) * 100, 0) + "% sotto il minimo"}: il prezzo è uscito da tempo, non operativo)`;
+    const dove = u > b.top ? `prezzo ${f((u / b.top - 1) * 100, 0)}% sopra il massimo` : u < b.bottom ? `prezzo ${f((1 - u / b.bottom) * 100, 0)}% sotto il minimo` : `pos ${Math.round(((u - b.bottom) / (b.top - b.bottom)) * 100)}%`;
     return `${t(b.stato)}; ${px(b.bottom)}–${px(b.top)}; ${dove}`;
   }
   const agg = (p) => (p && p.aggiornato ? `Dati aggiornati al: ${t(p.aggiornato).replace("T", " ").slice(0, 16)}${String(p.aggiornato).length > 10 ? " UTC" : ""}.\n\n` : "");
@@ -31,6 +33,7 @@
     const tf = trova("1D") ? "1D" : trova("1W") ? "1W" : null, b = tf && trova(tf);
     if (!b || nz(b.top) === null || nz(b.bottom) === null || !(b.top > b.bottom) || nz(b.ultimo) === null) return "senza range";
     const u = b.ultimo, pos = (u - b.bottom) / (b.top - b.bottom), ext = (u / b.top - 1) * 100;
+    if (u > b.top * 2 || u < b.bottom * 0.5) return `range obsoleto (prezzo molto fuori dal range: non operativo) [${tf}]`;
     const e = u > b.top ? (ext <= 3 ? "breakout recente (≤3% sopra il massimo del range)" : ext <= 10 ? "breakout in corso (3–10% sopra il massimo)" : "già esteso (>10% sopra il massimo)")
       : u < b.bottom ? "sotto il minimo del range"
       : b.stato === "uscito_sopra" ? `rientrato nel range dopo un'uscita sopra (pos ${Math.round(pos * 100)}%)`
@@ -38,6 +41,11 @@
       : `dentro il range, parte ${pos < 1 / 3 ? "bassa" : pos < 2 / 3 ? "centrale" : "alta"} (pos ${Math.round(pos * 100)}%)`;
     return `${e} [${tf}]`;
   }
+  const si = (v) => (v === true ? "sì" : v === false ? "no" : "n/d");
+  // B/C/D/E valgono 1, G vale 2: la maschera mostra QUALE criterio manca (es. «B1 C1 G0 D1 E1» = 4/6, manca solo G).
+  const maschera = (e) => ["B", "C", "G", "D", "E"].every((k) => typeof e["Seg_" + k] === "boolean") ? ["B", "C", "G", "D", "E"].map((k) => `${k}${e["Seg_" + k] ? (k === "G" ? 2 : 1) : 0}`).join(" ") : "n/d";
+  const qualita = (e) => ["ROE", "DE", "Margine", "Crescita", "FCF"].every((k) => typeof e["H_" + k] === "boolean") ? ["ROE", "DE", "Margine", "Crescita", "FCF"].map((k) => `${k === "DE" ? "Debito" : k} ${e["H_" + k] ? "ok" : "KO"}`).join(", ") : "n/d";
+  const trim = (e) => (nz(e.Trim_Giorni) !== null ? `${e.Trim_Giorni} gg (${t(e.Trim_Data)})` : e.Trim_Data === undefined ? "n/d" : "nessuna data nota");
   const sett = (x) => t(x).replace(/^⚠️\s*/, "");
   const ultimo = (indice, tk) => { const x = indice && indice.titoli && indice.titoli[tk]; return x ? x.ultimo : null; };
   const athDi = (indice, ticker) => { const x = indice && indice.titoli && indice.titoli[ticker]; return x && nz(x.dist_ath) !== null ? sg(x.dist_ath * 100, 0) : "n/d"; };
@@ -126,6 +134,9 @@
     o += `Elenco: i ${scelti.length} titoli con punteggio ≥ 4/6 a priorità più alta.\n\n`;
     o += tab(["Ticker", "Valuta", "Settore", "Score settore", "Vento", "Punti", "Prezzo screening", "Ultimo prezzo", "DD 5a %", "DD da ATH %", "RSI", "ATR%", "In zona", "VWAP60", "Wyckoff", "Insider cluster", "Priorità", "Tipo di setup", "Range 1D", "Range 1W"],
       scelti.map((r) => { const e = ex(r); return [r.ticker, valuta(r.ticker), sett(e.Settore), num(e.SectorScore), e.Vento, `${r.punti}/6`, px(e.Prezzo), px(ultimo(ind, r.ticker)), sg(e["DD%"]), athDi(ind, r.ticker), f(e.RSI, 0), f(e["ATR%"], 2), e["In zona"] || "—", px(e.VWAP60), e.Wyckoff, e.Insider_Cluster ? "sì" : "no", num(r.priorita), setup(ind, r.ticker), rangeDi(ind, r.ticker, "1D"), rangeDi(ind, r.ticker, "1W")]; }));
+    o += `\nDettaglio per titolo (stessi titoli). «Punteggio B-C-G-D-E»: 1 = criterio soddisfatto (G vale 2), 0 = no. «Qualità» = i 5 controlli fondamentali del criterio E (ROE, debito, margini, crescita, flusso di cassa: ok/KO). P/E, EV/EBITDA, P/S, Short float: dati Yahoo, possono mancare. «Z1»/«Z2» = fasce di prezzo delle zone di volume (estremi · forza). «Trimestrale» = giorni alla prossima nota (da Yahoo, da verificare). «RVOL 1g» = volume ultima barra / media 20 barre precedenti (a mercato aperto la barra è parziale); «RVOL 5g» = media 5 barre / media 50. «OBV 20/60» = variazione dell'On-Balance Volume su 20/60 barre divisa per il volume totale (da -1 a +1); «OBV segnale» = conferma o divergenza fra prezzo e OBV a 20 barre. «Stagionalità» = rendimento medio e % di anni positivi della finestra che parte da oggi (swing ≈ 20 sedute, position ≈ 60 sedute) su 5/10/tutti gli anni disponibili, da chiusure settimanali: indicativa, non condizionata al regime.\n\n`;
+    o += tab(["Ticker", "Punteggio B-C-G-D-E", "Qualità (criterio E)", "P/E trailing", "P/E forward", "EV/EBITDA", "P/S", "Short float %", "Squeeze", "Z1 (prezzi · forza)", "Z2 (prezzi · forza)", "Dist. da SMA200 %", "Trimestrale", "RVOL 1g", "RVOL 5g", "OBV 20", "OBV 60", "OBV segnale", "Stagionalità swing", "Stagionalità position"],
+      scelti.map((r) => { const e = ex(r); return [r.ticker, maschera(e), qualita(e), f(e.PE_trailing, 1), f(e.PE_forward, 1), f(e.EV_EBITDA, 1), f(e.P_S, 1), f(e["Short_Float_%"], 1), si(e.Squeeze), e.Z1 || "—", e.Z2 || "—", sg(e["Dist_SMA200%"], 0), trim(e), f(e.RVOL_1g, 2), f(e.RVOL_5g, 2), sg(e.OBV_20, 2), sg(e.OBV_60, 2), e.OBV_Segnale || "n/d", e.Stag_Swing || "n/d", e.Stag_Position || "n/d"]; }));
     const per = {};
     for (const r of righe) if (nz(r.punti) !== null && r.punti >= 4) { const s = sett(ex(r).Settore) || "n/d"; per[s] = (per[s] || 0) + 1; }
     const lista = Object.entries(per).sort((a, b) => b[1] - a[1]);
@@ -144,6 +155,9 @@
     const riga = (r) => [g(r, "Ticker"), data(g(r, "Data")), g(r, "Insider"), g(r, "Classe"), nz(g(r, "Importo_$")) === null ? "n/d" : Math.round(g(r, "Importo_$")).toLocaleString("en-US"), g(r, "Cluster") ? "sì" : "no", g(r, "Settore")];
     const colI = ["Ticker", "Data", "Insider", "Ruolo/classe", "Importo (USD)", "Cluster", "Settore"];
     const dettCl = a.righe.filter((r) => cluster.includes(g(r, "Ticker"))).sort((x, y) => String(g(x, "Ticker")).localeCompare(String(g(y, "Ticker"))) || String(g(y, "Data")).localeCompare(String(g(x, "Data"))));
+    const rc = cluster.map((tk) => { const v = a.righe.filter((r) => g(r, "Ticker") === tk), ins = new Set(v.map((r) => t(g(r, "Insider")))), ruoli = [...new Set(v.map((r) => t(g(r, "Classe"))))], ds = v.map((r) => data(g(r, "Data"))).sort();
+      return [tk, ins.size, v.length, ruoli.join(", "), Math.round(v.reduce((s2, r) => s2 + (nz(g(r, "Importo_$")) ?? 0), 0)).toLocaleString("en-US"), `${ds[0]} → ${ds[ds.length - 1]}`]; });
+    if (rc.length) o += `Riepilogo dei cluster (n. insider distinti, ruoli, controvalore totale; il prezzo medio di acquisto non è nei dati del portale)\n\n` + tab(["Ticker", "Insider distinti", "Acquisti", "Ruoli/classi", "Totale (USD)", "Periodo"], rc) + "\n";
     o += `Acquisti più grandi\n\n` + tab(colI,
       top.map(riga)) +
       (dettCl.length ? `\nTutti gli acquisti dei titoli con cluster (per verificare chi ha comprato e quando)\n\n` + tab(colI, dettCl.map(riga)) : "");
@@ -165,15 +179,17 @@
     let o = "";
     const scr = {}; for (const r of (c.screening && c.screening.righe) || []) scr[r.ticker] = r;
     const prezzo = (tk) => { const u = ultimo(c.indice, tk); return u !== null && u !== undefined ? u : scr[tk] && scr[tk].extra && nz(scr[tk].extra.Prezzo) !== null ? scr[tk].extra.Prezzo : null; };
+    const aperte = {}; if (opz.portafoglio && c.portafoglio && Array.isArray(c.portafoglio.righe)) for (const x of c.portafoglio.righe) if (x.Stato === "Aperto") aperte[x.Ticker] = x;
+    const posiz = (tk) => !(opz.portafoglio && c.portafoglio && Array.isArray(c.portafoglio.righe)) ? "n/d (portafoglio non incluso)" : aperte[tk] ? `in portafoglio: ${aperte[tk].Direzione} dal ${data(aperte[tk].Data_Ingresso)} a ${px(Number(aperte[tk].Prezzo_Ingresso))}` : "solo osservato";
     if (opz.watchlist) {
       o += `## 7. Watchlist personale dell'utente\n\n`;
       const e = c.watchlist && c.watchlist.entries;
       if (!Array.isArray(e)) o += "_Non disponibile._\n\n";
       else {
         o += `${e.length} titoli. «Livelli» = prezzi di riferimento scelti dall'utente (L1–L3); «Prezzo» = ultima chiusura dei dati dei range, o in mancanza il prezzo dello screening; «origine» = manuale (aggiunto dall'utente) o auto (entrato dallo screening). «Controllo livelli» segnala livelli in ordine inatteso (si attende L1 ≥ L2 ≥ L3) o molto lontani dal prezzo (>50%): possibili refusi dell'utente, da verificare con lui prima di usarli.\n\n`;
-        o += tab(["Ticker", "Valuta", "Origine", "Settore (chiave interna)", "Livelli (% = prezzo rispetto al livello)", "Controllo livelli", "Data target", "Note", "Punti", "Prezzo", "DD da ATH %", "Tipo di setup", "Range 1D", "Range 1W"],
+        o += tab(["Ticker", "Valuta", "Origine", "Settore (chiave interna)", "Livelli (% = prezzo rispetto al livello)", "Controllo livelli", "Data target", "Note", "Posizione", "Trimestrale", "Punti", "Prezzo", "DD da ATH %", "Tipo di setup", "Range 1D", "Range 1W"],
           e.map((w) => { const s = scr[w.ticker], pz = prezzo(w.ticker), ctl = window_Livelli().controlla(w.levels, pz), lv = Object.entries(w.levels || {}).filter(([, v]) => v !== null && v !== "").map(([k, v]) => `${k} ${v}${nz(ctl.distanze[k]) === null ? "" : ` (${sg(ctl.distanze[k], 0)}%)`}`).join(", ");
-            return [w.ticker, valuta(w.ticker), w.origin === "manual" ? "manuale" : "auto", w.sector, lv || "—", ctl.avvisi.length ? "⚠ " + ctl.avvisi.join("; ") : "ok", w.target_date || "—", w.notes || "—", s && nz(s.punti) !== null ? `${s.punti}/6` : "n/d", px(pz), athDi(c.indice, w.ticker), setup(c.indice, w.ticker), rangeDi(c.indice, w.ticker, "1D"), rangeDi(c.indice, w.ticker, "1W")]; })) + "\n";
+            return [w.ticker, valuta(w.ticker), w.origin === "manual" ? "manuale" : "auto", w.sector, lv || "—", ctl.avvisi.length ? "⚠ " + ctl.avvisi.join("; ") : "ok", w.target_date || "—", w.notes || "—", posiz(w.ticker), s ? trim(s.extra || {}) : "n/d", s && nz(s.punti) !== null ? `${s.punti}/6` : "n/d", px(pz), athDi(c.indice, w.ticker), setup(c.indice, w.ticker), rangeDi(c.indice, w.ticker, "1D"), rangeDi(c.indice, w.ticker, "1W")]; })) + "\n";
       }
     }
     if (opz.portafoglio) {
