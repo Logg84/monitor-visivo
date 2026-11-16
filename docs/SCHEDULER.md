@@ -1,8 +1,11 @@
 # Scheduler del Worker (workflow lanciati con precisione)
 
 Il Worker Cloudflare lancia i workflow dei due repo con `workflow_dispatch`, all'ora UTC prevista, invece di aspettare i
-cron di GitHub (che possono ritardare anche di ore). Stato: **15/11/2026 — pilota** (canary del lunedì); tutto il resto è
-definito ma spento.
+cron di GitHub (che possono ritardare anche di ore). Stato: **16/11/2026** — pilota riuscito (canary lanciato alle 12:30:13 UTC;
+quel giorno il cron di GitHub non ha lanciato lo screening delle 06:30 né gli alert delle 07:00 e 11:00, e il report delle
+05:00 è partito alle 13:20). **Migrati al Worker**: canary (lun 12:30), report quindicinale (lun 05:00), screening (06:30,
+14:30, 22:00) e alerts (07:00, 11:00, 15:50, 21:30), tutti lun-ven tranne canary e report. Gli altri lavori sono definiti
+ma spenti.
 
 ## Come funziona
 - `wrangler.jsonc`: **un solo cron, ogni 5 minuti** (`*/5 * * * *`; il piano Free ammette al massimo 5 espressioni).
@@ -21,9 +24,19 @@ definito ma spento.
    quando ne arriva un altro).
 3. Il giorno dopo controllare `scheduler_log` e l'orario di partenza in Actions.
 
-## Da sistemare prima di accendere tutto
+## Modifiche del 16/11/2026
+- **Screening serale spostato da 21:45 a 22:00 UTC** (id `screening-2200`): sta a 30 minuti dagli alert delle 21:30 e resta dopo
+  la chiusura USA (21:00 UTC con l'ora solare), quindi il file storico del giorno è a barre complete.
+- Dal workflow del repo privato va tolto lo `schedule:` per canary, report quindicinale, screening e alerts (resta
+  `workflow_dispatch:`). Gli script non distinguono cron e dispatch (nessun input in screening/alerts; il report ha
+  `force` = false di default), quindi il comportamento è identico.
+- **Nessun paracadute**: senza lo `schedule:` su GitHub, se il Worker fallisce due volte nella finestra di 10 minuti il lavoro
+  salta e non viene recuperato. Controllare il riquadro «scheduler» della Vista unificata (esito `errore`).
+- `settori` (22:00) resta spento: quando si migra va spostato dopo lo screening (es. 22:30, con `strumenti` a 23:00).
+
+## Da sistemare prima di accendere tutto il resto
 Coppie a meno di 30 minuti nel repo privato (da sfalsare): alerts 07:00 + salute 07:10 + events 07:30 (+ consumo 07:30 il
-lunedì); alerts 21:30 + screening 21:45 + settori 22:00; il primo del mese anche indici 06:30 + screening 06:30 e
+lunedì); screening 22:00 + settori 22:00; il primo del mese anche indici 06:30 + screening 06:30 e
 macro-calendar 07:00 + alerts 07:00. Con i cron di GitHub il ritardo casuale le nasconde; con orari precisi no.
 Controllare anche che gli script trattino allo stesso modo l'input assente (cron) e il valore predefinito (dispatch):
 `settori.yml` (`notifica`), `insiders.yml` (`force`), `report_quindicinale.yml` (`force`).

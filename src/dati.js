@@ -30,14 +30,16 @@ const pub = (id, workflow, ora, giorni, extra = {}) => ({ id, repo: REPO_PUB, wo
 const priv = (id, workflow, ora, giorni, extra = {}) => ({ id, repo: REPO_PRIV, workflow, ref: "main", token: "PRIVATE_REPO_TOKEN", ora, giorni, attivo: false, ...extra });
 export const PIANO = [
   pub("bases", "bases.yml", "22:30", LV),
-  // PILOTA (15/11/2026): canary settimanale. Su GitHub ha ancora il suo cron (lunedì 12:30): la prima settimana partono
-  // entrambi e il confronto degli orari misura la puntualità; poi si toglie lo `schedule:` dal workflow.
+  // 16/11/2026: pilota riuscito (canary lanciato dal Worker alle 12:30:13 UTC; il cron di GitHub quel giorno non è partito,
+  // lo screening delle 06:30 e gli alert delle 07:00/11:00 nemmeno, il report delle 05:00 è partito alle 13:20). Migrati
+  // al Worker: canary, report quindicinale, screening e alerts. Per questi lavori lo `schedule:` va TOLTO dal workflow
+  // del repo privato (resta `workflow_dispatch:`), altrimenti partono due volte.
   priv("canary-fonti", "canary_fonti.yml", "12:30", [1], { attivo: true }),
-  // Orari = quelli oggi nei cron dei workflow del repo privato (UTC). Tutti spenti finché non si decide di migrarli.
-  priv("report-quindicinale", "report_quindicinale.yml", "05:00", [1]),
+  // Orari = quelli dei cron dei workflow del repo privato (UTC); i lavori non ancora migrati restano spenti (`attivo: false`).
+  priv("report-quindicinale", "report_quindicinale.yml", "05:00", [1], { attivo: true }),
   priv("digest", "digest.yml", "06:00", [6]),
-  priv("screening-0630", "screening.yml", "06:30", LV),
-  priv("alerts-0700", "alerts.yml", "07:00", LV),
+  priv("screening-0630", "screening.yml", "06:30", LV, { attivo: true }),
+  priv("alerts-0700", "alerts.yml", "07:00", LV, { attivo: true }),
   priv("salute", "salute.yml", "07:10", LV),
   priv("events", "events.yml", "07:30", LV),
   priv("consumo", "consumo.yml", "07:30", [1]),
@@ -46,11 +48,13 @@ export const PIANO = [
   priv("scorecard", "scorecard.yml", "09:00", [0]),
   priv("regime-sabato", "regime.yml", "09:30", [6]),
   priv("registro-segnali", "registro_segnali.yml", "10:00", [0]),
-  priv("alerts-1100", "alerts.yml", "11:00", LV),
-  priv("screening-1430", "screening.yml", "14:30", LV),
-  priv("alerts-1550", "alerts.yml", "15:50", LV),
-  priv("alerts-2130", "alerts.yml", "21:30", LV),
-  priv("screening-2145", "screening.yml", "21:45", LV),
+  priv("alerts-1100", "alerts.yml", "11:00", LV, { attivo: true }),
+  priv("screening-1430", "screening.yml", "14:30", LV, { attivo: true }),
+  priv("alerts-1550", "alerts.yml", "15:50", LV, { attivo: true }),
+  priv("alerts-2130", "alerts.yml", "21:30", LV, { attivo: true }),
+  // Era 21:45 su GitHub: spostato a 22:00 per stare a 30 minuti dagli alert delle 21:30 (stesso gruppo di concurrency).
+  // Resta dopo la chiusura USA (21:00 UTC con l'ora solare): il file storico del giorno è a barre complete.
+  priv("screening-2200", "screening.yml", "22:00", LV, { attivo: true }),
   priv("settori", "settori.yml", "22:00", LV),
   priv("strumenti", "strumenti.yml", "22:30", LV),
   priv("regime", "regime.yml", "23:00", LV),
