@@ -1,5 +1,5 @@
 {
- "aggiornato": "2026-11-09",
+ "aggiornato": "2026-11-16",
  "dati": {
   "beta": -0.136,
   "bilancio_annuale": {
@@ -27,24 +27,24 @@
   "debito_netto": 13654999040,
   "debito_netto_su_ebitda": 1.87,
   "debtToEquity": 93.127,
-  "dividendYield": 1.88,
+  "dividendYield": 1.8,
   "earningsGrowth": 0.029,
   "ebitda": 7312999936,
-  "enterpriseToEbitda": 12.066,
+  "enterpriseToEbitda": 12.56,
   "fiftyTwoWeekHigh": 774.0,
   "fiftyTwoWeekLow": 470.06,
   "financialCurrency": "USD",
-  "forwardPE": 18.0045,
+  "forwardPE": 18.2243,
   "freeCashflow": 3143124992,
   "grossMargins": 0.2003,
   "industry": "Aerospace & Defense",
   "longName": "Northrop Grumman Corporation",
-  "marketCap": 76582707200,
+  "marketCap": 77517496320,
   "numberOfAnalystOpinions": 24,
   "operatingCashflow": 5265999872,
-  "operatingMargins": 0.1291,
+  "operatingMargins": 0.1328,
   "payoutRatio": 0.3018,
-  "priceToBook": 4.099,
+  "priceToBook": 4.1491,
   "profitMargins": 0.1037,
   "quickRatio": 1.071,
   "recommendationKey": "buy",
@@ -55,7 +55,7 @@
   "targetMeanPrice": 635.25,
   "totalCash": 3744000000,
   "totalDebt": 17398999040,
-  "trailingPE": 17.0161
+  "trailingPE": 17.2238
  },
  "v": 2
 }

@@ -1,5 +1,5 @@
 {
- "aggiornato": "2026-11-09",
+ "aggiornato": "2026-11-16",
  "dati": {
   "beta": 1.187,
   "bilancio_annuale": {
@@ -27,26 +27,26 @@
   "debito_netto": 5058999808,
   "debito_netto_su_ebitda": 9.49,
   "debtToEquity": 43.745,
-  "dividendYield": 3.45,
+  "dividendYield": 3.43,
   "ebitda": 533000000,
-  "enterpriseToEbitda": 32.674,
+  "enterpriseToEbitda": 32.903,
   "fiftyTwoWeekHigh": 997.4,
   "fiftyTwoWeekLow": 632.2,
   "financialCurrency": "GBP",
-  "forwardPE": 22.7589,
+  "forwardPE": 22.754,
   "freeCashflow": 300624992,
   "grossMargins": 0.792,
   "industry": "REIT - Industrial",
   "longName": "SEGRO Plc",
-  "marketCap": 12482880512,
+  "marketCap": 12480174080,
   "numberOfAnalystOpinions": 11,
   "operatingCashflow": 452000000,
-  "operatingMargins": 0.7081,
+  "operatingMargins": 0.6926,
   "payoutRatio": 1.4136,
-  "priceToBook": 1.043,
+  "priceToBook": 1.0427,
   "profitMargins": 0.4,
   "quickRatio": 0.584,
-  "recommendationKey": "hold",
+  "recommendationKey": "none",
   "returnOnAssets": 0.018,
   "returnOnEquity": 0.0248,
   "revenueGrowth": 0.054,
@@ -54,7 +54,7 @@
   "targetMeanPrice": 967.455,
   "totalCash": 176000000,
   "totalDebt": 5234999808,
-  "trailingPE": 41.9364
+  "trailingPE": 41.9273
  },
  "v": 2
 }

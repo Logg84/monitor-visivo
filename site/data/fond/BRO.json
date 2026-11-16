@@ -1,5 +1,5 @@
 {
- "aggiornato": "2026-11-09",
+ "aggiornato": "2026-11-16",
  "dati": {
   "beta": 0.521,
   "bilancio_annuale": {
@@ -30,21 +30,21 @@
   "dividendYield": 0.92,
   "earningsGrowth": -0.01,
   "ebitda": 2352999936,
-  "enterpriseToEbitda": 13.147,
+  "enterpriseToEbitda": 13.121,
   "fiftyTwoWeekHigh": 82.58,
   "fiftyTwoWeekLow": 53.81,
   "financialCurrency": "USD",
-  "forwardPE": 14.9366,
+  "forwardPE": 15.4647,
   "freeCashflow": 1209750016,
   "grossMargins": 0.498,
   "industry": "Insurance Brokers",
   "longName": "Brown & Brown, Inc.",
-  "marketCap": 23550119936,
+  "marketCap": 24382668800,
   "numberOfAnalystOpinions": 18,
   "operatingCashflow": 1584000000,
-  "operatingMargins": 0.24,
+  "operatingMargins": 0.2684,
   "payoutRatio": 0.2089,
-  "priceToBook": 1.8451,
+  "priceToBook": 1.9103,
   "profitMargins": 0.1787,
   "quickRatio": 0.453,
   "recommendationKey": "hold",
@@ -52,10 +52,10 @@
   "returnOnEquity": 0.098,
   "revenueGrowth": 0.097,
   "sector": "Financial Services",
-  "targetMeanPrice": 74.7778,
+  "targetMeanPrice": 74.9444,
   "totalCash": 1099000064,
   "totalDebt": 8095000064,
-  "trailingPE": 22.4684
+  "trailingPE": 23.2627
  },
  "v": 2
 }

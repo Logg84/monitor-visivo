@@ -1,5 +1,5 @@
 {
- "aggiornato": "2026-11-09",
+ "aggiornato": "2026-11-16",
  "dati": {
   "beta": 0.78,
   "bilancio_annuale": {
@@ -29,7 +29,7 @@
   "debtToEquity": 14.665,
   "dividendYield": 0.0,
   "ebitda": 558000000,
-  "enterpriseToEbitda": 23.262,
+  "enterpriseToEbitda": 23.558,
   "fiftyTwoWeekHigh": 70.57,
   "fiftyTwoWeekLow": 25.89,
   "financialCurrency": "USD",
@@ -41,7 +41,7 @@
   "marketCap": 12569018368,
   "numberOfAnalystOpinions": 20,
   "operatingCashflow": 617000000,
-  "operatingMargins": 0.0882,
+  "operatingMargins": 0.0577,
   "payoutRatio": 0.0,
   "priceToBook": 1.5744,
   "profitMargins": 0.0487,

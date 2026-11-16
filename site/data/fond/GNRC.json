@@ -1,5 +1,5 @@
 {
- "aggiornato": "2026-11-09",
+ "aggiornato": "2026-11-16",
  "dati": {
   "beta": 1.845,
   "bilancio_annuale": {
@@ -30,21 +30,21 @@
   "dividendYield": 0.0,
   "earningsGrowth": 0.634,
   "ebitda": 621225024,
-  "enterpriseToEbitda": 18.436,
+  "enterpriseToEbitda": 19.764,
   "fiftyTwoWeekHigh": 296.44,
   "fiftyTwoWeekLow": 134.8,
   "financialCurrency": "USD",
-  "forwardPE": 13.5424,
+  "forwardPE": 13.2821,
   "freeCashflow": 335098368,
   "grossMargins": 0.3818,
   "industry": "Specialty Industrial Machinery",
   "longName": "Generac Holdings Inc.",
-  "marketCap": 11134171136,
+  "marketCap": 10949534720,
   "numberOfAnalystOpinions": 18,
   "operatingCashflow": 600744000,
-  "operatingMargins": 0.1167,
+  "operatingMargins": 0.0862,
   "payoutRatio": 0.0,
-  "priceToBook": 3.6964,
+  "priceToBook": 3.6351,
   "profitMargins": 0.0652,
   "quickRatio": 0.906,
   "recommendationKey": "buy",
@@ -52,10 +52,10 @@
   "returnOnEquity": 0.1064,
   "revenueGrowth": 0.162,
   "sector": "Industrials",
-  "targetMeanPrice": 289.2222,
+  "targetMeanPrice": 288.5,
   "totalCash": 396656992,
   "totalDebt": 1421377024,
-  "trailingPE": 37.2288
+  "trailingPE": 37.0499
  },
  "v": 2
 }

@@ -1,0 +1,61 @@
+{
+ "aggiornato": "2026-11-16",
+ "dati": {
+  "beta": 1.143,
+  "bilancio_annuale": {
+   "ricavi": {
+    "2022": 11601000000.0,
+    "2023": 13427000000.0,
+    "2024": 15170000000.0,
+    "2025": 16001000000.0
+   },
+   "utile_netto": {
+    "2022": 3367000000.0,
+    "2023": 4311000000.0,
+    "2024": 4603000000.0,
+    "2025": 4524000000.0
+   },
+   "utile_operativo": {
+    "2022": 4820000000.0,
+    "2023": 5755000000.0,
+    "2024": 6232000000.0,
+    "2025": 6695000000.0
+   }
+  },
+  "currency": "EUR",
+  "currentRatio": 4.537,
+  "debito_netto": -10029999616,
+  "debito_netto_su_ebitda": -1.42,
+  "debtToEquity": 11.984,
+  "dividendYield": 1.34,
+  "earningsGrowth": -0.003,
+  "ebitda": 7056000000,
+  "enterpriseToEbitda": 18.611,
+  "fiftyTwoWeekHigh": 2300.0,
+  "fiftyTwoWeekLow": 1228.0,
+  "financialCurrency": "EUR",
+  "forwardPE": 28.1446,
+  "freeCashflow": 4914625024,
+  "grossMargins": 0.7134,
+  "industry": "Luxury Goods",
+  "longName": "Hermès International Société en commandite par actions",
+  "marketCap": 141161725952,
+  "numberOfAnalystOpinions": 24,
+  "operatingCashflow": 5743000064,
+  "operatingMargins": 0.4183,
+  "payoutRatio": 0.4186,
+  "priceToBook": 7.4304,
+  "profitMargins": 0.28,
+  "quickRatio": 3.632,
+  "recommendationKey": "buy",
+  "returnOnAssets": 0.1809,
+  "returnOnEquity": 0.2545,
+  "revenueGrowth": 0.016,
+  "sector": "Consumer Cyclical",
+  "targetMeanPrice": 1555.4292,
+  "totalCash": 12309999616,
+  "totalDebt": 2280000000,
+  "trailingPE": 31.3837
+ },
+ "v": 2
+}

@@ -1,0 +1,61 @@
+{
+ "aggiornato": "2026-11-16",
+ "dati": {
+  "beta": 0.472,
+  "bilancio_annuale": {
+   "ricavi": {
+    "2022": 6939900000.0,
+    "2023": 7394200000.0,
+    "2024": 7678600000.0,
+    "2025": 8231500000.0
+   },
+   "utile_netto": {
+    "2022": 231400000.0,
+    "2023": 1024000000.0,
+    "2024": 903800000.0,
+    "2025": 705100000.0
+   },
+   "utile_operativo": {
+    "2022": 1192100000.0,
+    "2023": 1451300000.0,
+    "2024": 1528300000.0,
+    "2025": 1356200000.0
+   }
+  },
+  "currency": "USD",
+  "currentRatio": 1.464,
+  "debito_netto": 7230399968,
+  "debito_netto_su_ebitda": 2.85,
+  "debtToEquity": 60.172,
+  "dividendYield": 0.93,
+  "earningsGrowth": -0.138,
+  "ebitda": 2541299968,
+  "enterpriseToEbitda": 10.535,
+  "fiftyTwoWeekHigh": 112.55,
+  "fiftyTwoWeekLow": 79.12,
+  "financialCurrency": "USD",
+  "forwardPE": 11.292,
+  "freeCashflow": 1442050048,
+  "grossMargins": 0.6933,
+  "industry": "Medical Devices",
+  "longName": "Zimmer Biomet Holdings, Inc.",
+  "marketCap": 19192238080,
+  "numberOfAnalystOpinions": 21,
+  "operatingCashflow": 1884600064,
+  "operatingMargins": 0.1674,
+  "payoutRatio": 0.2424,
+  "priceToBook": 1.5161,
+  "profitMargins": 0.0895,
+  "quickRatio": 0.64,
+  "recommendationKey": "buy",
+  "returnOnAssets": 0.0381,
+  "returnOnEquity": 0.0603,
+  "revenueGrowth": 0.031,
+  "sector": "Healthcare",
+  "targetMeanPrice": 116.9048,
+  "totalCash": 426900000,
+  "totalDebt": 7657299968,
+  "trailingPE": 25.6086
+ },
+ "v": 2
+}

@@ -1,61 +1,61 @@
 {
- "aggiornato": "2026-11-09",
+ "aggiornato": "2026-11-16",
  "dati": {
   "beta": 1.493,
   "bilancio_annuale": {
    "ricavi": {
-    "2022": 5485500000.0,
     "2023": 4772400000.0,
     "2024": 4178000000.0,
-    "2025": 4086900000.0
+    "2025": 4086900000.0,
+    "2026": 3959600000.0
    },
    "utile_netto": {
-    "2022": 1275200000.0,
     "2023": 982800000.0,
     "2024": 596000000.0,
-    "2025": 477100000.0
+    "2025": 477100000.0,
+    "2026": 172100000.0
    },
    "utile_operativo": {
-    "2022": 1557700000.0,
     "2023": 1153300000.0,
     "2024": 787400000.0,
-    "2025": 524200000.0
+    "2025": 524200000.0,
+    "2026": 340900000.0
    }
   },
   "currency": "USD",
-  "currentRatio": 3.341,
-  "debito_netto": -133299968,
-  "debito_netto_su_ebitda": -0.16,
-  "debtToEquity": 43.263,
+  "currentRatio": 5.012,
+  "debito_netto": 45100032,
+  "debito_netto_su_ebitda": 0.05,
+  "debtToEquity": 46.385,
   "dividendYield": 0.0,
-  "earningsGrowth": -0.842,
-  "ebitda": 818700032,
-  "enterpriseToEbitda": 14.866,
-  "fiftyTwoWeekHigh": 92.8,
+  "earningsGrowth": -0.841,
+  "ebitda": 888099968,
+  "enterpriseToEbitda": 23.835,
+  "fiftyTwoWeekHigh": 93.24,
   "fiftyTwoWeekLow": 51.93,
   "financialCurrency": "USD",
-  "forwardPE": 10.9714,
-  "freeCashflow": 1128412544,
+  "forwardPE": 11.4688,
+  "freeCashflow": 307487488,
   "grossMargins": 0.4078,
   "industry": "Semiconductors",
   "longName": "Skyworks Solutions, Inc.",
-  "marketCap": 19478763520,
+  "marketCap": 20314925056,
   "numberOfAnalystOpinions": 18,
   "operatingCashflow": 549900032,
-  "operatingMargins": 0.0998,
-  "payoutRatio": 1.4715,
-  "priceToBook": 2.1694,
+  "operatingMargins": 0.1075,
+  "payoutRatio": 1.8684,
+  "priceToBook": 2.2564,
   "profitMargins": 0.0435,
-  "quickRatio": 2.484,
+  "quickRatio": 3.318,
   "recommendationKey": "hold",
-  "returnOnAssets": 0.0257,
+  "returnOnAssets": 0.0307,
   "returnOnEquity": 0.03,
   "revenueGrowth": -0.05,
   "sector": "Technology",
-  "targetMeanPrice": 78.4444,
+  "targetMeanPrice": 79.1111,
   "totalCash": 2606099968,
-  "totalDebt": 2472800000,
-  "trailingPE": 72.6579
+  "totalDebt": 2651200000,
+  "trailingPE": 75.8772
  },
  "v": 2
 }

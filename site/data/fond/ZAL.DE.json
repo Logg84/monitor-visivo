@@ -1,5 +1,5 @@
 {
- "aggiornato": "2026-11-09",
+ "aggiornato": "2026-11-16",
  "dati": {
   "beta": 1.556,
   "bilancio_annuale": {
@@ -29,21 +29,21 @@
   "debtToEquity": 52.241,
   "dividendYield": 0.0,
   "ebitda": 710800000,
-  "enterpriseToEbitda": 10.094,
+  "enterpriseToEbitda": 10.224,
   "fiftyTwoWeekHigh": 30.43,
   "fiftyTwoWeekLow": 18.61,
   "financialCurrency": "EUR",
-  "forwardPE": 14.3004,
+  "forwardPE": 14.5039,
   "freeCashflow": 834362496,
   "grossMargins": 0.3968,
   "industry": "Internet Retail",
   "longName": "Zalando SE",
-  "marketCap": 6694155776,
+  "marketCap": 6845574144,
   "numberOfAnalystOpinions": 23,
   "operatingCashflow": 859500032,
-  "operatingMargins": 0.0041,
+  "operatingMargins": 0.0319,
   "payoutRatio": 0.0,
-  "priceToBook": 2.7448,
+  "priceToBook": 2.8069,
   "profitMargins": 0.0045,
   "quickRatio": 0.418,
   "recommendationKey": "buy",
@@ -51,10 +51,10 @@
   "returnOnEquity": 0.0227,
   "revenueGrowth": 0.051,
   "sector": "Consumer Cyclical",
-  "targetMeanPrice": 35.0739,
+  "targetMeanPrice": 35.2261,
   "totalCash": 1294800000,
   "totalDebt": 1341500032,
-  "trailingPE": 119.1739
+  "trailingPE": 121.8696
  },
  "v": 2
 }

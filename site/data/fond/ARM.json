@@ -1,5 +1,5 @@
 {
- "aggiornato": "2026-11-09",
+ "aggiornato": "2026-11-16",
  "dati": {
   "beta": 3.939,
   "bilancio_annuale": {
@@ -30,21 +30,21 @@
   "dividendYield": 0.0,
   "earningsGrowth": -0.455,
   "ebitda": 1127699968,
-  "enterpriseToEbitda": 162.918,
+  "enterpriseToEbitda": 178.014,
   "fiftyTwoWeekHigh": 452.7,
   "fiftyTwoWeekLow": 100.02,
   "financialCurrency": "USD",
-  "forwardPE": 60.5375,
+  "forwardPE": 56.9287,
   "freeCashflow": 1137250048,
   "grossMargins": 0.9744,
   "industry": "Semiconductors",
   "longName": "Arm Holdings plc",
-  "marketCap": 199340998656,
+  "marketCap": 187303510016,
   "numberOfAnalystOpinions": 40,
   "operatingCashflow": 1734000000,
-  "operatingMargins": 0.1393,
+  "operatingMargins": 0.1702,
   "payoutRatio": 0.0,
-  "priceToBook": 21.9357,
+  "priceToBook": 20.6111,
   "profitMargins": 0.1713,
   "quickRatio": 6.123,
   "recommendationKey": "buy",
@@ -52,10 +52,10 @@
   "returnOnEquity": 0.1135,
   "revenueGrowth": 0.271,
   "sector": "Technology",
-  "targetMeanPrice": 273.405,
+  "targetMeanPrice": 272.43,
   "totalCash": 3620999936,
   "totalDebt": 500000000,
-  "trailingPE": 214.1379
+  "trailingPE": 201.2069
  },
  "v": 2
 }

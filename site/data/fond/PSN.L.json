@@ -1,5 +1,5 @@
 {
- "aggiornato": "2026-11-09",
+ "aggiornato": "2026-11-16",
  "dati": {
   "beta": 1.377,
   "bilancio_annuale": {
@@ -27,24 +27,24 @@
   "debito_netto": 165000000,
   "debito_netto_su_ebitda": 0.33,
   "debtToEquity": 7.612,
-  "dividendYield": 4.6,
+  "dividendYield": 4.67,
   "earningsGrowth": 0.194,
   "ebitda": 498100000,
-  "enterpriseToEbitda": 8.633,
+  "enterpriseToEbitda": 8.459,
   "fiftyTwoWeekHigh": 1552.0,
   "fiftyTwoWeekLow": 947.4,
   "financialCurrency": "GBP",
-  "forwardPE": 12.6956,
+  "forwardPE": 12.5145,
   "freeCashflow": -206400000,
   "grossMargins": 0.1662,
   "industry": "Residential Construction",
   "longName": "Persimmon Plc",
-  "marketCap": 4139947520,
+  "marketCap": 4053230336,
   "numberOfAnalystOpinions": 20,
   "operatingCashflow": -128600000,
-  "operatingMargins": 0.1083,
+  "operatingMargins": 0.1197,
   "payoutRatio": 0.6369,
-  "priceToBook": 1.1447,
+  "priceToBook": 1.1207,
   "profitMargins": 0.0768,
   "quickRatio": 0.337,
   "recommendationKey": "strong_buy",
@@ -52,10 +52,10 @@
   "returnOnEquity": 0.0861,
   "revenueGrowth": 0.149,
   "sector": "Consumer Cyclical",
-  "targetMeanPrice": 1387.3,
+  "targetMeanPrice": 1412.0499,
   "totalCash": 110000000,
   "totalDebt": 275000000,
-  "trailingPE": 13.7128
+  "trailingPE": 13.4255
  },
  "v": 2
 }
