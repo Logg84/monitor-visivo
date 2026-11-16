@@ -4,7 +4,7 @@ Il Worker Cloudflare lancia i workflow dei due repo con `workflow_dispatch`, all
 cron di GitHub (che possono ritardare anche di ore). Stato: **16/11/2026** — pilota riuscito (canary lanciato alle 12:30:13 UTC;
 quel giorno il cron di GitHub non ha lanciato lo screening delle 06:30 né gli alert delle 07:00 e 11:00, e il report delle
 05:00 è partito alle 13:20). **Migrati al Worker**: canary (lun 12:30), report quindicinale (lun 05:00), screening (06:30,
-14:30, 22:00) e alerts (07:00, 11:00, 15:50, 21:30), tutti lun-ven tranne canary e report. Gli altri lavori sono definiti
+14:30, 22:00) e alerts (07:00, 11:00, 17:00, 21:30), tutti lun-ven tranne canary e report. Gli altri lavori sono definiti
 ma spenti.
 
 ## Come funziona
@@ -25,6 +25,8 @@ ma spenti.
 3. Il giorno dopo controllare `scheduler_log` e l'orario di partenza in Actions.
 
 ## Modifiche del 16/11/2026
+- **Alerts delle 15:50 spostati alle 17:00 UTC** (id `alerts-1700`): d'inverno le borse europee chiudono alle 16:30 UTC, quindi il run delle 15:50
+  lavorava su barre europee ancora aperte; alle 17:00 sono chiuse tutto l'anno.
 - **Screening serale spostato da 21:45 a 22:00 UTC** (id `screening-2200`): sta a 30 minuti dagli alert delle 21:30 e resta dopo
   la chiusura USA (21:00 UTC con l'ora solare), quindi il file storico del giorno è a barre complete.
 - Dal workflow del repo privato va tolto lo `schedule:` per canary, report quindicinale, screening e alerts (resta

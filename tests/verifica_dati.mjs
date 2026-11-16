@@ -123,12 +123,12 @@ assert.equal(chiamate[0].init.headers.Authorization, "Bearer priv"); assert.deep
 ok("canary: lunedì 12:30 → canary_fonti.yml sul repo privato con PRIVATE_REPO_TOKEN");
 assert.deepEqual(await lanciati(new Date(lun(7, 12, 30).getTime() + GIORNO)), []); ok("canary: martedì 12:30 → niente (solo il lunedì)");
 const MIGRATI = [[5, 0, "report-quindicinale", "report_quindicinale.yml"], [6, 30, "screening-0630", "screening.yml"], [7, 0, "alerts-0700", "alerts.yml"],
-  [11, 0, "alerts-1100", "alerts.yml"], [14, 30, "screening-1430", "screening.yml"], [15, 50, "alerts-1550", "alerts.yml"], [21, 30, "alerts-2130", "alerts.yml"], [22, 0, "screening-2200", "screening.yml"]];
+  [11, 0, "alerts-1100", "alerts.yml"], [14, 30, "screening-1430", "screening.yml"], [17, 0, "alerts-1700", "alerts.yml"], [21, 30, "alerts-2130", "alerts.yml"], [22, 0, "screening-2200", "screening.yml"]];
 for (const [hh, mm, idl, wf] of MIGRATI) {
   assert.deepEqual(await lanciati(lun(8, hh, mm)), [idl], `${hh}:${mm} doveva lanciare ${idl}`);
   assert.match(chiamate.at(-1).url, new RegExp(`monitor-trading-marco/actions/workflows/${wf.replace(".", "\\.")}/dispatches$`));
 }
-ok("migrati: report 05:00 (lun), screening 06:30/14:30/22:00, alerts 07:00/11:00/15:50/21:30 → workflow giusto sul repo privato");
+ok("migrati: report 05:00 (lun), screening 06:30/14:30/22:00, alerts 07:00/11:00/17:00/21:30 → workflow giusto sul repo privato");
 assert.deepEqual(await lanciati(sab(8, 6, 30)), []); assert.deepEqual(await lanciati(sab(8, 7, 0)), []); assert.deepEqual(await lanciati(sab(8, 5, 0)), []); ok("sabato: screening e alerts (lun-ven) e report (lun) non partono");
 assert.deepEqual(await lanciati(new Date(lun(8, 5, 0).getTime() + GIORNO)), []); ok("report quindicinale: solo il lunedì (martedì 05:00 niente)");
 assert.deepEqual(await lanciati(lun(8, 21, 45)), []); ok("21:45: nessun lancio (lo screening serale è stato spostato alle 22:00)");
@@ -138,8 +138,8 @@ for (const [hh, mm] of [[7, 10], [7, 30], [8, 0], [9, 0], [23, 0], [23, 30]]) {
 ok("lavori non ancora migrati (salute, events, consumo, braccio-destro, regime, insiders…): spenti");
 assert.deepEqual(await lanciati(lun(8, 22, 30)), ["bases"]); ok("22:30: solo bases (repo pubblico), nessuno screening in coda");
 const tutti = PIANO.map((l) => ({ ...l, attivo: true }));
-es = await eseguiCron(CRON, env, { adesso: lun(9, 15, 50), fetchFn: fetchOk, piano: tutti });
-assert.deepEqual(es.map((x) => x.id), ["alerts-1550"]); assert.match(chiamate.at(-1).url, /monitor-trading-marco\/actions\/workflows\/alerts\.yml\/dispatches$/); ok("acceso il flag, lo stesso orario lancia il workflow giusto (alerts 15:50)");
+es = await eseguiCron(CRON, env, { adesso: lun(9, 17, 0), fetchFn: fetchOk, piano: tutti });
+assert.deepEqual(es.map((x) => x.id), ["alerts-1700"]); assert.match(chiamate.at(-1).url, /monitor-trading-marco\/actions\/workflows\/alerts\.yml\/dispatches$/); ok("acceso il flag, lo stesso orario lancia il workflow giusto (alerts 17:00)");
 
 // ── Finestra, giorni, mese ──
 const id = (d, p) => lavoriDovuti(d, p).map((x) => x.id);
