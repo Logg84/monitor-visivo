@@ -1,5 +1,5 @@
 {
- "aggiornato": "2026-11-10",
+ "aggiornato": "2026-11-17",
  "dati": {
   "beta": 0.807,
   "bilancio_annuale": {
@@ -27,24 +27,24 @@
   "debito_netto": 360700000,
   "debito_netto_su_ebitda": 0.89,
   "debtToEquity": 166.534,
-  "dividendYield": 2.09,
+  "dividendYield": 2.01,
   "earningsGrowth": 0.049,
   "ebitda": 403700000,
-  "enterpriseToEbitda": 11.567,
-  "fiftyTwoWeekHigh": 755.2,
+  "enterpriseToEbitda": 11.456,
+  "fiftyTwoWeekHigh": 680.0,
   "fiftyTwoWeekLow": 418.6,
   "financialCurrency": "GBP",
-  "forwardPE": 12.8776,
+  "forwardPE": 12.7357,
   "freeCashflow": 263187504,
   "grossMargins": 0.799,
   "industry": "Internet Content & Information",
   "longName": "Autotrader Group plc",
-  "marketCap": 4239584256,
+  "marketCap": 4185747200,
   "numberOfAnalystOpinions": 19,
   "operatingCashflow": 322800000,
-  "operatingMargins": 0.626,
+  "operatingMargins": 0.6239,
   "payoutRatio": 0.3323,
-  "priceToBook": 19.0959,
+  "priceToBook": 18.8973,
   "profitMargins": 0.4623,
   "quickRatio": 1.381,
   "recommendationKey": "buy",
@@ -52,10 +52,10 @@
   "returnOnEquity": 0.7259,
   "revenueGrowth": -0.014,
   "sector": "Communication Services",
-  "targetMeanPrice": 593.105,
+  "targetMeanPrice": 606.789,
   "totalCash": 15000000,
   "totalDebt": 375700000,
-  "trailingPE": 15.9314
+  "trailingPE": 15.7657
  },
  "v": 2
 }

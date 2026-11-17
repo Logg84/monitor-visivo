@@ -1,0 +1,53 @@
+{
+ "aggiornato": "2026-11-17",
+ "dati": {
+  "bilancio_annuale": {
+   "ricavi": {
+    "2023": 10387000000.0,
+    "2024": 14015000000.0,
+    "2025": 18674000000.0
+   },
+   "utile_netto": {
+    "2023": -4628000000.0,
+    "2024": 791000000.0,
+    "2025": -4937000000.0
+   },
+   "utile_operativo": {
+    "2023": 507000000.0,
+    "2024": 742000000.0,
+    "2025": -2064000000.0
+   }
+  },
+  "currency": "USD",
+  "currentRatio": 3.084,
+  "debito_netto": -50637000704,
+  "debito_netto_su_ebitda": -4.31,
+  "debtToEquity": 22.186,
+  "dividendYield": 0.0,
+  "ebitda": 11736000512,
+  "enterpriseToEbitda": 154.64,
+  "fiftyTwoWeekHigh": 225.64,
+  "fiftyTwoWeekLow": 104.83,
+  "financialCurrency": "USD",
+  "forwardPE": 51.6714,
+  "grossMargins": 0.5675,
+  "industry": "Aerospace & Defense",
+  "longName": "Space Exploration Technologies Corp.",
+  "marketCap": 1924436721664,
+  "numberOfAnalystOpinions": 37,
+  "operatingCashflow": 15761999872,
+  "operatingMargins": 0.0179,
+  "payoutRatio": 0.0,
+  "priceToBook": 10.8849,
+  "profitMargins": -0.0861,
+  "quickRatio": 2.945,
+  "recommendationKey": "buy",
+  "revenueGrowth": 1.614,
+  "sector": "Industrials",
+  "targetMeanPrice": 257.4952,
+  "totalCash": 89855000576,
+  "totalDebt": 39217999872,
+  "trailingPE": 616.0869
+ },
+ "v": 2
+}
