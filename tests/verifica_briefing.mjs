@@ -61,8 +61,19 @@ ok("prezzo: «Prezzo screening» e «Ultimo prezzo» distinti, con la spiegazion
 const dopo = costruisci({ ...ctx, screening: { data: "d", righe: [{ ticker: "NOIDX", punti: 1, priorita: 1, extra: { Prezzo: 60 } }] }, indice: { titoli: {}, basi: [] }, watchlist: { entries: [{ ticker: "NOIDX", origin: "manual", sector: "x", levels: { L1: 35, L2: 69, L3: 28 } }] } });
 ok("watchlist: senza prezzo nei range si usa quello dello screening (e il controllo livelli lavora)", /NOIDX \| USD \| manuale \| x \| L1 35 \(\+71%\), L2 69 \(-13%\), L3 28 \(\+114%\) \| ⚠ L2 \(69\) è sopra L1 \(35\)/.test(dopo) && /\| 60\.00 \|/.test(dopo.slice(dopo.indexOf("## 7."))));
 const vuotoCal = costruisci({ ...ctx, calendario: { aggiornato: "2026-11-14", dati: { eventi: [{ data_attesa: "2027-03-01", nome: "FDA" }, { data_attesa: "2026-01-01", nome: "vecchio" }] } } });
-ok("calendario vuoto: lo dice, indica il totale e il prossimo evento, e avverte che mancano trimestrali e macro", /Nessun evento nei prossimi 21 giorni \(eventi registrati in tutto: 2; il prossimo è del 2027-03-01\)/.test(vuotoCal) && /NON contiene trimestrali né dati macro/.test(vuotoCal));
-ok("istruzioni: il calendario del portale non copre trimestrali e macro", /il calendario del portale NON li contiene/.test(md));
+ok("calendario vuoto: lo dice, indica il totale e il prossimo evento, e avverte che mancano le trimestrali", /Nessun evento nei prossimi 21 giorni \(eventi registrati in tutto: 2; il prossimo è del 2027-03-01\)/.test(vuotoCal) && /NON contiene le trimestrali/.test(vuotoCal));
+ok("istruzioni: il portale elenca solo le date macro, non valori attesi né trimestrali", /elenca solo le date macro programmate \(sezione 6\), non i valori attesi, i risultati né le trimestrali/.test(md));
+const calMacro = { aggiornato: "2026-11-17", dati: { eventi: [], macro_eventi: [
+  { data: "2026-11-18", nome: "CPI", descrizione: "Consumer Price Index" }, { data: "2026-12-09", nome: "FOMC", descrizione: "Riunione FOMC" },
+  { data: "2027-02-01", nome: "Lontano", descrizione: "fuori finestra" }, { data: "2026-10-01", nome: "Passato", descrizione: "già avvenuto" }] } };
+const conMacro = costruisci({ ...ctx, ora: "2026-11-17 08:29 UTC", calendario: calMacro });
+ok("macro programmati: sottosezione con gli eventi dei prossimi 45 giorni, in ordine", /### Eventi macro programmati \(prossimi 45 giorni\)/.test(conMacro) && /CPI/.test(conMacro) && /FOMC/.test(conMacro) && conMacro.indexOf("CPI") < conMacro.indexOf("FOMC"));
+ok("macro programmati: niente eventi lontani o passati", !/Lontano/.test(conMacro) && !/Passato/.test(conMacro));
+ok("macro programmati: compaiono anche se non ci sono eventi di titoli", /Nessun evento nei prossimi 21 giorni/.test(conMacro) && /Eventi macro programmati/.test(conMacro));
+const senzaMacro = costruisci({ ...ctx, calendario: { aggiornato: "2026-11-17", dati: { eventi: [] } } });
+ok("macro programmati: se l'export non li ha ancora, nessuna sottosezione (nessun errore)", !/Eventi macro programmati/.test(senzaMacro));
+const macroVuoto = costruisci({ ...ctx, ora: "2027-06-01 08:00 UTC", calendario: { aggiornato: "2027-06-01", dati: { eventi: [], macro_eventi: [{ data: "2026-12-09", nome: "FOMC", descrizione: "x" }] } } });
+ok("macro programmati: elenco vuoto nel periodo → lo dice", /Nessun evento macro programmato nel periodo/.test(macroVuoto));
 ok("insider: elenco completo degli acquisti dei titoli con cluster", /Tutti gli acquisti dei titoli con cluster/.test(sez(5)) && (sez(5).split("| AAA |").length - 1) >= 2);
 ok("nessun imperativo operativo nel testo fisso («compra», «vendi»)", !/\b(compra|vendi|acquista|apri una posizione)\b/i.test(md.replace(/\| [^\n]*\n/g, "")));
 console.log(`\nVERIFICA BRIEFING: ${n} controlli ok`);

@@ -65,7 +65,7 @@
       `- **Questo file è un punto di partenza, non la fonte unica.** Vai a cercare informazioni e conferme anche FUORI dal file (ricerca web, siti ufficiali delle società, comunicati, dati di mercato aggiornati) e dichiara cosa hai verificato e dove.\n` +
       `- **Aggiornamento dei dati:** il file fotografa l'ultima chiusura disponibile (data in testa a ogni sezione). Controlla prezzi attuali, gap e notizie successive prima di usare i livelli.\n` +
       `- **Per ogni titolo che prendi in esame, cerca fuori dal file:** notizie e comunicati degli ultimi 30 giorni; data del prossimo bilancio o evento societario; risultati dell'ultimo trimestre e guidance; valutazione (multipli) e consenso degli analisti; operazioni di insider e investitori istituzionali; rischi specifici (cause legali, regolamentazione, debito, concorrenza).\n` +
-      `- **Contesto:** conferma con fonti indipendenti dal portale il quadro macro (crescita, inflazione, tassi e banche centrali), le notizie dei settori coinvolti e il calendario macro e delle trimestrali delle prossime settimane: il calendario del portale NON li contiene.\n` +
+      `- **Contesto:** conferma con fonti indipendenti dal portale il quadro macro (crescita, inflazione, tassi e banche centrali), le notizie dei settori coinvolti e le trimestrali delle prossime settimane: il portale elenca solo le date macro programmate (sezione 6), non i valori attesi, i risultati né le trimestrali.\n` +
       `- **Contraddizioni:** se una fonte esterna contraddice il file, segnalalo, dì quale ritieni più affidabile e perché.\n` +
       `- **Tracciabilità:** cita ogni fonte esterna (titolo, sito, data) ed etichetta ogni affermazione come «dato del portale», «dato esterno verificato» oppure «ipotesi/stima». Dichiara cosa non sei riuscito a verificare. Non inventare numeri.\n\n`;
   }
@@ -164,15 +164,29 @@
     return o + "\n";
   }
 
+  const GIORNI_MACRO = 45;
+  // Date macro programmate (BLS, Fed, FRED) da data/macro_events.json, esportate con la pagina Calendario (campo macro_eventi).
+  function sezMacroProgrammati(c, ora) {
+    const m = c && c.dati && Array.isArray(c.dati.macro_eventi) ? c.dati.macro_eventi : null;
+    if (!m) return "";
+    const oggi = Date.parse(String(ora).slice(0, 10)), fino = oggi + GIORNI_MACRO * 864e5;
+    const v = m.filter((e) => { const d = Date.parse(data(e.data)); return Number.isFinite(d) && d >= oggi - 864e5 && d <= fino; })
+      .sort((a, b) => String(a.data).localeCompare(String(b.data))).slice(0, 20);
+    const t = `### Eventi macro programmati (prossimi ${GIORNI_MACRO} giorni)\n\n`;
+    if (!v.length) return t + "Nessun evento macro programmato nel periodo.\n\n";
+    return t + "Date da calendari ufficiali (BLS, Fed, FRED): solo la data, senza valori attesi; possono slittare.\n\n" + tab(["Data", "Evento", "Descrizione"], v.map((e) => [data(e.data), e.nome, e.descrizione])) + "\n";
+  }
+
   function sezCalendario(c, ora) {
     let o = `## 6. Calendario eventi (prossimi ${LIM.giorniEventi} giorni)\n\n`;
     const ev = c && c.dati && Array.isArray(c.dati.eventi) ? c.dati.eventi : null;
     if (!ev) return o + "_Non disponibile._\n\n";
     const oggi = Date.parse(String(ora).slice(0, 10)), fino = oggi + LIM.giorniEventi * 864e5;
     const v = ev.filter((e) => { const d = Date.parse(data(e.data_attesa)); return Number.isFinite(d) && d >= oggi - 864e5 && d <= fino; }).sort((a, b) => String(a.data_attesa).localeCompare(String(b.data_attesa))).slice(0, LIM.eventi);
-    o += agg(c) + `Il calendario del portale raccoglie SOLO catalizzatori inseriti a mano o dal controllo eventi (es. decisioni FDA, eventi societari); NON contiene trimestrali né dati macro (inflazione, occupazione, banche centrali): quelli vanno cercati fuori. Le date «attese» possono slittare; «stato data» indica se è confermata.\n\n`;
-    if (!v.length) { const futuri = ev.map((e) => data(e.data_attesa)).filter((d) => Date.parse(d) > fino).sort(); return o + `Nessun evento nei prossimi ${LIM.giorniEventi} giorni (eventi registrati in tutto: ${ev.length}${futuri.length ? `; il prossimo è del ${futuri[0]}` : ""}).\n\n`; }
-    return o + tab(["Data", "Ticker", "Nome", "Tipo", "Settore", "Descrizione", "Stato data"], v.map((e) => [data(e.data_attesa), e.ticker || "—", e.nome, e.tipo, e.settore, e.descrizione, e.stato_data])) + "\n";
+    o += agg(c) + `Il calendario del portale raccoglie SOLO catalizzatori inseriti a mano o dal controllo eventi (es. decisioni FDA, eventi societari); NON contiene le trimestrali: quelle vanno cercate fuori. Le date macro programmate (inflazione, occupazione, PIL, banche centrali) sono nella sottosezione che segue, quando disponibili; i valori attesi e i risultati vanno cercati fuori. Le date «attese» possono slittare; «stato data» indica se è confermata.\n\n`;
+    const macro = sezMacroProgrammati(c, ora);
+    if (!v.length) { const futuri = ev.map((e) => data(e.data_attesa)).filter((d) => Date.parse(d) > fino).sort(); return o + `Nessun evento nei prossimi ${LIM.giorniEventi} giorni (eventi registrati in tutto: ${ev.length}${futuri.length ? `; il prossimo è del ${futuri[0]}` : ""}).\n\n` + macro; }
+    return o + tab(["Data", "Ticker", "Nome", "Tipo", "Settore", "Descrizione", "Stato data"], v.map((e) => [data(e.data_attesa), e.ticker || "—", e.nome, e.tipo, e.settore, e.descrizione, e.stato_data])) + "\n" + macro;
   }
 
   function sezPersonali(c, opz) {
