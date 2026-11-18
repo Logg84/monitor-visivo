@@ -48,7 +48,7 @@ export const PIANO = [
   priv("braccio-destro", "braccio_destro.yml", "08:00", [1]),
   priv("backtest", "backtest.yml", "08:00", [3, 6]),
   priv("scorecard", "scorecard.yml", "09:00", [0]),
-  priv("regime-sabato", "regime.yml", "09:30", [6]),
+  priv("regime-sabato", "regime.yml", "09:30", [6], { attivo: true }),
   priv("registro-segnali", "registro_segnali.yml", "10:00", [0]),
   priv("alerts-1100", "alerts.yml", "11:00", LV, { attivo: true }),
   priv("screening-1430", "screening.yml", "14:30", LV, { attivo: true }),
@@ -58,10 +58,15 @@ export const PIANO = [
   // Era 21:45 su GitHub: spostato a 22:00 per stare a 30 minuti dagli alert delle 21:30 (stesso gruppo di concurrency).
   // Resta dopo la chiusura USA (21:00 UTC con l'ora solare): il file storico del giorno è a barre complete.
   priv("screening-2200", "screening.yml", "22:00", LV, { attivo: true }),
-  priv("settori", "settori.yml", "22:00", LV),
-  priv("strumenti", "strumenti.yml", "22:30", LV),
-  priv("regime", "regime.yml", "23:00", LV),
-  priv("insiders", "insiders.yml", "23:30", LV),
+  // 18/11/2026: gruppo serale migrato al Worker. Il cron di GitHub li faceva partire con 3-5 ore di ritardo (snapshot «di chiusura»
+  // alle 03:35-04:40 UTC) e, con lo screening ora puntuale alle 22:00, settori avrebbe condiviso l'orario con lui: GitHub tiene in
+  // coda UN solo job per gruppo e scarta gli altri. Sequenza a 30 minuti (AGENTS.md, «Orari serali»): alerts 21:30 · screening 22:00
+  // · settori 22:30 · strumenti 23:00 · regime 23:30 · insiders 00:00 (UTC del giorno dopo: martedì-sabato, ~26 min a corsa).
+  // Nei workflow del repo privato lo `schedule:` è stato TOLTO (resta `workflow_dispatch:`), altrimenti partirebbero due volte.
+  priv("settori", "settori.yml", "22:30", LV, { attivo: true }),
+  priv("strumenti", "strumenti.yml", "23:00", LV, { attivo: true }),
+  priv("regime", "regime.yml", "23:30", LV, { attivo: true }),
+  priv("insiders", "insiders.yml", "00:00", [2, 3, 4, 5, 6], { attivo: true }),
   priv("indici-mensile", "indices.yml", "06:30", [0, 1, 2, 3, 4, 5, 6], { giornoMese: 1 }),
   priv("macro-calendar-mensile", "macro_calendar.yml", "07:00", [0, 1, 2, 3, 4, 5, 6], { giornoMese: 1 }),
 ];

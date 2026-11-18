@@ -58,9 +58,12 @@ const CRON = CRON_UNICO;
 const lun = (k, hh = 22, mm = 30) => new Date(Date.UTC(2026, 10, 2 + 7 * k, hh, mm));      // lunedì 2/11/2026 + k settimane (UTC)
 let chiamate = [];
 const fetchOk = async (url, init) => { chiamate.push({ url, init }); return new Response(null, { status: 204 }); };
+// La meccanica dello scheduler (finestra, log, errori, ripetizioni) si prova con un piano di un solo lavoro (bases, 22:30):
+// dal 18/11/2026 alle 22:30 parte anche settori, che qui non c'entra.
+const SB = PIANO.filter((l) => l.id === "bases");
 db = fakeD1();
 let env = { DB: db, GITHUB_TOKEN: "tok", PRIVATE_REPO_TOKEN: "priv" };
-let es = await eseguiCron(CRON, env, { adesso: lun(0), fetchFn: fetchOk });
+let es = await eseguiCron(CRON, env, { piano: SB, adesso: lun(0), fetchFn: fetchOk });
 assert.equal(es.length, 1); assert.equal(es[0].id, "bases"); assert.equal(es[0].esito, "ok"); assert.equal(chiamate.length, 1);
 assert.equal(chiamate[0].url, "https://api.github.com/repos/Logg84/monitor-visivo/actions/workflows/bases.yml/dispatches");
 assert.equal(chiamate[0].init.method, "POST"); assert.equal(chiamate[0].init.headers.Authorization, "Bearer tok");
@@ -69,46 +72,46 @@ assert.equal((await ultimiLog(db))[0].esito, "ok"); ok("esito scritto in schedul
 
 const righe = () => db.raw.prepare("SELECT COUNT(*) c FROM scheduler_log").get().c;
 chiamate = []; let prima = righe();
-es = await eseguiCron(CRON, env, { adesso: lun(0, 22, 35), fetchFn: fetchOk });
+es = await eseguiCron(CRON, env, { piano: SB, adesso: lun(0, 22, 35), fetchFn: fetchOk });
 assert.deepEqual(es, [{ id: "bases", esito: "gia_eseguito" }]); assert.equal(chiamate.length, 0); assert.equal(righe(), prima); ok("tick successivo nella stessa finestra → nessun doppio lancio, nessuna riga di log");
-es = await eseguiCron(CRON, env, { adesso: lun(0, 22, 50), fetchFn: fetchOk });
+es = await eseguiCron(CRON, env, { piano: SB, adesso: lun(0, 22, 50), fetchFn: fetchOk });
 assert.deepEqual(es, []); assert.equal(chiamate.length, 0); assert.equal(righe(), prima); ok("tick a vuoto → nessuna chiamata e NESSUNA riga di log (il log non si riempie ogni 5 minuti)");
-es = await eseguiCron(CRON, env, { adesso: new Date("2026-11-01T22:30:00Z"), fetchFn: fetchOk });
+es = await eseguiCron(CRON, env, { piano: SB, adesso: new Date("2026-11-01T22:30:00Z"), fetchFn: fetchOk });
 assert.deepEqual(es, []); assert.equal(chiamate.length, 0); ok("domenica → nessuna chiamata (filtro giorno nel codice)");
 
-es = await eseguiCron("30 22 * * mon-fri", env, { adesso: lun(900), fetchFn: fetchOk });
+es = await eseguiCron("30 22 * * mon-fri", env, { piano: SB, adesso: lun(900), fetchFn: fetchOk });
 assert.deepEqual(es.map((x) => [x.id, x.esito]), [["bases", "ok"]]);
 ok("il vecchio cron delle 22:30, se restasse configurato dopo la pubblicazione, lancia comunque bases (conta l'ora del tick, non l'espressione)");
-chiamate = []; es = await eseguiCron(undefined, env, { adesso: lun(1, 3, 0), fetchFn: fetchOk });
+chiamate = []; es = await eseguiCron(undefined, env, { piano: SB, adesso: lun(1, 3, 0), fetchFn: fetchOk });
 assert.deepEqual(es, []); assert.equal(chiamate.length, 0); ok("senza espressione (prova locale /__scheduled) → decide solo l'ora; alle 03:00 niente da lanciare");
 
-es = await eseguiCron(CRON, { DB: db }, { adesso: lun(1), fetchFn: fetchOk });
+es = await eseguiCron(CRON, { DB: db }, { piano: SB, adesso: lun(1), fetchFn: fetchOk });
 assert.equal(es[0].esito, "token_mancante"); assert.equal(chiamate.length, 0); ok("token mancante → errore chiaro, nessuna chiamata");
 
 for (const [st, testo] of [[403, /Actions: Read and write/], [404, /non trovato/], [401, /non valido/], [422, /workflow_dispatch/]]) {
-  es = await eseguiCron(CRON, env, { adesso: lun(2), fetchFn: async () => new Response("x", { status: st }) });
+  es = await eseguiCron(CRON, env, { piano: SB, adesso: lun(2), fetchFn: async () => new Response("x", { status: st }) });
   assert.equal(es[0].esito, "errore"); assert.match(es[0].dettaglio, testo);
 }
 ok("errori GitHub 401/403/404/422 → messaggi in italiano, nessun nuovo tentativo");
 
 let n = 0;
-es = await eseguiCron(CRON, env, { adesso: lun(3), pausa: async () => {}, fetchFn: async () => (++n === 1 ? new Response("x", { status: 502 }) : new Response(null, { status: 204 })) });
+es = await eseguiCron(CRON, env, { piano: SB, adesso: lun(3), pausa: async () => {}, fetchFn: async () => (++n === 1 ? new Response("x", { status: 502 }) : new Response(null, { status: 204 })) });
 assert.equal(n, 2); assert.equal(es[0].esito, "ok"); ok("errore 5xx → un solo nuovo tentativo");
 n = 0;
-es = await eseguiCron(CRON, env, { adesso: lun(4), pausa: async () => {}, fetchFn: async () => { n++; throw new Error("rete"); } });
+es = await eseguiCron(CRON, env, { piano: SB, adesso: lun(4), pausa: async () => {}, fetchFn: async () => { n++; throw new Error("rete"); } });
 assert.equal(n, 2); assert.equal(es[0].esito, "errore"); ok("rete assente → 2 tentativi in tutto, poi errore loggato");
 
 // un lancio fallito al primo tick viene ritentato dal tick dopo (stessa finestra), poi non più
-es = await eseguiCron(CRON, env, { adesso: lun(5, 22, 30), fetchFn: async () => new Response("x", { status: 403 }) }); assert.equal(es[0].esito, "errore");
-chiamate = []; es = await eseguiCron(CRON, env, { adesso: lun(5, 22, 35), fetchFn: fetchOk }); assert.equal(es[0].esito, "ok"); assert.equal(chiamate.length, 1);
-es = await eseguiCron(CRON, env, { adesso: lun(5, 22, 35), fetchFn: fetchOk }); assert.equal(es[0].esito, "gia_eseguito");
-es = await eseguiCron(CRON, env, { adesso: lun(5, 22, 40), fetchFn: fetchOk }); assert.deepEqual(es, []);
+es = await eseguiCron(CRON, env, { piano: SB, adesso: lun(5, 22, 30), fetchFn: async () => new Response("x", { status: 403 }) }); assert.equal(es[0].esito, "errore");
+chiamate = []; es = await eseguiCron(CRON, env, { piano: SB, adesso: lun(5, 22, 35), fetchFn: fetchOk }); assert.equal(es[0].esito, "ok"); assert.equal(chiamate.length, 1);
+es = await eseguiCron(CRON, env, { piano: SB, adesso: lun(5, 22, 35), fetchFn: fetchOk }); assert.equal(es[0].esito, "gia_eseguito");
+es = await eseguiCron(CRON, env, { piano: SB, adesso: lun(5, 22, 40), fetchFn: fetchOk }); assert.deepEqual(es, []);
 ok("tick saltato o fallito → recuperato dal tick successivo nella finestra di 10 minuti, una sola volta");
 
-es = await eseguiCron(CRON, { GITHUB_TOKEN: "tok" }, { adesso: lun(6), fetchFn: fetchOk });
+es = await eseguiCron(CRON, { GITHUB_TOKEN: "tok" }, { piano: SB, adesso: lun(6), fetchFn: fetchOk });
 assert.equal(es[0].esito, "ok"); ok("senza database il cron funziona comunque (log saltato)");
 
-for (let i = 0; i < MAX_LOG + 30; i++) await eseguiCron(CRON, env, { adesso: lun(10 + i), fetchFn: fetchOk });
+for (let i = 0; i < MAX_LOG + 30; i++) await eseguiCron(CRON, env, { piano: SB, adesso: lun(10 + i), fetchFn: fetchOk });
 const cnt = righe();
 assert.ok(cnt <= MAX_LOG + 1 && cnt >= MAX_LOG); ok(`scheduler_log limitato a ~${MAX_LOG} righe (${cnt})`);
 
@@ -123,7 +126,8 @@ assert.equal(chiamate[0].init.headers.Authorization, "Bearer priv"); assert.deep
 ok("canary: lunedì 12:30 → canary_fonti.yml sul repo privato con PRIVATE_REPO_TOKEN");
 assert.deepEqual(await lanciati(new Date(lun(7, 12, 30).getTime() + GIORNO)), []); ok("canary: martedì 12:30 → niente (solo il lunedì)");
 const MIGRATI = [[5, 0, "report-quindicinale", "report_quindicinale.yml"], [6, 30, "screening-0630", "screening.yml"], [7, 0, "alerts-0700", "alerts.yml"],
-  [11, 0, "alerts-1100", "alerts.yml"], [14, 30, "screening-1430", "screening.yml"], [17, 0, "alerts-1700", "alerts.yml"], [21, 30, "alerts-2130", "alerts.yml"], [22, 0, "screening-2200", "screening.yml"]];
+  [11, 0, "alerts-1100", "alerts.yml"], [14, 30, "screening-1430", "screening.yml"], [17, 0, "alerts-1700", "alerts.yml"], [21, 30, "alerts-2130", "alerts.yml"], [22, 0, "screening-2200", "screening.yml"],
+  [23, 0, "strumenti", "strumenti.yml"], [23, 30, "regime", "regime.yml"]];
 for (const [hh, mm, idl, wf] of MIGRATI) {
   assert.deepEqual(await lanciati(lun(8, hh, mm)), [idl], `${hh}:${mm} doveva lanciare ${idl}`);
   assert.match(chiamate.at(-1).url, new RegExp(`monitor-trading-marco/actions/workflows/${wf.replace(".", "\\.")}/dispatches$`));
@@ -132,14 +136,22 @@ ok("migrati: report 05:00 (lun), screening 06:30/14:30/22:00, alerts 07:00/11:00
 assert.deepEqual(await lanciati(sab(8, 6, 30)), []); assert.deepEqual(await lanciati(sab(8, 7, 0)), []); assert.deepEqual(await lanciati(sab(8, 5, 0)), []); ok("sabato: screening e alerts (lun-ven) e report (lun) non partono");
 assert.deepEqual(await lanciati(new Date(lun(8, 5, 0).getTime() + GIORNO)), []); ok("report quindicinale: solo il lunedì (martedì 05:00 niente)");
 assert.deepEqual(await lanciati(lun(8, 21, 45)), []); ok("21:45: nessun lancio (lo screening serale è stato spostato alle 22:00)");
-for (const [hh, mm] of [[7, 10], [7, 30], [9, 0], [23, 0], [23, 30]]) {
+for (const [hh, mm] of [[7, 10], [7, 30], [9, 0]]) {
   assert.ok(!(await lanciati(lun(8, hh, mm))).length, `${hh}:${mm} non doveva lanciare lavori`);
 }
-ok("lavori non ancora migrati (salute, events, consumo, braccio-destro, regime, insiders…): spenti");
+ok("lavori non ancora migrati (salute, events, consumo, braccio-destro, scorecard…): spenti");
 assert.deepEqual(await lanciati(lun(8, 8, 0)), ["briefing-email"]);
 assert.match(chiamate.at(-1).url, /monitor-trading-marco\/actions\/workflows\/briefing_email\.yml\/dispatches$/);
 assert.deepEqual(await lanciati(sab(8, 8, 0)), []); ok("briefing-email: lun-ven 08:00 UTC → briefing_email.yml sul repo privato; sabato no");
-assert.deepEqual(await lanciati(lun(8, 22, 30)), ["bases"]); ok("22:30: solo bases (repo pubblico), nessuno screening in coda");
+assert.deepEqual(await lanciati(lun(8, 22, 30)), ["bases", "settori"]);
+assert.match(chiamate.at(-1).url, /monitor-trading-marco\/actions\/workflows\/settori\.yml\/dispatches$/);
+ok("22:30: bases (repo pubblico) e settori (repo privato), 30 minuti dopo lo screening delle 22:00");
+const mar = (k, hh, mm) => new Date(lun(k, hh, mm).getTime() + GIORNO);
+assert.deepEqual(await lanciati(mar(8, 0, 0)), ["insiders"]); assert.match(chiamate.at(-1).url, /monitor-trading-marco\/actions\/workflows\/insiders\.yml\/dispatches$/);
+assert.deepEqual(await lanciati(sab(8, 0, 0)), ["insiders"]); assert.deepEqual(await lanciati(lun(8, 0, 0)), []); assert.deepEqual(await lanciati(new Date(lun(8, 0, 0).getTime() + 6 * GIORNO)), []);
+ok("insiders: 00:00 UTC di martedì-sabato (cioè dopo la seduta di lunedì-venerdì); lunedì e domenica a mezzanotte no");
+assert.deepEqual(await lanciati(sab(8, 9, 30)), ["regime-sabato"]); assert.match(chiamate.at(-1).url, /monitor-trading-marco\/actions\/workflows\/regime\.yml\/dispatches$/);
+assert.deepEqual(await lanciati(lun(8, 9, 30)), []); ok("regime del sabato: solo sabato 09:30 UTC");
 const tutti = PIANO.map((l) => ({ ...l, attivo: true }));
 es = await eseguiCron(CRON, env, { adesso: lun(9, 17, 0), fetchFn: fetchOk, piano: tutti });
 assert.deepEqual(es.map((x) => x.id), ["alerts-1700"]); assert.match(chiamate.at(-1).url, /monitor-trading-marco\/actions\/workflows\/alerts\.yml\/dispatches$/); ok("acceso il flag, lo stesso orario lancia il workflow giusto (alerts 17:00)");
@@ -150,7 +162,7 @@ assert.deepEqual(id(lun(7, 12, 29)), []); assert.deepEqual(id(lun(7, 12, 30)), [
 ok(`finestra di ${FINESTRA_MIN} minuti: [ora, ora+${FINESTRA_MIN}) (12:29 no, 12:30 sì, 12:35 sì, 12:40 no)`);
 const mensile = [{ id: "m", attivo: true, ora: "06:30", giorni: [0, 1, 2, 3, 4, 5, 6], giornoMese: 1 }];
 assert.deepEqual(id(new Date("2026-12-01T06:30:00Z"), mensile), ["m"]); assert.deepEqual(id(new Date("2026-12-02T06:30:00Z"), mensile), []); ok("lavoro mensile: solo il giorno del mese indicato");
-assert.deepEqual(id(new Date("2026-11-03T23:35:00Z"), tutti), ["insiders"]); ok("23:35 cade ancora nella finestra del lavoro delle 23:30");
+assert.deepEqual(id(new Date("2026-11-03T23:35:00Z"), tutti), ["regime"]); ok("23:35 cade ancora nella finestra del lavoro delle 23:30 (regime)");
 for (const l of PIANO) {
   assert.match(l.ora, /^([01]\d|2[0-3]):[0-5][05]$/, `${l.id}: ora non multipla di 5 minuti`);
   assert.ok(l.giorni.length && l.giorni.every((g) => Number.isInteger(g) && g >= 0 && g <= 6), `${l.id}: giorni non validi`);
