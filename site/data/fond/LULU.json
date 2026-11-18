@@ -1,0 +1,61 @@
+{
+ "aggiornato": "2026-11-18",
+ "dati": {
+  "beta": 0.841,
+  "bilancio_annuale": {
+   "ricavi": {
+    "2023": 8110518000.0,
+    "2024": 9619278000.0,
+    "2025": 10588126000.0,
+    "2026": 11102600000.0
+   },
+   "utile_netto": {
+    "2023": 854800000.0,
+    "2024": 1550190000.0,
+    "2025": 1814616000.0,
+    "2026": 1579183000.0
+   },
+   "utile_operativo": {
+    "2023": 1726141000.0,
+    "2024": 2207177000.0,
+    "2025": 2505697000.0,
+    "2026": 2210615000.0
+   }
+  },
+  "currency": "USD",
+  "currentRatio": 2.19,
+  "debito_netto": 751390080,
+  "debito_netto_su_ebitda": 0.32,
+  "debtToEquity": 44.689,
+  "dividendYield": 0.0,
+  "earningsGrowth": -0.059,
+  "ebitda": 2383926016,
+  "enterpriseToEbitda": 5.151,
+  "fiftyTwoWeekHigh": 225.98,
+  "fiftyTwoWeekLow": 90.38,
+  "financialCurrency": "USD",
+  "forwardPE": 12.853,
+  "freeCashflow": 1148515840,
+  "grossMargins": 0.549,
+  "industry": "Apparel Retail",
+  "longName": "lululemon athletica inc.",
+  "marketCap": 12831202304,
+  "numberOfAnalystOpinions": 29,
+  "operatingCashflow": 1982033024,
+  "operatingMargins": 0.1662,
+  "payoutRatio": 0.0,
+  "priceToBook": 2.5823,
+  "profitMargins": 0.1278,
+  "quickRatio": 0.866,
+  "recommendationKey": "hold",
+  "returnOnAssets": 0.144,
+  "returnOnEquity": 0.309,
+  "revenueGrowth": -0.043,
+  "sector": "Consumer Cyclical",
+  "targetMeanPrice": 104.4,
+  "totalCash": 1389736960,
+  "totalDebt": 2141127040,
+  "trailingPE": 9.1177
+ },
+ "v": 2
+}

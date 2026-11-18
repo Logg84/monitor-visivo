@@ -1,5 +1,5 @@
 {
- "aggiornato": "2026-11-11",
+ "aggiornato": "2026-11-18",
  "dati": {
   "beta": 0.64,
   "bilancio_annuale": {
@@ -27,27 +27,27 @@
   "debito_netto": 7907000320,
   "debito_netto_su_ebitda": 2.56,
   "debtToEquity": 87.509,
-  "dividendYield": 2.76,
+  "dividendYield": 2.71,
   "earningsGrowth": -0.307,
   "ebitda": 3083000064,
-  "enterpriseToEbitda": 9.3,
+  "enterpriseToEbitda": 9.084,
   "fiftyTwoWeekHigh": 153.05,
   "fiftyTwoWeekLow": 85.62,
   "financialCurrency": "EUR",
-  "forwardPE": 8.6215,
+  "forwardPE": 8.6366,
   "freeCashflow": 1901874944,
   "grossMargins": 0.2683,
   "industry": "Information Technology Services",
   "longName": "Capgemini SE",
-  "marketCap": 20241307648,
+  "marketCap": 19473788928,
   "numberOfAnalystOpinions": 17,
   "operatingCashflow": 2468999936,
   "operatingMargins": 0.112,
   "payoutRatio": 0.432,
-  "priceToBook": 1.7964,
+  "priceToBook": 1.7283,
   "profitMargins": 0.0587,
   "quickRatio": 1.14,
-  "recommendationKey": "buy",
+  "recommendationKey": "none",
   "returnOnAssets": 0.0599,
   "returnOnEquity": 0.122,
   "revenueGrowth": 0.088,
@@ -55,7 +55,7 @@
   "targetMeanPrice": 150.9076,
   "totalCash": 2279000064,
   "totalDebt": 10186000384,
-  "trailingPE": 15.7497
+  "trailingPE": 15.1525
  },
  "v": 2
 }

@@ -1,5 +1,5 @@
 {
- "aggiornato": "2026-11-11",
+ "aggiornato": "2026-11-18",
  "dati": {
   "beta": 0.67,
   "bilancio_annuale": {
@@ -26,34 +26,34 @@
   "currentRatio": 1.069,
   "debito_netto": 4075200256,
   "debito_netto_su_ebitda": 2.65,
-  "dividendYield": 0.98,
+  "dividendYield": 0.97,
   "earningsGrowth": 0.054,
   "ebitda": 1536800000,
-  "enterpriseToEbitda": 19.683,
+  "enterpriseToEbitda": 19.79,
   "fiftyTwoWeekHigh": 227.16,
   "fiftyTwoWeekLow": 155.94,
   "financialCurrency": "USD",
-  "forwardPE": 23.6561,
+  "forwardPE": 23.2346,
   "freeCashflow": 936612480,
   "grossMargins": 0.7017,
   "industry": "Consulting Services",
   "longName": "Verisk Analytics, Inc.",
-  "marketCap": 26424434688,
+  "marketCap": 25953624064,
   "numberOfAnalystOpinions": 17,
   "operatingCashflow": 1366899968,
   "operatingMargins": 0.4497,
   "payoutRatio": 0.2955,
-  "priceToBook": -23.7249,
+  "priceToBook": -23.3022,
   "profitMargins": 0.2768,
   "quickRatio": 0.952,
   "recommendationKey": "buy",
   "returnOnAssets": 0.1656,
   "revenueGrowth": 0.053,
   "sector": "Industrials",
-  "targetMeanPrice": 235.0588,
+  "targetMeanPrice": 235.9412,
   "totalCash": 557600000,
   "totalDebt": 4632800256,
-  "trailingPE": 31.2091
+  "trailingPE": 30.653
  },
  "v": 2
 }

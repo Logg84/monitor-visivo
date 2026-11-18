@@ -1,5 +1,5 @@
 {
- "aggiornato": "2026-11-11",
+ "aggiornato": "2026-11-18",
  "dati": {
   "beta": 1.762,
   "bilancio_annuale": {
@@ -27,23 +27,23 @@
   "debito_netto": 8311000576,
   "debito_netto_su_ebitda": 0.78,
   "debtToEquity": 52.604,
-  "dividendYield": 2.12,
+  "dividendYield": 2.21,
   "ebitda": 10620000256,
-  "enterpriseToEbitda": 18.266,
+  "enterpriseToEbitda": 17.575,
   "fiftyTwoWeekHigh": 259.92,
   "fiftyTwoWeekLow": 121.99,
   "financialCurrency": "USD",
-  "forwardPE": 14.4607,
+  "forwardPE": 13.1189,
   "freeCashflow": 9107125248,
   "grossMargins": 0.531,
   "industry": "Semiconductors",
   "longName": "QUALCOMM Incorporated",
-  "marketCap": 188929900544,
+  "marketCap": 170996695040,
   "numberOfAnalystOpinions": 28,
   "operatingCashflow": 11144999936,
   "operatingMargins": 0.2085,
   "payoutRatio": 0.285,
-  "priceToBook": 6.2262,
+  "priceToBook": 5.6352,
   "profitMargins": 0.316,
   "quickRatio": 0.992,
   "recommendationKey": "hold",
@@ -54,7 +54,7 @@
   "targetMeanPrice": 185.25,
   "totalCash": 7680999936,
   "totalDebt": 15992000512,
-  "trailingPE": 13.9032
+  "trailingPE": 12.5835
  },
  "v": 2
 }

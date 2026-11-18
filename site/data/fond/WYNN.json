@@ -1,0 +1,59 @@
+{
+ "aggiornato": "2026-11-18",
+ "dati": {
+  "beta": 0.945,
+  "bilancio_annuale": {
+   "ricavi": {
+    "2022": 3756825000.0,
+    "2023": 6531897000.0,
+    "2024": 7127961000.0,
+    "2025": 7137924000.0
+   },
+   "utile_netto": {
+    "2022": -423856000.0,
+    "2023": 729994000.0,
+    "2024": 501078000.0,
+    "2025": 327334000.0
+   },
+   "utile_operativo": {
+    "2022": -148870000.0,
+    "2023": 1075006000.0,
+    "2024": 1357181000.0,
+    "2025": 1206597000.0
+   }
+  },
+  "currency": "USD",
+  "currentRatio": 0.905,
+  "debito_netto": 10563156352,
+  "debito_netto_su_ebitda": 6.2,
+  "dividendYield": 1.22,
+  "earningsGrowth": -0.8,
+  "ebitda": 1704311040,
+  "enterpriseToEbitda": 10.59,
+  "fiftyTwoWeekHigh": 134.72,
+  "fiftyTwoWeekLow": 70.79,
+  "financialCurrency": "USD",
+  "forwardPE": 19.4499,
+  "freeCashflow": 377973248,
+  "grossMargins": 0.6763,
+  "industry": "Resorts & Casinos",
+  "longName": "Wynn Resorts, Limited",
+  "marketCap": 8532293632,
+  "numberOfAnalystOpinions": 20,
+  "operatingCashflow": 1220217984,
+  "operatingMargins": 0.1466,
+  "payoutRatio": 0.2825,
+  "priceToBook": -38.7337,
+  "profitMargins": 0.052,
+  "quickRatio": 0.819,
+  "recommendationKey": "strong_buy",
+  "returnOnAssets": 0.0514,
+  "revenueGrowth": -0.079,
+  "sector": "Consumer Cyclical",
+  "targetMeanPrice": 115.9,
+  "totalCash": 1792358016,
+  "totalDebt": 12355514368,
+  "trailingPE": 23.5028
+ },
+ "v": 2
+}

@@ -1,0 +1,61 @@
+{
+ "aggiornato": "2026-11-18",
+ "dati": {
+  "beta": 0.477,
+  "bilancio_annuale": {
+   "ricavi": {
+    "2022": 19169000000.0,
+    "2023": 15258000000.0,
+    "2024": 15940000000.0,
+    "2025": 17188000000.0
+   },
+   "utile_netto": {
+    "2022": 6015000000.0,
+    "2023": 3747000000.0,
+    "2024": 2891000000.0,
+    "2025": 2642000000.0
+   },
+   "utile_operativo": {
+    "2022": 7920000000.0,
+    "2023": 4939000000.0,
+    "2024": 4182000000.0,
+    "2025": 3856000000.0
+   }
+  },
+  "currency": "USD",
+  "currentRatio": 0.704,
+  "debito_netto": 10849000448,
+  "debito_netto_su_ebitda": 1.06,
+  "debtToEquity": 26.661,
+  "dividendYield": 2.95,
+  "earningsGrowth": -0.193,
+  "ebitda": 10204000256,
+  "enterpriseToEbitda": 5.917,
+  "fiftyTwoWeekHigh": 52.71,
+  "fiftyTwoWeekLow": 34.23,
+  "financialCurrency": "USD",
+  "forwardPE": 8.1345,
+  "freeCashflow": 1330875008,
+  "grossMargins": 0.5348,
+  "industry": "Oil & Gas E&P",
+  "longName": "Devon Energy Corporation",
+  "marketCap": 47822409728,
+  "numberOfAnalystOpinions": 27,
+  "operatingCashflow": 9671000064,
+  "operatingMargins": 0.2401,
+  "payoutRatio": 0.2629,
+  "priceToBook": 1.1395,
+  "profitMargins": 0.1628,
+  "quickRatio": 0.568,
+  "recommendationKey": "strong_buy",
+  "returnOnAssets": 0.065,
+  "returnOnEquity": 0.1255,
+  "revenueGrowth": 0.74,
+  "sector": "Energy",
+  "targetMeanPrice": 59.8148,
+  "totalCash": 352000000,
+  "totalDebt": 11201000448,
+  "trailingPE": 9.8498
+ },
+ "v": 2
+}
