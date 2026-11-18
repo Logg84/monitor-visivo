@@ -27,8 +27,9 @@
     if (v === undefined || v === null || v === "") return `<td class="muted">–</td>`;
     if (BOOL_SI.has(k) || typeof v === "boolean") return `<td>${v ? '<span class="si">✓</span>' : '<span class="no">·</span>'}</td>`;
     if (typeof v === "number") {
-      const t = NUM_1.has(k) ? v.toFixed(1) : Number.isInteger(v) ? String(v) : v.toFixed(2);
-      return `<td${(k === "DD%" || k === "RS_4s%") && v < 0 ? ' class="neg"' : ""}>${t}</td>`;
+      let t = NUM_1.has(k) ? v.toFixed(1) : Number.isInteger(v) ? String(v) : v.toFixed(2);
+      if (k === "Var_oggi_%" && v > 0) t = "+" + t;
+      return `<td${(k === "DD%" || k === "RS_4s%" || k === "Var_oggi_%") && v < 0 ? ' class="neg"' : ""}>${t}</td>`;
     }
     // Testo lungo in cella: ellipsis + tooltip col testo completo (title).
     if (typeof v === "string" && v.length > 24) return `<td><span class="taglia" title="${esc(v)}">${esc(v)}</span></td>`;
