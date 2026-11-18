@@ -43,6 +43,8 @@ export const PIANO = [
   priv("salute", "salute.yml", "07:10", LV),
   priv("events", "events.yml", "07:30", LV),
   priv("consumo", "consumo.yml", "07:30", [1]),
+  // 18/11/2026: briefing LLM per email (corpo + allegato .md) a Marco. Il workflow ha solo workflow_dispatch, nessun cron.
+  priv("briefing-email", "briefing_email.yml", "08:00", LV, { attivo: true }),
   priv("braccio-destro", "braccio_destro.yml", "08:00", [1]),
   priv("backtest", "backtest.yml", "08:00", [3, 6]),
   priv("scorecard", "scorecard.yml", "09:00", [0]),

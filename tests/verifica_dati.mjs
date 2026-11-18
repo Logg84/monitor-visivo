@@ -132,10 +132,13 @@ ok("migrati: report 05:00 (lun), screening 06:30/14:30/22:00, alerts 07:00/11:00
 assert.deepEqual(await lanciati(sab(8, 6, 30)), []); assert.deepEqual(await lanciati(sab(8, 7, 0)), []); assert.deepEqual(await lanciati(sab(8, 5, 0)), []); ok("sabato: screening e alerts (lun-ven) e report (lun) non partono");
 assert.deepEqual(await lanciati(new Date(lun(8, 5, 0).getTime() + GIORNO)), []); ok("report quindicinale: solo il lunedì (martedì 05:00 niente)");
 assert.deepEqual(await lanciati(lun(8, 21, 45)), []); ok("21:45: nessun lancio (lo screening serale è stato spostato alle 22:00)");
-for (const [hh, mm] of [[7, 10], [7, 30], [8, 0], [9, 0], [23, 0], [23, 30]]) {
+for (const [hh, mm] of [[7, 10], [7, 30], [9, 0], [23, 0], [23, 30]]) {
   assert.ok(!(await lanciati(lun(8, hh, mm))).length, `${hh}:${mm} non doveva lanciare lavori`);
 }
 ok("lavori non ancora migrati (salute, events, consumo, braccio-destro, regime, insiders…): spenti");
+assert.deepEqual(await lanciati(lun(8, 8, 0)), ["briefing-email"]);
+assert.match(chiamate.at(-1).url, /monitor-trading-marco\/actions\/workflows\/briefing_email\.yml\/dispatches$/);
+assert.deepEqual(await lanciati(sab(8, 8, 0)), []); ok("briefing-email: lun-ven 08:00 UTC → briefing_email.yml sul repo privato; sabato no");
 assert.deepEqual(await lanciati(lun(8, 22, 30)), ["bases"]); ok("22:30: solo bases (repo pubblico), nessuno screening in coda");
 const tutti = PIANO.map((l) => ({ ...l, attivo: true }));
 es = await eseguiCron(CRON, env, { adesso: lun(9, 17, 0), fetchFn: fetchOk, piano: tutti });
