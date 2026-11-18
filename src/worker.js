@@ -287,7 +287,7 @@ export default {
       if (r.nuova) await ut.notificaTelegram(env, `👋 Nuova richiesta di accesso al portale\n${r.nome} <${r.email}>\nApprova o rifiuta dalla pagina Utenti.`);
       return json({ ok: true });
     }
-    if (url.pathname === "/api/utenti/me" || url.pathname === "/api/utenti/richiesta" || url.pathname === "/api/utenti" || url.pathname === "/api/utenti/azione" || url.pathname === "/api/utenti/access-test" || url.pathname === "/api/utenti/telegram-test" || url.pathname === "/api/utenti/collegamento") {
+    if (url.pathname === "/api/utenti/me" || url.pathname === "/api/utenti/richiesta" || url.pathname === "/api/utenti" || url.pathname === "/api/utenti/azione" || url.pathname === "/api/utenti/access-test" || url.pathname === "/api/utenti/telegram-test" || url.pathname === "/api/utenti/collegamento" || url.pathname === "/api/utenti/briefing") {
       const io = await identita(request, env);
       if (!io || io.modalita !== "access") return json({ errore: "non autenticato" }, 401);
       if (!env.DB) return json({ errore: "database non collegato" }, 503);
@@ -310,6 +310,14 @@ export default {
         if (request.method === "POST") { const r = await ut.aggiornaProfilo(env.DB, io.email, b); if (!r.ok) return json({ errore: r.errore }, r.stato); await ut.esportaUtentiAlert(env.DB, env); }
         const q = request.method === "POST" ? await ut.profilo(env.DB, io.email) : p;
         return json({ email: io.email, admin: false, abilitato: true, uid: q.uid, nome: q.nome, canale: q.canale, telegram_chat_id: q.telegram_chat_id, email_alert: q.email_alert });
+      }
+      if (url.pathname === "/api/utenti/briefing") {              // briefing LLM per email: vale per l'amministratore e per ogni utente abilitato
+        if (!io.admin) { const st = await ut.statoAccesso(env.DB, io.email); if (st.stato !== "abilitato") return json({ errore: "accesso non abilitato" }, 403); }
+        if (request.method === "POST") {
+          const r = await ut.salvaBriefing(env.DB, io.email, b); if (!r.ok) return json({ errore: r.errore }, r.stato);
+          await ut.esportaUtentiAlert(env.DB, env);
+        }
+        return json(await ut.leggiBriefing(env.DB, io.email));
       }
       if (url.pathname === "/api/utenti/collegamento") {          // codice monouso per collegare la propria chat Telegram
         if (request.method !== "POST") return json({ errore: "metodo non consentito" }, 405);

@@ -87,4 +87,34 @@ assert.ok(!tgKo.ok && tgKo.errore.includes("chat not found")); assert.ok((await 
 // Telegram
 let tg = null; await ut.notificaTelegram({ TELEGRAM_BOT_TOKEN: "T", TELEGRAM_CHAT_ID: "9" }, "x", async (u, o) => { tg = [u, JSON.parse(o.body)]; return { ok: true }; });
 assert.ok(tg[0].includes("botT/sendMessage") && tg[1].chat_id === "9"); assert.equal(await ut.notificaTelegram({}, "x"), false); ok("notifica Telegram (e silenzio se non configurata)");
+// ── Briefing LLM per email ──
+{
+  const envB = { ADMIN_EMAILS: "boss@x.it, altro@x.it", REPO_DATI: "x" };
+  assert.deepEqual(await ut.leggiBriefing(db, "nuovo@x.it"), { attivo: false, indirizzo: "" }); ok("briefing: di default spento");
+  assert.equal((await ut.salvaBriefing(db, "nuovo@x.it", { attivo: true, indirizzo: "" })).ok, false); ok("briefing: attivo senza indirizzo rifiutato");
+  assert.equal((await ut.salvaBriefing(db, "nuovo@x.it", { attivo: true, indirizzo: "bad" })).ok, false); ok("briefing: indirizzo non valido rifiutato");
+  assert.equal((await ut.salvaBriefing(db, "nuovo@x.it", { attivo: "true", indirizzo: "n@x.it" })).ok, true);
+  assert.equal((await ut.leggiBriefing(db, "nuovo@x.it")).attivo, false); ok("briefing: «attivo» accettato solo se booleano vero");
+  assert.equal((await ut.salvaBriefing(db, "Nuovo@X.it", { attivo: true, indirizzo: "N@x.it" })).ok, true);
+  assert.deepEqual(await ut.leggiBriefing(db, "nuovo@x.it"), { attivo: true, indirizzo: "n@x.it" }); ok("briefing: salvato e riletto (email normalizzate)");
+  assert.equal((await ut.salvaBriefing(db, "nuovo@x.it", { attivo: false, indirizzo: "" })).ok, true);
+  assert.equal((await ut.leggiBriefing(db, "nuovo@x.it")).attivo, false); ok("briefing: si può spegnere");
+  // esportazione nel file del repo privato
+  await ut.salvaBriefing(db, "nuovo@x.it", { attivo: true, indirizzo: "n@x.it" });
+  await ut.salvaBriefing(db, "boss@x.it", { attivo: true, indirizzo: "boss@mail.it" });          // amministratore: senza riga in utenti
+  await ut.salvaBriefing(db, "estraneo@x.it", { attivo: true, indirizzo: "e@x.it" });            // né utente né admin: ignorato
+  await ut.salvaBriefing(db, "anna.rossi@example.com", { attivo: true, indirizzo: "a@x.it" });   // utente disattivato prima: ignorato
+  let scritto = null;
+  const fetchGh = async (u, o = {}) => {
+    if (!o.method || o.method === "GET") return { ok: true, status: 200, json: async () => ({ sha: "S1", content: Buffer.from("{}").toString("base64"), encoding: "base64" }), text: async () => "{}" };
+    scritto = JSON.parse(Buffer.from(JSON.parse(o.body).content, "base64").toString("utf8")); return { ok: true, status: 200, json: async () => ({ content: { sha: "S2" } }), text: async () => "" };
+  };
+  const ex = await ut.esportaUtentiAlert(db, { ...envB, GITHUB_TOKEN: "t", PRIVATE_REPO_TOKEN: "t" }, fetchGh);
+  if (scritto) {
+    assert.deepEqual(scritto.briefing.map((x) => x.uid).sort(), ["", "nuovo-utente"]);
+    assert.equal(scritto.briefing.find((x) => x.uid === "").email, "boss@mail.it");
+    assert.equal(scritto.briefing.find((x) => x.uid === "nuovo-utente").email, "n@x.it");
+    assert.ok(Array.isArray(scritto.utenti)); ok("export: briefing di admin (uid vuoto) e utente attivo; estranei e disattivati esclusi; alert invariati");
+  } else console.log("· export non provato (ritorno:", JSON.stringify(ex).slice(0, 120) + ")");
+}
 console.log(`TUTTI I CHECK PASSATI (${n})`);

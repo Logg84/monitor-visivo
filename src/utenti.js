@@ -16,6 +16,8 @@ export async function schema(db) {
     db.prepare("CREATE TABLE IF NOT EXISTS utenti (email TEXT PRIMARY KEY, uid TEXT NOT NULL UNIQUE, nome TEXT, canale TEXT NOT NULL DEFAULT 'telegram', telegram_chat_id TEXT, email_alert TEXT, creato TEXT NOT NULL, attivo INTEGER NOT NULL DEFAULT 1)"),
     db.prepare("CREATE TABLE IF NOT EXISTS richieste (email TEXT PRIMARY KEY, nome TEXT, messaggio TEXT, creato TEXT NOT NULL, stato TEXT NOT NULL DEFAULT 'attesa')"),
     db.prepare("CREATE TABLE IF NOT EXISTS codici (codice TEXT PRIMARY KEY, email TEXT NOT NULL, creato TEXT NOT NULL, scadenza TEXT NOT NULL, usato TEXT)"),
+    // Briefing LLM per email: una riga per persona (anche l'amministratore, che non ha riga in `utenti`), chiave = email di accesso.
+    db.prepare("CREATE TABLE IF NOT EXISTS briefing (email TEXT PRIMARY KEY, attivo INTEGER NOT NULL DEFAULT 0, indirizzo TEXT)"),
   ]);
   pronto = true;
 }
@@ -228,6 +230,23 @@ export async function aggiornaProfilo(db, email, d) {
   return { ok: true };
 }
 
+/** Preferenza «briefing LLM ogni mattina per email» di una persona (email di accesso). */
+export async function leggiBriefing(db, email) {
+  await schema(db);
+  const r = await db.prepare("SELECT attivo, indirizzo FROM briefing WHERE email=?").bind(norm(email)).first();
+  return { attivo: Boolean(r && r.attivo), indirizzo: (r && r.indirizzo) || "" };
+}
+export async function salvaBriefing(db, email, d) {
+  await schema(db);
+  const attivo = d && d.attivo === true, ind = norm(d && d.indirizzo);
+  if (ind && !emailOk(ind)) return { ok: false, stato: 400, errore: "Indirizzo del briefing non valido." };
+  if (attivo && !ind) return { ok: false, stato: 400, errore: "Per ricevere il briefing serve l'indirizzo email." };
+  await db.prepare("INSERT INTO briefing (email, attivo, indirizzo) VALUES (?,?,?) ON CONFLICT(email) DO UPDATE SET attivo=excluded.attivo, indirizzo=excluded.indirizzo")
+    .bind(norm(email), attivo ? 1 : 0, ind || null).run();
+  return { ok: true };
+}
+const adminDi = (env) => String((env && env.ADMIN_EMAILS) || "").toLowerCase().split(",").map((x) => x.trim()).filter(Boolean);
+
 /** Elenco degli utenti da avvisare, scritto nel repo privato (data/utenti_portale.json): lo legge il workflow degli alert.
  *  Solo utenti attivi con almeno un canale utilizzabile: Telegram (canale telegram|entrambi + Chat ID valido) e/o email
  *  (canale email|entrambi + indirizzo valido). «canale» è quello effettivo (un canale senza dato valido decade). Best-effort. */
@@ -246,7 +265,17 @@ export async function esportaUtentiAlert(db, env, fetchFn = fetch) {
         return r;
       })
       .filter(Boolean);
-    const testo = JSON.stringify({ utenti: righe }, null, 2) + "\n";
+    // Briefing: chi lo ha attivato con un indirizzo valido. Amministratore → uid vuoto (watchlist storica); utenti → solo se attivi.
+    const admin = new Set(adminDi(env));
+    const attivi = new Map(((await db.prepare("SELECT email,uid,nome FROM utenti WHERE attivo=1").all()).results || []).map((u) => [norm(u.email), u]));
+    const brief = ((await db.prepare("SELECT email, indirizzo FROM briefing WHERE attivo=1 ORDER BY email").all()).results || [])
+      .map((b) => {
+        const e = norm(b.email), ind = norm(b.indirizzo), u = attivi.get(e);
+        if (!emailOk(ind) || !(admin.has(e) || u)) return null;
+        return admin.has(e) ? { uid: "", nome: "Amministratore", email: ind } : { uid: u.uid, nome: u.nome || u.uid, email: ind };
+      })
+      .filter(Boolean);
+    const testo = JSON.stringify({ utenti: righe, briefing: brief }, null, 2) + "\n";
     const att = await leggiFile(env, "utenti_alert", fetchFn);
     if (!att.ok) return att;
     if (att.testo === testo) return { ok: true, invariato: true };

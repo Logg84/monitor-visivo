@@ -21,6 +21,13 @@
 </header>
 <main class="col">
   <div id="admin" class="box" hidden><b>Sei l'amministratore.</b> Usi i file storici del portale e gli alert del repo privato. Gestisci le richieste di accesso dalla pagina <a href="utenti.html">Utenti</a>.</div>
+  <form id="fb" class="box" hidden>
+    <b>Briefing LLM ogni mattina per email</b>
+    <p class="muted" style="margin:0;font-size:12.5px">Ogni giorno lavorativo alle 09:00 (ora italiana) ricevi per email, nel testo e come allegato .md, lo stesso briefing della pagina «Briefing LLM» con la <b>tua</b> watchlist (senza portafoglio): pensato per essere letto in automatico da un assistente AI collegato alla tua casella. Disattivalo quando vuoi.</p>
+    <label><span><input id="b-on" type="checkbox" style="width:auto"> Voglio ricevere il briefing</span></label>
+    <label id="l-b">Indirizzo email del briefing<input id="b-mail" type="email" placeholder="nome@azienda.it"></label>
+    <div><button class="primario" type="submit">Salva briefing</button> <span id="b-esito" role="status"></span></div>
+  </form>
   <form id="f" class="box" hidden>
     <b>Come vuoi ricevere gli alert della tua watchlist?</b>
     <p class="muted" style="margin:0;font-size:12.5px">Gli alert della tua watchlist arrivano sul canale che scegli: la tua chat Telegram, l'indirizzo email qui sotto, o entrambi. La modifica vale dal prossimo giro automatico dopo il salvataggio.</p>
@@ -47,6 +54,14 @@
   if (!r.ok) { $("sottotitolo").textContent = r.status === 401 ? "Accesso richiesto." : "Errore " + r.status; return; }
   const m = await r.json();
   $("sottotitolo").textContent = m.email;
+  const bj = await (await fetch("/api/utenti/briefing", { cache: "no-store" })).json().catch(() => ({}));
+  if (m.abilitato !== false) { $("fb").hidden = false; $("b-on").checked = !!bj.attivo; $("b-mail").value = bj.indirizzo || m.email_alert || m.email || ""; }
+  $("fb").addEventListener("submit", async (ev) => {
+    ev.preventDefault(); const es = $("b-esito"); es.className = ""; es.textContent = "Salvo…";
+    const x = await fetch("/api/utenti/briefing", { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ attivo: $("b-on").checked, indirizzo: $("b-mail").value }) });
+    const j = await x.json().catch(() => ({}));
+    if (x.ok) { es.className = "ok"; es.textContent = "Salvato."; } else { es.className = "err"; es.textContent = j.errore || "errore " + x.status; }
+  });
   if (m.admin) { $("admin").hidden = false; return; }
   $("f").hidden = false; $("canale").value = m.canale || "telegram"; $("chat").value = m.telegram_chat_id || ""; $("mail").value = m.email_alert || m.email; $("nome").value = m.nome || "";
   const mostra = () => { const c = $("canale").value; $("l-chat").hidden = $("aiuto-chat").hidden = !(c === "telegram" || c === "entrambi"); $("l-mail").hidden = !(c === "email" || c === "entrambi"); };
