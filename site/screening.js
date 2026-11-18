@@ -3,11 +3,11 @@
   const $ = (id) => document.getElementById(id);
   const esc = (s) => String(s ?? "").replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
   // Colonne essenziali (ordine di lettura); «tutte» aggiunge il resto in ordine alfabetico.
-  const BASE = ["Ticker", "Range", "Segnale", "Priorità", "Bottom", "Prezzo", "DD%", "RSI", "VWAP60", "In zona", "Health", "Trend",
+  const BASE = ["Ticker", "Range", "Segnale", "Priorità", "Bottom", "Prezzo", "Prezzo_live", "Var_oggi_%", "Data_barra", "DD%", "RSI", "VWAP60", "In zona", "Health", "Trend",
     "Settore", "Sector", "Confluenza", "RS_4s%", "Wyckoff", "Insider_Cluster", "WI_Confluence", "Sifrediana_Today", "Squeeze", "Qualita_Dati"];
   const BOOL_SI = new Set(["Insider_Cluster", "WI_Confluence", "Sifrediana_Today", "Squeeze"]);
   const ETICHETTE = { Insider_Cluster: "👔 Insider", WI_Confluence: "🔗 W+I", Sifrediana_Today: "Sifrediana", Squeeze: "⚡ Squeeze", Qualita_Dati: "Qualità dati",
-    "RS_4s%": "RS 4s", Priorità: "Priorità", Bottom: "Bottom" };
+    "RS_4s%": "RS 4s", Priorità: "Priorità", Bottom: "Bottom", Prezzo_live: "Prezzo live", "Var_oggi_%": "Var oggi %", Data_barra: "Barra" };
   const NUM_1 = new Set(["DD%", "DD_2a%", "RSI", "RS_4s%", "Short_Float_%", "ATR%", "Δ EW−CW", "SottoΔ", "Z_Medio_Settore"]);
   let righe = [], vista = "tutti", ord = { k: "Bottom", asc: false }, colonne = [], indice = {};
 
