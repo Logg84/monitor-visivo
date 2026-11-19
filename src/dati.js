@@ -44,7 +44,7 @@ export const PIANO = [
   priv("digest", "digest.yml", "06:00", [6]),
   // 19/11/2026: tolto lo screening delle 06:30. Prima dell'apertura europea Yahoo non restituisce la barra del giorno prima per i
   // titoli europei (19/11 06:33: 179 su 179 ferme al giorno precedente, nemmeno il rinfresco le recupera). Si lavora solo a barra
-  // chiusa: Europa alle 18:30, USA alle 22:00. Il giro delle 14:30 resta per Prezzo_live/Var oggi (i segnali sono su barre chiuse).
+  // chiusa: Europa alle 18:30, USA alle 22:00. Il giro delle 14:30 è stato tolto lo stesso giorno: i prezzi di giornata li danno i giri «prezzi-live».
   priv("alerts-0700", "alerts.yml", "07:00", LV, { attivo: true }),
   priv("salute", "salute.yml", "07:10", LV),
   priv("events", "events.yml", "07:30", LV),
@@ -57,7 +57,7 @@ export const PIANO = [
   priv("regime-sabato", "regime.yml", "09:30", [6], { attivo: true }),
   priv("registro-segnali", "registro_segnali.yml", "10:00", [0]),
   priv("alerts-1100", "alerts.yml", "11:00", LV, { attivo: true }),
-  priv("screening-1430", "screening.yml", "14:30", LV, { attivo: true }),
+  // 19/11/2026: tolto lo screening delle 14:30. Il prezzo di giornata lo danno i giri leggeri «prezzi-live» (10:30 e 14:45, repo pubblico).
   // Era 15:50: d'inverno le borse europee chiudono alle 16:30 UTC. 17:00 è dopo la chiusura tutto l'anno (con la grazia di 15 minuti).
   priv("alerts-1700", "alerts.yml", "17:00", LV, { attivo: true }),
   // 19/11/2026: screening a barre europee chiuse (borse UE chiudono alle 16:30 UTC). 90 minuti dopo gli alert delle 17:00 e 3 ore

@@ -58,11 +58,14 @@ check("corpo: data in UTC con offset", c["aggiornato"] == "2026-11-19T15:00:00+0
 with tempfile.TemporaryDirectory() as d:
     prezzi_live.USCITA = Path(d) / "site" / "data" / "prezzi_live.json"
     prezzi_live.universo = lambda: ["AAPL", "MSFT", "BP.L", "X1", "X2"]
+    import io, contextlib
     rc = prezzi_live.main(scarica=lambda tk: dict(frames), adesso=ADESSO)
     f = json.loads(prezzi_live.USCITA.read_text())
     check("main: file scritto, codice 0", rc == 0 and f["in_seduta"] == 2 and f["titoli"]["AAPL"]["p"] == 204.0)
     prima = prezzi_live.USCITA.read_text()
-    rc = prezzi_live.main(scarica=lambda tk: {"AAPL": frames["AAPL"]}, adesso=ADESSO)
+    buf = io.StringIO()
+    with contextlib.redirect_stdout(buf):      # l'annotazione ::error:: di GitHub non deve comparire nei test
+        rc = prezzi_live.main(scarica=lambda tk: {"AAPL": frames["AAPL"]}, adesso=ADESSO)
     check("main: meno della metà scaricata → codice 1 e file precedente invariato", rc == 1 and prezzi_live.USCITA.read_text() == prima)
     check("main: nessun file temporaneo rimasto", not list(prezzi_live.USCITA.parent.glob("*.tmp")))
 

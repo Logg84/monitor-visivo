@@ -3,8 +3,7 @@
 Il Worker Cloudflare lancia i workflow dei due repo con `workflow_dispatch`, all'ora UTC prevista, invece di aspettare i
 cron di GitHub (che possono ritardare anche di ore). Stato: **16/11/2026** — pilota riuscito (canary lanciato alle 12:30:13 UTC;
 quel giorno il cron di GitHub non ha lanciato lo screening delle 06:30 né gli alert delle 07:00 e 11:00, e il report delle
-05:00 è partito alle 13:20). **Migrati al Worker**: canary (lun 12:30), report quindicinale (lun 05:00), screening (14:30,
-18:30, 22:00; il 06:30 è stato tolto il 19/11: Yahoo non dà le barre europee del giorno prima prima dell'apertura) e alerts (07:00, 11:00, 17:00, 21:30), tutti lun-ven tranne canary e report. Gli altri lavori sono definiti
+05:00 è partito alle 13:20). **Migrati al Worker**: canary (lun 12:30), report quindicinale (lun 05:00), screening (18:30, 22:00; il 06:30 è stato tolto il 19/11: Yahoo non dà le barre europee del giorno prima prima dell'apertura) e alerts (07:00, 11:00, 17:00, 21:30), tutti lun-ven tranne canary e report. Gli altri lavori sono definiti
 ma spenti.
 
 ## Come funziona
@@ -44,6 +43,7 @@ Controllare anche che gli script trattino allo stesso modo l'input assente (cron
 `settori.yml` (`notifica`), `insiders.yml` (`force`), `report_quindicinale.yml` (`force`).
 
 ## Prezzi live (19/11/2026)
+Lo screening delle 14:30 UTC è stato tolto: restano 18:30 (Europa) e 22:00 (USA).
 Giro leggero `prezzi_live.yml` (repo pubblico, minuti gratuiti): lun-ven 10:30 e 14:45 UTC. Scarica da Yahoo le barre giornaliere,
 tiene un titolo solo se l'ultima barra ha la data di oggi nel fuso della sua borsa, e scrive `site/data/prezzi_live.json`
 (prezzo e variazione sulla chiusura precedente). Il sito (Screening, Watchlist, scheda) lo sovrappone a «Prezzo live» / «Var oggi %»

@@ -126,13 +126,13 @@ assert.equal(chiamate[0].init.headers.Authorization, "Bearer priv"); assert.deep
 ok("canary: lunedì 12:30 → canary_fonti.yml sul repo privato con PRIVATE_REPO_TOKEN");
 assert.deepEqual(await lanciati(new Date(lun(7, 12, 30).getTime() + GIORNO)), []); ok("canary: martedì 12:30 → niente (solo il lunedì)");
 const MIGRATI = [[5, 0, "report-quindicinale", "report_quindicinale.yml"], [7, 0, "alerts-0700", "alerts.yml"],
-  [11, 0, "alerts-1100", "alerts.yml"], [14, 30, "screening-1430", "screening.yml"], [17, 0, "alerts-1700", "alerts.yml"], [18, 30, "screening-1830", "screening.yml"], [21, 30, "alerts-2130", "alerts.yml"], [22, 0, "screening-2200", "screening.yml"],
+  [11, 0, "alerts-1100", "alerts.yml"], [17, 0, "alerts-1700", "alerts.yml"], [18, 30, "screening-1830", "screening.yml"], [21, 30, "alerts-2130", "alerts.yml"], [22, 0, "screening-2200", "screening.yml"],
   [23, 0, "strumenti", "strumenti.yml"], [23, 30, "regime", "regime.yml"]];
 for (const [hh, mm, idl, wf] of MIGRATI) {
   assert.deepEqual(await lanciati(lun(8, hh, mm)), [idl], `${hh}:${mm} doveva lanciare ${idl}`);
   assert.match(chiamate.at(-1).url, new RegExp(`monitor-trading-marco/actions/workflows/${wf.replace(".", "\\.")}/dispatches$`));
 }
-ok("migrati: report 05:00 (lun), screening 14:30/18:30/22:00, alerts 07:00/11:00/17:00/21:30 → workflow giusto sul repo privato");
+ok("migrati: report 05:00 (lun), screening 18:30/22:00, alerts 07:00/11:00/17:00/21:30 → workflow giusto sul repo privato");
 for (const [hh, mm, idl] of [[10, 30, "prezzi-live-1030"], [14, 45, "prezzi-live-1445"]]) {
   assert.deepEqual(await lanciati(lun(8, hh, mm)), [idl]);
   assert.equal(chiamate.at(-1).url, "https://api.github.com/repos/Logg84/monitor-visivo/actions/workflows/prezzi_live.yml/dispatches");
@@ -140,6 +140,7 @@ for (const [hh, mm, idl] of [[10, 30, "prezzi-live-1030"], [14, 45, "prezzi-live
 }
 assert.deepEqual(await lanciati(sab(8, 10, 30)), []); assert.deepEqual(await lanciati(sab(8, 14, 45)), []);
 ok("prezzi live: lun-ven 10:30 e 14:45 → prezzi_live.yml sul repo pubblico (token del Worker), sabato niente");
+assert.deepEqual(await lanciati(lun(8, 14, 30)), []); ok("14:30: nessuno screening (i prezzi di giornata li danno i giri prezzi-live)");
 assert.deepEqual(await lanciati(lun(8, 6, 30)), []); ok("lunedì 06:30: lo screening del mattino non parte più (dati europei non affidabili prima dell'apertura)");
 assert.deepEqual(await lanciati(sab(8, 6, 30)), []); assert.deepEqual(await lanciati(sab(8, 7, 0)), []); assert.deepEqual(await lanciati(sab(8, 5, 0)), []); ok("sabato: screening e alerts (lun-ven) e report (lun) non partono");
 assert.deepEqual(await lanciati(new Date(lun(8, 5, 0).getTime() + GIORNO)), []); ok("report quindicinale: solo il lunedì (martedì 05:00 niente)");
