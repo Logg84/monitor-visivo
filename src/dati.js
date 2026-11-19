@@ -38,7 +38,9 @@ export const PIANO = [
   // Orari = quelli dei cron dei workflow del repo privato (UTC); i lavori non ancora migrati restano spenti (`attivo: false`).
   priv("report-quindicinale", "report_quindicinale.yml", "05:00", [1], { attivo: true }),
   priv("digest", "digest.yml", "06:00", [6]),
-  priv("screening-0630", "screening.yml", "06:30", LV, { attivo: true }),
+  // 19/11/2026: tolto lo screening delle 06:30. Prima dell'apertura europea Yahoo non restituisce la barra del giorno prima per i
+  // titoli europei (19/11 06:33: 179 su 179 ferme al giorno precedente, nemmeno il rinfresco le recupera). Si lavora solo a barra
+  // chiusa: Europa alle 18:30, USA alle 22:00. Il giro delle 14:30 resta per Prezzo_live/Var oggi (i segnali sono su barre chiuse).
   priv("alerts-0700", "alerts.yml", "07:00", LV, { attivo: true }),
   priv("salute", "salute.yml", "07:10", LV),
   priv("events", "events.yml", "07:30", LV),
@@ -54,6 +56,9 @@ export const PIANO = [
   priv("screening-1430", "screening.yml", "14:30", LV, { attivo: true }),
   // Era 15:50: d'inverno le borse europee chiudono alle 16:30 UTC. 17:00 è dopo la chiusura tutto l'anno (con la grazia di 15 minuti).
   priv("alerts-1700", "alerts.yml", "17:00", LV, { attivo: true }),
+  // 19/11/2026: screening a barre europee chiuse (borse UE chiudono alle 16:30 UTC). 90 minuti dopo gli alert delle 17:00 e 3 ore
+  // prima di quelli delle 21:30. Gli USA hanno ancora la barra odierna aperta (scartata): vale la chiusura di ieri.
+  priv("screening-1830", "screening.yml", "18:30", LV, { attivo: true }),
   priv("alerts-2130", "alerts.yml", "21:30", LV, { attivo: true }),
   // Era 21:45 su GitHub: spostato a 22:00 per stare a 30 minuti dagli alert delle 21:30 (stesso gruppo di concurrency).
   // Resta dopo la chiusura USA (21:00 UTC con l'ora solare): il file storico del giorno è a barre complete.

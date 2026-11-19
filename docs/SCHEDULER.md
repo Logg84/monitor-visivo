@@ -3,8 +3,8 @@
 Il Worker Cloudflare lancia i workflow dei due repo con `workflow_dispatch`, all'ora UTC prevista, invece di aspettare i
 cron di GitHub (che possono ritardare anche di ore). Stato: **16/11/2026** — pilota riuscito (canary lanciato alle 12:30:13 UTC;
 quel giorno il cron di GitHub non ha lanciato lo screening delle 06:30 né gli alert delle 07:00 e 11:00, e il report delle
-05:00 è partito alle 13:20). **Migrati al Worker**: canary (lun 12:30), report quindicinale (lun 05:00), screening (06:30,
-14:30, 22:00) e alerts (07:00, 11:00, 17:00, 21:30), tutti lun-ven tranne canary e report. Gli altri lavori sono definiti
+05:00 è partito alle 13:20). **Migrati al Worker**: canary (lun 12:30), report quindicinale (lun 05:00), screening (14:30,
+18:30, 22:00; il 06:30 è stato tolto il 19/11: Yahoo non dà le barre europee del giorno prima prima dell'apertura) e alerts (07:00, 11:00, 17:00, 21:30), tutti lun-ven tranne canary e report. Gli altri lavori sono definiti
 ma spenti.
 
 ## Come funziona
@@ -38,7 +38,7 @@ ma spenti.
 
 ## Da sistemare prima di accendere tutto il resto
 Coppie a meno di 30 minuti nel repo privato (da sfalsare): alerts 07:00 + salute 07:10 + events 07:30 (+ consumo 07:30 il
-lunedì); screening 22:00 + settori 22:00; il primo del mese anche indici 06:30 + screening 06:30 e
+lunedì); il primo del mese anche indici 06:30 e
 macro-calendar 07:00 + alerts 07:00. Con i cron di GitHub il ritardo casuale le nasconde; con orari precisi no.
 Controllare anche che gli script trattino allo stesso modo l'input assente (cron) e il valore predefinito (dispatch):
 `settori.yml` (`notifica`), `insiders.yml` (`force`), `report_quindicinale.yml` (`force`).
