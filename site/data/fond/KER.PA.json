@@ -1,0 +1,60 @@
+{
+ "aggiornato": "2026-11-19",
+ "dati": {
+  "beta": 1.074,
+  "bilancio_annuale": {
+   "ricavi": {
+    "2022": 20351000000.0,
+    "2023": 19566000000.0,
+    "2024": 16874000000.0,
+    "2025": 14675000000.0
+   },
+   "utile_netto": {
+    "2022": 3614000000.0,
+    "2023": 2983000000.0,
+    "2024": 1133000000.0,
+    "2025": 72000000.0
+   },
+   "utile_operativo": {
+    "2022": 5589000000.0,
+    "2023": 4746000000.0,
+    "2024": 2440000000.0,
+    "2025": 1631000000.0
+   }
+  },
+  "currency": "EUR",
+  "currentRatio": 2.047,
+  "debito_netto": 9426999296,
+  "debito_netto_su_ebitda": 3.75,
+  "debtToEquity": 116.567,
+  "dividendYield": 1.68,
+  "earningsGrowth": -0.601,
+  "ebitda": 2516999936,
+  "enterpriseToEbitda": 12.76,
+  "fiftyTwoWeekHigh": 320.5,
+  "fiftyTwoWeekLow": 173.5,
+  "financialCurrency": "EUR",
+  "forwardPE": 20.13,
+  "freeCashflow": 2548875008,
+  "grossMargins": 0.7209,
+  "industry": "Luxury Goods",
+  "longName": "Kering SA",
+  "marketCap": 21993836544,
+  "numberOfAnalystOpinions": 26,
+  "operatingCashflow": 7720000000,
+  "operatingMargins": 0.1129,
+  "payoutRatio": 1.2766,
+  "priceToBook": 1.5183,
+  "profitMargins": -0.0147,
+  "quickRatio": 1.382,
+  "recommendationKey": "hold",
+  "returnOnAssets": 0.0248,
+  "returnOnEquity": -0.016,
+  "revenueGrowth": -0.029,
+  "sector": "Consumer Cyclical",
+  "targetMeanPrice": 239.8385,
+  "totalCash": 8480000000,
+  "totalDebt": 17906999296
+ },
+ "v": 2
+}

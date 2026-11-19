@@ -1,5 +1,5 @@
 {
- "aggiornato": "2026-11-12",
+ "aggiornato": "2026-11-19",
  "dati": {
   "beta": 0.984,
   "bilancio_annuale": {
@@ -30,21 +30,21 @@
   "dividendYield": 0.0,
   "earningsGrowth": -0.442,
   "ebitda": 3235000064,
-  "enterpriseToEbitda": 34.147,
+  "enterpriseToEbitda": 30.242,
   "fiftyTwoWeekHigh": 175.0,
   "fiftyTwoWeekLow": 81.24,
   "financialCurrency": "USD",
-  "forwardPE": 20.9608,
+  "forwardPE": 18.5057,
   "freeCashflow": 5754250240,
   "grossMargins": 0.7308,
   "industry": "Software - Application",
   "longName": "ServiceNow, Inc.",
-  "marketCap": 104476729344,
+  "marketCap": 92239683584,
   "numberOfAnalystOpinions": 46,
   "operatingCashflow": 5334000128,
   "operatingMargins": 0.1275,
   "payoutRatio": 0.0,
-  "priceToBook": 7.9775,
+  "priceToBook": 7.0431,
   "profitMargins": 0.0936,
   "quickRatio": 0.579,
   "recommendationKey": "strong_buy",
@@ -52,10 +52,10 @@
   "returnOnEquity": 0.1185,
   "revenueGrowth": 0.205,
   "sector": "Technology",
-  "targetMeanPrice": 155.8187,
+  "targetMeanPrice": 155.7535,
   "totalCash": 4607000064,
   "totalDebt": 8415000064,
-  "trailingPE": 72.4173
+  "trailingPE": 63.9353
  },
  "v": 2
 }
