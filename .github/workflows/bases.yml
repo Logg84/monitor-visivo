@@ -51,6 +51,8 @@ jobs:
           node tests/verifica_livelli.mjs
           node tests/verifica_briefing.mjs
           node tests/verifica_dati.mjs
+          node tests/verifica_live.mjs
+          python tests/verifica_prezzi_live.py
       - name: Giro basi
         env:
           OLD_REPO: ${{ secrets.OLD_REPO }}

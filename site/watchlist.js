@@ -19,6 +19,8 @@
     return a.length ? ` <span class="bq" title="${esc(a.join(" · "))}">⚠️ livelli?</span>` : "";
   };
   // Testo lungo in cella: ellipsis + tooltip col testo completo (title).
+  // «Live»: ultimo prezzo di giornata e variazione sulla chiusura precedente (solo informativo); «–» a borsa chiusa o senza dato.
+  const live = (ex) => (num(ex.Prezzo_live) === null ? "–" : `${fmt(ex.Prezzo_live)}${num(ex["Var_oggi_%"]) === null ? "" : ` <span class="${ex["Var_oggi_%"] < 0 ? "neg" : ""}">(${ex["Var_oggi_%"] > 0 ? "+" : ""}${fmt(ex["Var_oggi_%"], 1)}%)</span>`}`);
   const taglia = (s) => { const t = String(s ?? ""); return t.length > 24 ? `<span class="taglia" title="${esc(t)}">${esc(t)}</span>` : esc(t); };
 
   function filtrate() {
@@ -31,12 +33,12 @@
     $("conteggio").textContent = `${d.length} su ${tot.length}`;
     $("kpi").innerHTML = [["Titoli", tot.length], ["👤 manuali", tot.filter((e) => e.origin === "manual").length], ["🤖 auto", tot.filter((e) => e.origin !== "manual").length],
       ["Da rivedere", tot.filter(rivedere).length], ["Con data target", tot.filter((e) => e.target_date).length]].map(([k, v]) => `<div><span>${k}</span><b>${v}</b></div>`).join("");
-    const testa = ["Ticker", "Orig.", "Settore", "Livelli personali", "Data target", "Rivisto", "Segnale", "Punti", "Prezzo", "DD%", "RSI", "Wyckoff", "Dati", ""];
+    const testa = ["Ticker", "Orig.", "Settore", "Livelli personali", "Data target", "Rivisto", "Segnale", "Punti", "Prezzo", "Live", "DD%", "RSI", "Wyckoff", "Dati", ""];
     $("tab").innerHTML = `<thead><tr>${testa.map((t) => `<th>${t}</th>`).join("")}</tr></thead><tbody>` + (d.length ? d.map((e) => {
       const x = scr[e.ticker] || {}, ex = x.extra || {};
       return `<tr class="cl${e.ticker === sel ? " sel" : ""}" data-t="${esc(e.ticker)}"><td><b class="tk" data-scheda="${esc(e.ticker)}">${esc(e.ticker)}</b></td><td>${e.origin === "manual" ? "👤" : "🤖"}</td><td>${taglia(nomeSett(e))}</td><td>${taglia(lv(e)) || "–"}${avvisoLivelli(e, ex)}</td>
         <td>${esc(dmy(e.target_date))}</td><td>${esc(dmy(e.last_reviewed))}${rivedere(e) ? " ⏳" : ""}</td><td>${taglia(x.segnale || "–")}</td><td>${x.punti ?? "–"}</td>
-        <td>${fmt(ex.Prezzo)}</td><td>${num(ex["DD%"]) === null ? "–" : fmt(ex["DD%"], 1) + "%"}</td><td>${num(ex.RSI) === null ? "–" : fmt(ex.RSI, 0)}</td><td>${taglia(ex.Wyckoff || "–")}</td><td>${badgeDati(ex)}</td><td><button type="button" class="az del" data-del="${esc(e.ticker)}" title="Rimuovi ${esc(e.ticker)} dalla watchlist" aria-label="Rimuovi ${esc(e.ticker)}">🗑️</button></td></tr>`;
+        <td>${fmt(ex.Prezzo)}</td><td>${live(ex)}</td><td>${num(ex["DD%"]) === null ? "–" : fmt(ex["DD%"], 1) + "%"}</td><td>${num(ex.RSI) === null ? "–" : fmt(ex.RSI, 0)}</td><td>${taglia(ex.Wyckoff || "–")}</td><td>${badgeDati(ex)}</td><td><button type="button" class="az del" data-del="${esc(e.ticker)}" title="Rimuovi ${esc(e.ticker)} dalla watchlist" aria-label="Rimuovi ${esc(e.ticker)}">🗑️</button></td></tr>`;
     }).join("") : `<tr><td colspan="${testa.length}" class="vuoto">Nessun titolo con questi filtri.</td></tr>`) + "</tbody>";
     dettaglio();
   }
@@ -67,7 +69,7 @@
     W = r.dati.dati; sha = r.dati.sha;
     if (prima) {
       const s = await api("/api/screening");
-      if (s.ok && s.dati) { dataScr = s.dati.data; for (const x of s.dati.righe || []) scr[x.ticker] = x; }
+      if (s.ok && s.dati) { dataScr = s.dati.data; for (const x of s.dati.righe || []) scr[x.ticker] = x; if (window.Live) { await window.Live.carica(); window.Live.applica(Object.values(scr)); } }
       $("f-se").innerHTML = '<option value="">tutti</option>' + [...new Set(W.entries.map(nomeSett))].sort().map((x) => `<option>${esc(x)}</option>`).join("");
       try { const o = localStorage.getItem("wl-origine"); if (o !== null && ["", "manual", "auto"].includes(o)) $("f-or").value = o; } catch (e) { /* facoltativo */ }
       $("f-or").addEventListener("input", () => { try { localStorage.setItem("wl-origine", $("f-or").value); } catch (e) { /* facoltativo */ } });

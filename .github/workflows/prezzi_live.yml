@@ -1,0 +1,48 @@
+name: prezzi-live
+
+# Lo lancia il Worker Cloudflare (tabella PIANO in src/dati.js, lun-ven) con workflow_dispatch: nessun cron qui.
+# Giro leggero (1-2 minuti): scarica da Yahoo i prezzi di giornata e scrive site/data/prezzi_live.json. Niente screening,
+# niente segnali, niente avvisi: serve solo a mostrare nel sito un prezzo abbastanza aggiornato. Repo pubblico: minuti gratuiti.
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: prezzi-live
+  cancel-in-progress: false
+
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+      - run: pip install -r requirements.txt
+      - name: Test sintetici
+        run: |
+          python tests/verifica_prezzi_live.py
+          node tests/verifica_live.mjs
+      - name: Prezzi live
+        env:
+          OLD_REPO: ${{ secrets.OLD_REPO }}
+          OLD_REPO_TOKEN: ${{ secrets.OLD_REPO_TOKEN }}
+        run: python scripts/prezzi_live.py
+      - name: Commit
+        run: |
+          git config user.name "basewatch-bot"
+          git config user.email "basewatch-bot@users.noreply.github.com"
+          git add site/data/prezzi_live.json
+          git diff --cached --quiet && exit 0
+          git commit -m "chore: prezzi live"
+          for i in 1 2 3 4 5; do
+            git push && exit 0
+            git pull --rebase -X theirs origin main || true
+            sleep $((i * 5))
+          done
+          echo "::error::push non riuscito"; exit 1

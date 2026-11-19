@@ -42,3 +42,10 @@ lunedì); il primo del mese anche indici 06:30 e
 macro-calendar 07:00 + alerts 07:00. Con i cron di GitHub il ritardo casuale le nasconde; con orari precisi no.
 Controllare anche che gli script trattino allo stesso modo l'input assente (cron) e il valore predefinito (dispatch):
 `settori.yml` (`notifica`), `insiders.yml` (`force`), `report_quindicinale.yml` (`force`).
+
+## Prezzi live (19/11/2026)
+Giro leggero `prezzi_live.yml` (repo pubblico, minuti gratuiti): lun-ven 10:30 e 14:45 UTC. Scarica da Yahoo le barre giornaliere,
+tiene un titolo solo se l'ultima barra ha la data di oggi nel fuso della sua borsa, e scrive `site/data/prezzi_live.json`
+(prezzo e variazione sulla chiusura precedente). Il sito (Screening, Watchlist, scheda) lo sovrappone a «Prezzo live» / «Var oggi %»
+solo se il file ha meno di 3 ore; altrimenti mostra la chiusura dello screening. Informativo: non entra in punteggi, segnali o alert.
+Se si scarica meno della metà dei titoli il file precedente non viene toccato e il giro fallisce (si vede in Actions).

@@ -19,11 +19,14 @@ window.Scheda = (() => {
 
   const libreria = () => libP || (libP = window.LightweightCharts ? Promise.resolve() : new Promise((ok, ko) => {
     const s = document.createElement("script"); s.src = LIB; s.onload = ok; s.onerror = ko; document.head.append(s); }));
+  const caricaLive = () => (window.Live ? Promise.resolve() : new Promise((ok) => { const s = document.createElement("script"); s.src = "live.js"; s.onload = ok; s.onerror = ok; document.head.append(s); }))
+    .then(() => (window.Live ? window.Live.carica() : null));
   async function dati() {
     if (cache) return cache;
     const j = (u) => fetch(u, { cache: "no-store" }).then((r) => (r.ok ? r.json() : null)).catch(() => null);
     const [ix, sc, wl] = await Promise.all([j("data/index.json"), j("/api/screening"), j("/api/dati/watchlist")]);
     const scr = {}; for (const r of (sc && sc.righe) || []) scr[r.ticker] = r;
+    await caricaLive(); if (window.Live) window.Live.applica(Object.values(scr));
     const w = {}; for (const e of ((wl && wl.dati) || {}).entries || []) w[e.ticker] = e;
     const basi = {}; for (const b of (ix && ix.basi) || []) { const [t, tf] = String(b.chiave).split("|"); (basi[t] = basi[t] || {})[tf] = b; }
     return (cache = { scr, w, basi, puoMod: !!(wl && wl.puo_modificare), dataScr: sc && sc.data, ath: (ix && ix.titoli) || {} });
@@ -49,14 +52,14 @@ window.Scheda = (() => {
   const SOGLIA_ETICHETTE_PX = 14;
   const SEZ = [
     ["Segnale", ["Segnale", "Seg_Punti", "Origine_Segnale", "Priorità", "Confluenza", "Trend", "In zona", "Sifrediana_Today"]],
-    ["Prezzo e tecnica", ["Prezzo", "DD%", "DD_2a%", "RSI", "ATR%", "SMA50", "SMA200", "Dist_SMA200%", "Sopra_SMA200", "W_SMA13", "W_SMA52", "Ret_4s%", "RS_4s%"]],
+    ["Prezzo e tecnica", ["Prezzo", "Prezzo_live", "Var_oggi_%", "DD%", "DD_2a%", "RSI", "ATR%", "SMA50", "SMA200", "Dist_SMA200%", "Sopra_SMA200", "W_SMA13", "W_SMA52", "Ret_4s%", "RS_4s%"]],
     ["Livelli", ["Z1c", "VWAP60", "VWA1", "VWA2", "VWA3", "Z1", "Z2", "Bottom", "Bottom_DD", "Bottom_RSI", "Bottom_Zona", "Bottom_Decel"]],
     ["Qualità e fondamentali", ["Health", "H_ROE", "H_DE", "H_Margine", "H_Crescita", "H_FCF", "PE_trailing", "PE_forward", "EV_EBITDA", "P_S", "Qualita_Dati"]],
     ["Wyckoff, insider, squeeze", ["Wyckoff", "W_Score", "Insider_Cluster", "WI_Confluence", "Short_Float_%", "Squeeze"]],
     ["Settore", ["Settore", "Sector", "SectorETF", "SectorScore", "Δ EW−CW", "Vento", "Sotto-settore", "SottoScore", "SottoΔ", "Z_Sconto_Settore", "Z_Medio_Settore"]],
     ["Bonus (somma di lettura)", ["Bonus_Settore", "Bonus_Confluenza", "Bonus_Sifrediana", "Bonus_Insider", "Bonus_WI", "Bonus_Regime", "Bonus_Volatilita", "Bonus_Compresso", "Bonus_Totale"]],
   ];
-  const ETI = { Z1c: "POC (centro zona 1)", VWA1: "VWAP ancorato 1", VWA2: "VWAP ancorato 2", VWA3: "VWAP ancorato 3", Seg_Punti: "Punti del segnale", H_ROE: "ROE", H_DE: "Debito/Equity", H_Margine: "Margine", H_Crescita: "Crescita", H_FCF: "Free cash flow", "DD%": "Drawdown max 5a %", "DD_2a%": "Drawdown 2a %" };
+  const ETI = { Prezzo_live: "Prezzo live (informativo)", "Var_oggi_%": "Var oggi %", Z1c: "POC (centro zona 1)", VWA1: "VWAP ancorato 1", VWA2: "VWAP ancorato 2", VWA3: "VWAP ancorato 3", Seg_Punti: "Punti del segnale", H_ROE: "ROE", H_DE: "Debito/Equity", H_Margine: "Margine", H_Crescita: "Crescita", H_FCF: "Free cash flow", "DD%": "Drawdown max 5a %", "DD_2a%": "Drawdown 2a %" };
   const fx = (v) => (typeof v === "boolean" ? (v ? "sì" : "no") : typeof v === "number" ? (Number.isInteger(v) ? String(v) : v.toFixed(2)) : String(v));
 
   function sezioni(sc, w) {

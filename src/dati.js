@@ -30,6 +30,10 @@ const pub = (id, workflow, ora, giorni, extra = {}) => ({ id, repo: REPO_PUB, wo
 const priv = (id, workflow, ora, giorni, extra = {}) => ({ id, repo: REPO_PRIV, workflow, ref: "main", token: "PRIVATE_REPO_TOKEN", ora, giorni, attivo: false, ...extra });
 export const PIANO = [
   pub("bases", "bases.yml", "22:30", LV),
+  // 19/11/2026: giro leggero dei prezzi di giornata (repo pubblico, 1-2 minuti, nessuno screening): site/data/prezzi_live.json.
+  // 10:30 = borse europee aperte da 2 ore e mezza; 14:45 = Wall Street aperta da un quarto d'ora (ora solare). Il file vale 3 ore nel sito.
+  pub("prezzi-live-1030", "prezzi_live.yml", "10:30", LV),
+  pub("prezzi-live-1445", "prezzi_live.yml", "14:45", LV),
   // 16/11/2026: pilota riuscito (canary lanciato dal Worker alle 12:30:13 UTC; il cron di GitHub quel giorno non è partito,
   // lo screening delle 06:30 e gli alert delle 07:00/11:00 nemmeno, il report delle 05:00 è partito alle 13:20). Migrati
   // al Worker: canary, report quindicinale, screening e alerts. Per questi lavori lo `schedule:` va TOLTO dal workflow

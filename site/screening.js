@@ -82,7 +82,8 @@
       try { const ix = ri && ri.ok ? await ri.json() : { basi: [] }; for (const b of ix.basi || []) indice[b.chiave] = b; } catch (e) { /* senza range */ }
     } catch (e) { $("sottotitolo").textContent = "Errore di rete."; return; }
     righe = j.righe;
-    $("sottotitolo").textContent = `Screening del ${j.data || "n/d"} · ${righe.length} titoli`;
+    let live = 0; if (window.Live) { await window.Live.carica(); live = window.Live.applica(righe); }
+    $("sottotitolo").textContent = `Screening del ${j.data || "n/d"} · ${righe.length} titoli` + (live ? ` · prezzi live delle ${window.Live.ora()} (${live} titoli, informativi)` : "");
     if (!j.data) { $("avviso").hidden = false; $("avviso").textContent = "Nessun dato nel database: i punteggi arrivano dopo il prossimo screening del repo privato."; }
     else if (righe.length && !righe.some((r) => r.extra)) { $("avviso").hidden = false; $("avviso").textContent = "Mancano le colonne dello screening: aggiorna lo script di caricamento nel repo privato e rilancialo."; }
     for (const b of document.querySelectorAll("#tabs button")) b.addEventListener("click", () => {
