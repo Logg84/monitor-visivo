@@ -1,0 +1,61 @@
+{
+ "aggiornato": "2026-11-20",
+ "dati": {
+  "beta": 0.947,
+  "bilancio_annuale": {
+   "ricavi": {
+    "2022": 24696625000.0,
+    "2023": 17596443000.0,
+    "2024": 17724956000.0,
+    "2025": 16232763000.0
+   },
+   "utile_netto": {
+    "2022": 940524000.0,
+    "2023": 325129000.0,
+    "2024": 465690000.0,
+    "2025": 587081000.0
+   },
+   "utile_operativo": {
+    "2022": 1266782000.0,
+    "2023": 514607000.0,
+    "2024": 669141000.0,
+    "2025": 794961000.0
+   }
+  },
+  "currency": "USD",
+  "currentRatio": 1.339,
+  "debito_netto": 1959254048,
+  "debito_netto_su_ebitda": 1.95,
+  "debtToEquity": 136.28,
+  "dividendYield": 1.86,
+  "earningsGrowth": 0.246,
+  "ebitda": 1003177984,
+  "enterpriseToEbitda": 17.895,
+  "fiftyTwoWeekHigh": 210.33,
+  "fiftyTwoWeekLow": 122.21,
+  "financialCurrency": "USD",
+  "forwardPE": 17.9426,
+  "freeCashflow": 379530240,
+  "grossMargins": 0.0834,
+  "industry": "Integrated Freight & Logistics",
+  "longName": "C.H. Robinson Worldwide, Inc.",
+  "marketCap": 15536179200,
+  "numberOfAnalystOpinions": 23,
+  "operatingCashflow": 534008000,
+  "operatingMargins": 0.0527,
+  "payoutRatio": 0.4524,
+  "priceToBook": 9.8363,
+  "profitMargins": 0.0367,
+  "quickRatio": 1.307,
+  "recommendationKey": "buy",
+  "returnOnAssets": 0.1033,
+  "returnOnEquity": 0.3892,
+  "revenueGrowth": 0.295,
+  "sector": "Industrials",
+  "targetMeanPrice": 179.3043,
+  "totalCash": 193132000,
+  "totalDebt": 2152386048,
+  "trailingPE": 24.0574
+ },
+ "v": 2
+}

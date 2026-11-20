@@ -1,0 +1,61 @@
+{
+ "aggiornato": "2026-11-20",
+ "dati": {
+  "beta": 0.678,
+  "bilancio_annuale": {
+   "ricavi": {
+    "2022": 8080000000.0,
+    "2023": 8544000000.0,
+    "2024": 9256000000.0,
+    "2025": 9467000000.0
+   },
+   "utile_netto": {
+    "2022": 2114000000.0,
+    "2023": 2344000000.0,
+    "2024": 2486000000.0,
+    "2025": 2673000000.0
+   },
+   "utile_operativo": {
+    "2022": 2928000000.0,
+    "2023": 3069000000.0,
+    "2024": 3392000000.0,
+    "2025": 3597000000.0
+   }
+  },
+  "currency": "USD",
+  "currentRatio": 2.346,
+  "debito_netto": 7724000000,
+  "debito_netto_su_ebitda": 1.92,
+  "debtToEquity": 280.26,
+  "dividendYield": 2.62,
+  "earningsGrowth": -0.118,
+  "ebitda": 4032000000,
+  "enterpriseToEbitda": 10.057,
+  "fiftyTwoWeekHigh": 132.49,
+  "fiftyTwoWeekLow": 68.77,
+  "financialCurrency": "USD",
+  "forwardPE": 12.4137,
+  "freeCashflow": 2053124992,
+  "grossMargins": 0.7165,
+  "industry": "Drug Manufacturers - Specialty & Generic",
+  "longName": "Zoetis Inc.",
+  "marketCap": 32143671296,
+  "numberOfAnalystOpinions": 13,
+  "operatingCashflow": 2728000000,
+  "operatingMargins": 0.3791,
+  "payoutRatio": 0.3524,
+  "priceToBook": 9.7594,
+  "profitMargins": 0.2641,
+  "quickRatio": 1.202,
+  "recommendationKey": "buy",
+  "returnOnAssets": 0.1487,
+  "returnOnEquity": 0.5763,
+  "revenueGrowth": -0.013,
+  "sector": "Healthcare",
+  "targetMeanPrice": 89.6923,
+  "totalCash": 1532999936,
+  "totalDebt": 9256999936,
+  "trailingPE": 13.4541
+ },
+ "v": 2
+}

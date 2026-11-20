@@ -1,0 +1,61 @@
+{
+ "aggiornato": "2026-11-20",
+ "dati": {
+  "beta": 0.894,
+  "bilancio_annuale": {
+   "ricavi": {
+    "2023": 4438600000.0,
+    "2024": 4390100000.0,
+    "2025": 4831300000.0,
+    "2026": 5177700000.0
+   },
+   "utile_netto": {
+    "2023": -35000000.0,
+    "2024": 165700000.0,
+    "2025": 247100000.0,
+    "2026": 211200000.0
+   },
+   "utile_operativo": {
+    "2023": 122900000.0,
+    "2024": 245100000.0,
+    "2025": 362400000.0,
+    "2026": 305100000.0
+   }
+  },
+  "currency": "GBp",
+  "currentRatio": 0.764,
+  "debito_netto": 296199936,
+  "debito_netto_su_ebitda": 0.82,
+  "debtToEquity": 184.323,
+  "dividendYield": 0.77,
+  "earningsGrowth": -0.036,
+  "ebitda": 359800000,
+  "enterpriseToEbitda": 14.732,
+  "fiftyTwoWeekHigh": 1527.0,
+  "fiftyTwoWeekLow": 871.2,
+  "financialCurrency": "GBP",
+  "forwardPE": 14.0291,
+  "freeCashflow": 271500000,
+  "grossMargins": 0.5591,
+  "industry": "Engineering & Construction",
+  "longName": "Babcock International Group PLC",
+  "marketCap": 4917768192,
+  "numberOfAnalystOpinions": 11,
+  "operatingCashflow": 468300000,
+  "operatingMargins": 0.0522,
+  "payoutRatio": 0.187,
+  "priceToBook": 7.1484,
+  "profitMargins": 0.0378,
+  "quickRatio": 0.652,
+  "recommendationKey": "buy",
+  "returnOnAssets": 0.0432,
+  "returnOnEquity": 0.2787,
+  "revenueGrowth": 0.063,
+  "sector": "Industrials",
+  "targetMeanPrice": 1322.618,
+  "totalCash": 1019500032,
+  "totalDebt": 1315699968,
+  "trailingPE": 25.2875
+ },
+ "v": 2
+}

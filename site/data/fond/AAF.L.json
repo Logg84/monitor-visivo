@@ -1,0 +1,61 @@
+{
+ "aggiornato": "2026-11-20",
+ "dati": {
+  "beta": 0.597,
+  "bilancio_annuale": {
+   "ricavi": {
+    "2023": 5255000000.0,
+    "2024": 4979000000.0,
+    "2025": 4955000000.0,
+    "2026": 6415000000.0
+   },
+   "utile_netto": {
+    "2023": 663000000.0,
+    "2024": -165000000.0,
+    "2025": 220000000.0,
+    "2026": 679000000.0
+   },
+   "utile_operativo": {
+    "2023": 1771000000.0,
+    "2024": 1645000000.0,
+    "2025": 1464000000.0,
+    "2026": 2126000000.0
+   }
+  },
+  "currency": "GBp",
+  "currentRatio": 0.576,
+  "debito_netto": 5794000064,
+  "debito_netto_su_ebitda": 1.84,
+  "debtToEquity": 184.707,
+  "dividendYield": 2.01,
+  "earningsGrowth": 0.198,
+  "ebitda": 3156999936,
+  "enterpriseToEbitda": 5.096,
+  "fiftyTwoWeekHigh": 436.2,
+  "fiftyTwoWeekLow": 252.0,
+  "financialCurrency": "USD",
+  "forwardPE": 10.7603,
+  "freeCashflow": 1227250048,
+  "grossMargins": 0.6736,
+  "industry": "Telecom Services",
+  "longName": "Airtel Africa Plc",
+  "marketCap": 9928323072,
+  "numberOfAnalystOpinions": 7,
+  "operatingCashflow": 3566000128,
+  "operatingMargins": 0.3358,
+  "payoutRatio": 0.3433,
+  "priceToBook": 4.0717,
+  "profitMargins": 0.1027,
+  "quickRatio": 0.202,
+  "recommendationKey": "buy",
+  "returnOnAssets": 0.1107,
+  "returnOnEquity": 0.2654,
+  "revenueGrowth": 0.252,
+  "sector": "Communication Services",
+  "targetMeanPrice": 389.7495,
+  "totalCash": 885000000,
+  "totalDebt": 6679000064,
+  "trailingPE": 18.28
+ },
+ "v": 2
+}
