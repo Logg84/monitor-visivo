@@ -10,6 +10,10 @@ window.Scheda = (() => {
   let cache = null, libP = null, chart = null, sinP = null;
   const sintesiLib = () => sinP || (sinP = window.Sintesi ? Promise.resolve() : new Promise((ok, ko) => {
     const s = document.createElement("script"); s.src = "sintesi.js"; s.onload = ok; s.onerror = ko; document.head.append(s); }));
+  let ritP = null;
+  const ritLib = () => ritP || (ritP = window.Ritorni ? Promise.resolve() : new Promise((ok) => {
+    const s = document.createElement("script"); s.src = "retest.js"; s.onload = ok; s.onerror = ok; document.head.append(s); }));
+  const ritTxt = (b) => (window.Ritorni && b && b.stato === "uscito_sopra" && !b.prima_vista ? window.Ritorni.testo(b) : "");
   let tvP = null;
   const tvMappa = () => tvP || (tvP = (window.TvLink ? Promise.resolve() : new Promise((ok) => {
     const s = document.createElement("script"); s.src = "tvlink.js"; s.onload = ok; s.onerror = ok; document.head.append(s); }))
@@ -90,10 +94,12 @@ window.Scheda = (() => {
     const x = el("button", "az", "✕ Chiudi"); x.type = "button"; x.addEventListener("click", chiudi); testa.append(x); fin.append(testa);
     const corpo = el("div"); corpo.append(el("p", "nota", "Caricamento…")); fin.append(corpo);
     const d = await dati(), sc = d.scr[ticker], w = d.w[ticker], basi = d.basi[ticker] || {};
+    await ritLib();
     if (!document.getElementById("scheda-ov")) return;                       // chiusa nel frattempo
     corpo.replaceChildren();
     const badge = el("div", "scheda-badge");
     for (const tf of ["1W", "1D"]) { const b = basi[tf]; if (b) badge.append(el("span", "badge", `${tf === "1W" ? "Sett." : "Giorn."}: ${({ in_range: "in range", rallenta: "rallenta", uscito_sopra: "uscito sopra", uscito_sotto: "uscito sotto" })[b.stato] || b.stato}`)); }
+    for (const tf of ["1W", "1D"]) { const x = ritTxt(basi[tf]); if (x) badge.append(el("span", "badge", `${tf === "1W" ? "Sett." : "Giorn."}: ${x.toLowerCase()}`)); }
     if (sc && sc.punti != null && sc.segnale && sc.segnale !== "—") badge.append(el("span", "badge", `punteggio ${sc.punti}/6`));
     if (w) badge.append(el("span", "badge", w.origin === "manual" ? "👀 watchlist 👤" : "👀 watchlist 🤖"));
     const tv = el("a", "link", "📈 TradingView"); tv.href = "https://www.tradingview.com/chart/?symbol=" + encodeURIComponent(ticker); tvMappa().then((m) => { if (window.TvLink) tv.href = window.TvLink.url(ticker, m); }); tv.target = "_blank"; tv.rel = "noopener noreferrer";
@@ -200,7 +206,7 @@ window.Scheda = (() => {
       barraLiv.append(el("span", "muted", "Sul grafico:"));
       for (const [k, n] of voci) { const l = el("label"), cb = el("input"); cb.type = "checkbox"; cb.checked = !!lv[k]; cb.addEventListener("change", () => { lv[k] = cb.checked; disegna(); }); l.append(cb, document.createTextNode(" " + n)); barraLiv.append(l); }
       corpo.append(barraTf, box, barraLiv); disegna().catch(() => box.replaceChildren(el("p", "nota", "Grafico non disponibile.")));
-      const b = basi[tf]; if (b) corpo.append(el("p", "nota", `Range ${tf === "1W" ? "settimanale" : "giornaliero"}: ${fmt(b.bottom)} – ${fmt(b.top)} · ampiezza ${nz(b.ampiezza) !== null ? Math.round(b.ampiezza * 100) + "%" : "–"} · ${b.barre ?? "–"} barre`));
+      const b = basi[tf]; if (b) corpo.append(el("p", "nota", `Range ${tf === "1W" ? "settimanale" : "giornaliero"}: ${fmt(b.bottom)} – ${fmt(b.top)} · ampiezza ${nz(b.ampiezza) !== null ? Math.round(b.ampiezza * 100) + "%" : "–"} · ${b.barre ?? "–"} barre${ritTxt(b) ? " · " + ritTxt(b) : ""}`));
     } else corpo.append(el("p", "nota", "Grafico non disponibile: questo titolo non è nell'universo dei range di basewatch (le serie si generano solo per i titoli in watchlist con un range)."));
     pro.append(sezioni(sc, w));
     if (sc && d.dataScr) pro.append(el("p", "nota", `Dati dello screening del ${d.dataScr}. Lettura, mai ordine.`));

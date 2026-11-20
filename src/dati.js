@@ -201,6 +201,7 @@ export function compatta(b) {
   for (const k of ["uscito_il", "rientro_il", "inizio", "data_ultimo"]) if (b[k]) o[k] = b[k];
   if (b.prima_vista) o.prima_vista = true;
   if (b.manuale) o.manuale = true;
+  if (b.ritorni && typeof b.ritorni === "object") o.ritorni = b.ritorni;   // retest del livello rotto (basewatch/retest.py)
   return o;
 }
 

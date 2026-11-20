@@ -11,7 +11,8 @@
     const b = r.basi[tf];
     if (!b) return `<td class="muted">–</td><td></td>`;
     const pos = b.pos === null || b.pos === undefined ? "" : `${Math.round(b.pos * 100)}%`;
-    const quando = b.uscito_il ? ` <span class="muted">${esc(b.uscito_il)}</span>` : "";
+    const quando = (b.uscito_il ? ` <span class="muted">${esc(b.uscito_il)}</span>` : "")
+      + (b.stato === "uscito_sopra" && window.Ritorni.testo(b) ? `<br><span class="muted">${esc(window.Ritorni.testo(b))}</span>` : "");
     return `<td><span class="badge b-${esc(b.stato)}">${esc(ETI[b.stato] || b.stato)}</span>${quando}</td><td>${pos}</td>`;
   };
   const uscita = (r) => Object.values(r.basi).some((b) => b.stato === "uscito_sopra" || b.stato === "uscito_sotto");
@@ -25,6 +26,7 @@
       if (q && !r.ticker.includes(q)) return false;
       if (min && !(r.punteggio && r.punteggio.punti >= min)) return false;
       if (m === "uscite") return bs.some((b) => b.stato === "uscito_sopra" || b.stato === "uscito_sotto");
+      if (m === "retest") return bs.some((b) => window.Ritorni.attivo(b));
       if (m === "attive") return bs.some((b) => b.stato === "in_range" || b.stato === "rallenta");
       if (m === "punteggio") return Boolean(r.punteggio);
       return true;

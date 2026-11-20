@@ -179,6 +179,7 @@
     card.replaceChildren();
     const testa = eEl("div", "card-testa");
     testa.append(eEl("span", "ticker", g.ticker), eEl("span", `badge b-${b.stato}`, NOME_STATO[b.stato]));
+    if (window.Ritorni.attivo(b)) testa.append(eEl("span", "badge b-punti", `retest ${b.ritorni.n}`));
     const sel = eEl("div", "tf");
     for (const t of ["1W", "1D"]) {
       const bt = eEl("button", null, t === "1W" ? "Sett." : "Giorn.");
@@ -228,6 +229,8 @@
         : `Uscito il ${b.uscito_il ?? "—"}. Si rivaluta solo se rientra nel range o riprende a scendere.`;
     const ta = tf === "1W" ? "1D" : "1W", ba = g.tfs[ta];
     if (ba && !storica(ba)) nota.textContent += ` Sul ${ta === "1W" ? "settimanale" : "giornaliero"}: ${NOME_STATO[ba.stato].toLowerCase()}, range ${fmt(ba.bottom)}–${fmt(ba.top)} (linee blu nel grafico).`;
+    const rit = b.stato === "uscito_sopra" && !storica(b) ? window.Ritorni.testo(b) : "";
+    if (rit) nota.textContent += ` ${rit}.`;
     if (b.manuale) nota.textContent += " Range corretto a mano.";
     const az = eEl("div", "azioni");
     if (me.modalita !== "access" || me.admin) {
@@ -404,6 +407,11 @@
     if (filtro === "tutte") return !storica(b);
     if (filtro === "attive") return attiva(b);
     if (filtro === "uscite") return !attiva(b) && !storica(b);
+    if (filtro === "retest") {            // il retest può essere su un timeframe diverso da quello in vista: si mostra quello
+      const t = ["1W", "1D"].find((x) => g.tfs[x] && !storica(g.tfs[x]) && window.Ritorni.attivo(g.tfs[x]));
+      if (t) g.tf = t;
+      return Boolean(t);
+    }
     return b.stato === filtro;
   }
   const chiaveOrdine = {

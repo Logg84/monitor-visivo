@@ -167,4 +167,46 @@ check("verdetto: t basso → NON DIMOSTRATO", rt.esito_verdetto(0.05, 1.0, 60, 4
 v = {x["id"]: x for x in rt.verdetti(an)}
 check("verdetti T1 e T2 prodotti, campione piccolo → NON VALUTABILE", set(v) == {"T1", "T2"} and v["T1"]["esito"] == "NON VALUTABILE")
 
+# ── Contatore dei ritorni al livello rotto (solo lettura) ──
+c = rt.conta_ritorni(serie(), TOP, alert)
+check("ritorni: nessun tocco → 0, in attesa", c["n"] == 0 and c["esito"] == "in_attesa" and c["date"] == [])
+c = rt.conta_ritorni(serie({I0 + 5: (108.0, 106.0)}), TOP, alert)
+check("ritorni: un tocco (minimo nella zona, chiusura sopra) → 1, tenuto", c["n"] == 1 and c["esito"] == "tenuto" and c["date"] == [str(IDX[I0 + 5].date())])
+c = rt.conta_ritorni(serie({I0 + 5: (108.0, 106.0), I0 + 12: (108.0, 106.0)}), TOP, alert)
+check("ritorni: due tocchi separati (≥5 sedute e prezzo allontanato) → 2", c["n"] == 2 and c["date"][-1] == str(IDX[I0 + 12].date()))
+c = rt.conta_ritorni(serie({I0 + 5: (108.0, 106.0), I0 + 7: (108.0, 106.0)}), TOP, alert)
+check("ritorni: due tocchi a meno di 5 sedute → contano come uno", c["n"] == 1)
+c = rt.conta_ritorni(serie({I0 + 5: (108.0, 106.0), I0 + 10: (108.0, 106.0)}), TOP, alert)
+check("ritorni: esattamente 5 sedute di distanza → separati", c["n"] == 2)
+c = rt.conta_ritorni(serie({k: (106.0, 105.5) for k in range(I0 + 5, I0 + 40)}), TOP, alert)
+check("ritorni: prezzo che resta nella zona senza allontanarsi (stessa discesa lenta) → 1", c["n"] == 1 and c["esito"] == "tenuto")
+c = rt.conta_ritorni(serie({I0 + 5: (108.0, 106.0), I0 + 9: (104.0, 103.0)}), TOP, alert)
+check("ritorni: tocco poi rientro → conta 1 e si ferma, esito rientro con data",
+      c["n"] == 1 and c["esito"] == "rientro" and c["rientro_il"] == str(IDX[I0 + 9].date()))
+c = rt.conta_ritorni(serie({I0 + 3: (104.0, 103.0), I0 + 8: (108.0, 106.0)}), TOP, alert)
+check("ritorni: rientro prima di ogni tocco → 0, rientro", c["n"] == 0 and c["esito"] == "rientro")
+c = rt.conta_ritorni(serie({I0 + 60: (108.0, 106.0)}), TOP, alert)
+check("ritorni: nessuna finestra di 30 sedute (un tocco tardivo conta)", c["n"] == 1)
+c = rt.conta_ritorni(serie(), TOP, pd.Timestamp("2010-01-04"))
+check("ritorni: uscita prima dei dati → incompleto", c["esito"] == "incompleto")
+c = rt.conta_ritorni(serie({I0 + 5: (108.0, 105.0 * 1.02 + 0.01)}), TOP, alert)
+check("ritorni: stessa tolleranza del retest (appena oltre il 2% → non conta)", c["n"] == 0)
+
+d = serie({I0 + 5: (108.0, 106.0), I0 + 12: (108.0, 106.0)})
+st = {
+    "AAA|1D": {"stato": "uscito_sopra", "top": TOP, "bottom": 90.0, "uscito_il": str(IDX[I0].date()), "ritorni": {"n": 9}},
+    "BBB|1D": {"stato": "uscito_sopra", "top": TOP, "bottom": 90.0, "uscito_il": str(IDX[I0].date()), "prima_vista": True},
+    "CCC|1D": {"stato": "uscito_sotto", "top": TOP, "bottom": 90.0, "uscito_il": str(IDX[I0].date())},
+    "DDD|1D": {"stato": "in_range", "top": TOP, "bottom": 90.0, "uscito_il": str(IDX[I0].date()), "rientro_il": str(IDX[I0 + 9].date())},
+    "EEE|1D": {"stato": "in_range", "top": TOP, "bottom": 90.0, "ritorni": {"n": 3}},
+    "FFF|1W": {"stato": "uscito_sopra", "top": TOP, "bottom": 90.0, "uscito_il": str(IDX[I0].date())},
+}
+dd = serie({I0 + 5: (108.0, 106.0), I0 + 9: (104.0, 103.0)})
+n = rt.aggiorna_ritorni(st, {"AAA": d, "BBB": d, "CCC": d, "DDD": dd, "EEE": d})
+check("aggiorna: uscita osservata → ritorni scritti (e il valore vecchio è sostituito)", st["AAA|1D"]["ritorni"] == {"n": 2, "date": [str(IDX[I0 + 5].date()), str(IDX[I0 + 12].date())], "esito": "tenuto"})
+check("aggiorna: uscita 'prima vista' e uscita sotto → nessun campo", "ritorni" not in st["BBB|1D"] and "ritorni" not in st["CCC|1D"])
+check("aggiorna: uscita fallita (rientrata dopo l'uscita) → esito rientro", st["DDD|1D"]["ritorni"]["esito"] == "rientro" and st["DDD|1D"]["ritorni"]["n"] == 1)
+check("aggiorna: base in range senza uscita → campo vecchio tolto", "ritorni" not in st["EEE|1D"])
+check("aggiorna: senza prezzi → nessun campo, nessun errore; conteggio = basi con campo", "ritorni" not in st["FFF|1W"] and n == 2)
+
 print("OK: verifica_retest")

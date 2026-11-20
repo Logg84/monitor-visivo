@@ -43,6 +43,56 @@ def classifica_ritorno(df: pd.DataFrame, top: float, data_alert,
     return {"esito": "nessuno" if i0 + finestra <= len(df) - 1 else "incompleto", "data": None}
 
 
+SEPARAZIONE = 5             # sedute minime tra due ritorni contati come separati
+def conta_ritorni(df: pd.DataFrame, top: float, data_uscita, tol: float = TOL,
+                  sep: int = SEPARAZIONE) -> dict:
+    """Quante volte il prezzo è tornato a testare il livello rotto dopo l'uscita dall'alto (solo lettura).
+    Un ritorno = minimo ≤ top×(1+tol) con chiusura > top (non serve rientrare nel range: basta tornare in zona).
+    Due ritorni sono separati se passano ≥ `sep` sedute E tra l'uno e l'altro c'è almeno una chiusura
+    > top×(1+tol) (altrimenti è la stessa discesa lenta). Si ferma alla prima chiusura ≤ top (rientro: uscita fallita).
+    Ritorna {n, date, esito: in_attesa|tenuto|rientro, rientro_il?} oppure {esito: "incompleto"} senza prezzi utili."""
+    idx = df.index
+    d = pd.Timestamp(data_uscita)
+    i0 = int(idx.searchsorted(d, side="right")) - 1
+    if i0 < 0 or (d - idx[i0]).days > MAX_GAP_GIORNI:
+        return {"n": 0, "date": [], "esito": "incompleto"}
+    close, low = df["Close"].to_numpy(), df["Low"].to_numpy()
+    soglia = top * (1 + tol)
+    date: list[str] = []
+    ultimo_k, armato = None, True          # il primo ritorno non richiede un allontanamento precedente
+    for k in range(i0 + 1, len(df)):
+        if close[k] <= top:
+            return {"n": len(date), "date": date, "esito": "rientro", "rientro_il": str(idx[k])[:10]}
+        if low[k] <= soglia and armato and (ultimo_k is None or k - ultimo_k >= sep):
+            date.append(str(idx[k])[:10])
+            ultimo_k, armato = k, False
+        elif close[k] > soglia and ultimo_k is not None:
+            armato = True              # il prezzo si è allontanato: il prossimo tocco è un ritorno nuovo
+    return {"n": len(date), "date": date, "esito": "tenuto" if date else "in_attesa"}
+
+
+def aggiorna_ritorni(stato: dict, giornalieri: dict[str, pd.DataFrame]) -> int:
+    """Scrive in ogni base osservata (uscita dall'alto, non «prima vista») il campo `ritorni`; lo toglie dalle altre.
+    Ricalcolato da zero a ogni giro dalle barre chiuse: nessuno stato da mantenere. Ritorna quante basi hanno il campo."""
+    n = 0
+    for k, b in stato.items():
+        b.pop("ritorni", None)
+        osservata = b.get("uscito_il") and not b.get("prima_vista")
+        sopra = b.get("stato") == "uscito_sopra"
+        fallita = b.get("stato") == "in_range" and b.get("rientro_il") and b.get("uscito_il") and b["rientro_il"] >= b["uscito_il"]
+        if not (osservata and (sopra or fallita)):
+            continue
+        df = giornalieri.get(k.split("|")[0])
+        if df is None or df.empty:
+            continue
+        r = conta_ritorni(df, float(b["top"]), b["uscito_il"])
+        if r["esito"] == "incompleto":
+            continue
+        b["ritorni"] = {"n": r["n"], "date": r["date"][-5:], "esito": r["esito"]}
+        n += 1
+    return n
+
+
 def esiti(ev: pd.DataFrame, prezzi: dict, tol: float = TOL, finestra: int = FINESTRA) -> pd.DataFrame:
     """Aggiunge `esito` e `data_retest` a ogni uscita (ticker, tf, inizio, top, data_alert)."""
     out = ev.copy()

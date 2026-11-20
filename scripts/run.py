@@ -9,7 +9,7 @@ sys.path.insert(0, str(ROOT))
 
 import pandas as pd  # noqa: E402
 
-from basewatch import alert, detect, engine, io as bio  # noqa: E402
+from basewatch import alert, detect, engine, io as bio, retest as rt  # noqa: E402
 
 DATA = ROOT / "data"
 BARRE_GRAFICO = {"1W": 365, "1D": 780}   # ~7 anni di settimanali, ~3 di giornalieri
@@ -86,7 +86,9 @@ def main() -> int:
         stato.pop(k)
 
     # Retest tenuti nuovi delle uscite osservate (info di lettura): usa le barre giornaliere CHIUSE.
-    retest = alert.retest_nuovi(stato, {t: detect.barre_chiuse_giornaliere(d, adesso) for t, d in prezzi.items()}, oggi)
+    chiuse = {t: detect.barre_chiuse_giornaliere(d, adesso) for t, d in prezzi.items()}
+    retest = alert.retest_nuovi(stato, chiuse, oggi)
+    print(f"Ritorni al livello rotto calcolati: {rt.aggiorna_ritorni(stato, chiuse)} basi")
     engine.salva_stato(stato, DATA / "bases.json")
     sito = SITO
     sito.mkdir(parents=True, exist_ok=True)

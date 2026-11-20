@@ -51,3 +51,12 @@ eventi e criteri sono rimasti identici.
 - **T2 NON DIMOSTRATO**: retest − uscita +0,55% (t=+1,45, n=168).
 - Fuori criterio (esplorativo): differenza appaiata a 120 sedute +1,57% (t=2,39); non entra nei verdetti (orizzonte non pre-registrato, più orizzonti provati).
 Conclusione: il retest è frequente e va tenuto sotto osservazione come informazione, ma non ha mostrato un vantaggio dimostrato.
+
+## Contatore dei ritorni (solo lettura, 20/11/2026)
+Non fa parte del test pre-registrato e non cambia nessun parametro. `basewatch/retest.py::conta_ritorni` conta quante volte,
+dopo un'uscita dall'alto osservata da noi, il prezzo è tornato a testare il livello rotto: minimo ≤ top×1,02 con chiusura > top
+(non serve rientrare nel range). Due ritorni sono separati se passano almeno 5 sedute **e** nel frattempo c'è stata almeno una
+chiusura > top×1,02 (altrimenti è la stessa discesa lenta). Si ferma alla prima chiusura ≤ top (uscita fallita). Nessuna finestra
+di 30 sedute: il conteggio continua finché l'uscita resta valida. Risultato in `bases.json` → `ritorni: {n, date (ultime 5), esito}`
+con esito `in_attesa` / `tenuto` / `rientro`; ricalcolato da zero a ogni giro dalle barre chiuse. Sul sito: scheda, Basi di accumulo
+(badge, nota, filtro «Uscite con retest») e Vista unificata. Le uscite già avvenute alla prima vista non hanno il contatore.
