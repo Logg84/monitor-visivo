@@ -50,6 +50,7 @@
       (top.length ? kpi("Vantaggio EW massimo", `${top[0].Settore} ${f1(top[0]["Δ 3m"])} pt`) + kpi("Vantaggio CW massimo", `${top[top.length - 1].Settore} ${f1(top[top.length - 1]["Δ 3m"])} pt`) : "") + "</div>" +
       (gn.length >= 2 ? `<h2>Δ per finestra</h2>` + heat(top, ["Δ 1m", "Δ 3m", "Δ 6m"], ["1 mese", "3 mesi", "6 mesi"]) + `<h2>Gambe a confronto (3 mesi)</h2>` + heat(ordina(g, "CW 3m", false), ["CW 3m", "EW 3m", "Δ 3m", "RS 3m"], ["CW 3m %", "EW 3m %", "Δ 3m pt", "RS pt"]) + barre(g, "Δ 3m", "Δ EW−CW a 3 mesi (pt)") : "") +
       `<details class="storiche"><summary>🧾 Gamba per gamba (singoli ETF)</summary>${gambe(g.map((r) => r.key))}</details>`;
+    graficoGics();
     $("w").onchange = (e) => { st.win = e.target.value; if (st.ord !== "Score" && st.ord !== "CW 3m" && st.ord !== "Settore") st.ord = st.win; render(); };
     $("o").onchange = (e) => { st.ord = e.target.value === "win" ? st.win : e.target.value; render(); };
   }
@@ -68,9 +69,10 @@
     $("out").innerHTML = tabella(v, cols) + `<p class="muted">${D.sotto.filter((r) => r["Etichetta CW"] !== "—" || r["Etichetta EW"] !== "—").length} sotto-settori su ${D.sotto.length} hanno un paniere quotato; gli altri sono solo etichette (nessun ETF = nessun numero, non «neutro»).</p>` +
       (sn.length >= 2 ? `<h2>Δ per sotto-settore</h2>` + heat(sn, ["Δ 1m", "Δ 3m", "Δ 6m"], ["1 mese", "3 mesi", "6 mesi"]) + barre(D.sotto, "Δ 3m", "Δ EW−CW a 3 mesi (pt)") : `<p class="muted">Pochi sotto-settori con gemello EW: Δ non confrontabile.</p>`) +
       `<h2>Dettaglio sotto-settore</h2><section class="controlli"><label>Sotto-settore<select id="d">${D.sotto.map((r) => `<option value="${esc(r.key)}" ${r.key === sel.key ? "selected" : ""}>${esc(r.Settore)} · ${esc(r.GICS)}</option>`).join("")}</select></label></section>` +
-      `<div class="kpis">${kpi("Stato", `${sel.Stato}${n(sel.Score) ? ` · ${Math.round(sel.Score)}/100` : ""}`)}${kpi("Momentum 3m", `CW ${f1(sel["CW 3m"])}% · EW ${f1(sel["EW 3m"])}%`)}${kpi("Δ EW−CW 3m", n(sel["Δ 3m"]) ? f1(sel["Δ 3m"]) + " pt" : "n/d")}` +
+      `<div id="sch"></div><div class="kpis">${kpi("Stato", `${sel.Stato}${n(sel.Score) ? ` · ${Math.round(sel.Score)}/100` : ""}`)}${kpi("Momentum 3m", `CW ${f1(sel["CW 3m"])}% · EW ${f1(sel["EW 3m"])}%`)}${kpi("Δ EW−CW 3m", n(sel["Δ 3m"]) ? f1(sel["Δ 3m"]) + " pt" : "n/d")}` +
       `${kpi("Consistenza · fila", `${n(sel.Consistenza) ? Math.round(sel.Consistenza) + "%" : "n/d"} · ${n(sel.Streak) ? Math.round(sel.Streak) + " sedute" : "n/d"}`)}${kpi("Rapporto EW/CW", `${n(sel["Range Δ"]) ? Math.round(sel["Range Δ"]) + "% range" : "n/d"} · ${sel.Guida}`)}</div>` +
       (sel.Note ? `<p class="muted">${esc(sel.Note)}</p>` : "") + `<p class="muted">Vento: ${({ favore: "a favore (guida l'equal-weighted)", contro: "contro (guida la capitalizzazione)", misto: "misto/laterale" })[D.vento[sel.key]] || "non calcolabile (n/d)"}.</p>` + gambe([sel.key]);
+    graficoSotto(sel);
     $("c").onchange = (e) => { st.cest = e.target.value === "1"; render(); };
     $("g").onchange = (e) => { st.gics = e.target.value; render(); };
     $("o").onchange = (e) => { st.ord = e.target.value; render(); };
@@ -98,6 +100,33 @@
       v.map((r) => "<tr>" + cols.map((c) => { const x = r[c]; return `<td>${x === undefined || x === null ? '<span class="muted">–</span>' : typeof x === "number" ? (c.startsWith("Δ") || c === "SottoΔ" ? f1(x) : Number.isInteger(x) ? x : x.toFixed(1)) : esc(x)}</td>`; }).join("") + "</tr>").join("") + "</tbody></table></div>" +
       ((vv.contro || 0) ? `<p class="muted">⚠️ I candidati su settore in calo restano VALIDI: il contesto suggerisce size più piccola, attesa di conferma o priorità più bassa. Nessuna regola cambia.</p>` : "");
     for (const th of $("out").querySelectorAll("th[data-k]")) th.onclick = () => { st.cand = { k: th.dataset.k, asc: st.cand.k === th.dataset.k ? !st.cand.asc : false }; render(); };
+  }
+
+
+  // ── Grafici storici (serie esportate dal repo privato in D.serie) ──
+  const G = () => window.GraficiSettori;
+  function graficoGics() {
+    const ser = D.serie && D.serie.gics, rap = (ser && ser.rapporto) || {}, chiavi = D.gics.map((r) => r.key).filter((k) => Array.isArray(rap[k]));
+    const sez = (h) => $("out").insertAdjacentHTML("beforeend", `<h2>Rapporto EW/CW nel tempo</h2>${h}`);
+    if (!chiavi.length) return sez(`<p class="muted">Serie storiche non ancora esportate: lancia il workflow «esporta-pagine-d1» (pagina settori) nel repo privato.</p>`);
+    const nome = (k) => (D.gics.find((r) => r.key === k) || {}).Settore || k;
+    if (!st.selG) { const o = ordina(D.gics.filter((r) => chiavi.includes(r.key) && n(r["Δ 3m"])), "Δ 3m", false); st.selG = [...o.slice(0, 5), ...o.slice(-3)].map((r) => r.key).filter((k, i, a) => a.indexOf(k) === i); }
+    const col = (k) => G().PALETTE[chiavi.indexOf(k) % G().PALETTE.length];
+    sez(`<p class="muted">Indice 100 all'inizio della finestra (${ser.date.length} sedute): sopra 100 i pesi uguali stanno guadagnando sulla capitalizzazione, sotto 100 il contrario. Scegli i settori da confrontare.</p>
+      <div class="chips" id="gsel">${chiavi.map((k) => `<label><input type="checkbox" data-k="${esc(k)}" ${st.selG.includes(k) ? "checked" : ""}><i style="background:${col(k)}"></i>${esc(nome(k))}</label>`).join("")}</div>
+      <div id="gch" class="gch"></div><div id="gtip" class="gtip"></div>`);
+    const disegna = () => G().attacca($("gch"), $("gtip"), { date: ser.date, base: 100, serie: st.selG.filter((k) => rap[k]).map((k) => ({ nome: nome(k), valori: rap[k], colore: col(k) })) });
+    $("gsel").onchange = (e) => { const k = e.target.dataset.k; st.selG = e.target.checked ? [...st.selG, k] : st.selG.filter((x) => x !== k); disegna(); };
+    disegna();
+  }
+  function graficoSotto(sel) {
+    const box = $("sch"); if (!box || !sel) return;
+    const s = D.serie && D.serie.sotto;
+    if (!s || !s.date || !s.date.length) { box.innerHTML = `<p class="muted">Serie storiche non ancora esportate: lancia «esporta-pagine-d1» (pagina settori) nel repo privato.</p>`; return; }
+    const cw = (s.cw || {})[sel.key], ew = (s.ew || {})[sel.key];
+    if (!cw && !ew) { box.innerHTML = `<p class="muted">Serie non disponibile (n/d): dove un ETF non esiste non c'è numero.</p>`; return; }
+    box.innerHTML = `<div id="sgr" class="gch"></div><div id="sgt" class="gtip"></div><p class="muted">Indice 100 all'inizio della finestra (${s.date.length} sedute): linea continua = capitalizzazione, tratteggiata = pesi uguali.</p>`;
+    G().attacca($("sgr"), $("sgt"), { date: s.date, base: 100, serie: [cw && { nome: "CW", valori: cw, colore: "#4c8dff" }, ew && { nome: "EW", valori: ew, colore: "#2ea66f", tratteggio: true }].filter(Boolean) });
   }
 
   function render() { ({ gics: vistaGics, sotto: vistaSotto, temi: vistaTemi, cand: vistaCand })[tab](); }
