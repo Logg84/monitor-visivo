@@ -142,7 +142,7 @@ window.Scheda = (() => {
           if (!r.ok) throw new Error(j.errore || "errore " + r.status);
           box.replaceChildren();
           for (const riga of String(j.testo).split(/\n+/).map((x) => x.trim()).filter(Boolean)) box.append(/^[A-ZÀ-Ü' ]{6,}:?$/.test(riga) ? el("h4", null, riga.replace(/:$/, "")) : el("p", null, riga));
-          box.append(el("p", "nota", `Riassunto automatico dei numeri del portale (dati del ${j.aggiornato || "?"}${j.cache ? ", da cache" : ""}): non è un consiglio operativo.`));
+          box.append(el("p", "nota", `Riassunto automatico dei numeri del portale (dati del ${j.aggiornato || "?"}${j.cache ? ", da cache" : ""}): non è un consiglio operativo.${Number.isFinite(j.analisi_restanti) ? ` Analisi AI rimaste oggi: ${j.analisi_restanti}.` : ""}`));
         } catch (e) { box.replaceChildren(el("p", "nota", "❌ " + e.message)); }
         ba.disabled = false;
       });

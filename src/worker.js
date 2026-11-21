@@ -458,7 +458,10 @@ export default {
     if (url.pathname !== "/api/analisi") return json({ errore: "percorso sconosciuto" }, 404);
     if (request.method !== "POST") return json({ errore: "metodo non consentito" }, 405);
     if (!env.AI_KEY || !env.AI_BASE_URL || !env.AI_MODEL || (!env.ACCESS_CODE && !modoAccess(env))) return json({ errore: "servizio AI non configurato" }, 503);
-    if (!(await identita(request, env))) return json({ errore: modoAccess(env) ? "non autenticato" : "codice di accesso errato" }, 401);
+    const ioAI = await identita(request, env);
+    if (!ioAI) return json({ errore: modoAccess(env) ? "non autenticato" : "codice di accesso errato" }, 401);
+    // Quota giornaliera per persona (l'amministratore è escluso): protegge la quota del motore AI.
+    const quotaAI = !ioAI.admin && ioAI.modalita === "access" && env.DB ? ut.quotaAnalisi(env) : 0;
 
     let body;
     try { body = await request.json(); } catch (e) { return json({ errore: "richiesta non valida" }, 400); }
@@ -477,6 +480,11 @@ export default {
       try { const hit = await cache.match(chiaveCache); if (hit) return json({ ...(await hit.json()), cache: true }); } catch (e) { /* cache non disponibile */ }
     }
 
+    if (quotaAI) {
+      let usate = 0;
+      try { usate = await ut.usoAnalisi(env.DB, ioAI.email); } catch (e) { /* contatore non leggibile: non blocca */ }
+      if (usate >= quotaAI) return json({ errore: ut.testoQuotaAnalisi(quotaAI), codice: "quota_analisi", limite: quotaAI, usate }, 429);
+    }
     const ff = await leggi(env, base, `/data/fond/${nomeFile(ticker)}.json`);
     // Immagini dei grafici (max 2: settimanale e giornaliero), solo JPEG/PNG in data URL, dimensione limitata.
     const immagini = (String(env.AI_VISION) !== "true" ? [] : Array.isArray(body.immagini) ? body.immagini : []).slice(0, 2)
@@ -506,10 +514,14 @@ export default {
     try { testo = ((await r.json()).choices?.[0]?.message?.content || "").replace(/<think>[\s\S]*?<\/think>/g, "").trim(); } catch (e) { /* vuoto */ }
     if (!testo) return json({ errore: "il motore AI non ha restituito testo" }, 502);
 
+    let restanti = null;
+    if (quotaAI) {
+      try { await ut.contaAnalisi(env.DB, ioAI.email); restanti = Math.max(0, quotaAI - (await ut.usoAnalisi(env.DB, ioAI.email))); } catch (e) { /* ok */ }
+    }
     const esito = { testo, aggiornato, fondamentali: Boolean(fond), immagini: immagini.length };
     if (cache) {
       try { ctx.waitUntil(cache.put(chiaveCache, new Response(JSON.stringify(esito), { headers: { "cache-control": "max-age=86400" } }))); } catch (e) { /* ok */ }
     }
-    return json(esito);
+    return json(restanti === null ? esito : { ...esito, analisi_restanti: restanti });
   },
 };

@@ -18,6 +18,8 @@ export async function schema(db) {
     db.prepare("CREATE TABLE IF NOT EXISTS codici (codice TEXT PRIMARY KEY, email TEXT NOT NULL, creato TEXT NOT NULL, scadenza TEXT NOT NULL, usato TEXT)"),
     // Briefing LLM per email: una riga per persona (anche l'amministratore, che non ha riga in `utenti`), chiave = email di accesso.
     db.prepare("CREATE TABLE IF NOT EXISTS briefing (email TEXT PRIMARY KEY, attivo INTEGER NOT NULL DEFAULT 0, indirizzo TEXT)"),
+    // Quota giornaliera delle analisi AI per persona (giorno UTC): conta solo le chiamate vere al motore, non la cache.
+    db.prepare("CREATE TABLE IF NOT EXISTS uso_analisi (email TEXT NOT NULL, giorno TEXT NOT NULL, n INTEGER NOT NULL DEFAULT 0, PRIMARY KEY (email, giorno))"),
   ]);
   pronto = true;
 }
@@ -412,4 +414,25 @@ export async function gestisciUpdate(db, env, update, fetchFn = fetch, ora = new
     return { azione: "scollegato" };
   }
   return { azione: "ignorato" };
+}
+
+// ── Quota giornaliera delle analisi AI ──────────────────────────────────────────────────────────────
+export const QUOTA_ANALISI_DEFAULT = 30;
+export const quotaAnalisi = (env) => { const n = Number(env && env.ANALISI_MAX_GIORNO); return Number.isFinite(n) && n >= 1 ? Math.floor(n) : QUOTA_ANALISI_DEFAULT; };
+export const testoQuotaAnalisi = (max) => `Hai raggiunto il limite di ${max} analisi AI per oggi. Il contatore si azzera ogni notte (alle 01:00 in inverno, 02:00 in estate, ora italiana): riprova domani. Le analisi già fatte restano disponibili dalla cache.`;
+const giornoUtc = (ora) => ora.toISOString().slice(0, 10);
+/** Analisi già usate oggi da questa email. */
+export async function usoAnalisi(db, email, ora = new Date()) {
+  await schema(db);
+  const r = await db.prepare("SELECT n FROM uso_analisi WHERE email=? AND giorno=?").bind(norm(email), giornoUtc(ora)).first();
+  return r ? Number(r.n) : 0;
+}
+/** Registra un'analisi e ripulisce i giorni vecchi (tiene gli ultimi 7). */
+export async function contaAnalisi(db, email, ora = new Date()) {
+  await schema(db);
+  const g = giornoUtc(ora);
+  await db.batch([
+    db.prepare("INSERT INTO uso_analisi (email,giorno,n) VALUES (?,?,1) ON CONFLICT(email,giorno) DO UPDATE SET n=n+1").bind(norm(email), g),
+    db.prepare("DELETE FROM uso_analisi WHERE giorno < ?").bind(giornoUtc(new Date(ora.getTime() - 7 * 864e5))),
+  ]);
 }
