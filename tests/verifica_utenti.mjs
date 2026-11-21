@@ -65,6 +65,20 @@ assert.equal((await ut.riattiva(db, "ignoto@x.it")).ok, false); ok("riattiva: ut
 assert.ok((await ut.riattiva(db, "anna.rossi@example.com")).ok); assert.equal((await ut.elenco(db)).utenti.find((u) => u.email === "anna.rossi@example.com").attivo, 1); ok("riattiva: utente di nuovo attivo senza nuova richiesta");
 await ut.rimuovi(db, {}, "anna.rossi@example.com", async () => ({ ok: true, status: 200, json: async () => ({ success: true, result: {} }) }));
 
+// eliminazione di righe: richieste solo se rifiutate, utenti solo se disattivati
+await ut.richiedi(db, { email: "del@x.it", nome: "Del Test" });
+assert.equal((await ut.eliminaRichiesta(db, "del@x.it")).stato, 409); ok("elimina richiesta: rifiutata prima di eliminare (in attesa → 409)");
+await ut.rifiuta(db, "del@x.it"); assert.ok((await ut.eliminaRichiesta(db, "del@x.it")).ok);
+assert.equal((await ut.elenco(db)).richieste.some((r) => r.email === "del@x.it"), false); ok("elimina richiesta: la riga rifiutata sparisce");
+assert.equal((await ut.eliminaRichiesta(db, "del@x.it")).stato, 404); ok("elimina richiesta: riga inesistente → 404");
+await ut.richiedi(db, { email: "del2@x.it", nome: "Del Due" }); await ut.approva(db, {}, "del2@x.it");
+await ut.salvaBriefing(db, "del2@x.it", { attivo: true, indirizzo: "d2@x.it" });
+assert.equal((await ut.eliminaUtente(db, "del2@x.it")).stato, 409); ok("elimina utente: attivo → 409 (prima Rimuovi accesso)");
+await ut.rimuovi(db, {}, "del2@x.it"); assert.ok((await ut.eliminaUtente(db, "del2@x.it")).ok);
+assert.equal(await db.prepare("SELECT 1 AS x FROM utenti WHERE email=?").bind("del2@x.it").first(), null);
+assert.equal(await db.prepare("SELECT 1 AS x FROM briefing WHERE email=?").bind("del2@x.it").first(), null); ok("elimina utente: spariscono la riga e il briefing");
+assert.equal((await ut.eliminaUtente(db, "del2@x.it")).stato, 404); ok("elimina utente: riga inesistente → 404");
+
 // uid
 assert.equal(ut.creaUid("Zoë Müller", "z@x.it", new Set()), "zoe-muller");
 assert.equal(ut.creaUid("Anna Rossi", "a@x.it", new Set(["anna-rossi"])), "anna-rossi-2");

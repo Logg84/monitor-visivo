@@ -49,6 +49,16 @@ const srv = http.createServer(async (q, r) => {
   ok("utenti: solo l'utente disattivato ha «Riattiva», l'attivo ha «Rimuovi accesso»", await p.locator('button[data-a="riattiva"]').count() === 1 && await p.locator('button[data-a="rimuovi"]').count() === 1 && (await p.locator('button[data-a="riattiva"]').getAttribute("data-e")) === "beppe@x.it");
   await p.click('button[data-a="riattiva"]'); await p.waitForTimeout(500);
   ok("utenti: «Riattiva» invia l'azione e la pagina resta viva", azioni.some((a) => a.azione === "riattiva" && a.email === "beppe@x.it") && (await p.textContent("#sottotitolo")).includes("richieste in attesa"));
+  richieste = [{ nome: "Cici", email: "cici@x.it", creato: "2026-11-20T10:00:00Z", messaggio: "", stato: "rifiutata" }, { nome: "Dodo", email: "dodo@x.it", creato: "2026-11-21T10:00:00Z", messaggio: "", stato: "attesa" }];
+  await p.reload(); await p.waitForTimeout(700);
+  ok("richieste: in attesa → Approva/Rifiuta senza Elimina; rifiutata → Approva/Elimina senza Rifiuta",
+    await p.locator('button[data-a="rifiuta"]').count() === 1 && (await p.locator('button[data-a="rifiuta"]').getAttribute("data-e")) === "dodo@x.it" &&
+    await p.locator('button[data-a="elimina_richiesta"]').count() === 1 && (await p.locator('button[data-a="elimina_richiesta"]').getAttribute("data-e")) === "cici@x.it" && await p.locator('button[data-a="approva"]').count() === 2);
+  ok("utenti: «Elimina» solo per il disattivato (non per l'attivo)", await p.locator('button[data-a="elimina_utente"]').count() === 1 && (await p.locator('button[data-a="elimina_utente"]').getAttribute("data-e")) === "beppe@x.it");
+  await p.click('button[data-a="elimina_richiesta"]'); await p.waitForTimeout(500);
+  ok("richieste: «Elimina» invia l'azione e la pagina resta viva", azioni.some((a) => a.azione === "elimina_richiesta" && a.email === "cici@x.it") && (await p.textContent("#sottotitolo")).includes("utenti attivi"));
+  await p.click('button[data-a="elimina_utente"]'); await p.waitForTimeout(500);
+  ok("utenti: «Elimina» invia l'azione", azioni.some((a) => a.azione === "elimina_utente" && a.email === "beppe@x.it") && (await p.textContent("#sottotitolo")).includes("utenti attivi"));
   await p.screenshot({ path: out + "/utenti.png", fullPage: true });
   // chi non è abilitato: testo leggibile (mai «non_abilitato») e poi la pagina della richiesta
   admin = false; await p.goto("http://localhost:8769/screening.html"); await p.waitForTimeout(900);

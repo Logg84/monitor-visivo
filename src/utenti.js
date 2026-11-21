@@ -206,6 +206,35 @@ export async function riattiva(db, email) {
   await db.prepare("UPDATE utenti SET attivo=1 WHERE email=?").bind(e).run();
   return { ok: true };
 }
+/** Una richiesta si elimina solo dopo che è stata rifiutata. */
+export async function eliminaRichiesta(db, email) {
+  await schema(db);
+  const e = norm(email);
+  const r = await db.prepare("SELECT stato FROM richieste WHERE email=?").bind(e).first();
+  if (!r) return { ok: false, stato: 404, errore: "richiesta non trovata" };
+  if (r.stato !== "rifiutata") return { ok: false, stato: 409, errore: "si possono eliminare solo le richieste rifiutate: prima premi Rifiuta" };
+  await db.prepare("DELETE FROM richieste WHERE email=?").bind(e).run();
+  return { ok: true };
+}
+/** Un utente si elimina solo dopo che gli è stato tolto l'accesso (disattivato). */
+export async function eliminabile(db, email) {
+  await schema(db);
+  const r = await db.prepare("SELECT attivo FROM utenti WHERE email=?").bind(norm(email)).first();
+  if (!r) return { ok: false, stato: 404, errore: "utente non trovato" };
+  if (r.attivo) return { ok: false, stato: 409, errore: "prima togli l'accesso all'utente (Rimuovi accesso): solo dopo potrai eliminarlo" };
+  return { ok: true };
+}
+/** Elimina la riga dell'utente e le sue impostazioni nel portale (briefing, codici Telegram). I file personali nel repo privato restano. */
+export async function eliminaUtente(db, email) {
+  const c = await eliminabile(db, email); if (!c.ok) return c;
+  const e = norm(email);
+  await db.batch([
+    db.prepare("DELETE FROM utenti WHERE email=?").bind(e),
+    db.prepare("DELETE FROM briefing WHERE email=?").bind(e),
+    db.prepare("DELETE FROM codici WHERE email=?").bind(e),
+  ]);
+  return { ok: true };
+}
 export async function rifiuta(db, email) {
   await schema(db);
   await db.prepare("UPDATE richieste SET stato='rifiutata' WHERE email=?").bind(norm(email)).run();

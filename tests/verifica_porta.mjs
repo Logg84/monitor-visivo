@@ -38,4 +38,29 @@ r = await chiama("/api/utenti/azione", "admin@x.it", { azione: "riattiva", email
 r = await chiama("/api/screening", "b@x.it"); assert.notEqual(r.status, 403); ok("riattivato: passa di nuovo la porta, senza nuova richiesta");
 r = await chiama("/api/utenti", "admin@x.it"); j = await r.json(); assert.equal(j.accesso_aperto, true); ok("la pagina Utenti sa che l'accesso è aperto");
 r = await chiama("/api/access-info", "x@x.it"); assert.equal(r.status, 200); ok("diagnosi del login sempre raggiungibile");
+// eliminazione di righe: richieste solo se rifiutate, utenti solo se disattivati; il permesso sul portafoglio condiviso si toglie
+const vecchioFetch = globalThis.fetch, put = []; let editorFile = JSON.stringify({ editors: ["b@x.it", "altro@x.it"] });
+globalThis.fetch = async (url, init = {}) => { url = String(url);
+  if (url.includes("api.github.com") && url.includes("portafoglio_condiviso_editor")) {
+    if (init.method === "PUT") { const c = JSON.parse(init.body); put.push(JSON.parse(Buffer.from(c.content, "base64").toString())); return new Response(JSON.stringify({ content: { sha: "s2" } })); }
+    return new Response(JSON.stringify({ sha: "s1", content: Buffer.from(editorFile).toString("base64") }));
+  } return vecchioFetch(url, init); };
+env.PRIVATE_REPO_TOKEN = "t";
+const az = (da, corpo) => chiama("/api/utenti/azione", da, corpo);
+await chiama("/api/utenti/richiesta", "c@x.it", { nome: "Cici Test" });
+r = await az("admin@x.it", { azione: "elimina_richiesta", email: "c@x.it" }); assert.equal(r.status, 409); ok("elimina richiesta in attesa: rifiutata (prima Rifiuta)");
+await az("admin@x.it", { azione: "rifiuta", email: "c@x.it" });
+r = await az("b@x.it", { azione: "elimina_richiesta", email: "c@x.it" }); assert.equal(r.status, 403); ok("elimina richiesta: vietato a chi non è amministratore");
+r = await az("admin@x.it", { azione: "elimina_richiesta", email: "c@x.it" }); assert.equal(r.status, 200); ok("elimina richiesta rifiutata: ok");
+r = await az("admin@x.it", { azione: "elimina_richiesta", email: "c@x.it" }); assert.equal(r.status, 404); ok("elimina richiesta: già eliminata → 404");
+r = await az("admin@x.it", { azione: "elimina_utente", email: "b@x.it" }); assert.equal(r.status, 409); assert.equal(put.length, 0); ok("elimina utente attivo: rifiutato, nessuna scrittura");
+r = await az("b@x.it", { azione: "elimina_utente", email: "b@x.it" }); assert.equal(r.status, 403); ok("elimina utente: vietato a chi non è amministratore");
+await az("admin@x.it", { azione: "rimuovi", email: "b@x.it" });
+r = await az("admin@x.it", { azione: "elimina_utente", email: "b@x.it" }); assert.equal(r.status, 200);
+assert.equal(put.length, 1); assert.deepEqual(put[0].editors, ["altro@x.it"]); ok("elimina utente disattivato: ok e permesso portafoglio condiviso tolto");
+r = await chiama("/api/screening", "b@x.it"); assert.equal(r.status, 403); j = await r.json(); assert.equal(j.stato, "nuovo"); ok("utente eliminato: è come uno sconosciuto (può rifare la richiesta)");
+r = await az("admin@x.it", { azione: "elimina_utente", email: "b@x.it" }); assert.equal(r.status, 404); ok("elimina utente: già eliminato → 404");
+await chiama("/api/utenti/richiesta", "d@x.it", { nome: "Dido Test" }); await az("admin@x.it", { azione: "approva", email: "d@x.it" }); await az("admin@x.it", { azione: "rimuovi", email: "d@x.it" });
+r = await az("admin@x.it", { azione: "elimina_utente", email: "d@x.it" }); assert.equal(r.status, 200); assert.equal(put.length, 1); ok("elimina utente senza permesso portafoglio: nessuna scrittura inutile");
+globalThis.fetch = vecchioFetch;
 console.log("TUTTI I CHECK PASSATI (verifica_porta)");

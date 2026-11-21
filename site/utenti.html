@@ -46,12 +46,12 @@
     $("nota-access").textContent = d.accesso_aperto ? "Accesso aperto: l'approvazione qui è sufficiente, non serve toccare Cloudflare." : d.access_automatico ? "Le approvazioni aggiungono l'email a Cloudflare Access in automatico." : "⚠️ Cloudflare Access non è collegato: dopo ogni approvazione devi aggiungere tu l'email nella regola di Access (vedi istruzioni).";
     $("rich").innerHTML = "<thead><tr><th>Nome</th><th>Email</th><th>Richiesta</th><th>Messaggio</th><th>Stato</th><th></th></tr></thead><tbody>" +
       (d.richieste.length ? d.richieste.map((x) => `<tr><td>${esc(x.nome)}</td><td>${esc(x.email)}</td><td>${dmy(x.creato)}</td><td style="white-space:normal">${esc(x.messaggio)}</td><td>${esc(x.stato)}</td>
-        <td>${x.stato === "attesa" || x.stato === "rifiutata" ? `<button class="az pri" data-a="approva" data-e="${esc(x.email)}">✅ Approva</button> ${x.stato === "attesa" ? `<button class="az" data-a="rifiuta" data-e="${esc(x.email)}">❌ Rifiuta</button>` : ""}` : ""}</td></tr>`).join("") : '<tr><td colspan="6" class="muted">Nessuna richiesta.</td></tr>') + "</tbody>";
+        <td>${x.stato === "attesa" || x.stato === "rifiutata" ? `<button class="az pri" data-a="approva" data-e="${esc(x.email)}">✅ Approva</button> ` : ""}${x.stato === "attesa" ? `<button class="az" data-a="rifiuta" data-e="${esc(x.email)}">❌ Rifiuta</button>` : ""}${x.stato === "rifiutata" ? `<button class="az" data-a="elimina_richiesta" data-e="${esc(x.email)}">🗑️ Elimina</button>` : ""}</td></tr>`).join("") : '<tr><td colspan="6" class="muted">Nessuna richiesta.</td></tr>') + "</tbody>";
     const ed = new Set((d.editors || []).map((x) => String(x).toLowerCase()));
     $("ute").innerHTML = "<thead><tr><th>Nome</th><th>Email</th><th>Cartella</th><th>Canale alert</th><th>Dal</th><th>Stato</th><th>Portafoglio condiviso</th><th></th></tr></thead><tbody>" +
       (d.utenti.length ? d.utenti.map((u) => `<tr><td>${esc(u.nome || "")}</td><td>${esc(u.email)}</td><td>data/users/${esc(u.uid)}/</td><td>${esc(u.canale)}</td><td>${dmy(u.creato)}</td><td>${u.attivo ? "attivo" : "disattivato"}</td>
         <td>${u.attivo ? `<label><input type="checkbox" data-ed="${esc(u.email)}"${ed.has(String(u.email).toLowerCase()) ? " checked" : ""}> può modificare</label>` : ""}</td>
-        <td>${u.attivo ? `<button class="az" data-a="rimuovi" data-e="${esc(u.email)}">Rimuovi accesso</button>` : `<button class="az pri" data-a="riattiva" data-e="${esc(u.email)}">Riattiva</button>`}</td></tr>`).join("") : '<tr><td colspan="8" class="muted">Nessun utente oltre a te.</td></tr>') + "</tbody>";
+        <td>${u.attivo ? `<button class="az" data-a="rimuovi" data-e="${esc(u.email)}">Rimuovi accesso</button>` : `<button class="az pri" data-a="riattiva" data-e="${esc(u.email)}">Riattiva</button> <button class="az" data-a="elimina_utente" data-e="${esc(u.email)}">🗑️ Elimina</button>`}</td></tr>`).join("") : '<tr><td colspan="8" class="muted">Nessun utente oltre a te.</td></tr>') + "</tbody>";
   }
   document.addEventListener("change", async (ev) => {
     const c = ev.target.closest("input[data-ed]"); if (!c) return;
@@ -63,6 +63,8 @@
   document.addEventListener("click", async (ev) => {
     const b = ev.target.closest("button[data-a]"); if (!b) return;
     if (b.dataset.a === "rimuovi" && !confirm("Rimuovere l'accesso a " + b.dataset.e + "? I suoi dati restano nel repo.")) return;
+    if (b.dataset.a === "elimina_richiesta" && !confirm("Eliminare la richiesta di " + b.dataset.e + "? Potrà inviarne una nuova.")) return;
+    if (b.dataset.a === "elimina_utente" && !confirm("Eliminare definitivamente la riga di " + b.dataset.e + "? I suoi file personali restano nel repo; se rientra dovrà chiedere di nuovo l'accesso.")) return;
     b.disabled = true;
     const r = await api("/api/utenti/azione", { azione: b.dataset.a, email: b.dataset.e });
     if (r.ok) {

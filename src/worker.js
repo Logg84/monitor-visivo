@@ -180,6 +180,20 @@ export async function scriviOverride(env, chiave, valori, utente) {
 }
 
 /** Confronto di stringhe a tempo costante (lunghezze diverse → falso). */
+/** Toglie un'email dalla lista di chi può modificare il portafoglio condiviso (se c'è): un utente eliminato non deve riavere il permesso se rientra. */
+async function togliEditor(env, mail) {
+  for (let t = 0; t < 2; t++) {
+    const f = await leggiFile(env, "editor");
+    if (!f.ok) return { ok: false, errore: f.errore, stato: f.stato || 502 };
+    if (f.assente) return { ok: true };
+    let lista; try { const l = JSON.parse(f.testo).editors; lista = Array.isArray(l) ? l.map((x) => String(x).trim().toLowerCase()) : []; } catch (e) { return { ok: true }; }
+    if (!lista.includes(mail)) return { ok: true };
+    const w = await scriviFile(env, "editor", JSON.stringify({ editors: lista.filter((x) => x !== mail).sort() }, null, 2) + "\n", f.sha, `Portale: permesso portafoglio condiviso tolto a ${mail} (utente eliminato)`);
+    if (w.ok) return { ok: true };
+    if (!w.conflitto) return { ok: false, errore: w.errore, stato: w.stato || 502 };
+  }
+  return { ok: false, errore: "file modificato nel frattempo: riprova", stato: 409 };
+}
 function ugualeCostante(a, b) {
   if (a.length !== b.length) return false;
   let d = 0; for (let i = 0; i < a.length; i++) d |= a.charCodeAt(i) ^ b.charCodeAt(i);
@@ -349,6 +363,19 @@ export default {
           if (!w2.conflitto) return json({ errore: w2.errore }, w2.stato || 502);
         }
         return json({ errore: "file modificato nel frattempo: riprova" }, 409);
+      }
+      if (b.azione === "elimina_richiesta") {                      // solo richieste già rifiutate
+        const r = await ut.eliminaRichiesta(env.DB, b.email);
+        return r.ok ? json(r) : json({ errore: r.errore }, r.stato || 400);
+      }
+      if (b.azione === "elimina_utente") {                         // solo utenti già disattivati; toglie anche il permesso sul portafoglio condiviso
+        const mail = String(b.email || "").trim().toLowerCase();
+        const pre = await ut.eliminabile(env.DB, mail);
+        if (!pre.ok) return json({ errore: pre.errore }, pre.stato || 400);
+        const te = await togliEditor(env, mail);
+        if (!te.ok) return json({ errore: te.errore }, te.stato || 502);
+        const r = await ut.eliminaUtente(env.DB, mail);
+        return r.ok ? json(r) : json({ errore: r.errore }, r.stato || 400);
       }
       if (b.azione === "riattiva") {                               // utente disattivato: torna attivo senza nuova richiesta
         const r = await ut.riattiva(env.DB, b.email);
