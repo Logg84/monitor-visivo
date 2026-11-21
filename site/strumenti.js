@@ -7,6 +7,8 @@
   const sg = (v, d = 1) => (n(v) ? (v > 0 ? "+" : "") + v.toFixed(d) : "n/d");
   const TONO = new Set(["verde", "giallo", "rosso", "arancio", "grigio"]);
   const BREVI = [["Zona Z1 (POC)", "POC"], ["Zona Z2", "Z2"], ["Zona Z3", "Z3"], ["VWAP 60 giorni", "VWAP60"], ["Media mobile 50 giorni", "MA50"], ["Media mobile 200 giorni", "MA200"]];
+  // POC e zone Z1-Z3 usano lo storico settimanale lungo: se il prezzo sta oltre il doppio (+100%) o sotto la metà (−50%) del livello, la distanza non ha senso operativo → non si mostra.
+  const zonaLontana = (nome, dist) => String(nome).startsWith("Zona Z") && n(dist) && (dist > 100 || dist < -50);
   let D, sel = "";
   const breve = (d) => { if (!d) return "—"; let t = String(d.Livello).split(" (ancorato")[0]; for (const [a, b] of BREVI) t = t.replace(a, b); return `${t} ${px(d.Prezzo)}`; };
 
@@ -28,7 +30,8 @@
     }
     const iz = r["In zona"];
     return `<div class="card ${tono}"><div class="h"><b>${esc(x.nome)}</b><span class="tk" data-scheda="${esc(x.simbolo)}" title="Apri il grafico">📈 ${esc(x.simbolo)}</span></div><span class="b">${esc(b.icona)} ${esc(b.etichetta)}</span><div class="p">${px(r.Prezzo)}</div>` +
-      x.distanze.map((d) => `<div class="r"><span>${esc(d.nome)}</span><b>${n(d.dist) ? sg(d.dist) + "%" : "n/d"}</b></div>`).join("") + ruler +
+      x.distanze.filter((d) => !zonaLontana(d.nome, d.dist)).map((d) => `<div class="r"><span>${esc(d.nome)}</span><b>${n(d.dist) ? sg(d.dist) + "%" : "n/d"}</b></div>`).join("") +
+      (x.distanze.some((d) => zonaLontana(d.nome, d.dist)) ? `<div class="r"><span>POC / zone</span><b title="Troppo lontani dal prezzo: storico lungo, non operativi">fuori scala</b></div>` : "") + ruler +
       `<div class="foot">DD 5a ${sg(r["DD 5a %"])}% · Bottom ${esc(r.Bottom)}${n(r.Confluenza) ? " · Confluenza " + esc(r.Confluenza) : ""}${iz && iz !== "—" ? " · in zona " + esc(iz) : ""}</div></div>`;
   };
 
@@ -43,11 +46,13 @@
     const v = (c, x) => typeof x === "boolean" ? (x ? "✓" : "·") : n(x) ? (Number.isInteger(x) ? x : x.toFixed(c.includes("%") || c === "RSI" ? 1 : 2)) : x === null || x === undefined ? "—" : esc(x);
     return ["Indici", "Coppie e materie prime"].map((g) => { const r = D.tabella.filter((x) => x.Gruppo === g); if (!r.length) return "";
       return `<h3 style="font-size:15px;margin:12px 0 4px">${esc(g)}</h3><div class="tabella-wrap"><table><thead><tr>${cols.map((c) => `<th>${esc(c)}</th>`).join("")}</tr></thead><tbody>` +
-        r.map((x) => "<tr>" + cols.map((c) => `<td>${v(c, x[c])}</td>`).join("") + "</tr>").join("") + "</tbody></table></div>"; }).join("");
+        r.map((x) => { const lontano = n(x["Dist. POC %"]) && (x["Dist. POC %"] > 100 || x["Dist. POC %"] < -50);
+          return "<tr>" + cols.map((c) => `<td>${lontano && (c === "POC (Z1)" || c === "Dist. POC %") ? "fuori scala" : v(c, x[c])}</td>`).join("") + "</tr>"; }).join("") + "</tbody></table></div>"; }).join("");
   };
 
   const scala = (lv) => {
-    const v = [...lv].filter((r) => n(r.Prezzo)).sort((a, b) => a.Prezzo - b.Prezzo); if (v.length < 2) return "";
+    const cur = lv.find((r) => String(r.Livello).startsWith("▶")), pc = cur && n(cur.Prezzo) ? cur.Prezzo : null;
+    const v = [...lv].filter((r) => n(r.Prezzo) && !(pc && String(r.Livello).startsWith("Zona Z") && (pc / r.Prezzo > 2 || pc / r.Prezzo < 0.5))).sort((a, b) => a.Prezzo - b.Prezzo); if (v.length < 2) return "";
     const lo = v[0].Prezzo, hi = v[v.length - 1].Prezzo, W = 760, H = 30 * v.length + 20, X = (p) => 10 + (hi === lo ? 0.5 : (p - lo) / (hi - lo)) * (W - 360);
     let s = `<svg viewBox="0 0 ${W} ${H}" style="width:100%;max-width:${W}px;color:var(--testo)" role="img" aria-label="Scala dei livelli">`;
     v.forEach((r, i) => { const y = 20 + 30 * i, pr = String(r.Livello).startsWith("▶");

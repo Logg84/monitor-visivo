@@ -61,6 +61,9 @@ const ko = await ut.approva(db, env, "err@x.it", async () => ({ ok: false, statu
 await ut.rifiuta(db, "err@x.it"); assert.equal((await ut.richiedi(db, { email: "err@x.it", nome: "Err Or" })).nuova, undefined); ok("richiesta rifiutata: nessuna nuova notifica");
 const rm = await ut.rimuovi(db, env, "anna.rossi@example.com", cf); assert.ok(rm.ok); assert.ok(!policy.include.some((x) => x.email.email === "anna.rossi@example.com")); ok("rimozione: email tolta da Access");
 assert.equal((await ut.elenco(db)).utenti.find((u) => u.email === "anna.rossi@example.com").attivo, 0); ok("utente disattivato (dati conservati)");
+assert.equal((await ut.riattiva(db, "ignoto@x.it")).ok, false); ok("riattiva: utente sconosciuto rifiutato");
+assert.ok((await ut.riattiva(db, "anna.rossi@example.com")).ok); assert.equal((await ut.elenco(db)).utenti.find((u) => u.email === "anna.rossi@example.com").attivo, 1); ok("riattiva: utente di nuovo attivo senza nuova richiesta");
+await ut.rimuovi(db, {}, "anna.rossi@example.com", async () => ({ ok: true, status: 200, json: async () => ({ success: true, result: {} }) }));
 
 // uid
 assert.equal(ut.creaUid("Zoë Müller", "z@x.it", new Set()), "zoe-muller");

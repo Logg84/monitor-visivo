@@ -51,6 +51,14 @@ window.Scheda = (() => {
     }
   }
   const zona = (t) => { const m = /([\d.]+)\s*[–-]\s*([\d.]+)/.exec(String(t || "")); return m ? [Number(m[1]), Number(m[2])] : null; };
+  // POC e zone volumetriche usano lo storico lungo: se il livello sta oltre 2× o sotto la metà del prezzo (titolo salito o sceso molto) non è un livello operativo:
+  // non si disegna e non si elenca (il dato resta nell'export). Vale per Z1c (POC) e per le zone Z1/Z2.
+  const fuoriScala = (x, k) => {
+    if (k !== "Z1c" && k !== "Z1" && k !== "Z2") return false;
+    const p = nz(x.Prezzo); let l = nz(x[k]);
+    if (k !== "Z1c") { const z = zona(x[k]); l = z ? (z[0] + z[1]) / 2 : null; }
+    return p !== null && p > 0 && l !== null && l > 0 && (p / l > 2 || p / l < 0.5);
+  };
   // Due etichette di livello più vicine di così (in pixel verticale) si accavallano:
   // sui range stretti le etichette si tolgono (la linea resta), top e bottom mai.
   const SOGLIA_ETICHETTE_PX = 14;
@@ -72,7 +80,12 @@ window.Scheda = (() => {
       for (const [k, v] of voci) { const r = el("div"); r.append(el("span", null, k), el("b", null, v)); s.append(r); } g.append(s); };
     if (sc) {
       const x = sc.extra || {};
-      for (const [t, ks] of SEZ) sez(t, ks.filter((k) => x[k] !== undefined && x[k] !== null && x[k] !== "" && x[k] !== "—").map((k) => [ETI[k] || k, k === "Seg_Punti" ? x[k] + "/6" : fx(x[k])]));
+      for (const [t, ks] of SEZ) {
+        const pieni = ks.filter((k) => x[k] !== undefined && x[k] !== null && x[k] !== "" && x[k] !== "—");
+        const voci = pieni.filter((k) => !fuoriScala(x, k)).map((k) => [ETI[k] || k, k === "Seg_Punti" ? x[k] + "/6" : fx(x[k])]);
+        if (pieni.some((k) => fuoriScala(x, k))) voci.push(["POC e zone volumetriche", "non mostrati: troppo lontani dal prezzo"]);
+        sez(t, voci);
+      }
       sez("Flag del segnale", ["B", "C", "G", "D", "E"].filter((k) => x["Seg_" + k] !== undefined && x["Seg_" + k] !== null).map((k) => [k, x["Seg_" + k] ? "✔" : "·"]));
     }
     if (w) sez("Watchlist", [["Origine", w.origin === "manual" ? "👤 manuale" : "🤖 automatica"], ["Aggiunto", (w.created || "").slice(0, 10)], ["Ultima revisione", (w.last_reviewed || "").slice(0, 10)],
@@ -181,10 +194,10 @@ window.Scheda = (() => {
           linee.push({ prezzo: b.top, nome: "top", colore: css("--verde"), stile: 2, fissa: true });
           linee.push({ prezzo: b.bottom, nome: "bottom", colore: css("--rosso"), stile: 2, fissa: true });
         }
-        if (lv.poc && nz(xx.Z1c) !== null) linee.push({ prezzo: xx.Z1c, nome: "POC", colore: "#f59e0b", stile: 0 });
+        if (lv.poc && nz(xx.Z1c) !== null && !fuoriScala(xx, "Z1c")) linee.push({ prezzo: xx.Z1c, nome: "POC", colore: "#f59e0b", stile: 0 });
         if (lv.vwap && nz(xx.VWAP60) !== null) linee.push({ prezzo: xx.VWAP60, nome: "VWAP60", colore: "#a855f7", stile: 0 });
         if (lv.anc) ["VWA1", "VWA2", "VWA3"].forEach((k, i) => { if (nz(xx[k]) !== null) linee.push({ prezzo: xx[k], nome: "VWAP anc." + (i + 1), colore: "#ec4899", stile: 3 }); });
-        if (lv.zone) for (const [k, col] of [["Z1", "rgba(245,158,11,.13)"], ["Z2", "rgba(245,158,11,.07)"]]) { const z = zona(xx[k]); if (z) c.attachPrimitive(new Rettangolo(barre[0].t, Math.max(...z), Math.min(...z), col)); }
+        if (lv.zone) for (const [k, col] of [["Z1", "rgba(245,158,11,.13)"], ["Z2", "rgba(245,158,11,.07)"]]) { const z = zona(xx[k]); if (z && !fuoriScala(xx, k)) c.attachPrimitive(new Rettangolo(barre[0].t, Math.max(...z), Math.min(...z), col)); }
         if (lv.miei && w && w.levels) for (const k of ["L1", "L2", "L3"]) if (nz(w.levels[k]) !== null && w.levels[k] > 0) linee.push({ prezzo: w.levels[k], nome: k + " (mio)", colore: "#38bdf8", stile: 1 });
         const visibili = [];
         for (const l of linee) {

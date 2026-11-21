@@ -14,12 +14,12 @@ globalThis.fetch = async (url) => { url = String(url); if (url.includes("/certs"
 const env = { ACCESS_TEAM_DOMAIN: DOM, ACCESS_AUD: AUD, ADMIN_EMAILS: "admin@x.it", DB: db, TELEGRAM_BOT_TOKEN: "T", TELEGRAM_CHAT_ID: "9", ASSETS: { fetch: async () => new Response("{}") } };
 const chiama = async (path, email, body) => worker.fetch(new Request("https://x.dev" + path, { method: body ? "POST" : "GET", headers: { "content-type": "application/json", "cf-access-jwt-assertion": await firma({ iss: `https://${DOM}`, aud: [AUD], exp: Math.floor(Date.now() / 1000) + 600, email }) }, body: body ? JSON.stringify(body) : undefined }), env, { waitUntil() {} });
 
-let r = await chiama("/api/screening", "nuovo@x.it"); assert.equal(r.status, 403); assert.equal((await r.json()).errore, "non_abilitato"); ok("sconosciuto: dati riservati bloccati");
+let r = await chiama("/api/screening", "nuovo@x.it"); assert.equal(r.status, 403); const j0 = await r.json(); assert.equal(j0.codice, "non_abilitato"); assert.ok(!j0.errore.includes("non_abilitato") && j0.errore.includes("richiesta di accesso")); ok("sconosciuto: dati riservati bloccati");
 for (const p of ["/api/unificato", "/api/pagina/macro", "/api/dati/watchlist", "/api/utenti"]) { r = await chiama(p, "nuovo@x.it"); assert.equal(r.status, 403, p); } ok("sconosciuto: unificato, pagine, watchlist e utenti bloccati");
 r = await chiama("/api/utenti/me", "nuovo@x.it"); let j = await r.json(); assert.ok(r.status === 200 && j.abilitato === false && j.stato === "nuovo"); ok("/api/utenti/me dice «non abilitato, nuovo»");
 r = await chiama("/api/utenti/richiesta", "nuovo@x.it", { nome: "Nuovo Utente", messaggio: "ciao" }); assert.equal(r.status, 200); assert.equal((await r.json()).stato, "attesa"); assert.equal(tg.length, 1); ok("richiesta con email verificata → in attesa + Telegram");
 r = await chiama("/api/utenti/richiesta", "nuovo@x.it", { nome: "Nuovo Utente" }); assert.equal(tg.length, 1); ok("richiesta ripetuta: nessun secondo avviso");
-r = await chiama("/api/screening", "nuovo@x.it"); assert.equal(r.status, 403); ok("in attesa: ancora bloccato");
+r = await chiama("/api/screening", "nuovo@x.it"); assert.equal(r.status, 403); j = await r.json(); assert.ok(j.stato === "attesa" && j.codice === "non_abilitato" && j.errore.includes("in attesa di approvazione")); ok("in attesa: ancora bloccato, con messaggio leggibile");
 r = await chiama("/api/utenti/richiesta", "admin@x.it", { nome: "Admin" }); assert.equal(r.status, 400); ok("l'admin non fa richieste");
 // admin non è mai bloccato e approva
 r = await chiama("/api/utenti/azione", "admin@x.it", { azione: "approva", email: "nuovo@x.it" }); j = await r.json(); assert.ok(r.status === 200 && j.uid === "nuovo-utente" && j.access === "manuale"); ok("admin approva (Access non aperto: aggiunta manuale segnalata)");
@@ -31,7 +31,11 @@ env.ACCESSO_APERTO = "1";
 await chiama("/api/utenti/richiesta", "b@x.it", { nome: "Beta Test" });
 r = await chiama("/api/utenti/azione", "admin@x.it", { azione: "approva", email: "b@x.it" }); j = await r.json(); assert.equal(j.access, "non_necessario"); ok("accesso aperto: approvazione senza toccare Cloudflare");
 r = await chiama("/api/utenti/azione", "admin@x.it", { azione: "rimuovi", email: "b@x.it" }); j = await r.json(); assert.equal(j.access, "non_necessario");
-r = await chiama("/api/screening", "b@x.it"); assert.equal(r.status, 403); assert.equal((await r.json()).stato, "disattivato"); ok("rimosso: bloccato (disattivato)");
+r = await chiama("/api/screening", "b@x.it"); assert.equal(r.status, 403); j = await r.json(); assert.ok(j.stato === "disattivato" && j.errore.includes("disattivato") && !j.errore.includes("non_abilitato")); ok("rimosso: bloccato (disattivato)");
+r = await chiama("/api/utenti/azione", "b@x.it", { azione: "riattiva", email: "b@x.it" }); assert.equal(r.status, 403); ok("riattiva: vietato a chi non è amministratore");
+r = await chiama("/api/utenti/azione", "admin@x.it", { azione: "riattiva", email: "mai.visto@x.it" }); assert.equal(r.status, 404); ok("riattiva: utente sconosciuto rifiutato");
+r = await chiama("/api/utenti/azione", "admin@x.it", { azione: "riattiva", email: "b@x.it" }); assert.equal(r.status, 200); ok("riattiva: l'amministratore riattiva l'utente disattivato");
+r = await chiama("/api/screening", "b@x.it"); assert.notEqual(r.status, 403); ok("riattivato: passa di nuovo la porta, senza nuova richiesta");
 r = await chiama("/api/utenti", "admin@x.it"); j = await r.json(); assert.equal(j.accesso_aperto, true); ok("la pagina Utenti sa che l'accesso è aperto");
 r = await chiama("/api/access-info", "x@x.it"); assert.equal(r.status, 200); ok("diagnosi del login sempre raggiungibile");
 console.log("TUTTI I CHECK PASSATI (verifica_porta)");

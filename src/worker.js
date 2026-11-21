@@ -214,7 +214,7 @@ export default {
       const io0 = await identita(request, env);
       if (io0 && io0.modalita === "access" && !io0.admin) {
         const st = await ut.statoAccesso(env.DB, io0.email);
-        if (st.stato !== "abilitato") return json({ errore: "non_abilitato", stato: st.stato }, 403);
+        if (st.stato !== "abilitato") return json({ errore: ut.TESTO_PORTA[st.stato] || ut.TESTO_PORTA.nuovo, codice: "non_abilitato", stato: st.stato }, 403);
       }
     }
 
@@ -349,6 +349,11 @@ export default {
           if (!w2.conflitto) return json({ errore: w2.errore }, w2.stato || 502);
         }
         return json({ errore: "file modificato nel frattempo: riprova" }, 409);
+      }
+      if (b.azione === "riattiva") {                               // utente disattivato: torna attivo senza nuova richiesta
+        const r = await ut.riattiva(env.DB, b.email);
+        if (r.ok) await ut.esportaUtentiAlert(env.DB, env);
+        return r.ok ? json(r) : json({ errore: r.errore }, r.stato || 400);
       }
       const r = b.azione === "approva" ? await ut.approva(env.DB, env, b.email)
         : b.azione === "rifiuta" ? await ut.rifiuta(env.DB, b.email)

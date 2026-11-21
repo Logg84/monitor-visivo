@@ -12,6 +12,9 @@
     const u = String(a[0] && a[0].url ? a[0].url : a[0]);
     try {
       const r = await _fetch(...a);
+      if (r.status === 403 && u.includes("/api/") && !/richiedi\.html$/.test(location.pathname)) {   // verificato da Access ma non abilitato: vai alla richiesta
+        r.clone().json().then((j) => { if (j && j.codice === "non_abilitato") setTimeout(() => location.replace("richiedi.html"), 2500); }).catch(() => {});
+      }
       if (u.includes("/api/") && r.status >= 500) banner(`Alcuni dati non sono disponibili (errore ${r.status} del servizio). Riprova fra poco: i numeri che vedi potrebbero essere incompleti.`);
       return r;
     } catch (e) {

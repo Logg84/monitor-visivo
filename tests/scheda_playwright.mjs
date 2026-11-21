@@ -4,7 +4,8 @@ const root = new URL("../site/", import.meta.url).pathname, out = process.argv[2
 const j = (r, o, s = 200) => { r.writeHead(s, { "content-type": "application/json" }); r.end(JSON.stringify(o)); };
 const righe = [
   { ticker: "ADBE", segnale: "WATCH", punti: 4, priorita: "A", extra: { Prezzo: 290.5, "DD%": -35.2, RSI: 41, Z1c: 280, VWAP60: 295, Seg_Punti: 4, Settore: "Tech", Wyckoff: "Acc", Z1: "270.0–290.0" } },
-  { ticker: "ZZZZ", segnale: "—", punti: 0, extra: { Prezzo: 10, "DD%": -50, RSI: 30 } }];
+  { ticker: "ZZZZ", segnale: "—", punti: 0, extra: { Prezzo: 10, "DD%": -50, RSI: 30 } },
+  { ticker: "BEBE", segnale: "WATCH", punti: 3, extra: { Prezzo: 142.39, RSI: 32, Z1c: 12.91, Z1: "7.09–28.02", Z2: "25.70–30.35", VWAP60: 232.73, Seg_Punti: 3 } }];
 const wl = { entries: [{ ticker: "ADBE", origin: "manual", created: "2026-09-16T00:00:00+00:00", levels: { L1: 250 }, sector: "tech" }, { ticker: "AAAA", origin: "auto", created: "2026-09-16T00:00:00+00:00", levels: {} }] };
 const aggiunti = [];
 const srv = http.createServer((q, r) => {
@@ -31,8 +32,13 @@ const srv = http.createServer((q, r) => {
   ok("canvas grafico", !!(await p.$("#scheda-ov canvas")));
   const tx = await p.textContent("#scheda-ov");
   ok("POC e punteggio nella scheda", tx.includes("POC") && tx.includes("4/6"));
+  ok("livelli in scala: POC e zona Z1 di ADBE restano elencati", tx.includes("270.0–290.0") && !tx.includes("troppo lontani"));
   await p.screenshot({ path: out + "/scheda.png" });
   await p.keyboard.press("Escape"); ok("Esc chiude", !(await p.$("#scheda-ov")));
+  await p.click('[data-scheda="BEBE"]'); await p.waitForTimeout(700);
+  const tb = await p.textContent("#scheda-ov");
+  ok("POC e zone fuori scala non elencati, con la spiegazione", !tb.includes("12,91") && !tb.includes("12.91") && !tb.includes("7.09") && !tb.includes("25.70") && tb.includes("troppo lontani dal prezzo") && tb.includes("VWAP"));
+  await p.keyboard.press("Escape");
   await p.click('[data-scheda="ZZZZ"]'); await p.waitForTimeout(600);
   ok("senza serie: messaggio", (await p.textContent("#scheda-ov")).includes("Grafico non disponibile"));
   await p.click("#scheda-ov button:has-text('Aggiungi alla watchlist')"); await p.waitForTimeout(500);

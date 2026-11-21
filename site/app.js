@@ -108,16 +108,24 @@
   const LIV_DEF = { poc: true, vwap: true, anc: false, zone: false, miei: true };
   const nz = (x) => (typeof x === "number" && Number.isFinite(x) ? x : null);
   const zona = (t) => { const m = /([\d.]+)\s*[–-]\s*([\d.]+)/.exec(String(t || "")); return m ? [Number(m[1]), Number(m[2])] : null; };
+  // POC e zone volumetriche usano lo storico lungo: se il livello sta oltre 2× o sotto la metà del prezzo (titolo salito o sceso molto) non è un livello operativo:
+  // non si disegna e non si elenca (il dato resta nell'export). Vale per Z1c (POC) e per le zone Z1/Z2.
+  const fuoriScala = (x, k) => {
+    if (k !== "Z1c" && k !== "Z1" && k !== "Z2") return false;
+    const p = nz(x.Prezzo); let l = nz(x[k]);
+    if (k !== "Z1c") { const z = zona(x[k]); l = z ? (z[0] + z[1]) / 2 : null; }
+    return p !== null && p > 0 && l !== null && l > 0 && (p / l > 2 || p / l < 0.5);
+  };
   function livelliDi(g) {
     const x = (scr[g.ticker] || {}).extra || {}, w = wl[g.ticker], o = { ...LIV_DEF, ...(g.lv || {}) }, linee = [], bande = [];
-    if (o.poc && nz(x.Z1c) !== null) linee.push({ prezzo: x.Z1c, nome: "POC", colore: "#f59e0b", stile: 0 });
+    if (o.poc && nz(x.Z1c) !== null && !fuoriScala(x, "Z1c")) linee.push({ prezzo: x.Z1c, nome: "POC", colore: "#f59e0b", stile: 0 });
     if (o.vwap) {
       if (nz(x.VWAP60) !== null) linee.push({ prezzo: x.VWAP60, nome: "VWAP60", colore: "#a855f7", stile: 0 });
     }
     if (o.anc) {
       ["VWA1", "VWA2", "VWA3"].forEach((k, i) => { if (nz(x[k]) !== null) linee.push({ prezzo: x[k], nome: "VWAP anc." + (i + 1), colore: "#ec4899", stile: 3 }); });
     }
-    if (o.zone) for (const [k, c] of [["Z1", "rgba(245,158,11,.13)"], ["Z2", "rgba(245,158,11,.07)"]]) { const z = zona(x[k]); if (z) bande.push({ top: Math.max(...z), bottom: Math.min(...z), colore: c }); }
+    if (o.zone) for (const [k, c] of [["Z1", "rgba(245,158,11,.13)"], ["Z2", "rgba(245,158,11,.07)"]]) { const z = zona(x[k]); if (z && !fuoriScala(x, k)) bande.push({ top: Math.max(...z), bottom: Math.min(...z), colore: c }); }
     if (o.miei && w && w.levels) for (const k of ["L1", "L2", "L3"]) if (nz(w.levels[k]) !== null && w.levels[k] > 0) linee.push({ prezzo: w.levels[k], nome: k + " (mio)", colore: "#38bdf8", stile: 1 });
     return { linee, bande };
   }
@@ -144,7 +152,12 @@
     };
     if (sc) {
       const x = { ...(sc.extra || {}) };
-      for (const [t, ks] of SEZ) sezione(t, ks.filter((k) => x[k] !== undefined && x[k] !== null && x[k] !== "" && x[k] !== "—").map((k) => [ETI_X[k] || k, k === "Seg_Punti" ? x[k] + "/6" : fx(x[k])]));
+      for (const [t, ks] of SEZ) {
+        const pieni = ks.filter((k) => x[k] !== undefined && x[k] !== null && x[k] !== "" && x[k] !== "—");
+        const voci = pieni.filter((k) => !fuoriScala(x, k)).map((k) => [ETI_X[k] || k, k === "Seg_Punti" ? x[k] + "/6" : fx(x[k])]);
+        if (pieni.some((k) => fuoriScala(x, k))) voci.push(["POC e zone volumetriche", "non mostrati: troppo lontani dal prezzo"]);
+        sezione(t, voci);
+      }
       sezione("Flag del segnale", ["B", "C", "G", "D", "E"].filter((k) => x["Seg_" + k] !== undefined && x["Seg_" + k] !== null).map((k) => [k, x["Seg_" + k] ? "✔" : "·"]));
     }
     if (w) sezione("Watchlist", [["Origine", w.origin === "manual" ? "👤 manuale" : "🤖 automatica"], ["Aggiunto", (w.created || "").slice(0, 10)], ["Ultima revisione", (w.last_reviewed || "").slice(0, 10)],

@@ -67,6 +67,14 @@ export async function inviaTelegram(env, testo, fetchFn = fetch) {
 }
 export async function notificaTelegram(env, testo, fetchFn = fetch) { return (await inviaTelegram(env, testo, fetchFn)).ok; }
 
+/** Testi mostrati a chi passa da Access ma non è abilitato (il Worker li mette in «errore», il codice resta in «codice»). */
+export const TESTO_PORTA = {
+  attesa: "La tua richiesta di accesso è in attesa di approvazione. Appena approvata, ricarica la pagina.",
+  rifiutata: "La richiesta di accesso non è stata approvata. Contatta il responsabile.",
+  disattivato: "Il tuo accesso è stato disattivato. Contatta il responsabile.",
+  nuovo: "Non sei ancora abilitato: invia la richiesta di accesso dalla pagina «Richiedi accesso».",
+};
+
 /** Stato di un'email già autenticata da Access: abilitato | disattivato | attesa | rifiutata | nuovo. Non crea nulla. */
 export async function statoAccesso(db, email) {
   await schema(db);
@@ -188,6 +196,15 @@ export async function approva(db, env, email, fetchFn = fetch, ora = new Date())
     db.prepare("DELETE FROM richieste WHERE email=?").bind(e),
   ]);
   return { ok: true, uid, access: a.nonNecessario ? "non_necessario" : a.manuale ? "manuale" : "aggiunto" };
+}
+/** Riattiva un utente rimosso o disattivato (non serve una nuova richiesta). */
+export async function riattiva(db, email) {
+  await schema(db);
+  const e = norm(email);
+  const r = await db.prepare("SELECT email FROM utenti WHERE email=?").bind(e).first();
+  if (!r) return { ok: false, stato: 404, errore: "utente non trovato" };
+  await db.prepare("UPDATE utenti SET attivo=1 WHERE email=?").bind(e).run();
+  return { ok: true };
 }
 export async function rifiuta(db, email) {
   await schema(db);
