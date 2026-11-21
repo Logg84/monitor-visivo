@@ -15,7 +15,7 @@
   const num = (n) => (nz(n) === null ? "n/d" : String(Math.round(n)));
 
   const window_Livelli = () => (typeof module !== "undefined" && module.exports ? require("./livelli.js") : radice.Livelli) || { controlla: () => ({ avvisi: [], distanze: {} }) };
-  const LIM = { candidati: 40, insider: 12, eventi: 25, giorniEventi: 21 };
+  const LIM = { candidati: 40, insider: 12, eventi: 25, giorniEventi: 21, basi: 120 };
 
   function rangeDi(indice, ticker, tf) {
     const b = ((indice && indice.basi) || []).find((x) => x.chiave === `${ticker}|${tf}`);
@@ -222,10 +222,50 @@
     return o;
   }
 
+  // 9. Basi di accumulo: le stesse basi (range) dei grafici del portale, in forma numerica. Fonte: index.json (campo basi) + livelli volumetrici dello screening.
+  function sezBasi(ind, sc) {
+    let o = `## 9. Basi di accumulo (range dei grafici del portale)\n\n`;
+    const basi = ind && Array.isArray(ind.basi) ? ind.basi : null;
+    if (!basi || !basi.length) return o + "_Non disponibile._\n\n";
+    const scr = {}; for (const r of (sc && sc.righe) || []) scr[r.ticker] = r;
+    const ordStato = { tenuto: 0, in_attesa: 1, rientro: 2 };
+    const righe = [];
+    let obsoleti = 0;
+    for (const b of basi) {
+      const [tk, tf] = String(b.chiave || "").split("|");
+      if (!tk || nz(b.top) === null || nz(b.bottom) === null || !(b.top > b.bottom) || nz(b.ultimo) === null) continue;
+      const u = b.ultimo;
+      if (u > b.top * 2 || u < b.bottom * 0.5) { obsoleti++; continue; }       // stessa regola del portale: prezzo troppo lontano = range non operativo
+      const rt = b.ritorni && typeof b.ritorni === "object" ? b.ritorni : null;
+      const e = (scr[tk] && scr[tk].extra) || {};
+      const poc = nz(e.Z1c) !== null && !(e.Z1c > u * 2 || e.Z1c < u * 0.5) ? e.Z1c : null;
+      const zoneOk = nz(e.Z1c) === null || poc !== null;
+      righe.push({ tk, tf, b, u, rt, poc, e, zoneOk, ord: rt && rt.esito in ordStato ? ordStato[rt.esito] : 3 });
+    }
+    // Prima le uscite con retest tenuto, poi in attesa di retest, poi rientrate, poi le altre; a parità: stato e ticker.
+    righe.sort((a, b) => a.ord - b.ord || String(a.b.stato).localeCompare(String(b.b.stato)) || a.tk.localeCompare(b.tk) || a.tf.localeCompare(b.tf));
+    const conteggio = (st) => righe.filter((r) => r.b.stato === st).length;
+    o += `${agg(ind)}Basi attive: ${righe.length} (${conteggio("uscito_sopra")} uscite sopra il massimo, ${conteggio("in_range")} dentro il range, ${conteggio("rallenta")} con range che si stringe, ${conteggio("uscito_sotto")} uscite sotto il minimo)` +
+      `${obsoleti ? `; escluse ${obsoleti} con prezzo troppo lontano dal range (range obsoleto)` : ""}.\n\n` +
+      `Definizioni: base di accumulo = fase laterale dopo un forte calo, con minimo e massimo del range (Bottom, Top). «Ampiezza» = (Top−Bottom)/Top in %; «Barre» = durata del range; «Calo prima» = calo che ha preceduto il range. «Pos. nel range» = 0% sul minimo, 100% sul massimo (oltre 100% = sopra il massimo, negativa = sotto il minimo). ` +
+      `Stati: in_range = prezzo dentro; rallenta = il range si stringe; uscito_sopra / uscito_sotto = uscita dal range. «Retest» = dopo un'uscita sopra, il prezzo torna a ≤ 2% dal vecchio massimo chiudendo comunque sopra: «tenuto» = ha tenuto il livello (n = volte, date), «in attesa» = nessun ritorno ancora, «rientro» = è rientrato nel range (uscita fallita). ` +
+      `POC = punto di maggior volume (centro della zona volumetrica 1) e Z1/Z2 = zone volumetriche del titolo, dallo screening: presenti solo se il titolo è nello screening e se vicini al prezzo (altrimenti «fuori scala» o «—»). Valuta: quella di quotazione.\n\n`;
+    if (!righe.length) return o + "_Nessuna base attiva._\n\n";
+    const tot = righe.length, mostra = righe.slice(0, LIM.basi);
+    o += tab(["Ticker", "TF", "Stato", "Bottom", "Top", "Ampiezza %", "Barre", "Inizio", "Calo prima %", "Ultimo prezzo", "Pos. nel range %", "Data uscita", "Retest", "Date retest", "POC", "Z1", "Z2", "Punti screening"],
+      mostra.map((r) => { const b = r.b, rt = r.rt, pos = (r.u - b.bottom) / (b.top - b.bottom) * 100, sr = scr[r.tk];
+        return [r.tk, r.tf === "1W" ? "settimanale" : "giornaliero", b.stato, px(b.bottom), px(b.top), f(nz(b.ampiezza) === null ? null : b.ampiezza * 100, 1), num(b.barre), data(b.inizio), f(nz(b.calo) === null ? null : b.calo * 100, 0), px(r.u), f(pos, 0),
+          data(b.uscita_data || b.uscito_il), rt ? (rt.esito === "rientro" ? `rientro${rt.n ? ` dopo ${rt.n} retest` : ""}` : rt.esito === "in_attesa" || !rt.n ? "in attesa" : `tenuto (${rt.n})`) : "n/d",
+          rt && Array.isArray(rt.date) && rt.date.length ? rt.date.map(data).join(", ") : "—", r.poc !== null ? px(r.poc) : nz(r.e.Z1c) !== null ? "fuori scala" : "—",
+          r.zoneOk ? t(r.e.Z1) || "—" : "fuori scala", r.zoneOk ? t(r.e.Z2) || "—" : "fuori scala", sr && nz(sr.punti) !== null ? `${sr.punti}/6` : "—"]; })) + "\n";
+    if (tot > mostra.length) o += `Elenco limitato alle prime ${mostra.length} basi su ${tot} (ordine: retest tenuto, in attesa, rientro, poi le altre).\n\n`;
+    return o;
+  }
+
   function costruisci(ctx, opz) {
     const c = ctx || {}, o = Object.assign({ istruzioni: true, watchlist: true, portafoglio: true }, opz || {});
     const ora = c.ora || new Date().toISOString().slice(0, 16).replace("T", " ") + " UTC";
-    const parti = [sezIntro(c, ora), o.istruzioni === false ? "" : sezIstruzioni(), sezRegime(c.macro), sezSettori(c.settori), sezStrumenti(c.strumenti), sezScreening(c.screening, c.indice), sezInsider(c.insider), sezCalendario(c.calendario, ora), sezPersonali(c, o)];
+    const parti = [sezIntro(c, ora), o.istruzioni === false ? "" : sezIstruzioni(), sezRegime(c.macro), sezSettori(c.settori), sezStrumenti(c.strumenti), sezScreening(c.screening, c.indice), sezInsider(c.insider), sezCalendario(c.calendario, ora), sezPersonali(c, o), sezBasi(c.indice, c.screening)];
     return parti.join("").replace(/\n{3,}/g, "\n\n").trim() + "\n";
   }
   const api = { costruisci };

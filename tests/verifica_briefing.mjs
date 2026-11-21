@@ -42,7 +42,7 @@ const senza = costruisci(ctx, { watchlist: false, portafoglio: false });
 ok("opzioni: senza watchlist e portafoglio le sezioni 7 e 8 non ci sono", !/## 7\./.test(senza) && !/## 8\./.test(senza) && /## 6\./.test(senza));
 
 const vuoto = costruisci({ ora: "2026-11-14 14:00 UTC", macro: null, settori: null, strumenti: null, screening: null, insider: null, calendario: null, watchlist: null, portafoglio: null, errori: ["regime macro", "screening"] });
-ok("fonti mancanti: nessuna eccezione, ogni sezione dichiara «Non disponibile», elenco errori in testa", (vuoto.match(/_Non disponibile\._/g) || []).length === 8 && /Fonti non disponibili in questo briefing: regime macro; screening/.test(vuoto));
+ok("fonti mancanti: nessuna eccezione, ogni sezione dichiara «Non disponibile», elenco errori in testa", (vuoto.match(/_Non disponibile\._/g) || []).length === 9 && /Fonti non disponibili in questo briefing: regime macro; screening/.test(vuoto));
 ok("input vuoto: non lancia", typeof costruisci() === "string" && typeof costruisci({}, {}) === "string");
 ok("istruzioni: cercare FUORI dal file, per titolo e per macro, con fonti citate e etichette", /## 0\. Istruzioni per l'LLM/.test(md) && /anche FUORI dal file/.test(md) && /notizie e comunicati degli ultimi 30 giorni/.test(md) && /prossimo bilancio/.test(md) && /cita ogni fonte esterna/i.test(md) && /dato esterno verificato/.test(md) && /Non inventare numeri/.test(md));
 ok("istruzioni: la spunta le toglie (sezione 0 assente)", !/## 0\./.test(costruisci(ctx, { istruzioni: false })) && /anche FUORI dal file/.test(md));
@@ -76,4 +76,24 @@ const macroVuoto = costruisci({ ...ctx, ora: "2027-06-01 08:00 UTC", calendario:
 ok("macro programmati: elenco vuoto nel periodo → lo dice", /Nessun evento macro programmato nel periodo/.test(macroVuoto));
 ok("insider: elenco completo degli acquisti dei titoli con cluster", /Tutti gli acquisti dei titoli con cluster/.test(sez(5)) && (sez(5).split("| AAA |").length - 1) >= 2);
 ok("nessun imperativo operativo nel testo fisso («compra», «vendi»)", !/\b(compra|vendi|acquista|apri una posizione)\b/i.test(md.replace(/\| [^\n]*\n/g, "")));
+
+// ── 9. Basi di accumulo ──
+const ixBasi = { aggiornato: "2026-11-20T22:30:45+00:00", titoli: {}, basi: [
+  { chiave: "AAA|1D", stato: "uscito_sopra", bottom: 70, top: 90, ultimo: 100, ampiezza: 0.22, barre: 40, calo: 0.5, inizio: "2026-09-01", uscita_data: "2026-10-20", ritorni: { n: 2, date: ["2026-11-05", "2026-11-12"], esito: "tenuto" } },
+  { chiave: "AAA|1W", stato: "in_range", bottom: 80, top: 120, ultimo: 100, ampiezza: 0.33, barre: 20 },
+  { chiave: "BBB|1D", stato: "uscito_sopra", bottom: 10, top: 12, ultimo: 11.5, ritorni: { n: 0, date: [], esito: "in_attesa" } },
+  { chiave: "OLD|1D", stato: "uscito_sopra", bottom: 10, top: 12, ultimo: 90 },
+  { chiave: "ZZZ|1D", stato: "uscito_sopra", bottom: 5, top: 6, ultimo: 6.2, ritorni: { n: 1, date: ["2026-11-10"], esito: "rientro" } },
+] };
+const scBasi = { data: "2026-11-20", righe: [{ ticker: "AAA", punti: 5, extra: { Z1c: 95, Z1: "92-98 · forte", Z2: "60-65 · media" } }, { ticker: "BBB", punti: 4, extra: { Z1c: 300, Z1: "x", Z2: "y" } }] };
+const mb = costruisci({ ...ctx, indice: ixBasi, screening: scBasi }); const sb = (() => { const i = mb.indexOf("## 9."); return mb.slice(i); })();
+ok("basi: sezione 9 con data di aggiornamento, definizioni e conteggi", /## 9\. Basi di accumulo/.test(sb) && /Dati aggiornati al: 2026-11-20/.test(sb) && /Basi attive: 4/.test(sb) && /escluse 1 con prezzo troppo lontano/.test(sb) && /Definizioni:/.test(sb));
+ok("basi: il range obsoleto non compare in tabella", !/\| OLD \|/.test(sb));
+ok("basi: retest tenuto con numero e date, ordinato per primo", /\| AAA \| giornaliero \| uscito_sopra \| 70\.00 \| 90\.00 \| 22\.0 \| 40 \| 2026-09-01 \| 50 \| 100\.00 \| 150 \| 2026-10-20 \| tenuto \(2\) \| 2026-11-05, 2026-11-12 \| 95\.00 \| 92-98 · forte \| 60-65 · media \| 5\/6 \|/.test(sb) && sb.indexOf("| AAA | giornaliero") < sb.indexOf("| BBB |"));
+ok("basi: in attesa e rientro", /\| BBB \| giornaliero .* in attesa \|/.test(sb) && /\| ZZZ \| giornaliero .* rientro dopo 1 retest \|/.test(sb));
+ok("basi: POC e zone fuori scala non vengono mostrati", /\| BBB \|.*fuori scala \| fuori scala \| fuori scala \| 4\/6 \|/.test(sb));
+ok("basi: timeframe settimanale (livelli dello screening ripetuti) e titolo fuori dallo screening senza livelli", /\| AAA \| settimanale \| in_range .* \| 95\.00 \|/.test(sb) && /\| ZZZ \| giornaliero .* \| — \| — \| — \| — \|/.test(sb));
+const senzaIx = costruisci({ ...ctx, indice: null }); ok("basi: senza index.json lo dichiara e il resto resta valido", /## 9\. Basi di accumulo[^\n]*\n\n_Non disponibile\._/.test(senzaIx) && /## 4\./.test(senzaIx));
+const molte = costruisci({ ...ctx, indice: { aggiornato: "2026-11-20", basi: Array.from({ length: 150 }, (_, i) => ({ chiave: `T${String(i).padStart(3, "0")}|1D`, stato: "in_range", bottom: 10, top: 12, ultimo: 11 })) }, screening: null });
+ok("basi: elenco limitato a 120 con avviso", /Elenco limitato alle prime 120 basi su 150/.test(molte) && (molte.match(/\| T\d{3} \|/g) || []).length === 120);
 console.log(`\nVERIFICA BRIEFING: ${n} controlli ok`);
