@@ -1,5 +1,5 @@
 {
- "aggiornato": "2026-11-16",
+ "aggiornato": "2026-11-23",
  "dati": {
   "beta": 0.2,
   "bilancio_annuale": {
@@ -27,24 +27,24 @@
   "debito_netto": 4054000256,
   "debito_netto_su_ebitda": 2.08,
   "debtToEquity": 590.213,
-  "dividendYield": 2.86,
+  "dividendYield": 3.03,
   "earningsGrowth": 0.089,
   "ebitda": 1947000064,
-  "enterpriseToEbitda": 12.496,
-  "fiftyTwoWeekHigh": 95.0,
+  "enterpriseToEbitda": 11.698,
+  "fiftyTwoWeekHigh": 93.38,
   "fiftyTwoWeekLow": 54.64,
   "financialCurrency": "EUR",
-  "forwardPE": 14.6556,
+  "forwardPE": 13.5327,
   "freeCashflow": 1247874944,
   "grossMargins": 0.7407,
   "industry": "Specialty Business Services",
   "longName": "Wolters Kluwer N.V.",
-  "marketCap": 20205914112,
+  "marketCap": 18657773568,
   "numberOfAnalystOpinions": 16,
   "operatingCashflow": 1692000000,
   "operatingMargins": 0.2555,
   "payoutRatio": 0.4308,
-  "priceToBook": 21.5721,
+  "priceToBook": 19.9193,
   "profitMargins": 0.2186,
   "quickRatio": 0.675,
   "recommendationKey": "buy",
@@ -55,7 +55,7 @@
   "targetMeanPrice": 96.3125,
   "totalCash": 1494000000,
   "totalDebt": 5548000256,
-  "trailingPE": 15.5282
+  "trailingPE": 14.3385
  },
  "v": 2
 }

@@ -1,5 +1,5 @@
 {
- "aggiornato": "2026-11-16",
+ "aggiornato": "2026-11-23",
  "dati": {
   "beta": 0.924,
   "bilancio_annuale": {
@@ -27,24 +27,24 @@
   "debito_netto": 6328100096,
   "debito_netto_su_ebitda": 3.01,
   "debtToEquity": 298.448,
-  "dividendYield": 1.58,
+  "dividendYield": 1.68,
   "earningsGrowth": 0.113,
   "ebitda": 2099800064,
-  "enterpriseToEbitda": 13.216,
+  "enterpriseToEbitda": 12.63,
   "fiftyTwoWeekHigh": 175.19,
   "fiftyTwoWeekLow": 97.12,
   "financialCurrency": "USD",
-  "forwardPE": 13.3184,
+  "forwardPE": 13.6589,
   "freeCashflow": 867612480,
   "grossMargins": 0.21,
   "industry": "Information Technology Services",
   "longName": "CDW Corporation",
-  "marketCap": 20695881728,
+  "marketCap": 21225072640,
   "numberOfAnalystOpinions": 9,
   "operatingCashflow": 1052300032,
   "operatingMargins": 0.0734,
   "payoutRatio": 0.294,
-  "priceToBook": 7.8636,
+  "priceToBook": 8.0647,
   "profitMargins": 0.0448,
   "quickRatio": 1.115,
   "recommendationKey": "buy",
@@ -55,7 +55,7 @@
   "targetMeanPrice": 185.8889,
   "totalCash": 1538700032,
   "totalDebt": 7866800128,
-  "trailingPE": 19.3489
+  "trailingPE": 19.8436
  },
  "v": 2
 }

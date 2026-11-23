@@ -1,0 +1,61 @@
+{
+ "aggiornato": "2026-11-23",
+ "dati": {
+  "beta": 1.743,
+  "bilancio_annuale": {
+   "ricavi": {
+    "2022": 81462000000.0,
+    "2023": 96773000000.0,
+    "2024": 97690000000.0,
+    "2025": 94827000000.0
+   },
+   "utile_netto": {
+    "2022": 12583000000.0,
+    "2023": 14999000000.0,
+    "2024": 7130000000.0,
+    "2025": 3794000000.0
+   },
+   "utile_operativo": {
+    "2022": 13832000000.0,
+    "2023": 8891000000.0,
+    "2024": 7760000000.0,
+    "2025": 4849000000.0
+   }
+  },
+  "currency": "USD",
+  "currentRatio": 1.739,
+  "debito_netto": -29002000384,
+  "debito_netto_su_ebitda": -2.95,
+  "debtToEquity": 18.295,
+  "dividendYield": 0.0,
+  "earningsGrowth": -0.436,
+  "ebitda": 9838000128,
+  "enterpriseToEbitda": 136.058,
+  "fiftyTwoWeekHigh": 498.83,
+  "fiftyTwoWeekLow": 297.38,
+  "financialCurrency": "USD",
+  "forwardPE": 178.5182,
+  "freeCashflow": 4967249920,
+  "grossMargins": 0.1929,
+  "industry": "Auto Manufacturers",
+  "longName": "Tesla, Inc.",
+  "marketCap": 1523630080000,
+  "numberOfAnalystOpinions": 40,
+  "operatingCashflow": 18709999616,
+  "operatingMargins": 0.0303,
+  "payoutRatio": 0.0,
+  "priceToBook": 17.0648,
+  "profitMargins": 0.0311,
+  "quickRatio": 1.239,
+  "recommendationKey": "buy",
+  "returnOnAssets": 0.0135,
+  "returnOnEquity": 0.0384,
+  "revenueGrowth": -0.002,
+  "sector": "Consumer Cyclical",
+  "targetMeanPrice": 417.5263,
+  "totalCash": 45447000064,
+  "totalDebt": 16444999680,
+  "trailingPE": 423.5824
+ },
+ "v": 2
+}

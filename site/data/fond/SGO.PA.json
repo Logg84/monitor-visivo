@@ -1,0 +1,61 @@
+{
+ "aggiornato": "2026-11-23",
+ "dati": {
+  "beta": 1.233,
+  "bilancio_annuale": {
+   "ricavi": {
+    "2022": 51197000000.0,
+    "2023": 47944000000.0,
+    "2024": 46571000000.0,
+    "2025": 46483000000.0
+   },
+   "utile_netto": {
+    "2022": 3003000000.0,
+    "2023": 2669000000.0,
+    "2024": 2844000000.0,
+    "2025": 2883000000.0
+   },
+   "utile_operativo": {
+    "2022": 5160000000.0,
+    "2023": 4990000000.0,
+    "2024": 4995000000.0,
+    "2025": 4953000000.0
+   }
+  },
+  "currency": "EUR",
+  "currentRatio": 1.272,
+  "debito_netto": 11518999552,
+  "debito_netto_su_ebitda": 1.75,
+  "debtToEquity": 66.318,
+  "dividendYield": 3.23,
+  "earningsGrowth": -0.12,
+  "ebitda": 6579999744,
+  "enterpriseToEbitda": 7.292,
+  "fiftyTwoWeekHigh": 91.3,
+  "fiftyTwoWeekLow": 63.52,
+  "financialCurrency": "EUR",
+  "forwardPE": 11.1378,
+  "freeCashflow": 3101625088,
+  "grossMargins": 0.2717,
+  "industry": "Building Products & Equipment",
+  "longName": "Compagnie de Saint-Gobain S.A.",
+  "marketCap": 35664539648,
+  "numberOfAnalystOpinions": 16,
+  "operatingCashflow": 5327000064,
+  "operatingMargins": 0.1077,
+  "payoutRatio": 0.4267,
+  "priceToBook": 1.4103,
+  "profitMargins": 0.0578,
+  "quickRatio": 0.745,
+  "recommendationKey": "buy",
+  "returnOnAssets": 0.051,
+  "returnOnEquity": 0.1104,
+  "revenueGrowth": -0.011,
+  "sector": "Industrials",
+  "targetMeanPrice": 93.4,
+  "totalCash": 5751000064,
+  "totalDebt": 17269999616,
+  "trailingPE": 13.9163
+ },
+ "v": 2
+}

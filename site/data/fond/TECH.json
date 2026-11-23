@@ -1,5 +1,5 @@
 {
- "aggiornato": "2026-11-16",
+ "aggiornato": "2026-11-23",
  "dati": {
   "beta": 1.275,
   "bilancio_annuale": {
@@ -30,21 +30,21 @@
   "dividendYield": 0.44,
   "earningsGrowth": -0.25,
   "ebitda": 325379008,
-  "enterpriseToEbitda": 34.946,
-  "fiftyTwoWeekHigh": 72.88,
+  "enterpriseToEbitda": 34.883,
+  "fiftyTwoWeekHigh": 72.89,
   "fiftyTwoWeekLow": 43.2,
   "financialCurrency": "USD",
-  "forwardPE": 31.4791,
+  "forwardPE": 31.4834,
   "freeCashflow": 277756992,
   "grossMargins": 0.6617,
   "industry": "Biotechnology",
   "longName": "Bio-Techne Corporation",
-  "marketCap": 11434633216,
+  "marketCap": 11436205056,
   "numberOfAnalystOpinions": 10,
   "operatingCashflow": 337600992,
   "operatingMargins": 0.2169,
   "payoutRatio": 0.2936,
-  "priceToBook": 5.2788,
+  "priceToBook": 5.2796,
   "profitMargins": 0.14,
   "quickRatio": 1.534,
   "recommendationKey": "hold",
@@ -55,7 +55,7 @@
   "targetMeanPrice": 70.5,
   "totalCash": 351128000,
   "totalDebt": 285555008,
-  "trailingPE": 66.7798
+  "trailingPE": 66.789
  },
  "v": 2
 }

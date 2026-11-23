@@ -1,0 +1,61 @@
+{
+ "aggiornato": "2026-11-23",
+ "dati": {
+  "beta": 1.158,
+  "bilancio_annuale": {
+   "ricavi": {
+    "2022": 16947400000.0,
+    "2023": 15781100000.0,
+    "2024": 15365700000.0,
+    "2025": 15130400000.0
+   },
+   "utile_netto": {
+    "2022": 1062500000.0,
+    "2023": -310500000.0,
+    "2024": 294300000.0,
+    "2025": 401900000.0
+   },
+   "utile_operativo": {
+    "2022": 914100000.0,
+    "2023": 641900000.0,
+    "2024": 1181700000.0,
+    "2025": 1255400000.0
+   }
+  },
+  "currency": "USD",
+  "currentRatio": 1.42,
+  "debito_netto": 4408899968,
+  "debito_netto_su_ebitda": 2.69,
+  "debtToEquity": 58.249,
+  "dividendYield": 3.15,
+  "earningsGrowth": 4.388,
+  "ebitda": 1640800000,
+  "enterpriseToEbitda": 12.349,
+  "fiftyTwoWeekHigh": 122.68,
+  "fiftyTwoWeekLow": 65.5,
+  "financialCurrency": "USD",
+  "forwardPE": 16.8296,
+  "freeCashflow": 1942300032,
+  "grossMargins": 0.3216,
+  "industry": "Tools & Accessories",
+  "longName": "Stanley Black & Decker, Inc.",
+  "marketCap": 16466619392,
+  "numberOfAnalystOpinions": 11,
+  "operatingCashflow": 1988499968,
+  "operatingMargins": 0.0765,
+  "payoutRatio": 0.5968,
+  "priceToBook": 1.8623,
+  "profitMargins": 0.0553,
+  "quickRatio": 0.467,
+  "recommendationKey": "hold",
+  "returnOnAssets": 0.0348,
+  "returnOnEquity": 0.0944,
+  "revenueGrowth": -0.007,
+  "sector": "Industrials",
+  "targetMeanPrice": 115.2727,
+  "totalCash": 741200000,
+  "totalDebt": 5150099968,
+  "trailingPE": 19.8459
+ },
+ "v": 2
+}

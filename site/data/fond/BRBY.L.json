@@ -1,5 +1,5 @@
 {
- "aggiornato": "2026-11-16",
+ "aggiornato": "2026-11-23",
  "dati": {
   "beta": 0.664,
   "bilancio_annuale": {
@@ -29,21 +29,21 @@
   "debtToEquity": 158.559,
   "dividendYield": 0.0,
   "ebitda": 311000000,
-  "enterpriseToEbitda": 16.726,
+  "enterpriseToEbitda": 16.375,
   "fiftyTwoWeekHigh": 1376.5,
   "fiftyTwoWeekLow": 953.4,
   "financialCurrency": "GBP",
-  "forwardPE": 20.982,
+  "forwardPE": 20.4486,
   "freeCashflow": 290375008,
   "grossMargins": 0.6802,
   "industry": "Luxury Goods",
   "longName": "Burberry Group plc",
-  "marketCap": 4207829760,
+  "marketCap": 4098744320,
   "numberOfAnalystOpinions": 22,
   "operatingCashflow": 373000000,
   "operatingMargins": 0.0817,
   "payoutRatio": 0.0,
-  "priceToBook": 4.4196,
+  "priceToBook": 4.305,
   "profitMargins": 0.0213,
   "quickRatio": 1.258,
   "recommendationKey": "buy",
@@ -51,10 +51,10 @@
   "returnOnEquity": 0.0571,
   "revenueGrowth": 0.064,
   "sector": "Consumer Cyclical",
-  "targetMeanPrice": 1271.864,
+  "targetMeanPrice": 1270.955,
   "totalCash": 531000000,
   "totalDebt": 1519000064,
-  "trailingPE": 78.4333
+  "trailingPE": 76.4
  },
  "v": 2
 }

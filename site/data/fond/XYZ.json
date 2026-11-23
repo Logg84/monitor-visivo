@@ -1,0 +1,61 @@
+{
+ "aggiornato": "2026-11-23",
+ "dati": {
+  "beta": 2.559,
+  "bilancio_annuale": {
+   "ricavi": {
+    "2022": 17531587000.0,
+    "2023": 21915623000.0,
+    "2024": 24121053000.0,
+    "2025": 24193683000.0
+   },
+   "utile_netto": {
+    "2022": -540747000.0,
+    "2023": 9772000.0,
+    "2024": 2897047000.0,
+    "2025": 1305636000.0
+   },
+   "utile_operativo": {
+    "2022": -27278000.0,
+    "2023": 381824000.0,
+    "2024": 1686548000.0,
+    "2025": 3045652000.0
+   }
+  },
+  "currency": "USD",
+  "currentRatio": 2.229,
+  "debito_netto": -709115904,
+  "debito_netto_su_ebitda": -0.45,
+  "debtToEquity": 32.949,
+  "dividendYield": 0.0,
+  "earningsGrowth": 0.238,
+  "ebitda": 1575452032,
+  "enterpriseToEbitda": 26.256,
+  "fiftyTwoWeekHigh": 89.395,
+  "fiftyTwoWeekLow": 48.21,
+  "financialCurrency": "USD",
+  "forwardPE": 13.6057,
+  "freeCashflow": 837104256,
+  "grossMargins": 0.477,
+  "industry": "Software - Infrastructure",
+  "longName": "Block, Inc.",
+  "marketCap": 44275187712,
+  "numberOfAnalystOpinions": 43,
+  "operatingCashflow": 3622580992,
+  "operatingMargins": 0.0487,
+  "payoutRatio": 0.0,
+  "priceToBook": 1.9328,
+  "profitMargins": 0.018,
+  "quickRatio": 1.139,
+  "recommendationKey": "buy",
+  "returnOnAssets": 0.0194,
+  "returnOnEquity": 0.0202,
+  "revenueGrowth": 0.099,
+  "sector": "Technology",
+  "targetMeanPrice": 101.5179,
+  "totalCash": 8244548096,
+  "totalDebt": 7535432192,
+  "trailingPE": 96.3684
+ },
+ "v": 2
+}

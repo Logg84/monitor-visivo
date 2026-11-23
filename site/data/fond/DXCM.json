@@ -1,5 +1,5 @@
 {
- "aggiornato": "2026-11-16",
+ "aggiornato": "2026-11-23",
  "dati": {
   "beta": 1.443,
   "bilancio_annuale": {
@@ -30,21 +30,21 @@
   "dividendYield": 0.0,
   "earningsGrowth": 0.026,
   "ebitda": 1498800000,
-  "enterpriseToEbitda": 20.452,
+  "enterpriseToEbitda": 19.454,
   "fiftyTwoWeekHigh": 92.59,
   "fiftyTwoWeekLow": 56.72,
   "financialCurrency": "USD",
-  "forwardPE": 26.0333,
+  "forwardPE": 26.2917,
   "freeCashflow": 811900032,
   "grossMargins": 0.6342,
   "industry": "Medical Devices",
   "longName": "DexCom, Inc.",
-  "marketCap": 30436524032,
+  "marketCap": 30738614272,
   "numberOfAnalystOpinions": 26,
   "operatingCashflow": 1414400000,
   "operatingMargins": 0.2397,
   "payoutRatio": 0.0,
-  "priceToBook": 12.0068,
+  "priceToBook": 12.1259,
   "profitMargins": 0.1942,
   "quickRatio": 1.342,
   "recommendationKey": "strong_buy",
@@ -55,7 +55,7 @@
   "targetMeanPrice": 98.5769,
   "totalCash": 1817900032,
   "totalDebt": 1392899968,
-  "trailingPE": 32.1299
+  "trailingPE": 32.4488
  },
  "v": 2
 }

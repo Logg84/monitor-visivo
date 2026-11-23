@@ -1,5 +1,5 @@
 {
- "aggiornato": "2026-11-16",
+ "aggiornato": "2026-11-23",
  "dati": {
   "beta": 1.383,
   "bilancio_annuale": {
@@ -30,21 +30,21 @@
   "dividendYield": 0.0,
   "earningsGrowth": 0.105,
   "ebitda": 9916999680,
-  "enterpriseToEbitda": 9.655,
+  "enterpriseToEbitda": 8.66,
   "fiftyTwoWeekHigh": 362.71,
   "fiftyTwoWeekLow": 190.12,
   "financialCurrency": "USD",
-  "forwardPE": 8.9757,
+  "forwardPE": 8.1723,
   "freeCashflow": 9345125376,
   "grossMargins": 0.8925,
   "industry": "Software - Application",
   "longName": "Adobe Inc.",
-  "marketCap": 95743197184,
+  "marketCap": 87173013504,
   "numberOfAnalystOpinions": 33,
   "operatingCashflow": 10805999616,
   "operatingMargins": 0.3632,
   "payoutRatio": 0.0,
-  "priceToBook": 8.1763,
+  "priceToBook": 7.4444,
   "profitMargins": 0.2805,
   "quickRatio": 0.65,
   "recommendationKey": "hold",
@@ -55,7 +55,7 @@
   "targetMeanPrice": 266.9097,
   "totalCash": 5641999872,
   "totalDebt": 6786999808,
-  "trailingPE": 13.7353
+  "trailingPE": 12.5059
  },
  "v": 2
 }

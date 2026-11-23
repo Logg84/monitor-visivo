@@ -1,0 +1,61 @@
+{
+ "aggiornato": "2026-11-23",
+ "dati": {
+  "beta": 1.279,
+  "bilancio_annuale": {
+   "ricavi": {
+    "2022": 116609000000.0,
+    "2023": 134902000000.0,
+    "2024": 164501000000.0,
+    "2025": 200966000000.0
+   },
+   "utile_netto": {
+    "2022": 23200000000.0,
+    "2023": 39098000000.0,
+    "2024": 62360000000.0,
+    "2025": 60458000000.0
+   },
+   "utile_operativo": {
+    "2022": 28944000000.0,
+    "2023": 46751000000.0,
+    "2024": 69380000000.0,
+    "2025": 83276000000.0
+   }
+  },
+  "currency": "USD",
+  "currentRatio": 1.903,
+  "debito_netto": 32393003008,
+  "debito_netto_su_ebitda": 0.28,
+  "debtToEquity": 42.161,
+  "dividendYield": 0.37,
+  "earningsGrowth": 2.648,
+  "ebitda": 116190003200,
+  "enterpriseToEbitda": 12.618,
+  "fiftyTwoWeekHigh": 779.82,
+  "fiftyTwoWeekLow": 520.26,
+  "financialCurrency": "USD",
+  "forwardPE": 16.7511,
+  "freeCashflow": 16848499712,
+  "grossMargins": 0.8103,
+  "industry": "Internet Content & Information",
+  "longName": "Meta Platforms, Inc.",
+  "marketCap": 1527609688064,
+  "numberOfAnalystOpinions": 58,
+  "operatingCashflow": 133087002624,
+  "operatingMargins": 0.3778,
+  "payoutRatio": 0.0716,
+  "priceToBook": 5.6077,
+  "profitMargins": 0.3115,
+  "quickRatio": 1.669,
+  "recommendationKey": "strong_buy",
+  "returnOnAssets": 0.1458,
+  "returnOnEquity": 0.3226,
+  "revenueGrowth": 0.261,
+  "sector": "Communication Services",
+  "targetMeanPrice": 846.5021,
+  "totalCash": 82448998400,
+  "totalDebt": 114842001408,
+  "trailingPE": 20.3889
+ },
+ "v": 2
+}

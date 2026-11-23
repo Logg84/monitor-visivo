@@ -1,5 +1,5 @@
 {
- "aggiornato": "2026-11-16",
+ "aggiornato": "2026-11-23",
  "dati": {
   "beta": 2.234,
   "bilancio_annuale": {
@@ -30,24 +30,24 @@
   "dividendYield": 0.0,
   "earningsGrowth": 0.601,
   "ebitda": 1662311040,
-  "enterpriseToEbitda": 27.606,
+  "enterpriseToEbitda": 23.942,
   "fiftyTwoWeekHigh": 440.0,
-  "fiftyTwoWeekLow": 130.42,
+  "fiftyTwoWeekLow": 142.46,
   "financialCurrency": "USD",
-  "forwardPE": 12.8844,
+  "forwardPE": 13.6768,
   "freeCashflow": -1684611840,
   "grossMargins": 0.3816,
   "industry": "Scientific & Technical Instruments",
   "longName": "Coherent Corp.",
-  "marketCap": 40067301376,
+  "marketCap": 42505650176,
   "numberOfAnalystOpinions": 25,
   "operatingCashflow": -59122000,
   "operatingMargins": 0.1411,
   "payoutRatio": 0.0,
-  "priceToBook": 3.5359,
+  "priceToBook": 3.7511,
   "profitMargins": 0.1218,
   "quickRatio": 0.972,
-  "recommendationKey": "buy",
+  "recommendationKey": "strong_buy",
   "returnOnAssets": 0.0399,
   "returnOnEquity": 0.0927,
   "revenueGrowth": 0.499,
@@ -55,7 +55,7 @@
   "targetMeanPrice": 371.9185,
   "totalCash": 1754929024,
   "totalDebt": 4346979840,
-  "trailingPE": 42.118
+  "trailingPE": 44.6812
  },
  "v": 2
 }

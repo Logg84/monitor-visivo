@@ -1,5 +1,5 @@
 {
- "aggiornato": "2026-11-16",
+ "aggiornato": "2026-11-23",
  "dati": {
   "beta": 1.493,
   "bilancio_annuale": {
@@ -30,21 +30,21 @@
   "dividendYield": 0.0,
   "earningsGrowth": -0.841,
   "ebitda": 888099968,
-  "enterpriseToEbitda": 23.835,
+  "enterpriseToEbitda": 19.596,
   "fiftyTwoWeekHigh": 93.24,
   "fiftyTwoWeekLow": 51.93,
   "financialCurrency": "USD",
-  "forwardPE": 11.4688,
+  "forwardPE": 10.2251,
   "freeCashflow": 307487488,
   "grossMargins": 0.4078,
   "industry": "Semiconductors",
   "longName": "Skyworks Solutions, Inc.",
-  "marketCap": 20314925056,
+  "marketCap": 18111989760,
   "numberOfAnalystOpinions": 18,
   "operatingCashflow": 549900032,
   "operatingMargins": 0.1075,
   "payoutRatio": 1.8684,
-  "priceToBook": 2.2564,
+  "priceToBook": 2.0117,
   "profitMargins": 0.0435,
   "quickRatio": 3.318,
   "recommendationKey": "hold",
@@ -55,7 +55,7 @@
   "targetMeanPrice": 79.1111,
   "totalCash": 2606099968,
   "totalDebt": 2651200000,
-  "trailingPE": 75.8772
+  "trailingPE": 67.6491
  },
  "v": 2
 }

@@ -1,0 +1,61 @@
+{
+ "aggiornato": "2026-11-23",
+ "dati": {
+  "beta": 1.16,
+  "bilancio_annuale": {
+   "ricavi": {
+    "2022": 5916300000.0,
+    "2023": 6876100000.0,
+    "2024": 7235000000.0,
+    "2025": 7650900000.0
+   },
+   "utile_netto": {
+    "2022": 604700000.0,
+    "2023": 778700000.0,
+    "2024": 838600000.0,
+    "2025": 581400000.0
+   },
+   "utile_operativo": {
+    "2022": 879400000.0,
+    "2023": 1241500000.0,
+    "2024": 1454300000.0,
+    "2025": 1510000000.0
+   }
+  },
+  "currency": "USD",
+  "currentRatio": 1.689,
+  "debito_netto": 3544799872,
+  "debito_netto_su_ebitda": 1.76,
+  "debtToEquity": 46.408,
+  "dividendYield": 0.1,
+  "earningsGrowth": 1.836,
+  "ebitda": 2015000064,
+  "enterpriseToEbitda": 16.714,
+  "fiftyTwoWeekHigh": 100.96,
+  "fiftyTwoWeekLow": 68.07,
+  "financialCurrency": "USD",
+  "forwardPE": 20.9166,
+  "freeCashflow": 1017662528,
+  "grossMargins": 0.4256,
+  "industry": "Specialty Industrial Machinery",
+  "longName": "Ingersoll Rand Inc.",
+  "marketCap": 31850600448,
+  "numberOfAnalystOpinions": 13,
+  "operatingCashflow": 1642400000,
+  "operatingMargins": 0.1822,
+  "payoutRatio": 0.0227,
+  "priceToBook": 3.0325,
+  "profitMargins": 0.172,
+  "quickRatio": 1.037,
+  "recommendationKey": "buy",
+  "returnOnAssets": 0.0498,
+  "returnOnEquity": 0.1341,
+  "revenueGrowth": 0.056,
+  "sector": "Industrials",
+  "targetMeanPrice": 95.8492,
+  "totalCash": 1359600000,
+  "totalDebt": 4904399872,
+  "trailingPE": 23.4958
+ },
+ "v": 2
+}

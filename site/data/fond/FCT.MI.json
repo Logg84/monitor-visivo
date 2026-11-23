@@ -1,0 +1,61 @@
+{
+ "aggiornato": "2026-11-23",
+ "dati": {
+  "beta": 0.742,
+  "bilancio_annuale": {
+   "ricavi": {
+    "2022": 7349147000.0,
+    "2023": 7447567000.0,
+    "2024": 7950731000.0,
+    "2025": 8919859000.0
+   },
+   "utile_netto": {
+    "2022": -308870000.0,
+    "2023": -52830000.0,
+    "2024": 32833000.0,
+    "2025": 122999000.0
+   },
+   "utile_operativo": {
+    "2022": -205587000.0,
+    "2023": -44112000.0,
+    "2024": 24443000.0,
+    "2025": 160635000.0
+   }
+  },
+  "currency": "EUR",
+  "currentRatio": 0.922,
+  "debito_netto": 1919478016,
+  "debito_netto_su_ebitda": 3.16,
+  "debtToEquity": 157.274,
+  "dividendYield": 0.0,
+  "earningsGrowth": 1.548,
+  "ebitda": 606740992,
+  "enterpriseToEbitda": 9.82,
+  "fiftyTwoWeekHigh": 20.44,
+  "fiftyTwoWeekLow": 9.618,
+  "financialCurrency": "EUR",
+  "forwardPE": 14.5192,
+  "freeCashflow": 655885760,
+  "grossMargins": 0.2268,
+  "industry": "Aerospace & Defense",
+  "longName": "Fincantieri S.p.A.",
+  "marketCap": 4296491520,
+  "numberOfAnalystOpinions": 10,
+  "operatingCashflow": 684734976,
+  "operatingMargins": 0.044,
+  "payoutRatio": 0.0,
+  "priceToBook": 2.5166,
+  "profitMargins": 0.0217,
+  "quickRatio": 0.739,
+  "recommendationKey": "strong_buy",
+  "returnOnAssets": 0.0229,
+  "returnOnEquity": 0.1494,
+  "revenueGrowth": -0.027,
+  "sector": "Industrials",
+  "targetMeanPrice": 17.47,
+  "totalCash": 590689024,
+  "totalDebt": 2510167040,
+  "trailingPE": 21.4057
+ },
+ "v": 2
+}

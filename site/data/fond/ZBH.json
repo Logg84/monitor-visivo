@@ -1,5 +1,5 @@
 {
- "aggiornato": "2026-11-16",
+ "aggiornato": "2026-11-23",
  "dati": {
   "beta": 0.472,
   "bilancio_annuale": {
@@ -27,24 +27,24 @@
   "debito_netto": 7230399968,
   "debito_netto_su_ebitda": 2.85,
   "debtToEquity": 60.172,
-  "dividendYield": 0.93,
+  "dividendYield": 0.95,
   "earningsGrowth": -0.138,
   "ebitda": 2541299968,
-  "enterpriseToEbitda": 10.535,
+  "enterpriseToEbitda": 10.378,
   "fiftyTwoWeekHigh": 112.55,
   "fiftyTwoWeekLow": 79.12,
   "financialCurrency": "USD",
-  "forwardPE": 11.292,
+  "forwardPE": 11.8181,
   "freeCashflow": 1442050048,
   "grossMargins": 0.6933,
   "industry": "Medical Devices",
   "longName": "Zimmer Biomet Holdings, Inc.",
-  "marketCap": 19192238080,
+  "marketCap": 20057126912,
   "numberOfAnalystOpinions": 21,
   "operatingCashflow": 1884600064,
   "operatingMargins": 0.1674,
   "payoutRatio": 0.2424,
-  "priceToBook": 1.5161,
+  "priceToBook": 1.5844,
   "profitMargins": 0.0895,
   "quickRatio": 0.64,
   "recommendationKey": "buy",
@@ -52,10 +52,10 @@
   "returnOnEquity": 0.0603,
   "revenueGrowth": 0.031,
   "sector": "Healthcare",
-  "targetMeanPrice": 116.9048,
+  "targetMeanPrice": 117.4762,
   "totalCash": 426900000,
   "totalDebt": 7657299968,
-  "trailingPE": 25.6086
+  "trailingPE": 26.7626
  },
  "v": 2
 }

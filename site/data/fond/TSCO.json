@@ -1,5 +1,5 @@
 {
- "aggiornato": "2026-11-16",
+ "aggiornato": "2026-11-23",
  "dati": {
   "beta": 0.484,
   "bilancio_annuale": {
@@ -27,24 +27,24 @@
   "debito_netto": 6521258144,
   "debito_netto_su_ebitda": 3.42,
   "debtToEquity": 252.586,
-  "dividendYield": 2.63,
+  "dividendYield": 2.5,
   "earningsGrowth": -0.121,
   "ebitda": 1905319040,
-  "enterpriseToEbitda": 13.343,
+  "enterpriseToEbitda": 13.885,
   "fiftyTwoWeekHigh": 56.28,
   "fiftyTwoWeekLow": 28.36,
   "financialCurrency": "USD",
-  "forwardPE": 18.4289,
+  "forwardPE": 18.2618,
   "freeCashflow": 126797000,
   "grossMargins": 0.3629,
   "industry": "Specialty Retail",
   "longName": "Tractor Supply Company",
-  "marketCap": 19679873024,
-  "numberOfAnalystOpinions": 27,
+  "marketCap": 19482814464,
+  "numberOfAnalystOpinions": 28,
   "operatingCashflow": 1207452032,
   "operatingMargins": 0.087,
   "payoutRatio": 0.5108,
-  "priceToBook": 7.4078,
+  "priceToBook": 7.3336,
   "profitMargins": 0.0613,
   "quickRatio": 0.129,
   "recommendationKey": "buy",
@@ -52,10 +52,10 @@
   "returnOnEquity": 0.3735,
   "revenueGrowth": 0.051,
   "sector": "Consumer Cyclical",
-  "targetMeanPrice": 37.4815,
+  "targetMeanPrice": 37.3929,
   "totalCash": 198876000,
   "totalDebt": 6720134144,
-  "trailingPE": 20.4032
+  "trailingPE": 20.1989
  },
  "v": 2
 }

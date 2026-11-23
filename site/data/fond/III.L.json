@@ -1,0 +1,32 @@
+{
+ "aggiornato": "2026-11-23",
+ "dati": {
+  "bilancio_annuale": {
+   "ricavi": {
+    "2023": 4712000000.0,
+    "2024": 3984000000.0,
+    "2025": 5189000000.0,
+    "2026": 5428000000.0
+   },
+   "utile_netto": {
+    "2023": 4573000000.0,
+    "2024": 3836000000.0,
+    "2025": 5038000000.0,
+    "2026": 5294000000.0
+   }
+  },
+  "currency": "GBp",
+  "fiftyTwoWeekHigh": 3626.0,
+  "fiftyTwoWeekLow": 1825.0,
+  "financialCurrency": "GBP",
+  "forwardPE": 4.3589,
+  "longName": "3i Group Ord",
+  "marketCap": 26193467392,
+  "numberOfAnalystOpinions": 12,
+  "priceToBook": 0.8182,
+  "recommendationKey": "buy",
+  "targetMeanPrice": 3253.5,
+  "trailingPE": 7.2817
+ },
+ "v": 2
+}

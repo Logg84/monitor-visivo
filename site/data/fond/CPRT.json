@@ -1,5 +1,5 @@
 {
- "aggiornato": "2026-11-16",
+ "aggiornato": "2026-11-23",
  "dati": {
   "beta": 1.002,
   "bilancio_annuale": {
@@ -30,21 +30,21 @@
   "dividendYield": 0.0,
   "earningsGrowth": -0.15,
   "ebitda": 1866263040,
-  "enterpriseToEbitda": 13.449,
+  "enterpriseToEbitda": 13.082,
   "fiftyTwoWeekHigh": 41.79,
   "fiftyTwoWeekLow": 25.72,
   "financialCurrency": "USD",
-  "forwardPE": 18.0022,
+  "forwardPE": 17.9523,
   "freeCashflow": 885121728,
   "grossMargins": 0.4529,
   "industry": "Specialty Business Services",
   "longName": "Copart, Inc.",
-  "marketCap": 29718206464,
+  "marketCap": 29292072960,
   "numberOfAnalystOpinions": 10,
   "operatingCashflow": 1604492032,
   "operatingMargins": 0.3542,
   "payoutRatio": 0.0,
-  "priceToBook": 3.2665,
+  "priceToBook": 3.2196,
   "profitMargins": 0.3181,
   "quickRatio": 6.806,
   "recommendationKey": "buy",
@@ -55,7 +55,7 @@
   "targetMeanPrice": 39.0,
   "totalCash": 4489802240,
   "totalDebt": 88367000,
-  "trailingPE": 20.6968
+  "trailingPE": 20.4
  },
  "v": 2
 }
