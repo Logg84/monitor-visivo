@@ -14,3 +14,5 @@ CAC.PA  # solo-grafico  CAC 40
 GC=F    # solo-grafico  Oro
 SI=F    # solo-grafico  Argento
 CL=F    # solo-grafico  Petrolio WTI
+FTSEMIB.MI # solo-grafico  FTSE MIB
+^STOXX50E  # solo-grafico  Euro Stoxx 50
