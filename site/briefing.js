@@ -53,7 +53,7 @@
   function sezIntro(c, ora) {
     return `# Briefing di mercato — portale screening\n\n` +
       `- Generato: ${ora}\n` +
-      `- Cos'è: istantanea di un portale personale di screening (titoli USA S&P 500 + Nasdaq 100, FTSE 100, DAX, CAC 40). Tutti i numeri vengono da dati pubblici di mercato elaborati dal portale; possono avere ore o giorni di ritardo (la data di ciascuna fonte è indicata sotto).\n` +
+      `- Cos'è: istantanea di un portale personale di screening (titoli USA S&P 500 + Nasdaq 100, FTSE 100, DAX, CAC 40, FTSE MIB). Tutti i numeri vengono da dati pubblici di mercato elaborati dal portale; possono avere ore o giorni di ritardo (la data di ciascuna fonte è indicata sotto).\n` +
       `- Uso previsto: punto di partenza per un'analisi più ampia, non fonte unica: vedi le istruzioni qui sotto.\n` +
       `- Nota: descrive dati e stati calcolati dal portale; non è un consiglio di investimento.\n` +
       `- Convenzioni: percentuali in %; «n/d» = non disponibile; prezzi nella valuta di quotazione (titoli di Londra in pence, «GBp»; Francoforte, Parigi, Amsterdam in EUR; USA in USD); DD = distanza dal massimo; ATR% = oscillazione giornaliera tipica in % del prezzo; punteggio = criteri tecnici soddisfatti su 6 (più alto = più criteri).\n` +

@@ -10,6 +10,8 @@ QQQ     # solo-grafico  Nasdaq 100
 ISF.L   # solo-grafico  FTSE 100
 EXS1.DE # solo-grafico  DAX
 CAC.PA  # solo-grafico  CAC 40
+ETFMIB.MI # solo-grafico  FTSE MIB (ETF Amundi, Milano)
+SXRT.DE # solo-grafico  Euro Stoxx 50 (ETF iShares Core, Xetra)
 6E=F    # solo-grafico  EUR/USD (future)
 GC=F    # solo-grafico  Oro
 SI=F    # solo-grafico  Argento
