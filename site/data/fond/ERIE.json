@@ -1,0 +1,53 @@
+{
+ "aggiornato": "2026-11-24",
+ "dati": {
+  "beta": 0.22,
+  "bilancio_annuale": {
+   "ricavi": {
+    "2022": 2851202000.0,
+    "2023": 3309216000.0,
+    "2024": 3862404000.0,
+    "2025": 4148570000.0
+   },
+   "utile_netto": {
+    "2022": 298569000.0,
+    "2023": 446061000.0,
+    "2024": 600314000.0,
+    "2025": 559335000.0
+   }
+  },
+  "currency": "USD",
+  "currentRatio": 1.306,
+  "debito_netto": -329529992,
+  "debito_netto_su_ebitda": -0.4,
+  "debtToEquity": 2.127,
+  "dividendYield": 2.18,
+  "earningsGrowth": -0.005,
+  "ebitda": 834124992,
+  "enterpriseToEbitda": 16.445,
+  "fiftyTwoWeekHigh": 301.14,
+  "fiftyTwoWeekLow": 204.63,
+  "financialCurrency": "USD",
+  "forwardPE": 20.7082,
+  "freeCashflow": 509237888,
+  "grossMargins": 0.1785,
+  "industry": "Insurance Brokers",
+  "longName": "Erie Indemnity Company",
+  "marketCap": 14434095104,
+  "operatingCashflow": 691776000,
+  "operatingMargins": 0.1828,
+  "payoutRatio": 0.5313,
+  "priceToBook": 5.6545,
+  "profitMargins": 0.1398,
+  "quickRatio": 1.174,
+  "recommendationKey": "none",
+  "returnOnAssets": 0.1348,
+  "returnOnEquity": 0.237,
+  "revenueGrowth": 0.003,
+  "sector": "Financial Services",
+  "totalCash": 383836992,
+  "totalDebt": 54307000,
+  "trailingPE": 25.0718
+ },
+ "v": 2
+}

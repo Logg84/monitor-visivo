@@ -1,0 +1,60 @@
+{
+ "aggiornato": "2026-11-24",
+ "dati": {
+  "beta": 1.081,
+  "bilancio_annuale": {
+   "ricavi": {
+    "2022": 5301044000.0,
+    "2023": 5813560000.0,
+    "2024": 6108000000.0,
+    "2025": 6274000000.0
+   },
+   "utile_netto": {
+    "2022": 138995000.0,
+    "2023": -1005989000.0,
+    "2024": 167000000.0,
+    "2025": -3377000000.0
+   },
+   "utile_operativo": {
+    "2022": 422147000.0,
+    "2023": -576112000.0,
+    "2024": 619000000.0,
+    "2025": 822000000.0
+   }
+  },
+  "currency": "EUR",
+  "currentRatio": 1.004,
+  "debito_netto": 4018000128,
+  "debito_netto_su_ebitda": 3.3,
+  "debtToEquity": 86.669,
+  "dividendYield": 7.24,
+  "earningsGrowth": 0.303,
+  "ebitda": 1219000064,
+  "enterpriseToEbitda": 7.427,
+  "fiftyTwoWeekHigh": 4.73,
+  "fiftyTwoWeekLow": 2.643,
+  "financialCurrency": "EUR",
+  "forwardPE": 6.4477,
+  "freeCashflow": 786499968,
+  "grossMargins": 0.4481,
+  "industry": "Software - Infrastructure",
+  "longName": "Nexi S.p.A.",
+  "marketCap": 5025455104,
+  "numberOfAnalystOpinions": 16,
+  "operatingCashflow": 1194000000,
+  "operatingMargins": 0.1294,
+  "payoutRatio": 1.087,
+  "priceToBook": 0.739,
+  "profitMargins": -0.5299,
+  "quickRatio": 0.43,
+  "recommendationKey": "hold",
+  "returnOnAssets": 0.0231,
+  "returnOnEquity": -0.3861,
+  "revenueGrowth": 0.016,
+  "sector": "Technology",
+  "targetMeanPrice": 4.3694,
+  "totalCash": 1884999936,
+  "totalDebt": 5903000064
+ },
+ "v": 2
+}

@@ -1,0 +1,61 @@
+{
+ "aggiornato": "2026-11-24",
+ "dati": {
+  "beta": 0.483,
+  "bilancio_annuale": {
+   "ricavi": {
+    "2022": 2697600000.0,
+    "2023": 2918600000.0,
+    "2024": 3069800000.0,
+    "2025": 3051100000.0
+   },
+   "utile_netto": {
+    "2022": 333000000.0,
+    "2023": 330500000.0,
+    "2024": 201600000.0,
+    "2025": 346300000.0
+   },
+   "utile_operativo": {
+    "2022": 550500000.0,
+    "2023": 605100000.0,
+    "2024": 449200000.0,
+    "2025": 602400000.0
+   }
+  },
+  "currency": "EUR",
+  "currentRatio": 2.581,
+  "debito_netto": 2095000128,
+  "debito_netto_su_ebitda": 3.26,
+  "debtToEquity": 70.273,
+  "dividendYield": 1.53,
+  "earningsGrowth": -0.366,
+  "ebitda": 643200000,
+  "enterpriseToEbitda": 15.614,
+  "fiftyTwoWeekHigh": 6.91,
+  "fiftyTwoWeekLow": 5.274,
+  "financialCurrency": "EUR",
+  "forwardPE": 18.745,
+  "freeCashflow": 172050000,
+  "grossMargins": 0.5974,
+  "industry": "Beverages - Wineries & Distilleries",
+  "longName": "Davide Campari-Milano N.V.",
+  "marketCap": 7946974720,
+  "numberOfAnalystOpinions": 21,
+  "operatingCashflow": 556600000,
+  "operatingMargins": 0.1811,
+  "payoutRatio": 0.6462,
+  "priceToBook": 1.991,
+  "profitMargins": 0.0887,
+  "quickRatio": 1.014,
+  "recommendationKey": "buy",
+  "returnOnAssets": 0.0421,
+  "returnOnEquity": 0.0668,
+  "revenueGrowth": -0.01,
+  "sector": "Consumer Defensive",
+  "targetMeanPrice": 7.1857,
+  "totalCash": 711000000,
+  "totalDebt": 2806000128,
+  "trailingPE": 41.4125
+ },
+ "v": 2
+}

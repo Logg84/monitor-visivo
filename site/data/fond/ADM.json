@@ -1,0 +1,61 @@
+{
+ "aggiornato": "2026-11-24",
+ "dati": {
+  "beta": 0.615,
+  "bilancio_annuale": {
+   "ricavi": {
+    "2022": 101556000000.0,
+    "2023": 93935000000.0,
+    "2024": 85530000000.0,
+    "2025": 80269000000.0
+   },
+   "utile_netto": {
+    "2022": 4340000000.0,
+    "2023": 3483000000.0,
+    "2024": 1800000000.0,
+    "2025": 1078000000.0
+   },
+   "utile_operativo": {
+    "2022": 4212000000.0,
+    "2023": 4057000000.0,
+    "2024": 2072000000.0,
+    "2025": 1424000000.0
+   }
+  },
+  "currency": "USD",
+  "currentRatio": 1.445,
+  "debito_netto": 9306000128,
+  "debito_netto_su_ebitda": 2.63,
+  "debtToEquity": 41.663,
+  "dividendYield": 3.08,
+  "earningsGrowth": 6.71,
+  "ebitda": 3540000000,
+  "enterpriseToEbitda": 11.784,
+  "fiftyTwoWeekHigh": 88.75,
+  "fiftyTwoWeekLow": 57.17,
+  "financialCurrency": "USD",
+  "forwardPE": 11.5559,
+  "freeCashflow": -1129500032,
+  "grossMargins": 0.0744,
+  "industry": "Farm Products",
+  "longName": "Archer-Daniels-Midland Company",
+  "marketCap": 30887157760,
+  "numberOfAnalystOpinions": 10,
+  "operatingCashflow": 1475000064,
+  "operatingMargins": 0.0291,
+  "payoutRatio": 0.4043,
+  "priceToBook": 1.3007,
+  "profitMargins": 0.0295,
+  "quickRatio": 0.29,
+  "recommendationKey": "none",
+  "returnOnAssets": 0.0285,
+  "returnOnEquity": 0.1064,
+  "revenueGrowth": 0.096,
+  "sector": "Consumer Defensive",
+  "targetMeanPrice": 77.2,
+  "totalCash": 756000000,
+  "totalDebt": 10062000128,
+  "trailingPE": 12.6758
+ },
+ "v": 2
+}

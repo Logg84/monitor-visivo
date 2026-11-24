@@ -1,0 +1,61 @@
+{
+ "aggiornato": "2026-11-24",
+ "dati": {
+  "beta": 0.834,
+  "bilancio_annuale": {
+   "ricavi": {
+    "2022": 852991000.0,
+    "2023": 960288000.0,
+    "2024": 1036036000.0,
+    "2025": 1077163000.0
+   },
+   "utile_netto": {
+    "2022": 293339000.0,
+    "2023": 339497000.0,
+    "2024": 353938000.0,
+    "2025": 361525000.0
+   },
+   "utile_operativo": {
+    "2022": 425154000.0,
+    "2023": 513766000.0,
+    "2024": 564611000.0,
+    "2025": 588441000.0
+   }
+  },
+  "currency": "EUR",
+  "currentRatio": 0.422,
+  "debito_netto": 5314749112,
+  "debito_netto_su_ebitda": 7.01,
+  "debtToEquity": 168.085,
+  "dividendYield": 7.63,
+  "earningsGrowth": -0.09,
+  "ebitda": 758305984,
+  "enterpriseToEbitda": 16.06,
+  "fiftyTwoWeekHigh": 9.09,
+  "fiftyTwoWeekLow": 5.975,
+  "financialCurrency": "EUR",
+  "forwardPE": 20.854,
+  "freeCashflow": 500129376,
+  "grossMargins": 0.9215,
+  "industry": "Real Estate Services",
+  "longName": "Infrastrutture Wireless Italiane S.p.A.",
+  "marketCap": 6646844416,
+  "numberOfAnalystOpinions": 17,
+  "operatingCashflow": 778408000,
+  "operatingMargins": 0.5228,
+  "payoutRatio": 1.4808,
+  "priceToBook": 2.1335,
+  "profitMargins": 0.3054,
+  "quickRatio": 0.399,
+  "recommendationKey": "hold",
+  "returnOnAssets": 0.0372,
+  "returnOnEquity": 0.0956,
+  "revenueGrowth": -0.009,
+  "sector": "Real Estate",
+  "targetMeanPrice": 7.5882,
+  "totalCash": 103005000,
+  "totalDebt": 5417754112,
+  "trailingPE": 20.4583
+ },
+ "v": 2
+}
