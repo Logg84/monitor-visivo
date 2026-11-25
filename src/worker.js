@@ -36,7 +36,14 @@ export const SYSTEM_BRIEFING = `Sei un analista che legge in italiano il briefin
 - QUADRO DI MERCATO: regime macro e cosa cambia rispetto al contesto fornito. SETTORI E INDICI: forza e debolezza relative. TITOLI DA GUARDARE: i più rilevanti per segnale/punteggio e per la watchlist o il portafoglio se presenti, con i motivi tratti dai dati. INSIDER E CALENDARIO: acquisti degli insider ed eventi in arrivo. RISCHI E CONTRADDIZIONI: solo contraddizioni reali tra segnali. COSA CONTROLLARE OGGI: 3-5 verifiche concrete, formulate come domande o controlli (non come ordini).
 - Sii concreto e sintetico: ogni titolo in lista ha una frase, non un saggio.`;
 
-const MAX_BRIEFING = 60000;   // caratteri (~17k token): oltre, il testo viene troncato prima di arrivare al motore AI
+// Motore AI del briefing. Il briefing completo è ~100 KB (~30k token): il motore di /api/analisi (Groq, 7.000 token/minuto)
+// non lo accetta. Se sono impostati AI_BRIEFING_KEY (secret), AI_BRIEFING_BASE_URL e AI_BRIEFING_MODEL (vars) si usa quello
+// (es. Gemini, API compatibile OpenAI); senza, si usa il motore standard e il testo deve stare nel suo limite.
+const MAX_BRIEFING_DEDICATO = 400000;  // caratteri: oltre, il testo viene troncato
+const MAX_BRIEFING_STANDARD = 18000;   // ~5k token: sotto il limite di 7.000 token/minuto di Groq (in coda c'è il prompt di sistema)
+const motoreBriefing = (env) => env.AI_BRIEFING_KEY && env.AI_BRIEFING_BASE_URL && env.AI_BRIEFING_MODEL
+  ? { dedicato: true, key: env.AI_BRIEFING_KEY, base: env.AI_BRIEFING_BASE_URL, model: env.AI_BRIEFING_MODEL, max: Number(env.AI_BRIEFING_MAX_CHARS) || MAX_BRIEFING_DEDICATO }
+  : { dedicato: false, key: env.AI_KEY, base: env.AI_BASE_URL, model: env.AI_MODEL, max: Number(env.AI_BRIEFING_MAX_CHARS) || MAX_BRIEFING_STANDARD };
 
 const json = (obj, status = 200) =>
   new Response(JSON.stringify(obj), { status, headers: { "content-type": "application/json; charset=utf-8", "cache-control": "no-store" } });
@@ -73,14 +80,15 @@ export function descriviFond(f) {
   return out.join("\n");
 }
 
-/** Chiamata al motore AI (API compatibile OpenAI). Ritorna { testo } oppure { errore, stato }. */
-async function chiamaAI(env, sistema, contenuto) {
+/** Chiamata al motore AI (API compatibile OpenAI); `motore` = { key, base, model } alternativo (briefing). Ritorna { testo } oppure { errore, stato }. */
+async function chiamaAI(env, sistema, contenuto, motore = null) {
+  const m = motore || { key: env.AI_KEY, base: env.AI_BASE_URL, model: env.AI_MODEL };
   let r;
   try {
-    r = await fetch(String(env.AI_BASE_URL).replace(/\/$/, "") + "/chat/completions", {
+    r = await fetch(String(m.base).replace(/\/$/, "") + "/chat/completions", {
       method: "POST",
-      headers: { Authorization: `Bearer ${env.AI_KEY}`, "content-type": "application/json" },
-      body: JSON.stringify({ model: env.AI_MODEL, temperature: 0.3, max_tokens: Number(env.AI_MAX_TOKENS) || 4000,
+      headers: { Authorization: `Bearer ${m.key}`, "content-type": "application/json" },
+      body: JSON.stringify({ model: m.model, temperature: 0.3, max_tokens: Number(env.AI_MAX_TOKENS) || 4000,
         messages: [{ role: "system", content: sistema }, { role: "user", content: contenuto }] }),
     });
   } catch (e) { return { errore: "motore AI non raggiungibile", stato: 502 }; }
@@ -464,22 +472,26 @@ export default {
 
     if (url.pathname === "/api/analisi-briefing") {
       if (request.method !== "POST") return json({ errore: "metodo non consentito" }, 405);
-      if (!env.AI_KEY || !env.AI_BASE_URL || !env.AI_MODEL || !modoAccess(env)) return json({ errore: "servizio AI non configurato" }, 503);
+      const mot = motoreBriefing(env);
+      if (!mot.key || !mot.base || !mot.model || !modoAccess(env)) return json({ errore: "servizio AI non configurato" }, 503);
       const ioB = await identita(request, env);
       if (!ioB) return json({ errore: "non autenticato" }, 401);
       let bb;
       try { bb = await request.json(); } catch (e) { return json({ errore: "richiesta non valida" }, 400); }
       let testoB = String(bb.testo || "").trim();
       if (testoB.length < 500) return json({ errore: "briefing vuoto o troppo corto: attendi il caricamento della pagina" }, 400);
-      const troncato = testoB.length > MAX_BRIEFING;
-      if (troncato) testoB = testoB.slice(0, MAX_BRIEFING) + "\n\n[… briefing troncato per la lunghezza: le sezioni finali non sono incluse]";
+      if (!mot.dedicato && testoB.length > mot.max) {
+        return json({ errore: `Il briefing è troppo lungo per il motore AI attuale (circa ${Math.round(testoB.length / 3.3 / 1000)}k token; il motore ne accetta al massimo ~5k per richiesta). Serve un motore AI con limiti più ampi: vedi la guida (AI_BRIEFING_*).`, codice: "briefing_troppo_lungo" }, 422);
+      }
+      const troncato = testoB.length > mot.max;
+      if (troncato) testoB = testoB.slice(0, mot.max) + "\n\n[… briefing troncato per la lunghezza: le sezioni finali non sono incluse]";
       const quotaB = !ioB.admin && ioB.modalita === "access" && env.DB ? ut.quotaAnalisi(env) : 0;
       if (quotaB) {
         let usate = 0;
         try { usate = await ut.usoAnalisi(env.DB, ioB.email); } catch (e) { /* contatore non leggibile: non blocca */ }
         if (usate >= quotaB) return json({ errore: ut.testoQuotaAnalisi(quotaB), codice: "quota_analisi", limite: quotaB, usate }, 429);
       }
-      const risB = await chiamaAI(env, SYSTEM_BRIEFING, "BRIEFING:\n\n" + testoB);
+      const risB = await chiamaAI(env, SYSTEM_BRIEFING, "BRIEFING:\n\n" + testoB, mot);
       if (risB.errore) return json({ errore: risB.errore }, risB.stato);
       let restantiB = null;
       if (quotaB) {
