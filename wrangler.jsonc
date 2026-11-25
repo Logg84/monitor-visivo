@@ -8,7 +8,7 @@
   "triggers": { "crons": ["*/5 * * * *"] },
   // Database D1 «basewatch» (punteggi riservati e log dello scheduler).
   "d1_databases": [{ "binding": "DB", "database_name": "basewatch", "database_id": "90e41efa-031d-4b5f-93ea-38da1a08369c" }],
-  // Variabili non segrete (secret nella dashboard Cloudflare: AI_KEY, GITHUB_TOKEN e, finché non c'è Access, ACCESS_CODE).
+  // Variabili non segrete (secret nella dashboard Cloudflare: AI_KEY, GITHUB_TOKEN, PRIVATE_REPO_TOKEN, TELEGRAM_*).
   "vars": {
     "AI_BASE_URL": "https://api.groq.com/openai/v1",
     "AI_MODEL": "qwen/qwen3.8-27b",

@@ -14,7 +14,7 @@
   const REPO = "Logg84/monitor-visivo", FILE_OVERRIDE = "data/override.json";
   let basi = [], titoli = {}, gruppi = [];
   let scr = {}, wl = {}, statoPunt = "";      // screening (D1) e watchlist (repo privato): solo con login; altrimenti vuoti
-  let me = { modalita: "codice" };           // chi sono: da /api/me (Cloudflare Access) o modalità a codice
+  let me = { modalita: "nessuna" };          // chi sono: da /api/me (Cloudflare Access)
   const cacheSerie = new Map();
   const nomeFile = (t) => [...t].map((c) => (/[A-Za-z0-9\-_.]/.test(c) ? c : "_")).join("");
   async function serieDi(ticker) {
@@ -315,25 +315,15 @@
   }
 
   async function analisiAI(g) {
-    let codice = "";
-    if (me.modalita !== "access") {
-      try { codice = localStorage.getItem("bw_codice") || ""; } catch (e) { /* senza storage */ }
-    }
-    if (!codice && me.modalita !== "access") {
-      codice = (prompt("Codice di accesso all'analisi AI (lo imposti tu nei secret Cloudflare):") || "").trim();
-      if (!codice) return;
-    }
     g.ai = { caricamento: true }; disegnaCard(g, g.tf); osserva(g);
     try {
       const immagini = (await Promise.all(["1W", "1D"].filter((t) => g.tfs[t] && !storica(g.tfs[t])).map((t) => catturaGrafico(g, t)))).filter(Boolean);
-      const r = await fetch("/api/analisi", { method: "POST", headers: { "content-type": "application/json", ...(codice ? { "x-codice": codice } : {}) },
+      const r = await fetch("/api/analisi", { method: "POST", headers: { "content-type": "application/json" },
                                               body: JSON.stringify({ ticker: g.ticker, immagini }) });
       const j = await r.json().catch(() => ({}));
       if (!r.ok) {
-        if (r.status === 401) { try { localStorage.removeItem("bw_codice"); } catch (e) { /* nulla */ } }
         throw new Error(j.errore || `errore ${r.status}`);
       }
-      if (codice) { try { localStorage.setItem("bw_codice", codice); } catch (e) { /* nulla */ } }
       g.ai = j;
     } catch (e) { g.ai = { errore: e.message }; }
     disegnaCard(g, g.tf); osserva(g);
@@ -477,7 +467,7 @@
     try {
       const m = await fetch("/api/me", { cache: "no-store" });
       if (m.ok) me = await m.json();
-    } catch (e) { /* resta la modalità a codice */ }
+    } catch (e) { /* resta senza identità: Access ferma comunque chi non ha fatto il login */ }
     try {
       const i = await fetch("data/index.json", { cache: "no-cache" });
       if (!i.ok) throw new Error(`HTTP ${i.status}`);

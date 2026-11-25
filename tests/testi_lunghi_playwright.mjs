@@ -28,7 +28,7 @@ const unif = { aggiornato: "2026-11-12T22:35:00+00:00", punteggi_data: "2026-11-
   scheduler: [{ quando: "2026-11-12T22:35:00+00:00", job: "screening", esito: "ok", dettaglio: DETTAGLIO }] };
 const calendario = { aggiornato: "2026-11-12T23:30:00+00:00", dati: { settori: ["Tecnologia"], log: [],
   eventi: [{ data_attesa: "2026-11-18", ticker: "TESTLUNGO", nome: NOME_LUNGO, settore: "Tecnologia", tipo: "Utili", descrizione: DESCR, fonte: "Yahoo Finance", stato_data: "confermata", orientamento: "futuro", link_ufficiale: "", verified: true }] } };
-const utenti = { accesso_aperto: true, access_automatico: true, editors: [], richieste: [{ nome: "Mirko", email: "mirko@example.com", creato: "2026-11-11", messaggio: "Vorrei l'accesso per seguire il portafoglio condiviso", stato: "attesa" }],
+const utenti = { accesso_aperto: true, editors: [], richieste: [{ nome: "Mirko", email: "mirko@example.com", creato: "2026-11-11", messaggio: "Vorrei l'accesso per seguire il portafoglio condiviso", stato: "attesa" }],
   utenti: [{ nome: "Marco", email: "capo@example.com", uid: "marco", canale: "Telegram", creato: "2026-09-01", attivo: true }] };
 
 const j = (r, o, s = 200) => { r.writeHead(s, { "content-type": "application/json" }); r.end(JSON.stringify(o)); };

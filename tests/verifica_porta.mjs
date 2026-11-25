@@ -22,15 +22,15 @@ r = await chiama("/api/utenti/richiesta", "nuovo@x.it", { nome: "Nuovo Utente" }
 r = await chiama("/api/screening", "nuovo@x.it"); assert.equal(r.status, 403); j = await r.json(); assert.ok(j.stato === "attesa" && j.codice === "non_abilitato" && j.errore.includes("in attesa di approvazione")); ok("in attesa: ancora bloccato, con messaggio leggibile");
 r = await chiama("/api/utenti/richiesta", "admin@x.it", { nome: "Admin" }); assert.equal(r.status, 400); ok("l'admin non fa richieste");
 // admin non è mai bloccato e approva
-r = await chiama("/api/utenti/azione", "admin@x.it", { azione: "approva", email: "nuovo@x.it" }); j = await r.json(); assert.ok(r.status === 200 && j.uid === "nuovo-utente" && j.access === "manuale"); ok("admin approva (Access non aperto: aggiunta manuale segnalata)");
+r = await chiama("/api/utenti/azione", "admin@x.it", { azione: "approva", email: "nuovo@x.it" }); j = await r.json(); assert.ok(r.status === 200 && j.uid === "nuovo-utente" && !("access" in j)); ok("admin approva: utente abilitato nel portale");
 r = await chiama("/api/utenti/me", "nuovo@x.it"); j = await r.json(); assert.ok(j.abilitato === true && j.uid === "nuovo-utente"); ok("approvato: abilitato con la sua cartella");
 r = await chiama("/api/screening", "nuovo@x.it"); assert.notEqual(r.status, 403); ok("approvato: passa la porta");
 r = await chiama("/api/utenti", "nuovo@x.it"); assert.equal(r.status, 403); ok("approvato ma non admin: pagina Utenti vietata");
 // accesso aperto
 env.ACCESSO_APERTO = "1";
 await chiama("/api/utenti/richiesta", "b@x.it", { nome: "Beta Test" });
-r = await chiama("/api/utenti/azione", "admin@x.it", { azione: "approva", email: "b@x.it" }); j = await r.json(); assert.equal(j.access, "non_necessario"); ok("accesso aperto: approvazione senza toccare Cloudflare");
-r = await chiama("/api/utenti/azione", "admin@x.it", { azione: "rimuovi", email: "b@x.it" }); j = await r.json(); assert.equal(j.access, "non_necessario");
+r = await chiama("/api/utenti/azione", "admin@x.it", { azione: "approva", email: "b@x.it" }); j = await r.json(); assert.ok(r.status === 200); ok("accesso aperto: l'approvazione abilita nel portale");
+r = await chiama("/api/utenti/azione", "admin@x.it", { azione: "rimuovi", email: "b@x.it" }); j = await r.json(); assert.ok(r.status === 200 && !("access" in j));
 r = await chiama("/api/screening", "b@x.it"); assert.equal(r.status, 403); j = await r.json(); assert.ok(j.stato === "disattivato" && j.errore.includes("disattivato") && !j.errore.includes("non_abilitato")); ok("rimosso: bloccato (disattivato)");
 r = await chiama("/api/utenti/azione", "b@x.it", { azione: "riattiva", email: "b@x.it" }); assert.equal(r.status, 403); ok("riattiva: vietato a chi non è amministratore");
 r = await chiama("/api/utenti/azione", "admin@x.it", { azione: "riattiva", email: "mai.visto@x.it" }); assert.equal(r.status, 404); ok("riattiva: utente sconosciuto rifiutato");

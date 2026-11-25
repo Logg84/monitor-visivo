@@ -3,7 +3,7 @@
  * POST /api/analisi, genera il riassunto AI (tecnica + fondamentale) di un titolo.
  *
  * La chiave del motore AI vive SOLO qui (secret Cloudflare), mai nel browser.
- * Accesso: header x-codice = secret ACCESS_CODE. Motore: qualunque endpoint
+ * Accesso: Cloudflare Access (JWT verificato); abilitazione decisa dal portale (tabella utenti in D1). Motore: qualunque endpoint
  * compatibile OpenAI (Groq, OpenRouter, Gemini compat…) via AI_BASE_URL / AI_MODEL.
  * L'AI vede SOLO i dati calcolati (index.json + fond/<ticker>.json): niente notizie.
  */
@@ -29,13 +29,6 @@ const SYSTEM = `Sei un assistente che riassume in italiano, in prosa chiara e di
 
 const json = (obj, status = 200) =>
   new Response(JSON.stringify(obj), { status, headers: { "content-type": "application/json; charset=utf-8", "cache-control": "no-store" } });
-
-function uguali(a, b) {                       // confronto a tempo quasi costante
-  if (a.length !== b.length) return false;
-  let r = 0;
-  for (let i = 0; i < a.length; i++) r |= a.charCodeAt(i) ^ b.charCodeAt(i);
-  return r === 0;
-}
 
 const nomeFile = (t) => [...t].map((c) => (/[A-Za-z0-9\-_.]/.test(c) ? c : "_")).join("");
 
@@ -113,7 +106,7 @@ async function leggi(env, base, path) {
   } catch (e) { return null; }
 }
 
-// ── Identità: Cloudflare Access (JWT verificato) oppure, in transizione, codice ──
+// ── Identità: Cloudflare Access (JWT verificato) ──
 const b64u = (x) => { x = x.replace(/-/g, "+").replace(/_/g, "/"); return Uint8Array.from(atob(x + "=".repeat((4 - (x.length % 4)) % 4)), (c) => c.charCodeAt(0)); };
 let jwksCache = { t: 0, dom: "", keys: [] };
 
@@ -153,7 +146,6 @@ export async function identita(request, env) {
     const admin = String(env.ADMIN_EMAILS || "").toLowerCase().split(",").map((x) => x.trim()).filter(Boolean).includes(String(pl.email).toLowerCase());
     return { modalita: "access", email: pl.email, admin };
   }
-  if (env.ACCESS_CODE && uguali(request.headers.get("x-codice") || "", String(env.ACCESS_CODE))) return { modalita: "codice", email: "codice", admin: false };
   return null;
 }
 
@@ -241,7 +233,7 @@ export default {
       const tok = request.headers.get("cf-access-jwt-assertion");
       let diagnostica;
       try { const pl = JSON.parse(new TextDecoder().decode(b64u(tok.split(".")[1]))); diagnostica = { team_domain: String(pl.iss || "").replace(/^https:\/\//, ""), aud: pl.aud }; } catch (e) { /* senza Access davanti: nessun dato */ }
-      return json(diagnostica ? { modalita: "codice", diagnostica } : { modalita: "codice" });
+      return json(diagnostica ? { modalita: "nessuna", diagnostica } : { modalita: "nessuna" });
     }
 
     if (url.pathname === "/api/unificato") {       // range (pubblici) + punteggi (riservati, da D1): solo con login
@@ -301,7 +293,7 @@ export default {
       if (r.nuova) await ut.notificaTelegram(env, `👋 Nuova richiesta di accesso al portale\n${r.nome} <${r.email}>\nApprova o rifiuta dalla pagina Utenti.`);
       return json({ ok: true });
     }
-    if (url.pathname === "/api/utenti/me" || url.pathname === "/api/utenti/richiesta" || url.pathname === "/api/utenti" || url.pathname === "/api/utenti/azione" || url.pathname === "/api/utenti/access-test" || url.pathname === "/api/utenti/telegram-test" || url.pathname === "/api/utenti/collegamento" || url.pathname === "/api/utenti/briefing") {
+    if (url.pathname === "/api/utenti/me" || url.pathname === "/api/utenti/richiesta" || url.pathname === "/api/utenti" || url.pathname === "/api/utenti/azione" || url.pathname === "/api/utenti/telegram-test" || url.pathname === "/api/utenti/collegamento" || url.pathname === "/api/utenti/briefing") {
       const io = await identita(request, env);
       if (!io || io.modalita !== "access") return json({ errore: "non autenticato" }, 401);
       if (!env.DB) return json({ errore: "database non collegato" }, 503);
@@ -345,8 +337,7 @@ export default {
         if (request.method !== "POST") return json({ errore: "metodo non consentito" }, 405);
         return json(await ut.inviaTelegram(env, "✅ Prova dal portale: gli avvisi sulle richieste di accesso arriveranno qui."));
       }
-      if (url.pathname === "/api/utenti/access-test") return json(await ut.verificaAccess(env));
-      if (url.pathname === "/api/utenti") return json({ ...(await ut.elenco(env.DB)), editors: await leggiEditor(env), access_automatico: ut.accessConfigurato(env), accesso_aperto: ut.accessAperto(env) });
+      if (url.pathname === "/api/utenti") return json({ ...(await ut.elenco(env.DB)), editors: await leggiEditor(env), accesso_aperto: ut.accessAperto(env) });
       if (request.method !== "POST") return json({ errore: "metodo non consentito" }, 405);
       if (b.azione === "editor") {                                // permesso di scrittura sul portafoglio condiviso
         const mail = String(b.email || "").trim().toLowerCase();
@@ -382,9 +373,9 @@ export default {
         if (r.ok) await ut.esportaUtentiAlert(env.DB, env);
         return r.ok ? json(r) : json({ errore: r.errore }, r.stato || 400);
       }
-      const r = b.azione === "approva" ? await ut.approva(env.DB, env, b.email)
+      const r = b.azione === "approva" ? await ut.approva(env.DB, b.email)
         : b.azione === "rifiuta" ? await ut.rifiuta(env.DB, b.email)
-        : b.azione === "rimuovi" ? await ut.rimuovi(env.DB, env, b.email) : { ok: false, stato: 400, errore: "azione sconosciuta" };
+        : b.azione === "rimuovi" ? await ut.rimuovi(env.DB, b.email) : { ok: false, stato: 400, errore: "azione sconosciuta" };
       if (r.ok && (b.azione === "approva" || b.azione === "rimuovi")) await ut.esportaUtentiAlert(env.DB, env);
       return r.ok ? json(r) : json({ errore: r.errore }, r.stato || 400);
     }
@@ -457,9 +448,9 @@ export default {
 
     if (url.pathname !== "/api/analisi") return json({ errore: "percorso sconosciuto" }, 404);
     if (request.method !== "POST") return json({ errore: "metodo non consentito" }, 405);
-    if (!env.AI_KEY || !env.AI_BASE_URL || !env.AI_MODEL || (!env.ACCESS_CODE && !modoAccess(env))) return json({ errore: "servizio AI non configurato" }, 503);
+    if (!env.AI_KEY || !env.AI_BASE_URL || !env.AI_MODEL || !modoAccess(env)) return json({ errore: "servizio AI non configurato" }, 503);
     const ioAI = await identita(request, env);
-    if (!ioAI) return json({ errore: modoAccess(env) ? "non autenticato" : "codice di accesso errato" }, 401);
+    if (!ioAI) return json({ errore: "non autenticato" }, 401);
     // Quota giornaliera per persona (l'amministratore è escluso): protegge la quota del motore AI.
     const quotaAI = !ioAI.admin && ioAI.modalita === "access" && env.DB ? ut.quotaAnalisi(env) : 0;
 

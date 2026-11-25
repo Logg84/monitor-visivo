@@ -3,6 +3,8 @@ import assert from "node:assert/strict";
 import { DatabaseSync } from "node:sqlite";
 import { readFileSync } from "node:fs";
 import worker from "../src/worker.js";
+import { ENV_ACCESSO, accesso } from "./_accesso.mjs";
+import * as ut from "../src/utenti.js";
 import { eseguiCron, leggiPunteggi, ultimiLog, unisci, compatta, MAX_LOG, CRON_UNICO, PIANO, FINESTRA_MIN, lavoriDovuti, conflitti } from "../src/dati.js";
 
 const ok = (n) => console.log("✓ " + n);
@@ -192,14 +194,16 @@ assert.deepEqual(JSON.parse(wr.replace(/,(\s*[}\]])/g, "$1")).triggers.crons, [C
 db = fakeD1(); db.raw.exec(DDL_PUNTEGGI);
 db.raw.prepare("INSERT INTO punteggi (ticker,data,segnale,punti) VALUES ('AAA','2026-11-04','🟢 5/6',5)").run();
 const assets = { fetch: async (req) => new URL(req.url).pathname === "/data/index.json" ? new Response(JSON.stringify(index)) : new Response("no", { status: 404 }) };
-const envW = { ACCESS_CODE: "segreto", ASSETS: assets, DB: db };
-const get = (e, codice = "segreto", m = "GET") => worker.fetch(new Request("https://x.dev/api/unificato", { method: m, headers: codice ? { "x-codice": codice } : {} }), e, { waitUntil() {} });
+const envW = { ...ENV_ACCESSO, ASSETS: assets, DB: db };
+const get = async (e, utente = "admin@x.it", m = "GET") => worker.fetch(new Request("https://x.dev/api/unificato", { method: m, headers: await accesso(utente) }), e, { waitUntil() {} });
 assert.equal((await get(envW, null)).status, 401); ok("/api/unificato senza login → 401 (i punteggi non sono pubblici)");
-assert.equal((await get(envW, "sbagliato")).status, 401);
-assert.equal((await get(envW, "segreto", "POST")).status, 405);
+assert.equal((await get(envW, "intruso@x.it")).status, 403); ok("/api/unificato: chi ha fatto il login ma non è abilitato → 403");
+assert.equal((await get(envW, "admin@x.it", "POST")).status, 405);
 let res = await get(envW); let j = await res.json();
 assert.equal(res.status, 200); assert.equal(j.punteggi_data, "2026-11-04"); assert.equal(j.db, true);
-assert.equal(j.righe.find((x) => x.ticker === "AAA").punteggio.punti, 5); assert.equal(j.scheduler, undefined); ok("/api/unificato con login → range + punteggi, log scheduler solo agli admin");
+assert.equal(j.righe.find((x) => x.ticker === "AAA").punteggio.punti, 5); assert.ok(Array.isArray(j.scheduler)); ok("/api/unificato con login da amministratore → range + punteggi + log scheduler");
+await ut.richiedi(db, { email: "u@x.it", nome: "Utente Prova" }); await ut.approva(db, "u@x.it");
+const ju = await (await get(envW, "u@x.it")).json(); assert.equal(ju.punteggi_data, "2026-11-04"); assert.equal(ju.scheduler, undefined); ok("utente abilitato non amministratore → punteggi ma niente log dello scheduler");
 res = await get({ ...envW, DB: undefined }); j = await res.json();
 assert.equal(res.status, 200); assert.equal(j.db, false); assert.equal(j.righe[0].punteggio, null); ok("senza D1 collegato → solo range, nessun errore");
 res = await get({ ...envW, ASSETS: { fetch: async () => new Response("x", { status: 500 }) } });
@@ -221,10 +225,10 @@ insx.run("AAA", "2026-11-04", "🟢 5/6", 5, 100, '{"Prezzo":1.5,"Trend":"G↗ S
 insx.run("BBB", "2026-11-04", "—", 1, null, null);
 insx.run("CCC", "2026-11-04", "x", 2, 1, '"</script>"');            // extra non-oggetto → null
 insx.run("OLD", "2026-11-03", "x", 2, 1, '{"Prezzo":9}');
-const envS = { ACCESS_CODE: "segreto", ASSETS: assets, DB: db };
-const getS = (e, codice = "segreto", m = "GET") => worker.fetch(new Request("https://x.dev/api/screening", { method: m, headers: codice ? { "x-codice": codice } : {} }), e, { waitUntil() {} });
+const envS = { ...ENV_ACCESSO, ASSETS: assets, DB: db };
+const getS = async (e, utente = "admin@x.it", m = "GET") => worker.fetch(new Request("https://x.dev/api/screening", { method: m, headers: await accesso(utente) }), e, { waitUntil() {} });
 assert.equal((await getS(envS, null)).status, 401); ok("/api/screening senza login → 401");
-assert.equal((await getS(envS, "segreto", "POST")).status, 405);
+assert.equal((await getS(envS, "admin@x.it", "POST")).status, 405);
 assert.equal((await getS({ ...envS, DB: undefined })).status, 503); ok("senza database → 503");
 res = await getS(envS); j = await res.json();
 assert.equal(res.status, 200); assert.equal(j.data, "2026-11-04"); assert.equal(j.righe.length, 3);
@@ -242,10 +246,10 @@ const t0 = performance.now(); const rb = await getS({ ...envS, DB: db }); const 
 assert.equal(JSON.parse(txt).righe.length, 700); ok(`700 righe (${(txt.length / 1e6).toFixed(2)} MB): ${ms.toFixed(0)} ms in Node (inclusa la query SQLite)`);
 // ── /api/pagina/<chiave> ──
 db = fakeD1();
-const getP = (e, chiave, codice = "segreto", m = "GET") => worker.fetch(new Request("https://x.dev/api/pagina/" + chiave, { method: m, headers: codice ? { "x-codice": codice } : {} }), e, { waitUntil() {} });
-const envP = { ACCESS_CODE: "segreto", ASSETS: assets, DB: db };
+const getP = async (e, chiave, utente = "admin@x.it", m = "GET") => worker.fetch(new Request("https://x.dev/api/pagina/" + chiave, { method: m, headers: await accesso(utente) }), e, { waitUntil() {} });
+const envP = { ...ENV_ACCESSO, ASSETS: assets, DB: db };
 assert.equal((await getP(envP, "macro", null)).status, 401); ok("/api/pagina senza login → 401");
-assert.equal((await getP(envP, "macro", "segreto", "POST")).status, 405);
+assert.equal((await getP(envP, "macro", "admin@x.it", "POST")).status, 405);
 assert.equal((await getP(envP, "UPPER")).status, 400); assert.equal((await getP(envP, "a%20b")).status, 400); ok("chiave non valida → 400");
 assert.equal((await getP({ ...envP, DB: undefined }, "macro")).status, 503);
 assert.equal((await getP(envP, "macro")).status, 404); ok("tabella assente / pagina non caricata → 404");

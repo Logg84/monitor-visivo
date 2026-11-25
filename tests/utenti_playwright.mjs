@@ -10,7 +10,7 @@ const srv = http.createServer(async (q, r) => {
   if (u === "/api/utenti/me") { if (q.method === "POST") { salvato = await body(q); if (salvato.canale === "telegram" && !salvato.telegram_chat_id) return j(r, { errore: "Per gli alert su Telegram serve il tuo Chat ID." }, 400); return j(r, {}); }
     return j(r, admin ? { email: "m@x.it", admin: true, uid: "" } : { email: "anna@x.it", admin: false, uid: "anna", nome: "Anna", canale: "telegram", telegram_chat_id: collegata, email_alert: null }); }
   if (u === "/api/utenti/collegamento") { codiciGenerati++; return j(r, { codice: "K7M2QX9P", scade_in_min: 15 }); }
-  if (u === "/api/utenti" ) return j(r, { access_automatico: false, richieste, editors: [], utenti: [{ email: "luca@x.it", uid: "luca", nome: "Luca", canale: "email", creato: "2026-11-01T10:00:00Z", attivo: 1 }, { email: "beppe@x.it", uid: "beppe", nome: "Beppe", canale: "email", creato: "2026-11-02T10:00:00Z", attivo: 0 }] });
+  if (u === "/api/utenti" ) return j(r, { richieste, editors: [], utenti: [{ email: "luca@x.it", uid: "luca", nome: "Luca", canale: "email", creato: "2026-11-01T10:00:00Z", attivo: 1 }, { email: "beppe@x.it", uid: "beppe", nome: "Beppe", canale: "email", creato: "2026-11-02T10:00:00Z", attivo: 0 }] });
   if (u === "/api/screening") return j(r, { errore: "La tua richiesta di accesso è in attesa di approvazione. Appena approvata, ricarica la pagina.", codice: "non_abilitato", stato: "attesa" }, 403);
   if (u === "/api/utenti/azione") { const b = await body(q); azioni.push(b); richieste = []; return j(r, { ok: true, access: "manuale" }); }
   const f = path.join(root, u); fs.readFile(f, (e, d) => { if (e) { r.writeHead(404); return r.end(); }
@@ -41,9 +41,9 @@ const srv = http.createServer(async (q, r) => {
   await p.goto("http://localhost:8769/utenti.html"); await p.waitForTimeout(600);
   ok("utenti: voce nel menu per l'admin", await p.$$eval("#menu a", (e) => e.some((x) => x.textContent === "Utenti")));
   ok("utenti: richiesta e utente elencati", (await p.textContent("#rich")).includes("anna@x.it") && (await p.textContent("#ute")).includes("data/users/luca/"));
-  ok("utenti: avviso Access manuale", (await p.textContent("#nota-access")).includes("Cloudflare Access non è collegato"));
+  ok("utenti: nota sull'ingresso (regola di Cloudflare Access) e link da dare ai collaboratori", (await p.textContent("#nota-access")).includes("Cloudflare Access") && (await p.textContent("#nota-link")).includes("localhost:8769"));
   await p.click('button[data-a="approva"]'); await p.waitForTimeout(500);
-  ok("utenti: approva invia l'azione e ricorda l'aggiunta manuale", azioni[0].azione === "approva" && azioni[0].email === "anna@x.it" && (await p.textContent("#esito")).includes("Ricorda"));
+  ok("utenti: approva invia l'azione, la pagina resta viva dopo il ricaricamento e dice «Fatto»", azioni[0].azione === "approva" && azioni[0].email === "anna@x.it" && (await p.textContent("#esito")).includes("Fatto") && (await p.textContent("#sottotitolo")).includes("richieste in attesa"));
   await p.check('input[data-ed="luca@x.it"]'); await p.waitForTimeout(400);
   ok("utenti: interruttore portafoglio condiviso invia l'azione editor", azioni.some((a) => a.azione === "editor" && a.email === "luca@x.it" && a.attivo === true));
   ok("utenti: solo l'utente disattivato ha «Riattiva», l'attivo ha «Rimuovi accesso»", await p.locator('button[data-a="riattiva"]').count() === 1 && await p.locator('button[data-a="rimuovi"]').count() === 1 && (await p.locator('button[data-a="riattiva"]').getAttribute("data-e")) === "beppe@x.it");

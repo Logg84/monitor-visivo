@@ -1,5 +1,8 @@
-// Utenti del portale: richieste di accesso, approvazione (anche su Cloudflare Access), profilo e canale degli alert.
+// Utenti del portale: richieste di accesso, approvazione, profilo e canale degli alert.
 // Tabelle D1 create al primo uso. L'amministratore (ADMIN_EMAILS) non ha riga: usa i file storici (uid vuoto).
+// Nota (pulizia 11/2026): la gestione automatica della regola di Cloudflare Access via API è stata rimossa.
+// Con ACCESSO_APERTO=1 (wrangler.jsonc) la regola di Access lascia entrare chiunque verifichi la propria
+// email e l'abilitazione la decide il portale (tabella utenti): nessuna chiamata alle API Cloudflare.
 
 const EMAIL = /^[^\s@<>"',;]{1,64}@[^\s@<>"',;]{1,190}\.[^\s@<>"',;]{2,24}$/;
 export const CANALI = ["telegram", "email", "entrambi", "nessuno"];
@@ -94,102 +97,14 @@ export async function elenco(db) {
   return { richieste: r.results || [], utenti: u.results || [] };
 }
 
-// ── Cloudflare Access: elenco delle email ammesse nella regola ────────────────────────────────────────
-// Servono solo CF_ACCOUNT_ID e CF_ACCESS_TOKEN: la regola con le email si trova da sola (ACCESS_POLICY_ID / ACCESS_APP_ID la forzano).
-const API = "https://api.cloudflare.com/client/v4";
-export const accessConfigurato = (env) => Boolean(env.CF_ACCOUNT_ID && env.CF_ACCESS_TOKEN);
 /** Con ACCESSO_APERTO=1 la regola di Access lascia entrare chiunque verifichi la propria email: è il portale a decidere chi è abilitato. */
 export const accessAperto = (env) => String(env.ACCESSO_APERTO || "") === "1";
-const intest = (env) => ({ authorization: `Bearer ${env.CF_ACCESS_TOKEN}`, "content-type": "application/json" });
-async function cf(env, percorso, fetchFn, init = {}) {
-  const r = await fetchFn(`${API}/accounts/${env.CF_ACCOUNT_ID}/access/${percorso}`, { ...init, headers: intest(env) });
-  const j = await r.json().catch(() => ({}));
-  return { ok: r.ok && j.success !== false, stato: r.status, risultato: j.result, errori: j.errors };
-}
-const msgCf = (x) => (x && x.errori && x.errori[0] && x.errori[0].message ? ` — Cloudflare dice: «${x.errori[0].message}»` : "");
-/** Il token è valido? (token utente oppure token di account). */
-async function tokenValido(env, fetchFn) {
-  const prove = [`${API}/user/tokens/verify`, `${API}/accounts/${env.CF_ACCOUNT_ID}/tokens/verify`];
-  let ultimo = null;
-  for (const u of prove) {
-    try {
-      const r = await fetchFn(u, { headers: intest(env) }); const j = await r.json().catch(() => ({}));
-      if (r.ok && j.success !== false && j.result && j.result.status === "active") return { ok: true };
-      ultimo = { stato: r.status, errori: j.errors };
-    } catch (e) { ultimo = { stato: 0 }; }
-  }
-  return { ok: false, ...ultimo };
-}
-const conEmail = (p) => p && p.decision === "allow" && Array.isArray(p.include) && p.include.some((x) => x && x.email);
-/** Legge una regola: prima come «riutilizzabile», poi come regola di un'applicazione. */
-async function leggiPolicy(env, c, fetchFn) {
-  if (!c.appId) { const g = await cf(env, `policies/${c.policyId}`, fetchFn); if (g.ok && g.risultato) return { url: `policies/${c.policyId}`, p: g.risultato, app: c.appName }; }
-  if (c.appId) { const g = await cf(env, `apps/${c.appId}/policies/${c.policyId}`, fetchFn); if (g.ok && g.risultato) return { url: `apps/${c.appId}/policies/${c.policyId}`, p: g.risultato, app: c.appName }; }
-  const g2 = await cf(env, `policies/${c.policyId}`, fetchFn); if (g2.ok && g2.risultato) return { url: `policies/${c.policyId}`, p: g2.risultato, app: c.appName };
-  return null;
-}
-/** Trova la regola «allow» che elenca le email degli utenti ammessi. */
-export async function trovaPolicy(env, fetchFn = fetch) {
-  let cand = [];
-  if (env.ACCESS_POLICY_ID) cand = [{ policyId: env.ACCESS_POLICY_ID, appId: env.ACCESS_APP_ID || "" }];
-  else {
-    const a = await cf(env, "apps?per_page=100", fetchFn);
-    if (!a.ok) {
-      const t = await tokenValido(env, fetchFn);
-      if (!t.ok) return { ok: false, errore: `Il token non è valido o è stato copiato male (${t.stato})${msgCf(t)}. Ricopialo per intero (senza spazi) nel secret CF_ACCESS_TOKEN oppure creane uno nuovo.` };
-      return { ok: false, errore: `Il token è valido ma Cloudflare rifiuta la lettura delle regole di Access (${a.stato})${msgCf(a)}. Controlla che abbia il permesso «Access: Apps and Policies Edit» a livello Account, per questo account, e che CF_ACCOUNT_ID sia giusto.` };
-    }
-    for (const app of a.risultato || []) for (const p of app.policies || []) if (p && p.id) cand.push({ policyId: p.id, appId: app.id, appName: app.name });
-  }
-  const viste = new Set(), trovate = [];
-  for (const c of cand) {
-    if (viste.has(c.policyId)) continue; viste.add(c.policyId);
-    const l = await leggiPolicy(env, c, fetchFn);
-    if (l && conEmail(l.p)) trovate.push(l);
-  }
-  if (!trovate.length) return { ok: false, errore: "Nessuna regola di Access con elenco di email trovata: aggiungi le email a mano o indica ACCESS_POLICY_ID." };
-  if (trovate.length > 1) return { ok: false, errore: "Più regole con elenco di email (" + trovate.map((t) => t.p.name).join(", ") + "): indica quale con il secret ACCESS_POLICY_ID." };
-  return { ok: true, ...trovate[0] };
-}
-async function modificaPolicy(env, fn, fetchFn) {
-  const t = await trovaPolicy(env, fetchFn);
-  if (!t.ok) return t;
-  const p = t.p, nuovo = fn(Array.isArray(p.include) ? p.include : []);
-  if (!nuovo) return { ok: true, invariato: true };
-  const corpo = { ...p, include: nuovo };
-  for (const k of ["id", "uid", "created_at", "updated_at", "version", "app_count", "reusable", "archived_at"]) delete corpo[k];
-  const w = await cf(env, t.url, fetchFn, { method: "PUT", body: JSON.stringify(corpo) });
-  if (!w.ok) return { ok: false, errore: "Cloudflare Access: aggiornamento della regola non riuscito (" + w.stato + ")" + (w.errori && w.errori[0] ? ": " + w.errori[0].message : "") };
-  return { ok: true };
-}
-const haEmail = (inc, e) => inc.some((x) => x && x.email && norm(x.email.email) === e);
-export async function accessAggiungi(env, email, fetchFn = fetch) {
-  if (accessAperto(env)) return { ok: true, nonNecessario: true };
-  if (!accessConfigurato(env)) return { ok: true, manuale: true };
-  const e = norm(email);
-  return modificaPolicy(env, (inc) => (haEmail(inc, e) ? null : [...inc, { email: { email: e } }]), fetchFn);
-}
-export async function accessRimuovi(env, email, fetchFn = fetch) {
-  if (accessAperto(env)) return { ok: true, nonNecessario: true };
-  if (!accessConfigurato(env)) return { ok: true, manuale: true };
-  const e = norm(email);
-  return modificaPolicy(env, (inc) => (haEmail(inc, e) ? inc.filter((x) => !(x && x.email && norm(x.email.email) === e)) : null), fetchFn);
-}
-/** Prova di collegamento (non scrive nulla). */
-export async function verificaAccess(env, fetchFn = fetch) {
-  if (!accessConfigurato(env)) return { ok: false, errore: "Mancano i secret CF_ACCESS_TOKEN e/o CF_ACCOUNT_ID nel Worker." };
-  const t = await trovaPolicy(env, fetchFn);
-  if (!t.ok) return t;
-  return { ok: true, regola: t.p.name, applicazione: t.app || null, email: t.p.include.filter((x) => x.email).length };
-}
 
-export async function approva(db, env, email, fetchFn = fetch, ora = new Date()) {
+export async function approva(db, email, ora = new Date()) {
   await schema(db);
   const e = norm(email);
   const r = await db.prepare("SELECT nome FROM richieste WHERE email=?").bind(e).first();
   if (!r) return { ok: false, stato: 404, errore: "richiesta non trovata" };
-  const a = await accessAggiungi(env, e, fetchFn);
-  if (!a.ok) return { ok: false, stato: 502, errore: a.errore };
   const usati = new Set(((await db.prepare("SELECT uid FROM utenti").all()).results || []).map((x) => x.uid));
   const uid = creaUid(r.nome, e, usati);
   await db.batch([
@@ -197,7 +112,7 @@ export async function approva(db, env, email, fetchFn = fetch, ora = new Date())
     db.prepare("UPDATE utenti SET attivo=1 WHERE email=?").bind(e),   // ri-approvazione di un utente rimosso
     db.prepare("DELETE FROM richieste WHERE email=?").bind(e),
   ]);
-  return { ok: true, uid, access: a.nonNecessario ? "non_necessario" : a.manuale ? "manuale" : "aggiunto" };
+  return { ok: true, uid };
 }
 /** Riattiva un utente rimosso o disattivato (non serve una nuova richiesta). */
 export async function riattiva(db, email) {
@@ -242,13 +157,11 @@ export async function rifiuta(db, email) {
   await db.prepare("UPDATE richieste SET stato='rifiutata' WHERE email=?").bind(norm(email)).run();
   return { ok: true };
 }
-export async function rimuovi(db, env, email, fetchFn = fetch) {
+export async function rimuovi(db, email) {
   await schema(db);
   const e = norm(email);
-  const a = await accessRimuovi(env, e, fetchFn);
-  if (!a.ok) return { ok: false, stato: 502, errore: a.errore };
   await db.prepare("UPDATE utenti SET attivo=0 WHERE email=?").bind(e).run();   // i dati personali restano nel repo
-  return { ok: true, access: a.nonNecessario ? "non_necessario" : a.manuale ? "manuale" : "rimosso" };
+  return { ok: true };
 }
 
 /** Profilo dell'utente (None per l'amministratore). Se l'email passa da Access ma non ha riga, la crea (canale: telegram). */

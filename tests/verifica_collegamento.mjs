@@ -8,7 +8,7 @@ const T0 = new Date("2026-11-11T10:00:00Z"), min = (m) => new Date(T0.getTime() 
 
 // utenti: anna (attiva, canale nessuno), beppe (disattivato)
 await ut.richiedi(db, { email: "anna@x.it", nome: "Anna Rossi" }); await ut.richiedi(db, { email: "beppe@x.it", nome: "Beppe Neri" });
-await ut.approva(db, {}, "anna@x.it"); await ut.approva(db, {}, "beppe@x.it"); await ut.rimuovi(db, {}, "beppe@x.it");
+await ut.approva(db, "anna@x.it"); await ut.approva(db, "beppe@x.it"); await ut.rimuovi(db, "beppe@x.it");
 sq.prepare("UPDATE utenti SET canale='nessuno' WHERE email='anna@x.it'").run();
 
 // generazione

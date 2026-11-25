@@ -1,6 +1,7 @@
 // Test senza rete del Worker: asset e motore AI simulati.
 import assert from "node:assert/strict";
 import worker, { costruisciPrompt } from "../src/worker.js";
+import { ENV_ACCESSO, accesso } from "./_accesso.mjs";
 
 const index = { aggiornato: "2026-11-02T20:00:00+00:00",
   titoli: { AAA: { ath: 200, ath_data: "2021-11-05", dist_ath: -0.6, ultimo: 80 } },
@@ -8,7 +9,7 @@ const index = { aggiornato: "2026-11-02T20:00:00+00:00",
 const fond = { aggiornato: "2026-11-02", dati: { trailingPE: 12, profitMargins: 0.2, currency: "GBp", financialCurrency: "USD", totalDebt: 5.5e9, bilancio_annuale: { ricavi: { 2025: 7.5e9, 2024: 7.1e9 } } } };
 let chiamateAI = 0, ultimoPrompt = "", ultimoContenuto = null;
 const env = {
-  ACCESS_CODE: "segreto", AI_VISION: "true", AI_KEY: "k", AI_BASE_URL: "https://ai.test/v1", AI_MODEL: "m",
+  ...ENV_ACCESSO, AI_VISION: "true", AI_KEY: "k", AI_BASE_URL: "https://ai.test/v1", AI_MODEL: "m",
   ASSETS: { fetch: async (req) => {
     const p = new URL(req.url).pathname;
     if (p === "/data/index.json") return new Response(JSON.stringify(index));
@@ -22,12 +23,13 @@ globalThis.fetch = async (url, init) => {
   return new Response(JSON.stringify({ choices: [{ message: { content: "<think>ragiono</think>TECNICA\nok" } }] }));
 };
 const ctx = { waitUntil() {} };
-const post = (body, codice = "segreto", method = "POST") => worker.fetch(new Request("https://x.dev/api/analisi", {
-  method, headers: { "x-codice": codice, "content-type": "application/json" }, body: method === "POST" ? JSON.stringify(body) : undefined }), env, ctx);
+// utente = email con cui si entra da Access; null → nessun login. (Senza D1 la porta degli abilitati non si applica.)
+const post = async (body, utente = "admin@x.it", method = "POST") => worker.fetch(new Request("https://x.dev/api/analisi", {
+  method, headers: { ...(await accesso(utente)), "content-type": "application/json" }, body: method === "POST" ? JSON.stringify(body) : undefined }), env, ctx);
 const ok = (n) => console.log("✓ " + n);
 
-assert.equal((await post({ ticker: "AAA" }, "sbagliato")).status, 401); ok("codice errato → 401");
-assert.equal((await post({ ticker: "AAA" }, "segreto", "GET")).status, 405); ok("GET → 405");
+assert.equal((await post({ ticker: "AAA" }, null)).status, 401); ok("senza login → 401");
+assert.equal((await post({ ticker: "AAA" }, "admin@x.it", "GET")).status, 405); ok("GET → 405");
 assert.equal((await post({ ticker: "ZZZ" })).status, 404); ok("ticker sconosciuto → 404");
 assert.equal(chiamateAI, 0); ok("nessuna chiamata AI per richieste rifiutate");
 const r = await post({ ticker: "AAA" });
