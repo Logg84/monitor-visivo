@@ -41,21 +41,23 @@ export const PIANO = [
   priv("canary-fonti", "canary_fonti.yml", "12:30", [1], { attivo: true }),
   // Orari = quelli dei cron dei workflow del repo privato (UTC); i lavori non ancora migrati restano spenti (`attivo: false`).
   priv("report-quindicinale", "report_quindicinale.yml", "05:00", [1], { attivo: true }),
-  priv("digest", "digest.yml", "06:00", [6]),
+  // 25/11/2026: gruppo del mattino migrato al Worker (nei workflow del repo privato lo `schedule:` è stato TOLTO). Orari sfalsati di
+  // almeno 30 minuti nello stesso repo; briefing-email (08:00) ha un gruppo di concurrency suo ma resta nel conto.
+  priv("digest", "digest.yml", "06:00", [6], { attivo: true }),
   // 19/11/2026: tolto lo screening delle 06:30. Prima dell'apertura europea Yahoo non restituisce la barra del giorno prima per i
   // titoli europei (19/11 06:33: 179 su 179 ferme al giorno precedente, nemmeno il rinfresco le recupera). Si lavora solo a barra
   // chiusa: Europa alle 18:30, USA alle 22:00. Il giro delle 14:30 è stato tolto lo stesso giorno: i prezzi di giornata li danno i giri «prezzi-live».
   priv("alerts-0700", "alerts.yml", "07:00", LV, { attivo: true }),
-  priv("salute", "salute.yml", "07:10", LV),
-  priv("events", "events.yml", "07:30", LV),
-  priv("consumo", "consumo.yml", "07:30", [1]),
+  priv("events", "events.yml", "07:30", LV, { attivo: true }),
+  priv("salute", "salute.yml", "08:30", LV, { attivo: true }),     // era 07:10: ora dopo events e briefing, controlla i dati già del giorno
+  priv("consumo", "consumo.yml", "09:30", [1], { attivo: true }),
   // 18/11/2026: briefing LLM per email (corpo + allegato .md) a Marco. Il workflow ha solo workflow_dispatch, nessun cron.
   priv("briefing-email", "briefing_email.yml", "08:00", LV, { attivo: true }),
-  priv("braccio-destro", "braccio_destro.yml", "08:00", [1]),
-  priv("backtest", "backtest.yml", "08:00", [3, 6]),
-  priv("scorecard", "scorecard.yml", "09:00", [0]),
+  priv("braccio-destro", "braccio_destro.yml", "09:00", [1], { attivo: true }),
+  priv("backtest", "backtest.yml", "09:00", [3, 6], { attivo: true }),
+  priv("scorecard", "scorecard.yml", "09:00", [0], { attivo: true }),
   priv("regime-sabato", "regime.yml", "09:30", [6], { attivo: true }),
-  priv("registro-segnali", "registro_segnali.yml", "10:00", [0]),
+  priv("registro-segnali", "registro_segnali.yml", "10:00", [0], { attivo: true }),
   priv("alerts-1100", "alerts.yml", "11:00", LV, { attivo: true }),
   // 19/11/2026: tolto lo screening delle 14:30. Il prezzo di giornata lo danno i giri leggeri «prezzi-live» (10:30 e 14:45, repo pubblico).
   // Era 15:50: d'inverno le borse europee chiudono alle 16:30 UTC. 17:00 è dopo la chiusura tutto l'anno (con la grazia di 15 minuti).
@@ -76,8 +78,8 @@ export const PIANO = [
   priv("strumenti", "strumenti.yml", "23:00", LV, { attivo: true }),
   priv("regime", "regime.yml", "23:30", LV, { attivo: true }),
   priv("insiders", "insiders.yml", "00:00", [2, 3, 4, 5, 6], { attivo: true }),
-  priv("indici-mensile", "indices.yml", "06:30", [0, 1, 2, 3, 4, 5, 6], { giornoMese: 1 }),
-  priv("macro-calendar-mensile", "macro_calendar.yml", "07:00", [0, 1, 2, 3, 4, 5, 6], { giornoMese: 1 }),
+  priv("indici-mensile", "indices.yml", "05:30", [0, 1, 2, 3, 4, 5, 6], { giornoMese: 1, attivo: true }),
+  priv("macro-calendar-mensile", "macro_calendar.yml", "06:30", [0, 1, 2, 3, 4, 5, 6], { giornoMese: 1, attivo: true }),
 ];
 
 const minutiDi = (hhmm) => { const [h, m] = String(hhmm).split(":").map(Number); return h * 60 + m; };

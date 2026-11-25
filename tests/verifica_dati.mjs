@@ -147,10 +147,22 @@ assert.deepEqual(await lanciati(lun(8, 6, 30)), []); ok("lunedì 06:30: lo scree
 assert.deepEqual(await lanciati(sab(8, 6, 30)), []); assert.deepEqual(await lanciati(sab(8, 7, 0)), []); assert.deepEqual(await lanciati(sab(8, 5, 0)), []); ok("sabato: screening e alerts (lun-ven) e report (lun) non partono");
 assert.deepEqual(await lanciati(new Date(lun(8, 5, 0).getTime() + GIORNO)), []); ok("report quindicinale: solo il lunedì (martedì 05:00 niente)");
 assert.deepEqual(await lanciati(lun(8, 21, 45)), []); ok("21:45: nessun lancio (lo screening serale è stato spostato alle 22:00)");
-for (const [hh, mm] of [[7, 10], [7, 30], [9, 0]]) {
-  assert.ok(!(await lanciati(lun(8, hh, mm))).length, `${hh}:${mm} non doveva lanciare lavori`);
-}
-ok("lavori non ancora migrati (salute, events, consumo, braccio-destro, scorecard…): spenti");
+// 25/11/2026: gruppo del mattino migrato al Worker (lunedì = giorno con più lavori)
+const rep = (u, f) => assert.match(chiamate.at(-1).url, new RegExp(`monitor-trading-marco/actions/workflows/${f}\\.yml/dispatches$`));
+assert.deepEqual(await lanciati(lun(8, 7, 10)), []); ok("07:10: la salute non parte più (spostata alle 08:30)");
+assert.deepEqual(await lanciati(lun(8, 7, 30)), ["events"]); rep(0, "events");
+assert.deepEqual(await lanciati(lun(8, 8, 30)), ["salute"]); rep(0, "salute");
+assert.deepEqual(await lanciati(lun(8, 9, 0)), ["braccio-destro"]); rep(0, "braccio_destro");
+assert.deepEqual(await lanciati(lun(8, 9, 30)), ["consumo"]); rep(0, "consumo");
+const mer = (hh, mm) => new Date(lun(8, hh, mm).getTime() + 2 * GIORNO), dom = (hh, mm) => new Date(lun(8, hh, mm).getTime() + 6 * GIORNO);
+assert.deepEqual(await lanciati(mer(9, 0)), ["backtest"]); rep(0, "backtest"); assert.deepEqual(await lanciati(sab(8, 9, 0)), ["backtest"]);
+assert.deepEqual(await lanciati(sab(8, 6, 0)), ["digest"]); rep(0, "digest");
+assert.deepEqual(await lanciati(dom(9, 0)), ["scorecard"]); rep(0, "scorecard"); assert.deepEqual(await lanciati(dom(10, 0)), ["registro-segnali"]); rep(0, "registro_segnali");
+assert.deepEqual(await lanciati(new Date(lun(8, 9, 0).getTime() + GIORNO)), []);
+const m1 = (hh, mm) => new Date(`2026-12-01T${String(hh).padStart(2, "0")}:${String(mm).padStart(2, "0")}:00Z`);
+assert.deepEqual(await lanciati(m1(5, 30)), ["indici-mensile"]); rep(0, "indices"); assert.deepEqual(await lanciati(m1(6, 30)), ["macro-calendar-mensile"]); rep(0, "macro_calendar");
+assert.deepEqual(await lanciati(new Date("2026-12-02T05:30:00Z")), []);
+ok("gruppo del mattino sul Worker: events 07:30, salute 08:30, braccio-destro 09:00 e consumo 09:30 (lun), backtest 09:00 (mer, sab), digest 06:00 (sab), scorecard 09:00 e registro-segnali 10:00 (dom), indici 05:30 e calendario macro 06:30 (giorno 1)");
 assert.deepEqual(await lanciati(lun(8, 8, 0)), ["briefing-email"]);
 assert.match(chiamate.at(-1).url, /monitor-trading-marco\/actions\/workflows\/briefing_email\.yml\/dispatches$/);
 assert.deepEqual(await lanciati(sab(8, 8, 0)), []); ok("briefing-email: lun-ven 08:00 UTC → briefing_email.yml sul repo privato; sabato no");
@@ -162,7 +174,7 @@ assert.deepEqual(await lanciati(mar(8, 0, 0)), ["insiders"]); assert.match(chiam
 assert.deepEqual(await lanciati(sab(8, 0, 0)), ["insiders"]); assert.deepEqual(await lanciati(lun(8, 0, 0)), []); assert.deepEqual(await lanciati(new Date(lun(8, 0, 0).getTime() + 6 * GIORNO)), []);
 ok("insiders: 00:00 UTC di martedì-sabato (cioè dopo la seduta di lunedì-venerdì); lunedì e domenica a mezzanotte no");
 assert.deepEqual(await lanciati(sab(8, 9, 30)), ["regime-sabato"]); assert.match(chiamate.at(-1).url, /monitor-trading-marco\/actions\/workflows\/regime\.yml\/dispatches$/);
-assert.deepEqual(await lanciati(lun(8, 9, 30)), []); ok("regime del sabato: solo sabato 09:30 UTC");
+assert.deepEqual(await lanciati(new Date(lun(8, 9, 30).getTime() + GIORNO)), []); ok("regime del sabato: solo sabato 09:30 UTC (martedì 09:30 niente)");
 const tutti = PIANO.map((l) => ({ ...l, attivo: true }));
 es = await eseguiCron(CRON, env, { adesso: lun(9, 17, 0), fetchFn: fetchOk, piano: tutti });
 assert.deepEqual(es.map((x) => x.id), ["alerts-1700"]); assert.match(chiamate.at(-1).url, /monitor-trading-marco\/actions\/workflows\/alerts\.yml\/dispatches$/); ok("acceso il flag, lo stesso orario lancia il workflow giusto (alerts 17:00)");
@@ -183,8 +195,9 @@ assert.equal(new Set(PIANO.map((l) => l.id)).size, PIANO.length); ok("PIANO: id 
 
 // ── Spaziatura nel gruppo di concurrency ──
 assert.deepEqual(conflitti(PIANO), []); ok("lavori attivi: nessuna coppia dello stesso repo a meno di 30 minuti");
-const cf = conflitti(tutti).map((c) => c.join("+"));
-assert.ok(cf.includes("alerts-0700+salute") && cf.includes("salute+events")); ok(`guardia della spaziatura: con tutti i lavori accesi segnala ${cf.length} coppie sotto i 30 minuti (es. alerts-0700+salute) da sfalsare PRIMA di migrarli`);
+const prova = [{ id: "x", repo: "r", ora: "07:00", giorni: [1], attivo: true }, { id: "y", repo: "r", ora: "07:10", giorni: [1], attivo: true }, { id: "z", repo: "r", ora: "07:40", giorni: [1], attivo: true }, { id: "w", repo: "altro", ora: "07:00", giorni: [1], attivo: true }];
+assert.deepEqual(conflitti(prova).map((c) => c.join("+")), ["x+y"]); ok("guardia della spaziatura: segnala solo la coppia dello stesso repo a meno di 30 minuti (x+y), non quelle a 30 o su un altro repo");
+assert.deepEqual(conflitti(tutti), []); ok("con tutti i lavori del PIANO accesi non ci sono coppie sotto i 30 minuti");
 
 // ── Coerenza con wrangler.jsonc ──
 const wr = readFileSync(new URL("../wrangler.jsonc", import.meta.url), "utf8").replace(/^\s*\/\/.*$/gm, "");
