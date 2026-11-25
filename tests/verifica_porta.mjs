@@ -37,7 +37,7 @@ r = await chiama("/api/utenti/azione", "admin@x.it", { azione: "riattiva", email
 r = await chiama("/api/utenti/azione", "admin@x.it", { azione: "riattiva", email: "b@x.it" }); assert.equal(r.status, 200); ok("riattiva: l'amministratore riattiva l'utente disattivato");
 r = await chiama("/api/screening", "b@x.it"); assert.notEqual(r.status, 403); ok("riattivato: passa di nuovo la porta, senza nuova richiesta");
 r = await chiama("/api/utenti", "admin@x.it"); j = await r.json(); assert.equal(j.accesso_aperto, true); ok("la pagina Utenti sa che l'accesso è aperto");
-r = await chiama("/api/access-info", "x@x.it"); assert.equal(r.status, 200); ok("diagnosi del login sempre raggiungibile");
+r = await chiama("/api/me", "x@x.it"); assert.equal(r.status, 200); ok("/api/me sempre raggiungibile (chi non è abilitato vede la sua schermata)");
 // eliminazione di righe: richieste solo se rifiutate, utenti solo se disattivati; il permesso sul portafoglio condiviso si toglie
 const vecchioFetch = globalThis.fetch, put = []; let editorFile = JSON.stringify({ editors: ["b@x.it", "altro@x.it"] });
 globalThis.fetch = async (url, init = {}) => { url = String(url);

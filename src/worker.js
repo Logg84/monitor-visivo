@@ -215,7 +215,7 @@ export default {
     }
 
     // Porta del portale: chi passa da Access ma non è amministratore né abilitato vede solo la richiesta di accesso.
-    if (modoAccess(env) && env.DB && url.pathname !== "/api/richiedi" && url.pathname !== "/api/access-info" && url.pathname !== "/api/me"
+    if (modoAccess(env) && env.DB && url.pathname !== "/api/richiedi" && url.pathname !== "/api/me"
         && url.pathname !== "/api/utenti/me" && url.pathname !== "/api/utenti/richiesta") {
       const io0 = await identita(request, env);
       if (io0 && io0.modalita === "access" && !io0.admin) {
@@ -228,12 +228,7 @@ export default {
       const io = await identita(request, env);
       if (io) return json({ modalita: io.modalita, email: io.email, admin: io.admin });
       if (modoAccess(env)) return json({ errore: "non autenticato" }, 401);
-      // Configurazione guidata: finché ACCESS_AUD non è impostato, mostra i due valori pubblici
-      // (team domain e AUD) letti dal token di Access, per copiarli in wrangler.jsonc. Non sono segreti.
-      const tok = request.headers.get("cf-access-jwt-assertion");
-      let diagnostica;
-      try { const pl = JSON.parse(new TextDecoder().decode(b64u(tok.split(".")[1]))); diagnostica = { team_domain: String(pl.iss || "").replace(/^https:\/\//, ""), aud: pl.aud }; } catch (e) { /* senza Access davanti: nessun dato */ }
-      return json(diagnostica ? { modalita: "nessuna", diagnostica } : { modalita: "nessuna" });
+      return json({ modalita: "nessuna" });
     }
 
     if (url.pathname === "/api/unificato") {       // range (pubblici) + punteggi (riservati, da D1): solo con login
@@ -270,17 +265,6 @@ export default {
       } catch (e) { return json({ errore: "database non raggiungibile: " + e.message }, 502); }
     }
 
-    // Diagnosi del login: mostra cosa contiene il tuo biglietto di Cloudflare Access (solo il tuo, senza firmarlo né fidarsi di lui).
-    if (url.pathname === "/api/access-info") {
-      const cookie = /(?:^|;\s*)CF_Authorization=([^;]+)/.exec(request.headers.get("cookie") || "");
-      const tok = request.headers.get("cf-access-jwt-assertion") || (cookie && cookie[1]);
-      if (!tok) return json({ biglietto: false, spiegazione: "Nessun biglietto di Cloudflare Access: l'indirizzo non è protetto da un'applicazione Access, oppure non hai fatto il login." });
-      try {
-        const p = JSON.parse(new TextDecoder().decode(b64u(String(tok).split(".")[1])));
-        const aud = Array.isArray(p.aud) ? p.aud : [p.aud];
-        return json({ biglietto: true, email: p.email, aud: aud[0], team_domain: String(p.iss || "").replace("https://", ""), aud_configurato: env.ACCESS_AUD || null, coincide: aud.includes(env.ACCESS_AUD), team_coincide: p.iss === `https://${env.ACCESS_TEAM_DOMAIN}` });
-      } catch (e) { return json({ biglietto: true, errore: "biglietto illeggibile" }); }
-    }
     // ── Utenti: richiesta di accesso (pubblica), profilo e amministrazione ───────────────────────────────
     if (url.pathname === "/api/richiedi") {
       if (request.method !== "POST") return json({ errore: "metodo non consentito" }, 405);
