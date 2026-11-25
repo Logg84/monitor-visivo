@@ -46,6 +46,14 @@ const srv = http.createServer((q, r) => {
   await p.click("#ai"); await p.waitForFunction(() => document.getElementById("esito-ai").textContent.startsWith("Analisi non riuscita"));
   ok("errore (quota): messaggio mostrato e pulsante di nuovo attivo", (await p.textContent("#esito-ai")).includes("limite di 3 analisi") && !(await p.$eval("#ai", (e) => e.disabled)));
   statoAI = 200;
+  // ── Chat esterne ──
+  ok("tre pulsanti chat esterne attivi", (await p.$$eval("[data-chat]", (l) => l.map((x) => x.textContent.trim() + ":" + x.disabled))).join("|") === "DeepSeek:false|Qwen:false|GLM:false");
+  await c.route(/^https:\/\/chat\./, (r) => r.fulfill({ contentType: "text/html", body: "<title>chat finta</title>" }));  // niente rete vera
+  for (const [nome, host] of [["DeepSeek", "chat.deepseek.com"], ["Qwen", "chat.qwen.ai"], ["GLM", "chat.z.ai"]]) {
+    const [nuova] = await Promise.all([c.waitForEvent("page"), p.click(`[data-chat][data-chat*="${host}"]`)]); await nuova.waitForLoadState("domcontentloaded").catch(() => {}); const url = nuova.url(); await nuova.close().catch(() => {}); await p.bringToFront();
+    const cop = await p.evaluate(() => navigator.clipboard.readText());
+    ok(`${nome}: apre ${host} in una nuova scheda e copia il briefing completo (con le istruzioni)`, url.includes(host) && cop.includes("## 0. Istruzioni per l'LLM") && cop.includes("## 1.") && (await p.textContent("#info")).includes(`chat di ${nome}`));
+  }
   const [dl] = await Promise.all([p.waitForEvent("download"), p.click("#scarica")]);
   const tmp = out + "/briefing-test.md"; await dl.saveAs(tmp);
   ok("download: nome briefing-AAAA-MM-GG.md e contenuto = anteprima", /^briefing-\d{4}-\d{2}-\d{2}\.md$/.test(dl.suggestedFilename()) && fs.readFileSync(tmp, "utf8") === (await p.inputValue("#anteprima")));

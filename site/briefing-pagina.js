@@ -11,6 +11,7 @@
     $("anteprima").value = md;
     $("info").textContent = `${(md.length / 1024).toFixed(0)} KB · ~${Math.round(md.length / 3.5 / 1000)}k token`;
     for (const id of ["scarica", "copia", "ai"]) $(id).disabled = false;
+    for (const b of document.querySelectorAll("[data-chat]")) b.disabled = false;
     return md;
   }
 
@@ -37,6 +38,14 @@
     const md = ricostruisci(); if (!md) return;
     try { await navigator.clipboard.writeText(md); $("info").textContent = "Copiato negli appunti."; }
     catch (e) { $("anteprima").select(); $("info").textContent = "Copia non consentita dal browser: il testo è selezionato, premi Ctrl+C."; }
+  });
+  // Chat esterne (DeepSeek, Qwen, GLM): copia il briefing completo e apre la chat in una nuova scheda (incolla a mano).
+  for (const b of document.querySelectorAll("[data-chat]")) b.addEventListener("click", async () => {
+    const md = ricostruisci(); if (!md) return;
+    const nome = b.textContent.trim();
+    window.open(b.dataset.chat, "_blank", "noopener");   // subito, nel gesto dell'utente: dopo l'await il browser potrebbe bloccarlo
+    try { await navigator.clipboard.writeText(md); $("info").textContent = `Briefing copiato: incollalo nella chat di ${nome}.`; }
+    catch (e) { $("anteprima").select(); $("info").textContent = `Copia non consentita dal browser: il testo è selezionato qui sotto, premi Ctrl+C e poi incolla nella chat di ${nome}.`; }
   });
   // Analisi AI: stesso briefing, senza le istruzioni per l'LLM esterno, letto dal motore del portale (/api/analisi-briefing).
   $("ai").addEventListener("click", async () => {

@@ -36,6 +36,12 @@
       <span id="info" class="muted"></span>
     </p>
     <p class="muted" id="nota-ai">«Analisi AI» legge questo stesso briefing (senza le istruzioni per l'LLM) con il motore AI del portale e ne fa una sintesi: usa solo i dati del file, senza cercare notizie sul web. Premendolo, il testo mostrato qui sotto (watchlist e portafoglio inclusi, se spuntati) viene inviato al motore AI.</p>
+    <p id="chat-esterne">Oppure usa la chat gratuita di un altro LLM (con ricerca sul web):
+      <button type="button" class="btn sec" data-chat="https://chat.deepseek.com/" disabled>DeepSeek</button>
+      <button type="button" class="btn sec" data-chat="https://chat.qwen.ai/" disabled>Qwen</button>
+      <button type="button" class="btn sec" data-chat="https://chat.z.ai/" disabled>GLM</button>
+    </p>
+    <p class="muted" id="nota-chat">Il pulsante copia il briefing completo (con le istruzioni per l'LLM) e apre la chat in una nuova scheda: incolla con Ctrl+V (su telefono: tieni premuto → Incolla). Se la chat rifiuta un testo così lungo, usa «Scarica .md» e allegalo come file. Il testo va a quel servizio: togli la spunta a watchlist e portafoglio se non vuoi condividerli.</p>
     <div id="esito-ai" class="ai" hidden aria-live="polite"></div>
   </section>
   <div id="avviso" class="avv" hidden></div>
