@@ -1,5 +1,5 @@
 {
- "aggiornato": "2026-11-18",
+ "aggiornato": "2026-11-25",
  "dati": {
   "beta": 0.477,
   "bilancio_annuale": {
@@ -27,24 +27,24 @@
   "debito_netto": 10849000448,
   "debito_netto_su_ebitda": 1.06,
   "debtToEquity": 26.661,
-  "dividendYield": 2.95,
+  "dividendYield": 3.1,
   "earningsGrowth": -0.193,
   "ebitda": 10204000256,
-  "enterpriseToEbitda": 5.917,
+  "enterpriseToEbitda": 5.679,
   "fiftyTwoWeekHigh": 52.71,
   "fiftyTwoWeekLow": 34.23,
   "financialCurrency": "USD",
-  "forwardPE": 8.1345,
+  "forwardPE": 8.2295,
   "freeCashflow": 1330875008,
   "grossMargins": 0.5348,
   "industry": "Oil & Gas E&P",
   "longName": "Devon Energy Corporation",
-  "marketCap": 47822409728,
+  "marketCap": 48380874752,
   "numberOfAnalystOpinions": 27,
   "operatingCashflow": 9671000064,
   "operatingMargins": 0.2401,
   "payoutRatio": 0.2629,
-  "priceToBook": 1.1395,
+  "priceToBook": 1.1528,
   "profitMargins": 0.1628,
   "quickRatio": 0.568,
   "recommendationKey": "strong_buy",
@@ -55,7 +55,7 @@
   "targetMeanPrice": 59.8148,
   "totalCash": 352000000,
   "totalDebt": 11201000448,
-  "trailingPE": 9.8498
+  "trailingPE": 9.9648
  },
  "v": 2
 }

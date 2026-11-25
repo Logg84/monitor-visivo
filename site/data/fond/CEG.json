@@ -1,5 +1,5 @@
 {
- "aggiornato": "2026-11-18",
+ "aggiornato": "2026-11-25",
  "dati": {
   "beta": 1.127,
   "bilancio_annuale": {
@@ -27,24 +27,24 @@
   "debito_netto": 22784000832,
   "debito_netto_su_ebitda": 2.4,
   "debtToEquity": 70.786,
-  "dividendYield": 0.64,
+  "dividendYield": 0.7,
   "earningsGrowth": 0.745,
   "ebitda": 9477000192,
-  "enterpriseToEbitda": 12.384,
+  "enterpriseToEbitda": 11.523,
   "fiftyTwoWeekHigh": 380.78,
   "fiftyTwoWeekLow": 228.63,
   "financialCurrency": "USD",
-  "forwardPE": 19.6252,
+  "forwardPE": 17.5741,
   "freeCashflow": -5374000128,
   "grossMargins": 0.2524,
   "industry": "Utilities - Independent Power Producers",
   "longName": "Constellation Energy Corporation",
-  "marketCap": 92381618176,
+  "marketCap": 82726453248,
   "numberOfAnalystOpinions": 23,
   "operatingCashflow": 5784000000,
   "operatingMargins": 0.1794,
   "payoutRatio": 0.134,
-  "priceToBook": 2.8241,
+  "priceToBook": 2.5289,
   "profitMargins": 0.1276,
   "quickRatio": 0.48,
   "recommendationKey": "buy",
@@ -52,10 +52,10 @@
   "returnOnEquity": 0.1834,
   "revenueGrowth": 0.454,
   "sector": "Utilities",
-  "targetMeanPrice": 339.0713,
+  "targetMeanPrice": 340.3756,
   "totalCash": 603000000,
   "totalDebt": 23387000832,
-  "trailingPE": 21.1206
+  "trailingPE": 18.9132
  },
  "v": 2
 }

@@ -1,5 +1,5 @@
 {
- "aggiornato": "2026-11-18",
+ "aggiornato": "2026-11-25",
  "dati": {
   "beta": 1.029,
   "bilancio_annuale": {
@@ -27,24 +27,24 @@
   "debito_netto": 13109999872,
   "debito_netto_su_ebitda": 5.88,
   "debtToEquity": 75.024,
-  "dividendYield": 0.67,
+  "dividendYield": 0.64,
   "earningsGrowth": -0.425,
   "ebitda": 2231000064,
-  "enterpriseToEbitda": 21.953,
+  "enterpriseToEbitda": 22.65,
   "fiftyTwoWeekHigh": 710.97,
   "fiftyTwoWeekLow": 464.92,
   "financialCurrency": "USD",
-  "forwardPE": 29.1275,
+  "forwardPE": 30.1397,
   "freeCashflow": 1672625024,
   "grossMargins": 0.2674,
   "industry": "Building Materials",
   "longName": "Martin Marietta Materials, Inc.",
-  "marketCap": 36876361728,
+  "marketCap": 38157910016,
   "numberOfAnalystOpinions": 24,
   "operatingCashflow": 1524999936,
   "operatingMargins": 0.2021,
   "payoutRatio": 0.2485,
-  "priceToBook": 2.0882,
+  "priceToBook": 2.1608,
   "profitMargins": 0.3188,
   "quickRatio": 0.834,
   "recommendationKey": "buy",
@@ -55,7 +55,7 @@
   "targetMeanPrice": 626.0,
   "totalCash": 140000000,
   "totalDebt": 13249999872,
-  "trailingPE": 38.6955
+  "trailingPE": 40.0403
  },
  "v": 2
 }

@@ -1,5 +1,5 @@
 {
- "aggiornato": "2026-11-18",
+ "aggiornato": "2026-11-25",
  "dati": {
   "beta": 0.945,
   "bilancio_annuale": {
@@ -26,24 +26,24 @@
   "currentRatio": 0.905,
   "debito_netto": 10563156352,
   "debito_netto_su_ebitda": 6.2,
-  "dividendYield": 1.22,
+  "dividendYield": 1.19,
   "earningsGrowth": -0.8,
   "ebitda": 1704311040,
-  "enterpriseToEbitda": 10.59,
+  "enterpriseToEbitda": 10.734,
   "fiftyTwoWeekHigh": 134.72,
   "fiftyTwoWeekLow": 70.79,
   "financialCurrency": "USD",
-  "forwardPE": 19.4499,
+  "forwardPE": 20.1232,
   "freeCashflow": 377973248,
   "grossMargins": 0.6763,
   "industry": "Resorts & Casinos",
   "longName": "Wynn Resorts, Limited",
-  "marketCap": 8532293632,
+  "marketCap": 8827642880,
   "numberOfAnalystOpinions": 20,
   "operatingCashflow": 1220217984,
   "operatingMargins": 0.1466,
   "payoutRatio": 0.2825,
-  "priceToBook": -38.7337,
+  "priceToBook": -40.0745,
   "profitMargins": 0.052,
   "quickRatio": 0.819,
   "recommendationKey": "strong_buy",
@@ -53,7 +53,7 @@
   "targetMeanPrice": 115.9,
   "totalCash": 1792358016,
   "totalDebt": 12355514368,
-  "trailingPE": 23.5028
+  "trailingPE": 24.3164
  },
  "v": 2
 }
