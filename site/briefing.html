@@ -32,13 +32,16 @@
     <p id="azioni">
       <button type="button" class="btn" id="scarica" disabled>⬇️ Scarica .md</button>
       <button type="button" class="btn sec" id="copia" disabled>📋 Copia</button>
+      <button type="button" class="btn" id="ai" disabled>✨ Analisi AI</button>
       <span id="info" class="muted"></span>
     </p>
+    <p class="muted" id="nota-ai">«Analisi AI» legge questo stesso briefing (senza le istruzioni per l'LLM) con il motore AI del portale e ne fa una sintesi: usa solo i dati del file, senza cercare notizie sul web. Premendolo, il testo mostrato qui sotto (watchlist e portafoglio inclusi, se spuntati) viene inviato al motore AI.</p>
+    <div id="esito-ai" class="ai" hidden aria-live="polite"></div>
   </section>
   <div id="avviso" class="avv" hidden></div>
   <textarea id="anteprima" readonly aria-label="Anteprima del briefing" spellcheck="false"></textarea>
 </main>
-<footer class="piede">Watchlist e portafoglio restano nel tuo browser: il file viene composto qui e non viene inviato a nessuno. Descrive dati e stati calcolati dal portale: non è un consiglio di investimento.</footer>
+<footer class="piede">Watchlist e portafoglio restano nel tuo browser: il file viene composto qui e viene inviato al motore AI solo se premi «Analisi AI». Descrive dati e stati calcolati dal portale: non è un consiglio di investimento.</footer>
 <script src="nav.js"></script>
 <script src="livelli.js"></script>
 <script src="briefing.js"></script>

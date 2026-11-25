@@ -55,6 +55,7 @@ jobs:
           node tests/verifica_briefing.mjs
           node tests/verifica_dati.mjs
           node tests/verifica_porta.mjs
+          node tests/verifica_analisi_briefing.mjs
           node tests/verifica_quota_analisi.mjs
           node tests/verifica_archivio.mjs
           node tests/verifica_alert_utenti.mjs

@@ -3,13 +3,14 @@ import { createRequire } from "node:module"; const { chromium } = createRequire(
 import { macro, settori, strumenti, insider, calendario, screening, indice, watchlist, portafoglio } from "./fixtures_briefing.mjs";
 const root = new URL("../site/", import.meta.url).pathname, out = process.argv[2] || "/tmp";
 const j = (r, o, s = 200) => { r.writeHead(s, { "content-type": "application/json" }); r.end(JSON.stringify(o)); };
-let senzaInsider = false;
+let senzaInsider = false, ricevuto = null, esitoAI = { testo: "QUADRO DI MERCATO\nTutto regolare.\n\nCOSA CONTROLLARE OGGI\nVerifica AAA.", troncato: false, analisi_restanti: 4 }, statoAI = 200;
 const srv = http.createServer((q, r) => {
   const u = q.url.split("?")[0];
   if (u === "/api/utenti/me") return j(r, { abilitato: true, admin: false });
   if (u === "/api/pagina/macro") return j(r, macro); if (u === "/api/pagina/settori") return j(r, settori); if (u === "/api/pagina/strumenti") return j(r, strumenti);
   if (u === "/api/pagina/insider") return senzaInsider ? j(r, { errore: "x" }, 404) : j(r, insider); if (u === "/api/pagina/calendario") return j(r, calendario);
   if (u === "/api/screening") return j(r, screening);
+  if (u === "/api/analisi-briefing") { let d = ""; q.on("data", (x) => d += x); q.on("end", () => { ricevuto = JSON.parse(d); j(r, esitoAI, statoAI); }); return; }
   if (u === "/api/dati/watchlist") return j(r, { sha: "a", puo_modificare: true, dati: watchlist });
   if (u === "/api/dati/portafoglio") return j(r, { sha: "b", puo_modificare: true, righe: portafoglio.righe });
   if (u === "/data/index.json" || u === "/data/index.json/") return j(r, indice);
@@ -32,6 +33,19 @@ const srv = http.createServer((q, r) => {
   await p.uncheck("#o-wl"); await p.uncheck("#o-pf"); md = await p.inputValue("#anteprima");
   ok("opzioni: togliendo le spunte spariscono le sezioni personali", !md.includes("## 7.") && !md.includes("## 8.") && md.includes("## 6."));
   await p.check("#o-wl");
+  // ── Analisi AI ──
+  ok("pulsante «Analisi AI» attivo e nota sull'invio al motore", !(await p.$eval("#ai", (e) => e.disabled)) && (await p.textContent("#nota-ai")).includes("viene inviato al motore AI"));
+  await p.click("#ai"); await p.waitForSelector("#esito-ai h4");
+  ok("analisi: il testo inviato è il briefing SENZA le istruzioni per l'LLM e con le sezioni dati", ricevuto && ricevuto.testo.includes("## 1.") && !ricevuto.testo.includes("## 0. Istruzioni") && ricevuto.testo.includes("AAA"));
+  ok("analisi: titoli in maiuscolo come intestazioni e paragrafi sotto", (await p.$$eval("#esito-ai h4", (l) => l.map((x) => x.textContent))).join("|") === "QUADRO DI MERCATO|COSA CONTROLLARE OGGI" && (await p.textContent("#esito-ai")).includes("Verifica AAA"));
+  ok("analisi: nota sui limiti e analisi rimaste", /senza notizie dal web/.test(await p.textContent("#esito-ai")) && /rimaste oggi: 4/.test(await p.textContent("#esito-ai")));
+  await p.uncheck("#o-wl"); await p.uncheck("#o-pf"); await p.click("#ai"); await p.waitForFunction(() => !document.getElementById("ai").disabled);
+  ok("analisi senza watchlist/portafoglio: non vengono inviati", !ricevuto.testo.includes("## 7.") && !ricevuto.testo.includes("## 8."));
+  await p.check("#o-wl"); await p.check("#o-pf");
+  statoAI = 429; esitoAI = { errore: "Hai raggiunto il limite di 3 analisi al giorno", codice: "quota_analisi" };
+  await p.click("#ai"); await p.waitForFunction(() => document.getElementById("esito-ai").textContent.startsWith("Analisi non riuscita"));
+  ok("errore (quota): messaggio mostrato e pulsante di nuovo attivo", (await p.textContent("#esito-ai")).includes("limite di 3 analisi") && !(await p.$eval("#ai", (e) => e.disabled)));
+  statoAI = 200;
   const [dl] = await Promise.all([p.waitForEvent("download"), p.click("#scarica")]);
   const tmp = out + "/briefing-test.md"; await dl.saveAs(tmp);
   ok("download: nome briefing-AAAA-MM-GG.md e contenuto = anteprima", /^briefing-\d{4}-\d{2}-\d{2}\.md$/.test(dl.suggestedFilename()) && fs.readFileSync(tmp, "utf8") === (await p.inputValue("#anteprima")));

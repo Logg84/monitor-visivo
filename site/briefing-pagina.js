@@ -10,7 +10,7 @@
     const md = window.Briefing.costruisci(ctx, { istruzioni: $("o-ist").checked, watchlist: $("o-wl").checked, portafoglio: $("o-pf").checked });
     $("anteprima").value = md;
     $("info").textContent = `${(md.length / 1024).toFixed(0)} KB · ~${Math.round(md.length / 3.5 / 1000)}k token`;
-    for (const id of ["scarica", "copia"]) $(id).disabled = false;
+    for (const id of ["scarica", "copia", "ai"]) $(id).disabled = false;
     return md;
   }
 
@@ -37,6 +37,28 @@
     const md = ricostruisci(); if (!md) return;
     try { await navigator.clipboard.writeText(md); $("info").textContent = "Copiato negli appunti."; }
     catch (e) { $("anteprima").select(); $("info").textContent = "Copia non consentita dal browser: il testo è selezionato, premi Ctrl+C."; }
+  });
+  // Analisi AI: stesso briefing, senza le istruzioni per l'LLM esterno, letto dal motore del portale (/api/analisi-briefing).
+  $("ai").addEventListener("click", async () => {
+    if (!ctx) return;
+    const box = $("esito-ai"), btn = $("ai");
+    const md = window.Briefing.costruisci(ctx, { istruzioni: false, watchlist: $("o-wl").checked, portafoglio: $("o-pf").checked });
+    btn.disabled = true; box.hidden = false; box.textContent = "Analisi in corso… (di solito 10-30 secondi)";
+    try {
+      const r = await fetch("/api/analisi-briefing", { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ testo: md }) });
+      const j = await r.json().catch(() => ({}));
+      if (!r.ok) throw new Error(j.errore || `errore ${r.status}`);
+      box.textContent = "";
+      for (const par of String(j.testo).split(/\n+/).map((x) => x.trim()).filter(Boolean)) {
+        const e = document.createElement(/^[A-ZÀ-Ü' ,]{6,}:?$/.test(par) ? "h4" : "p");
+        e.textContent = par.replace(/:$/, ""); box.append(e);
+      }
+      const nota = document.createElement("p"); nota.className = "avviso";
+      nota.textContent = "Sintesi automatica dei soli dati del briefing, senza notizie dal web e senza indicazioni operative." + (j.troncato ? " Il briefing era molto lungo: le sezioni finali non sono state lette." : "")
+        + (typeof j.analisi_restanti === "number" ? ` Analisi rimaste oggi: ${j.analisi_restanti}.` : "");
+      box.append(nota);
+    } catch (e) { box.textContent = "Analisi non riuscita: " + e.message; }
+    btn.disabled = false;
   });
   avvia();
 })();

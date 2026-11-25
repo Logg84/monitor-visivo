@@ -27,6 +27,17 @@ const SYSTEM = `Sei un assistente che riassume in italiano, in prosa chiara e di
 - PUNTI DI ATTENZIONE: tensioni tra tecnica e fondamentale, rischi che emergono dai numeri.
 - COSA CAMBIEREBBE IL QUADRO: cosa invaliderebbe la lettura (es. chiusura fuori dal range, peggioramento di un indicatore dato).`;
 
+// Analisi AI del briefing (pulsante nella pagina Briefing): stesso testo che si darebbe a un LLM esterno, letto dal motore del portale.
+export const SYSTEM_BRIEFING = `Sei un analista che legge in italiano il briefing di mercato di un portale di monitoraggio personale e ne fa una sintesi ragionata per un investitore che opera su azioni USA, azioni europee e crypto. Regole assolute:
+- Usa SOLO i dati presenti nel briefing. Non hai accesso al web: non inventare notizie, eventi, numeri, date o dividendi. Se per rispondere servirebbe una notizia che non è nel file, scrivi che va cercata a parte.
+- Non dare MAI indicazioni operative (compra/vendi/target di prezzo): descrivi cosa dicono i dati e cosa merita attenzione; la decisione resta all'utente.
+- Rispetta unità e valute indicate nel file (es. i prezzi in GBp sono pence). Se una sezione è segnata «non disponibile» o i dati sono vecchi, dillo.
+- Niente markdown, niente elenchi puntati, niente tabelle: solo paragrafi con questi titoli in maiuscolo, ciascuno su una riga: QUADRO DI MERCATO, SETTORI E INDICI, TITOLI DA GUARDARE, INSIDER E CALENDARIO, RISCHI E CONTRADDIZIONI, COSA CONTROLLARE OGGI.
+- QUADRO DI MERCATO: regime macro e cosa cambia rispetto al contesto fornito. SETTORI E INDICI: forza e debolezza relative. TITOLI DA GUARDARE: i più rilevanti per segnale/punteggio e per la watchlist o il portafoglio se presenti, con i motivi tratti dai dati. INSIDER E CALENDARIO: acquisti degli insider ed eventi in arrivo. RISCHI E CONTRADDIZIONI: solo contraddizioni reali tra segnali. COSA CONTROLLARE OGGI: 3-5 verifiche concrete, formulate come domande o controlli (non come ordini).
+- Sii concreto e sintetico: ogni titolo in lista ha una frase, non un saggio.`;
+
+const MAX_BRIEFING = 60000;   // caratteri (~17k token): oltre, il testo viene troncato prima di arrivare al motore AI
+
 const json = (obj, status = 200) =>
   new Response(JSON.stringify(obj), { status, headers: { "content-type": "application/json; charset=utf-8", "cache-control": "no-store" } });
 
@@ -60,6 +71,27 @@ export function descriviFond(f) {
     out.push(`${nome} (esercizi chiusi, consuntivi, anno = anno di chiusura dell'esercizio): ${righe.join("; ")}`);
   }
   return out.join("\n");
+}
+
+/** Chiamata al motore AI (API compatibile OpenAI). Ritorna { testo } oppure { errore, stato }. */
+async function chiamaAI(env, sistema, contenuto) {
+  let r;
+  try {
+    r = await fetch(String(env.AI_BASE_URL).replace(/\/$/, "") + "/chat/completions", {
+      method: "POST",
+      headers: { Authorization: `Bearer ${env.AI_KEY}`, "content-type": "application/json" },
+      body: JSON.stringify({ model: env.AI_MODEL, temperature: 0.3, max_tokens: Number(env.AI_MAX_TOKENS) || 4000,
+        messages: [{ role: "system", content: sistema }, { role: "user", content: contenuto }] }),
+    });
+  } catch (e) { return { errore: "motore AI non raggiungibile", stato: 502 }; }
+  if (!r.ok) {
+    let dettaglio = "";
+    try { dettaglio = (await r.text()).replace(/\s+/g, " ").slice(0, 300); } catch (e) { /* nessun dettaglio */ }
+    return { errore: `motore AI: errore ${r.status}${dettaglio ? " — " + dettaglio : ""}`, stato: 502 };
+  }
+  let testo = "";
+  try { testo = ((await r.json()).choices?.[0]?.message?.content || "").replace(/<think>[\s\S]*?<\/think>/g, "").trim(); } catch (e) { /* vuoto */ }
+  return testo ? { testo } : { errore: "il motore AI non ha restituito testo", stato: 502 };
 }
 
 export function costruisciPrompt(ticker, stati, titolo, fond) {
@@ -430,6 +462,32 @@ export default {
       return json({ ok: true });
     }
 
+    if (url.pathname === "/api/analisi-briefing") {
+      if (request.method !== "POST") return json({ errore: "metodo non consentito" }, 405);
+      if (!env.AI_KEY || !env.AI_BASE_URL || !env.AI_MODEL || !modoAccess(env)) return json({ errore: "servizio AI non configurato" }, 503);
+      const ioB = await identita(request, env);
+      if (!ioB) return json({ errore: "non autenticato" }, 401);
+      let bb;
+      try { bb = await request.json(); } catch (e) { return json({ errore: "richiesta non valida" }, 400); }
+      let testoB = String(bb.testo || "").trim();
+      if (testoB.length < 500) return json({ errore: "briefing vuoto o troppo corto: attendi il caricamento della pagina" }, 400);
+      const troncato = testoB.length > MAX_BRIEFING;
+      if (troncato) testoB = testoB.slice(0, MAX_BRIEFING) + "\n\n[… briefing troncato per la lunghezza: le sezioni finali non sono incluse]";
+      const quotaB = !ioB.admin && ioB.modalita === "access" && env.DB ? ut.quotaAnalisi(env) : 0;
+      if (quotaB) {
+        let usate = 0;
+        try { usate = await ut.usoAnalisi(env.DB, ioB.email); } catch (e) { /* contatore non leggibile: non blocca */ }
+        if (usate >= quotaB) return json({ errore: ut.testoQuotaAnalisi(quotaB), codice: "quota_analisi", limite: quotaB, usate }, 429);
+      }
+      const risB = await chiamaAI(env, SYSTEM_BRIEFING, "BRIEFING:\n\n" + testoB);
+      if (risB.errore) return json({ errore: risB.errore }, risB.stato);
+      let restantiB = null;
+      if (quotaB) {
+        try { await ut.contaAnalisi(env.DB, ioB.email); restantiB = Math.max(0, quotaB - (await ut.usoAnalisi(env.DB, ioB.email))); } catch (e) { /* ok */ }
+      }
+      return json({ testo: risB.testo, troncato, ...(restantiB === null ? {} : { analisi_restanti: restantiB }) });
+    }
+
     if (url.pathname !== "/api/analisi") return json({ errore: "percorso sconosciuto" }, 404);
     if (request.method !== "POST") return json({ errore: "metodo non consentito" }, 405);
     if (!env.AI_KEY || !env.AI_BASE_URL || !env.AI_MODEL || !modoAccess(env)) return json({ errore: "servizio AI non configurato" }, 503);
@@ -471,23 +529,9 @@ export default {
       prompt += "\n\nIMMAGINI ALLEGATE: " + immagini.map((i) => (i.tf === "1W" ? "grafico settimanale" : "grafico giornaliero")).join(", ") + ".";
       contenuto = [{ type: "text", text: prompt }, ...immagini.map((i) => ({ type: "image_url", image_url: { url: i.img } }))];
     }
-    let r;
-    try {
-      r = await fetch(String(env.AI_BASE_URL).replace(/\/$/, "") + "/chat/completions", {
-        method: "POST",
-        headers: { Authorization: `Bearer ${env.AI_KEY}`, "content-type": "application/json" },
-        body: JSON.stringify({ model: env.AI_MODEL, temperature: 0.3, max_tokens: Number(env.AI_MAX_TOKENS) || 4000,
-          messages: [{ role: "system", content: SYSTEM }, { role: "user", content: contenuto }] }),
-      });
-    } catch (e) { return json({ errore: "motore AI non raggiungibile" }, 502); }
-    if (!r.ok) {
-      let dettaglio = "";
-      try { dettaglio = (await r.text()).replace(/\s+/g, " ").slice(0, 300); } catch (e) { /* nessun dettaglio */ }
-      return json({ errore: `motore AI: errore ${r.status}${dettaglio ? " — " + dettaglio : ""}` }, 502);
-    }
-    let testo = "";
-    try { testo = ((await r.json()).choices?.[0]?.message?.content || "").replace(/<think>[\s\S]*?<\/think>/g, "").trim(); } catch (e) { /* vuoto */ }
-    if (!testo) return json({ errore: "il motore AI non ha restituito testo" }, 502);
+    const ris = await chiamaAI(env, SYSTEM, contenuto);
+    if (ris.errore) return json({ errore: ris.errore }, ris.stato);
+    const testo = ris.testo;
 
     let restanti = null;
     if (quotaAI) {
