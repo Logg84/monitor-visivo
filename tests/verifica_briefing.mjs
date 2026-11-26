@@ -98,12 +98,12 @@ const molte = costruisci({ ...ctx, indice: { aggiornato: "2026-11-20", basi: Arr
 ok("basi: elenco limitato a 120 con avviso", /Elenco limitato alle prime 120 basi su 150/.test(molte) && (molte.match(/\| T\d{3} \|/g) || []).length === 120);
 // ── Correzioni del 26/11/2026 (anomalie del briefing reale) ──
 ok("intestazione: elenca anche il FTSE MIB", /DAX, CAC 40, FTSE MIB\)/.test(md));
-ok("legenda E: almeno 2 controlli su 5 e utili non negativi", /almeno 2 dei 5 controlli[^.]*sorpresa sugli utili non negativa/.test(sez(4)));
+ok("legenda E: almeno 2 controlli su 5 e utili non negativi", /persistenza della spinta di rientro: almeno 2 dei 5 controlli[^.]*sorpresa sugli utili non negativa/.test(sez(4)));
 const riga = (extra) => ({ ticker: "EEE", punti: 5, priorita: 90, extra: { Settore: "Health Care", SectorScore: 80, Vento: "favore", Prezzo: 100, Data_barra: "2026-11-17", ...extra } });
 const conExtra = (extra) => costruisci({ ...ctx, screening: { data: "2026-11-17", righe: [riga(extra)] } });
 const tutteOk = { H_ROE: true, H_DE: true, H_Margine: true, H_Crescita: true, H_FCF: true, Seg_B: true, Seg_C: true, Seg_G: 2 > 1, Seg_D: true };
 const e0 = conExtra({ ...tutteOk, Seg_E: false });
-ok("qualità: totale e E0 con 5/5 ok = utili sotto le attese (dedotto)", /Debito ok, Margine ok, Crescita ok, FCF ok \(5\/5\) → E0: utili sotto le attese \(dedotto\)/.test(e0));
+ok("qualità: totale e E0 con 5/5 ok = manca la persistenza (o utili sotto le attese)", /Debito ok, Margine ok, Crescita ok, FCF ok \(5\/5\) → E0: qualità ok ma manca la persistenza della spinta \(o utili sotto le attese\)/.test(e0));
 const e1 = conExtra({ ...tutteOk, H_ROE: false, H_DE: false, H_Margine: false, Seg_E: true });
 ok("qualità: 2/5 ok con E1 senza nota", /\(2\/5\)(?! →)/.test(e1) && !/E0:/.test(e1));
 const e0b = conExtra({ ...tutteOk, H_ROE: false, H_DE: false, H_Margine: false, H_FCF: false, Seg_E: false });
