@@ -22,7 +22,7 @@ ok("screening: conteggi dell'universo", /3 titoli nell'universo; 2 con calo ≥ 
 ok("insider: cluster, importo formattato, «|» nel nome non rompe la tabella", /Titoli con cluster: AAA/.test(sez(5)) && /1,500,000/.test(sez(5)) && /Mario \/ Rossi/.test(sez(5)));
 ok("calendario: solo eventi nelle prossime 3 settimane", /2026-11-18/.test(sez(6)) && !/Lontano/.test(sez(6)) && !/Passato/.test(sez(6)));
 ok("watchlist: livelli compatti, origine, punti dallo screening", /AAA \| USD \| manuale \| tech \| L1 95 \(\+5%\) \| ok \| 2026-12-01 \| da seguire \| in portafoglio: Long dal 2026-10-24 a 80\.00 \| 3 gg \(2026-11-18\) \| 5\/6/.test(sez(7)) && /ZZZ \| USD \| auto/.test(sez(7)) && /ZZZ \|[^\n]*solo osservato/.test(sez(7)));
-ok("sezione 4: maschera B-C-G-D-E, qualità, fondamentali, trimestrale, RVOL/OBV, stagionalità", /AAA \| B1 C1 G0 D1 E1 \| ROE ok, Debito KO, Margine ok, Crescita ok, FCF ok \| n\/d \| 14\.6 \|/.test(sez(4)) && /3 gg \(2026-11-18\) \| 1\.80 \| 1\.20 \| \+0\.31 \| -0\.10 \| conferma rialzista \| 5a \+1\.2% \/ 60% \| 5a \+2\.0% \/ 70%/.test(sez(4)) && /BBB \| n\/d \| n\/d/.test(sez(4)));
+ok("sezione 4: maschera B-C-G-D-E, qualità, fondamentali, trimestrale, RVOL/OBV, stagionalità", /AAA \| B1 C1 G0 D1 E1 \| ROE ok, Debito KO, Margine ok, Crescita ok, FCF ok \(4\/5\) \| n\/d \| 14\.6 \|/.test(sez(4)) && /3 gg \(2026-11-18\) \| 1\.80 \| 1\.20 \| \+0\.31 \| -0\.10 \| conferma rialzista \| 5a \+1\.2% \/ 60% \| 5a \+2\.0% \/ 70%/.test(sez(4)) && /BBB \| n\/d \| n\/d/.test(sez(4)));
 ok("insider: riepilogo cluster con insider distinti, ruoli e totale", /Riepilogo dei cluster/.test(sez(5)) && /AAA \| 1 \| 1 \| CEO \| 1,500,000/.test(sez(5)));
 const obs = costruisci({ screening: { data: "d", righe: [{ ticker: "T", punti: 4, priorita: 1, extra: {} }] }, indice: { basi: [{ chiave: "T|1W", stato: "uscito_sopra", top: 10, bottom: 8, ultimo: 170 }] } });
 ok("range obsoleto: prezzo oltre il doppio del massimo → non operativo", /RANGE OBSOLETO/.test(obs) || /range obsoleto/.test(obs));
@@ -96,4 +96,23 @@ ok("basi: timeframe settimanale (livelli dello screening ripetuti) e titolo fuor
 const senzaIx = costruisci({ ...ctx, indice: null }); ok("basi: senza index.json lo dichiara e il resto resta valido", /## 9\. Basi di accumulo[^\n]*\n\n_Non disponibile\._/.test(senzaIx) && /## 4\./.test(senzaIx));
 const molte = costruisci({ ...ctx, indice: { aggiornato: "2026-11-20", basi: Array.from({ length: 150 }, (_, i) => ({ chiave: `T${String(i).padStart(3, "0")}|1D`, stato: "in_range", bottom: 10, top: 12, ultimo: 11 })) }, screening: null });
 ok("basi: elenco limitato a 120 con avviso", /Elenco limitato alle prime 120 basi su 150/.test(molte) && (molte.match(/\| T\d{3} \|/g) || []).length === 120);
+// ── Correzioni del 26/11/2026 (anomalie del briefing reale) ──
+ok("intestazione: elenca anche il FTSE MIB", /DAX, CAC 40, FTSE MIB\)/.test(md));
+ok("legenda E: almeno 2 controlli su 5 e utili non negativi", /almeno 2 dei 5 controlli[^.]*sorpresa sugli utili non negativa/.test(sez(4)));
+const riga = (extra) => ({ ticker: "EEE", punti: 5, priorita: 90, extra: { Settore: "Health Care", SectorScore: 80, Vento: "favore", Prezzo: 100, Data_barra: "2026-11-17", ...extra } });
+const conExtra = (extra) => costruisci({ ...ctx, screening: { data: "2026-11-17", righe: [riga(extra)] } });
+const tutteOk = { H_ROE: true, H_DE: true, H_Margine: true, H_Crescita: true, H_FCF: true, Seg_B: true, Seg_C: true, Seg_G: 2 > 1, Seg_D: true };
+const e0 = conExtra({ ...tutteOk, Seg_E: false });
+ok("qualità: totale e E0 con 5/5 ok = utili sotto le attese (dedotto)", /Debito ok, Margine ok, Crescita ok, FCF ok \(5\/5\) → E0: utili sotto le attese \(dedotto\)/.test(e0));
+const e1 = conExtra({ ...tutteOk, H_ROE: false, H_DE: false, H_Margine: false, Seg_E: true });
+ok("qualità: 2/5 ok con E1 senza nota", /\(2\/5\)(?! →)/.test(e1) && !/E0:/.test(e1));
+const e0b = conExtra({ ...tutteOk, H_ROE: false, H_DE: false, H_Margine: false, H_FCF: false, Seg_E: false });
+ok("qualità: 1/5 ok con E0 = meno di 2 controlli", /\(1\/5\) → E0: meno di 2 controlli ok/.test(e0b));
+const zone = conExtra({ ...tutteOk, Seg_E: true, Prezzo: 736, Z1: "13.02–118.36 ·100", Z2: "700.00–760.00 ·50" });
+ok("zone di volume: lontana dal prezzo = fuori scala, vicina resta", /fuori scala \| 700\.00–760\.00 ·50/.test(zone));
+const insDup = costruisci({ ...ctx, insider: { dati: { acquisti: { colonne: ["Ticker", "Data", "Insider", "Classe", "Importo_$", "Cluster", "Settore"],
+  righe: [["ROL", "2026-10-29", "Trust X", "10% Owner", 49956665, true, "cons"], ["ROL", "2026-10-29", "Lor Inc", "10% Owner", 49956665, true, "cons"], ["AAA", "2026-11-10", "Mario", "CEO", 500000, true, "tech"], ["AAA", "2026-11-11", "Anna", "Director", 90000, true, "tech"]] } } } });
+ok("insider: doppia segnalazione unita, ROL non è un cluster, AAA sì", /\(1 righe duplicate della stessa operazione unite\)/.test(sez5(insDup)) && /Titoli con cluster: AAA\./.test(sez5(insDup)) && !/ROL \| 2 \|/.test(sez5(insDup)));
+function sez5(m) { const i = m.indexOf("## 5."); const j = m.indexOf("\n## ", i + 3); return m.slice(i, j < 0 ? undefined : j); }
+
 console.log(`\nVERIFICA BRIEFING: ${n} controlli ok`);
