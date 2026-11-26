@@ -1,0 +1,59 @@
+{
+ "aggiornato": "2026-11-26",
+ "dati": {
+  "beta": 0.978,
+  "bilancio_annuale": {
+   "ricavi": {
+    "2022": 35118000000.0,
+    "2023": 30652000000.0,
+    "2024": 17745000000.0,
+    "2025": 18546000000.0
+   },
+   "utile_netto": {
+    "2022": 4514000000.0,
+    "2023": 283000000.0,
+    "2024": -3068000000.0,
+    "2025": -3741000000.0
+   },
+   "utile_operativo": {
+    "2022": 10921000000.0,
+    "2023": 6507000000.0,
+    "2024": 3895000000.0,
+    "2025": 3990000000.0
+   }
+  },
+  "currency": "GBp",
+  "currentRatio": 2.768,
+  "debito_netto": 8396000256,
+  "debito_netto_su_ebitda": 1.23,
+  "debtToEquity": 73.759,
+  "dividendYield": 0.93,
+  "ebitda": 6808999936,
+  "enterpriseToEbitda": 7.204,
+  "fiftyTwoWeekHigh": 4643.8,
+  "fiftyTwoWeekLow": 2757.0,
+  "financialCurrency": "USD",
+  "forwardPE": 18.3926,
+  "freeCashflow": 2612250112,
+  "grossMargins": 0.6695,
+  "industry": "Other Industrial Metals & Mining",
+  "longName": "Anglo American plc",
+  "marketCap": 34394763264,
+  "numberOfAnalystOpinions": 17,
+  "operatingCashflow": 5798000128,
+  "operatingMargins": 0.2417,
+  "payoutRatio": 5.5199,
+  "priceToBook": 2.686,
+  "profitMargins": -0.1394,
+  "quickRatio": 1.762,
+  "recommendationKey": "buy",
+  "returnOnAssets": 0.0513,
+  "returnOnEquity": -0.0307,
+  "revenueGrowth": 0.109,
+  "sector": "Basic Materials",
+  "targetMeanPrice": 4287.018,
+  "totalCash": 8865000448,
+  "totalDebt": 17261000704
+ },
+ "v": 2
+}

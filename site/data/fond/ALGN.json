@@ -1,5 +1,5 @@
 {
- "aggiornato": "2026-11-19",
+ "aggiornato": "2026-11-26",
  "dati": {
   "beta": 1.738,
   "bilancio_annuale": {
@@ -30,21 +30,21 @@
   "dividendYield": 0.0,
   "earningsGrowth": 1.436,
   "ebitda": 962401984,
-  "enterpriseToEbitda": 10.971,
+  "enterpriseToEbitda": 11.077,
   "fiftyTwoWeekHigh": 200.44,
-  "fiftyTwoWeekLow": 132.64,
+  "fiftyTwoWeekLow": 138.05,
   "financialCurrency": "USD",
-  "forwardPE": 12.995,
+  "forwardPE": 13.4605,
   "freeCashflow": 573700352,
   "grossMargins": 0.7153,
   "industry": "Medical Instruments & Supplies",
   "longName": "Align Technology, Inc.",
-  "marketCap": 11255372800,
+  "marketCap": 11658558464,
   "numberOfAnalystOpinions": 14,
   "operatingCashflow": 749892992,
   "operatingMargins": 0.1964,
   "payoutRatio": 0.0,
-  "priceToBook": 2.6217,
+  "priceToBook": 2.7156,
   "profitMargins": 0.1183,
   "quickRatio": 1.228,
   "recommendationKey": "buy",
@@ -55,7 +55,7 @@
   "targetMeanPrice": 185.7857,
   "totalCash": 1144930944,
   "totalDebt": 146459008,
-  "trailingPE": 23.277
+  "trailingPE": 24.1108
  },
  "v": 2
 }

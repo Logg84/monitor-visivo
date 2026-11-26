@@ -1,0 +1,61 @@
+{
+ "aggiornato": "2026-11-26",
+ "dati": {
+  "beta": 0.496,
+  "bilancio_annuale": {
+   "ricavi": {
+    "2022": 19429300000.0,
+    "2023": 16815100000.0,
+    "2024": 16237400000.0,
+    "2025": 15171500000.0
+   },
+   "utile_netto": {
+    "2022": 886800000.0,
+    "2023": 714900000.0,
+    "2024": 536200000.0,
+    "2025": 264600000.0
+   },
+   "utile_operativo": {
+    "2022": 1385400000.0,
+    "2023": 1098500000.0,
+    "2024": 890500000.0,
+    "2025": 614700000.0
+   }
+  },
+  "currency": "EUR",
+  "currentRatio": 1.864,
+  "debito_netto": 2937000000,
+  "debito_netto_su_ebitda": 2.7,
+  "debtToEquity": 84.192,
+  "dividendYield": 3.43,
+  "earningsGrowth": 0.141,
+  "ebitda": 1087500032,
+  "enterpriseToEbitda": 10.099,
+  "fiftyTwoWeekHigh": 66.86,
+  "fiftyTwoWeekLow": 43.72,
+  "financialCurrency": "EUR",
+  "forwardPE": 13.7944,
+  "freeCashflow": 296212512,
+  "grossMargins": 0.258,
+  "industry": "Specialty Chemicals",
+  "longName": "Brenntag SE",
+  "marketCap": 8166436864,
+  "numberOfAnalystOpinions": 15,
+  "operatingCashflow": 683699968,
+  "operatingMargins": 0.0527,
+  "payoutRatio": 0.7224,
+  "priceToBook": 1.7769,
+  "profitMargins": 0.0242,
+  "quickRatio": 1.316,
+  "recommendationKey": "hold",
+  "returnOnAssets": 0.0454,
+  "returnOnEquity": 0.0865,
+  "revenueGrowth": 0.147,
+  "sector": "Basic Materials",
+  "targetMeanPrice": 59.3333,
+  "totalCash": 967000000,
+  "totalDebt": 3904000000,
+  "trailingPE": 21.5057
+ },
+ "v": 2
+}

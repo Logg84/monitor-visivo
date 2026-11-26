@@ -1,0 +1,59 @@
+{
+ "aggiornato": "2026-11-26",
+ "dati": {
+  "beta": 0.321,
+  "bilancio_annuale": {
+   "ricavi": {
+    "2023": 37672000000.0,
+    "2024": 36717000000.0,
+    "2025": 37448000000.0,
+    "2026": 40461000000.0
+   },
+   "utile_netto": {
+    "2023": 11838000000.0,
+    "2024": 1140000000.0,
+    "2025": -4169000000.0,
+    "2026": -397000000.0
+   },
+   "utile_operativo": {
+    "2023": 5238000000.0,
+    "2024": 3816000000.0,
+    "2025": 4138000000.0,
+    "2026": 3743000000.0
+   }
+  },
+  "currency": "GBp",
+  "currentRatio": 1.04,
+  "debito_netto": 47881000960,
+  "debito_netto_su_ebitda": 5.08,
+  "debtToEquity": 126.373,
+  "dividendYield": 3.88,
+  "ebitda": 9420000256,
+  "enterpriseToEbitda": 8.009,
+  "fiftyTwoWeekHigh": 132.072,
+  "fiftyTwoWeekLow": 92.08,
+  "financialCurrency": "EUR",
+  "forwardPE": 10.329,
+  "freeCashflow": 6395375104,
+  "grossMargins": 0.3174,
+  "industry": "Telecom Services",
+  "longName": "Vodafone Group Public Limited Company",
+  "marketCap": 23875282944,
+  "numberOfAnalystOpinions": 16,
+  "operatingCashflow": 15553000448,
+  "operatingMargins": 0.0753,
+  "payoutRatio": 1.0107,
+  "priceToBook": 0.6634,
+  "profitMargins": -0.1409,
+  "quickRatio": 1.0,
+  "recommendationKey": "hold",
+  "returnOnAssets": 0.0157,
+  "returnOnEquity": -0.0888,
+  "revenueGrowth": 0.114,
+  "sector": "Communication Services",
+  "targetMeanPrice": 120.9882,
+  "totalCash": 11239999488,
+  "totalDebt": 59121000448
+ },
+ "v": 2
+}

@@ -1,0 +1,46 @@
+{
+ "aggiornato": "2026-11-26",
+ "dati": {
+  "beta": 0.525,
+  "bilancio_annuale": {
+   "ricavi": {
+    "2022": -1182853477.0,
+    "2023": 2570527155.0,
+    "2024": 1204848725.0,
+    "2025": 2574533458.0
+   },
+   "utile_netto": {
+    "2022": -1172083602.0,
+    "2023": 2486054201.0,
+    "2024": 1173695918.0,
+    "2025": 2525375901.0
+   }
+  },
+  "currency": "GBp",
+  "currentRatio": 155.543,
+  "debito_netto": -12942792960,
+  "debtToEquity": 27.996,
+  "dividendYield": 1.48,
+  "fiftyTwoWeekHigh": 6573.536,
+  "fiftyTwoWeekLow": 3582.198,
+  "financialCurrency": "USD",
+  "freeCashflow": -891578240,
+  "grossMargins": 0.0,
+  "industry": "Asset Management",
+  "longName": "Pershing Square Holdings, Ltd.",
+  "marketCap": 6709107712,
+  "operatingCashflow": -1235972352,
+  "operatingMargins": 1.4134,
+  "payoutRatio": 0.0468,
+  "priceToBook": 0.6947,
+  "profitMargins": 0.0,
+  "quickRatio": 154.268,
+  "recommendationKey": "strong_buy",
+  "returnOnAssets": -0.0418,
+  "returnOnEquity": -0.0955,
+  "sector": "Financial Services",
+  "totalCash": 16564298752,
+  "totalDebt": 3621505792
+ },
+ "v": 2
+}

@@ -1,0 +1,61 @@
+{
+ "aggiornato": "2026-11-26",
+ "dati": {
+  "beta": 0.908,
+  "bilancio_annuale": {
+   "ricavi": {
+    "2023": 470800000.0,
+    "2024": 525700000.0,
+    "2025": 617500000.0,
+    "2026": 659700000.0
+   },
+   "utile_netto": {
+    "2023": 134700000.0,
+    "2024": 151100000.0,
+    "2025": 196100000.0,
+    "2026": 206000000.0
+   },
+   "utile_operativo": {
+    "2023": 170200000.0,
+    "2024": 201800000.0,
+    "2025": 261300000.0,
+    "2026": 275000000.0
+   }
+  },
+  "currency": "GBp",
+  "currentRatio": 3.631,
+  "debito_netto": -126900000,
+  "debito_netto_su_ebitda": -0.43,
+  "debtToEquity": 16.701,
+  "dividendYield": 2.56,
+  "earningsGrowth": -0.006,
+  "ebitda": 292300000,
+  "enterpriseToEbitda": 17.643,
+  "fiftyTwoWeekHigh": 23540.0,
+  "fiftyTwoWeekLow": 15640.0,
+  "financialCurrency": "GBP",
+  "forwardPE": 24.9684,
+  "freeCashflow": 178350000,
+  "grossMargins": 0.7252,
+  "industry": "Leisure",
+  "longName": "Games Workshop Group PLC",
+  "marketCap": 5395262464,
+  "numberOfAnalystOpinions": 2,
+  "operatingCashflow": 267700000,
+  "operatingMargins": 0.4169,
+  "payoutRatio": 0.7791,
+  "priceToBook": 16.0737,
+  "profitMargins": 0.3123,
+  "quickRatio": 2.775,
+  "recommendationKey": "buy",
+  "returnOnAssets": 0.4046,
+  "returnOnEquity": 0.6687,
+  "revenueGrowth": 0.03,
+  "sector": "Consumer Cyclical",
+  "targetMeanPrice": 22075.0,
+  "totalCash": 182900000,
+  "totalDebt": 56000000,
+  "trailingPE": 26.1798
+ },
+ "v": 2
+}
