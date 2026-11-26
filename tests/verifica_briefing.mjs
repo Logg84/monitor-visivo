@@ -108,6 +108,10 @@ const e1 = conExtra({ ...tutteOk, H_ROE: false, H_DE: false, H_Margine: false, S
 ok("qualità: 2/5 ok con E1 senza nota", /\(2\/5\)(?! →)/.test(e1) && !/E0:/.test(e1));
 const e0b = conExtra({ ...tutteOk, H_ROE: false, H_DE: false, H_Margine: false, H_FCF: false, Seg_E: false });
 ok("qualità: 1/5 ok con E0 = meno di 2 controlli", /\(1\/5\) → E0: meno di 2 controlli ok/.test(e0b));
+const conUtili = (v) => conExtra({ ...tutteOk, Seg_E: false, Utili_Positivi: v });
+ok("utili: E0 con utili sotto le attese è dichiarato, senza ipotesi", /\(5\/5\) · utili ultima trim\.: sotto le attese → E0: utili dell'ultima trimestrale sotto le attese/.test(conUtili(false)));
+ok("utili: E0 con utili ok punta alla persistenza", /\(5\/5\) · utili ultima trim\.: sopra le attese → E0: qualità e utili ok ma manca la persistenza della spinta/.test(conUtili(true)));
+ok("utili: senza dato resta la dicitura prudente e nessun «utili ultima trim.»", /→ E0: qualità ok ma manca la persistenza della spinta \(o utili sotto le attese\)/.test(conUtili(undefined)) && !/utili ultima trim\.:/.test(conUtili(undefined)));
 const zone = conExtra({ ...tutteOk, Seg_E: true, Prezzo: 736, Z1: "13.02–118.36 ·100", Z2: "700.00–760.00 ·50" });
 ok("zone di volume: lontana dal prezzo = fuori scala, vicina resta", /fuori scala \| 700\.00–760\.00 ·50/.test(zone));
 const insDup = costruisci({ ...ctx, insider: { dati: { acquisti: { colonne: ["Ticker", "Data", "Insider", "Classe", "Importo_$", "Cluster", "Settore"],
