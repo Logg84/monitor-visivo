@@ -1,0 +1,61 @@
+{
+ "aggiornato": "2026-11-27",
+ "dati": {
+  "beta": 0.842,
+  "bilancio_annuale": {
+   "ricavi": {
+    "2022": 9645400000.0,
+    "2023": 10012200000.0,
+    "2024": 10127200000.0,
+    "2025": 10644600000.0
+   },
+   "utile_netto": {
+    "2022": 1765800000.0,
+    "2023": 1483300000.0,
+    "2024": 2255000000.0,
+    "2025": 2529500000.0
+   },
+   "utile_operativo": {
+    "2022": 2922700000.0,
+    "2023": 3536800000.0,
+    "2024": 4603000000.0,
+    "2025": 4929200000.0
+   }
+  },
+  "currency": "USD",
+  "currentRatio": 0.353,
+  "debito_netto": 43422298752,
+  "debito_netto_su_ebitda": 6.14,
+  "debtToEquity": 463.814,
+  "dividendYield": 3.88,
+  "earningsGrowth": -0.099,
+  "ebitda": 7076599808,
+  "enterpriseToEbitda": 19.138,
+  "fiftyTwoWeekHigh": 202.5,
+  "fiftyTwoWeekLow": 160.06,
+  "financialCurrency": "USD",
+  "forwardPE": 26.4944,
+  "freeCashflow": 3017250048,
+  "grossMargins": 0.7352,
+  "industry": "REIT - Specialty",
+  "longName": "American Tower Corporation",
+  "marketCap": 85763792896,
+  "numberOfAnalystOpinions": 24,
+  "operatingCashflow": 5707700224,
+  "operatingMargins": 0.4549,
+  "payoutRatio": 0.9958,
+  "priceToBook": 24.41,
+  "profitMargins": 0.301,
+  "quickRatio": 0.306,
+  "recommendationKey": "strong_buy",
+  "returnOnAssets": 0.0493,
+  "returnOnEquity": 0.3296,
+  "revenueGrowth": 0.025,
+  "sector": "Real Estate",
+  "targetMeanPrice": 216.125,
+  "totalCash": 1871900032,
+  "totalDebt": 45294198784,
+  "trailingPE": 26.0465
+ },
+ "v": 2
+}

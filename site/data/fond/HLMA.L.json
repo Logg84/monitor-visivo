@@ -1,5 +1,5 @@
 {
- "aggiornato": "2026-11-20",
+ "aggiornato": "2026-11-27",
  "dati": {
   "beta": 0.986,
   "bilancio_annuale": {
@@ -27,23 +27,24 @@
   "debito_netto": 966100032,
   "debito_netto_su_ebitda": 1.4,
   "debtToEquity": 51.957,
-  "dividendYield": 0.73,
+  "dividendYield": 0.74,
   "earningsGrowth": 0.177,
   "ebitda": 689900032,
-  "enterpriseToEbitda": 19.228,
+  "enterpriseToEbitda": 20.258,
   "fiftyTwoWeekHigh": 4902.0,
   "fiftyTwoWeekLow": 3198.0,
   "financialCurrency": "GBP",
-  "forwardPE": 21.773,
+  "forwardPE": 22.956,
   "freeCashflow": 350812512,
   "grossMargins": 0.5349,
   "industry": "Conglomerates",
   "longName": "Halma plc",
-  "numberOfAnalystOpinions": 18,
+  "marketCap": 13007239168,
+  "numberOfAnalystOpinions": 19,
   "operatingCashflow": 546300032,
   "operatingMargins": 0.21,
   "payoutRatio": 0.2314,
-  "priceToBook": 5.3721,
+  "priceToBook": 5.6822,
   "profitMargins": 0.1459,
   "quickRatio": 1.583,
   "recommendationKey": "buy",
@@ -51,10 +52,10 @@
   "returnOnEquity": 0.1896,
   "revenueGrowth": 0.158,
   "sector": "Industrials",
-  "targetMeanPrice": 4371.111,
+  "targetMeanPrice": 4343.684,
   "totalCash": 223400000,
   "totalDebt": 1189500032,
-  "trailingPE": 30.4299
+  "trailingPE": 32.1869
  },
  "v": 2
 }

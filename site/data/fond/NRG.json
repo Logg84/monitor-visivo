@@ -1,0 +1,61 @@
+{
+ "aggiornato": "2026-11-27",
+ "dati": {
+  "beta": 1.201,
+  "bilancio_annuale": {
+   "ricavi": {
+    "2022": 31543000000.0,
+    "2023": 28823000000.0,
+    "2024": 28130000000.0,
+    "2025": 30713000000.0
+   },
+   "utile_netto": {
+    "2022": 1221000000.0,
+    "2023": -202000000.0,
+    "2024": 1125000000.0,
+    "2025": 864000000.0
+   },
+   "utile_operativo": {
+    "2022": 2224000000.0,
+    "2023": -1049000000.0,
+    "2024": 2282000000.0,
+    "2025": 1944000000.0
+   }
+  },
+  "currency": "USD",
+  "currentRatio": 0.993,
+  "debito_netto": 22975999360,
+  "debito_netto_su_ebitda": 5.6,
+  "debtToEquity": 438.733,
+  "dividendYield": 2.07,
+  "earningsGrowth": 2.754,
+  "ebitda": 4105999872,
+  "enterpriseToEbitda": 10.553,
+  "fiftyTwoWeekHigh": 189.96,
+  "fiftyTwoWeekLow": 79.65,
+  "financialCurrency": "USD",
+  "forwardPE": 9.7297,
+  "freeCashflow": 1384625024,
+  "grossMargins": 0.202,
+  "industry": "Utilities - Independent Power Producers",
+  "longName": "NRG Energy, Inc.",
+  "marketCap": 19706296320,
+  "numberOfAnalystOpinions": 16,
+  "operatingCashflow": 2168000000,
+  "operatingMargins": 0.0789,
+  "payoutRatio": 0.326,
+  "priceToBook": 4.2629,
+  "profitMargins": 0.036,
+  "quickRatio": 0.416,
+  "recommendationKey": "strong_buy",
+  "returnOnAssets": 0.0536,
+  "returnOnEquity": 0.3474,
+  "revenueGrowth": 0.24,
+  "sector": "Utilities",
+  "targetMeanPrice": 156.625,
+  "totalCash": 154000000,
+  "totalDebt": 23129999360,
+  "trailingPE": 16.4038
+ },
+ "v": 2
+}

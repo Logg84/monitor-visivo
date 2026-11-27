@@ -1,0 +1,61 @@
+{
+ "aggiornato": "2026-11-27",
+ "dati": {
+  "beta": 0.297,
+  "bilancio_annuale": {
+   "ricavi": {
+    "2022": 101175000000.0,
+    "2023": 59554000000.0,
+    "2024": 63627000000.0,
+    "2025": 62579000000.0
+   },
+   "utile_netto": {
+    "2022": 31372000000.0,
+    "2023": 2119000000.0,
+    "2024": 8031000000.0,
+    "2025": 7771000000.0
+   },
+   "utile_operativo": {
+    "2022": 38117000000.0,
+    "2023": 4417000000.0,
+    "2024": 14938000000.0,
+    "2025": 17407000000.0
+   }
+  },
+  "currency": "USD",
+  "currentRatio": 1.419,
+  "debito_netto": 49129000960,
+  "debito_netto_su_ebitda": 1.97,
+  "debtToEquity": 71.006,
+  "dividendYield": 6.04,
+  "earningsGrowth": -0.097,
+  "ebitda": 24937000960,
+  "enterpriseToEbitda": 8.501,
+  "fiftyTwoWeekHigh": 31.44,
+  "fiftyTwoWeekLow": 23.62,
+  "financialCurrency": "USD",
+  "forwardPE": 9.6572,
+  "freeCashflow": 13006999552,
+  "grossMargins": 0.749,
+  "industry": "Drug Manufacturers - General",
+  "longName": "Pfizer Inc.",
+  "marketCap": 162559836160,
+  "numberOfAnalystOpinions": 26,
+  "operatingCashflow": 14172999680,
+  "operatingMargins": 0.2907,
+  "payoutRatio": 2.4571,
+  "priceToBook": 1.8266,
+  "profitMargins": 0.0634,
+  "quickRatio": 1.004,
+  "recommendationKey": "buy",
+  "returnOnAssets": 0.0559,
+  "returnOnEquity": 0.0447,
+  "revenueGrowth": -0.004,
+  "sector": "Healthcare",
+  "targetMeanPrice": 30.2212,
+  "totalCash": 14279000064,
+  "totalDebt": 63408001024,
+  "trailingPE": 40.7429
+ },
+ "v": 2
+}

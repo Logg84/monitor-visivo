@@ -1,0 +1,61 @@
+{
+ "aggiornato": "2026-11-27",
+ "dati": {
+  "beta": 1.086,
+  "bilancio_annuale": {
+   "ricavi": {
+    "2023": 2813169000.0,
+    "2024": 2816120000.0,
+    "2025": 3088072000.0,
+    "2026": 3416669000.0
+   },
+   "utile_netto": {
+    "2023": 394948000.0,
+    "2024": 566778000.0,
+    "2025": 692380000.0,
+    "2026": 722149000.0
+   },
+   "utile_operativo": {
+    "2023": 537956000.0,
+    "2024": 667246000.0,
+    "2025": 791433000.0,
+    "2026": 825227000.0
+   }
+  },
+  "currency": "USD",
+  "currentRatio": 1.731,
+  "debito_netto": -1344943008,
+  "debito_netto_su_ebitda": -1.46,
+  "debtToEquity": 6.132,
+  "dividendYield": 0.0,
+  "earningsGrowth": -0.01,
+  "ebitda": 921758016,
+  "enterpriseToEbitda": 18.473,
+  "fiftyTwoWeekHigh": 483.3,
+  "fiftyTwoWeekLow": 233.96,
+  "financialCurrency": "USD",
+  "forwardPE": 16.0804,
+  "freeCashflow": 605018880,
+  "grossMargins": 0.8188,
+  "industry": "Software - Infrastructure",
+  "longName": "F5, Inc.",
+  "marketCap": 18382385152,
+  "numberOfAnalystOpinions": 9,
+  "operatingCashflow": 959489024,
+  "operatingMargins": 0.2415,
+  "payoutRatio": 0.0,
+  "priceToBook": 4.5795,
+  "profitMargins": 0.2114,
+  "quickRatio": 1.458,
+  "recommendationKey": "hold",
+  "returnOnAssets": 0.0771,
+  "returnOnEquity": 0.1901,
+  "revenueGrowth": 0.133,
+  "sector": "Technology",
+  "targetMeanPrice": 436.3333,
+  "totalCash": 1590528000,
+  "totalDebt": 245584992,
+  "trailingPE": 25.7875
+ },
+ "v": 2
+}

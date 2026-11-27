@@ -1,0 +1,59 @@
+{
+ "aggiornato": "2026-11-27",
+ "dati": {
+  "beta": 0.909,
+  "bilancio_annuale": {
+   "ricavi": {
+    "2022": 6986000000.0,
+    "2023": 4734000000.0,
+    "2024": 4460000000.0,
+    "2025": 4264000000.0
+   },
+   "utile_netto": {
+    "2022": 1675000000.0,
+    "2023": 1502000000.0,
+    "2024": -3903000000.0,
+    "2025": 444000000.0
+   },
+   "utile_operativo": {
+    "2022": 2433000000.0,
+    "2023": 2180000000.0,
+    "2024": 2199000000.0,
+    "2025": 2086000000.0
+   }
+  },
+  "currency": "USD",
+  "currentRatio": 0.231,
+  "debito_netto": 22789000384,
+  "debito_netto_su_ebitda": 8.61,
+  "dividendYield": 5.08,
+  "earningsGrowth": -0.105,
+  "ebitda": 2646000128,
+  "enterpriseToEbitda": 22.152,
+  "fiftyTwoWeekHigh": 95.07,
+  "fiftyTwoWeekLow": 65.32,
+  "financialCurrency": "USD",
+  "forwardPE": 28.7461,
+  "freeCashflow": 981000000,
+  "grossMargins": 0.7368,
+  "industry": "REIT - Specialty",
+  "longName": "Crown Castle Inc.",
+  "marketCap": 35825512448,
+  "numberOfAnalystOpinions": 22,
+  "operatingCashflow": 1966000000,
+  "operatingMargins": 0.4782,
+  "payoutRatio": 1.7068,
+  "priceToBook": -10.4752,
+  "profitMargins": 0.2013,
+  "quickRatio": 0.138,
+  "recommendationKey": "buy",
+  "returnOnAssets": 0.0469,
+  "revenueGrowth": -0.072,
+  "sector": "Real Estate",
+  "targetMeanPrice": 93.6091,
+  "totalCash": 133000000,
+  "totalDebt": 22922000384,
+  "trailingPE": 33.8153
+ },
+ "v": 2
+}

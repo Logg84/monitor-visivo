@@ -1,0 +1,48 @@
+{
+ "aggiornato": "2026-11-27",
+ "dati": {
+  "beta": 1.088,
+  "bilancio_annuale": {
+   "ricavi": {
+    "2022": 34250000000.0,
+    "2023": 36787000000.0,
+    "2024": 39112000000.0,
+    "2025": 53434000000.0
+   },
+   "utile_netto": {
+    "2022": 7360000000.0,
+    "2023": 4887000000.0,
+    "2024": 4750000000.0,
+    "2025": 2453000000.0
+   }
+  },
+  "currency": "USD",
+  "debito_netto": 2859999232,
+  "dividendYield": 1.75,
+  "earningsGrowth": 0.162,
+  "fiftyTwoWeekHigh": 259.64,
+  "fiftyTwoWeekLow": 174.24,
+  "financialCurrency": "USD",
+  "forwardPE": 7.7467,
+  "grossMargins": 0.0,
+  "industry": "Credit Services",
+  "longName": "Capital One Financial Corporation",
+  "marketCap": 111241527296,
+  "numberOfAnalystOpinions": 22,
+  "operatingCashflow": 28010000384,
+  "operatingMargins": 0.3113,
+  "payoutRatio": 0.1961,
+  "priceToBook": 1.0571,
+  "profitMargins": 0.2223,
+  "recommendationKey": "strong_buy",
+  "returnOnAssets": 0.0157,
+  "returnOnEquity": 0.0939,
+  "revenueGrowth": 0.062,
+  "sector": "Financial Services",
+  "targetMeanPrice": 252.6073,
+  "totalCash": 52224000000,
+  "totalDebt": 55083999232,
+  "trailingPE": 11.3315
+ },
+ "v": 2
+}

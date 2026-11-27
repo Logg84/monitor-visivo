@@ -1,5 +1,5 @@
 {
- "aggiornato": "2026-11-20",
+ "aggiornato": "2026-11-27",
  "dati": {
   "beta": 1.295,
   "bilancio_annuale": {
@@ -27,27 +27,27 @@
   "debito_netto": 4114000192,
   "debito_netto_su_ebitda": 1.35,
   "debtToEquity": 80.198,
-  "dividendYield": 0.26,
+  "dividendYield": 0.27,
   "earningsGrowth": 0.495,
   "ebitda": 3056999936,
-  "enterpriseToEbitda": 29.726,
+  "enterpriseToEbitda": 29.627,
   "fiftyTwoWeekHigh": 310.0,
   "fiftyTwoWeekLow": 183.52,
   "financialCurrency": "USD",
-  "forwardPE": 31.4678,
+  "forwardPE": 32.709,
   "freeCashflow": 1291250048,
   "grossMargins": 0.3663,
   "industry": "Aerospace & Defense",
   "longName": "Howmet Aerospace Inc.",
-  "marketCap": 83174670336,
+  "marketCap": 86455369728,
   "numberOfAnalystOpinions": 21,
   "operatingCashflow": 2399000064,
   "operatingMargins": 0.2808,
   "payoutRatio": 0.098,
-  "priceToBook": 14.4348,
+  "priceToBook": 15.0041,
   "profitMargins": 0.211,
   "quickRatio": 0.733,
-  "recommendationKey": "strong_buy",
+  "recommendationKey": "none",
   "returnOnAssets": 0.1397,
   "returnOnEquity": 0.3765,
   "revenueGrowth": 0.294,
@@ -55,7 +55,7 @@
   "targetMeanPrice": 296.2857,
   "totalCash": 507000000,
   "totalDebt": 4621000192,
-  "trailingPE": 41.0118
+  "trailingPE": 42.6294
  },
  "v": 2
 }

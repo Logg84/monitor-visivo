@@ -1,0 +1,61 @@
+{
+ "aggiornato": "2026-11-27",
+ "dati": {
+  "beta": 1.375,
+  "bilancio_annuale": {
+   "ricavi": {
+    "2022": 13728000000.0,
+    "2023": 14779000000.0,
+    "2024": 17224000000.0,
+    "2025": 17738000000.0
+   },
+   "utile_netto": {
+    "2022": -1227000000.0,
+    "2023": 1493000000.0,
+    "2024": 2659000000.0,
+    "2025": 944000000.0
+   },
+   "utile_operativo": {
+    "2022": -1103000000.0,
+    "2023": 2710000000.0,
+    "2024": 4081000000.0,
+    "2025": 2134000000.0
+   }
+  },
+  "currency": "USD",
+  "currentRatio": 1.157,
+  "debito_netto": 19023999488,
+  "debito_netto_su_ebitda": 2.42,
+  "debtToEquity": 336.81,
+  "dividendYield": 0.76,
+  "earningsGrowth": 0.846,
+  "ebitda": 7863000064,
+  "enterpriseToEbitda": 8.048,
+  "fiftyTwoWeekHigh": 182.56,
+  "fiftyTwoWeekLow": 110.89,
+  "financialCurrency": "USD",
+  "forwardPE": 12.5729,
+  "freeCashflow": 904124992,
+  "grossMargins": 0.4152,
+  "industry": "Utilities - Independent Power Producers",
+  "longName": "Vistra Corp.",
+  "marketCap": 41626759168,
+  "numberOfAnalystOpinions": 23,
+  "operatingCashflow": 5761999872,
+  "operatingMargins": 0.23,
+  "payoutRatio": 0.1235,
+  "priceToBook": 10.7202,
+  "profitMargins": 0.1315,
+  "quickRatio": 0.477,
+  "recommendationKey": "strong_buy",
+  "returnOnAssets": 0.0713,
+  "returnOnEquity": 0.4633,
+  "revenueGrowth": 0.277,
+  "sector": "Utilities",
+  "targetMeanPrice": 197.0522,
+  "totalCash": 2744000000,
+  "totalDebt": 21767999488,
+  "trailingPE": 16.5743
+ },
+ "v": 2
+}

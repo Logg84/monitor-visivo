@@ -1,0 +1,53 @@
+{
+ "aggiornato": "2026-11-27",
+ "dati": {
+  "bilancio_annuale": {
+   "ricavi": {
+    "2023": 13790000000.0,
+    "2024": 15445000000.0,
+    "2025": 17404000000.0
+   },
+   "utile_netto": {
+    "2023": 2886000000.0,
+    "2024": 2817000000.0,
+    "2025": 1780000000.0
+   },
+   "utile_operativo": {
+    "2023": 3564000000.0,
+    "2024": 3509000000.0,
+    "2025": 3257000000.0
+   }
+  },
+  "currency": "USD",
+  "currentRatio": 1.643,
+  "debito_netto": 14621000320,
+  "debito_netto_su_ebitda": 3.43,
+  "dividendYield": 1.01,
+  "earningsGrowth": 0.128,
+  "ebitda": 4260000000,
+  "enterpriseToEbitda": 15.926,
+  "fiftyTwoWeekHigh": 297.5,
+  "fiftyTwoWeekLow": 147.4,
+  "financialCurrency": "USD",
+  "forwardPE": 19.1807,
+  "grossMargins": 0.3464,
+  "industry": "Aerospace & Defense",
+  "longName": "Honeywell Aerospace Inc.",
+  "marketCap": 53134536704,
+  "numberOfAnalystOpinions": 16,
+  "operatingCashflow": 2855000064,
+  "operatingMargins": 0.2106,
+  "payoutRatio": 0.0,
+  "priceToBook": -20.6582,
+  "profitMargins": 0.1125,
+  "quickRatio": 0.835,
+  "recommendationKey": "hold",
+  "revenueGrowth": 0.024,
+  "sector": "Industrials",
+  "targetMeanPrice": 191.8125,
+  "totalCash": 1558000000,
+  "totalDebt": 16179000320,
+  "trailingPE": 47.4788
+ },
+ "v": 2
+}

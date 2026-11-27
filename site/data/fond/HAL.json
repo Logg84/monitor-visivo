@@ -1,0 +1,61 @@
+{
+ "aggiornato": "2026-11-27",
+ "dati": {
+  "beta": 0.749,
+  "bilancio_annuale": {
+   "ricavi": {
+    "2022": 20297000000.0,
+    "2023": 23018000000.0,
+    "2024": 22944000000.0,
+    "2025": 22184000000.0
+   },
+   "utile_netto": {
+    "2022": 1572000000.0,
+    "2023": 2638000000.0,
+    "2024": 2501000000.0,
+    "2025": 1283000000.0
+   },
+   "utile_operativo": {
+    "2022": 3073000000.0,
+    "2023": 4083000000.0,
+    "2024": 3938000000.0,
+    "2025": 3091000000.0
+   }
+  },
+  "currency": "USD",
+  "currentRatio": 2.019,
+  "debito_netto": 6355000064,
+  "debito_netto_su_ebitda": 1.54,
+  "debtToEquity": 73.452,
+  "dividendYield": 2.15,
+  "earningsGrowth": 24.0,
+  "ebitda": 4139000064,
+  "enterpriseToEbitda": 8.019,
+  "fiftyTwoWeekHigh": 43.59,
+  "fiftyTwoWeekLow": 25.63,
+  "financialCurrency": "USD",
+  "forwardPE": 11.0343,
+  "freeCashflow": 1632999936,
+  "grossMargins": 0.1482,
+  "industry": "Oil & Gas Equipment & Services",
+  "longName": "Halliburton Company",
+  "marketCap": 26790621184,
+  "numberOfAnalystOpinions": 25,
+  "operatingCashflow": 2630000128,
+  "operatingMargins": 0.1318,
+  "payoutRatio": 0.2857,
+  "priceToBook": 2.4093,
+  "profitMargins": 0.089,
+  "quickRatio": 1.224,
+  "recommendationKey": "buy",
+  "returnOnAssets": 0.0723,
+  "returnOnEquity": 0.1878,
+  "revenueGrowth": 0.018,
+  "sector": "Energy",
+  "targetMeanPrice": 43.56,
+  "totalCash": 1843000064,
+  "totalDebt": 8198000128,
+  "trailingPE": 13.6092
+ },
+ "v": 2
+}

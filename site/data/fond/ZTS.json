@@ -1,5 +1,5 @@
 {
- "aggiornato": "2026-11-20",
+ "aggiornato": "2026-11-27",
  "dati": {
   "beta": 0.678,
   "bilancio_annuale": {
@@ -27,24 +27,24 @@
   "debito_netto": 7724000000,
   "debito_netto_su_ebitda": 1.92,
   "debtToEquity": 280.26,
-  "dividendYield": 2.62,
+  "dividendYield": 2.57,
   "earningsGrowth": -0.118,
   "ebitda": 4032000000,
-  "enterpriseToEbitda": 10.057,
+  "enterpriseToEbitda": 10.224,
   "fiftyTwoWeekHigh": 132.49,
   "fiftyTwoWeekLow": 68.77,
   "financialCurrency": "USD",
-  "forwardPE": 12.4137,
+  "forwardPE": 12.9378,
   "freeCashflow": 2053124992,
   "grossMargins": 0.7165,
   "industry": "Drug Manufacturers - Specialty & Generic",
   "longName": "Zoetis Inc.",
-  "marketCap": 32143671296,
+  "marketCap": 33500766208,
   "numberOfAnalystOpinions": 13,
   "operatingCashflow": 2728000000,
   "operatingMargins": 0.3791,
   "payoutRatio": 0.3524,
-  "priceToBook": 9.7594,
+  "priceToBook": 10.1715,
   "profitMargins": 0.2641,
   "quickRatio": 1.202,
   "recommendationKey": "buy",
@@ -55,7 +55,7 @@
   "targetMeanPrice": 89.6923,
   "totalCash": 1532999936,
   "totalDebt": 9256999936,
-  "trailingPE": 13.4541
+  "trailingPE": 14.0221
  },
  "v": 2
 }

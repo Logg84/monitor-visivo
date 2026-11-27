@@ -1,0 +1,61 @@
+{
+ "aggiornato": "2026-11-27",
+ "dati": {
+  "beta": 1.643,
+  "bilancio_annuale": {
+   "ricavi": {
+    "2022": 4140364000.0,
+    "2023": 5206760000.0,
+    "2024": 7027476000.0,
+    "2025": 9101641000.0
+   },
+   "utile_netto": {
+    "2022": 245947000.0,
+    "2023": 323398000.0,
+    "2024": 522433000.0,
+    "2025": 1022558000.0
+   },
+   "utile_operativo": {
+    "2022": 252264000.0,
+    "2023": 416086000.0,
+    "2024": 746339000.0,
+    "2025": 1312615000.0
+   }
+  },
+  "currency": "USD",
+  "currentRatio": 1.146,
+  "debito_netto": -1849366048,
+  "debito_netto_su_ebitda": -0.81,
+  "debtToEquity": 11.227,
+  "dividendYield": 0.36,
+  "earningsGrowth": 0.686,
+  "ebitda": 2272187904,
+  "enterpriseToEbitda": 16.535,
+  "fiftyTwoWeekHigh": 2073.99,
+  "fiftyTwoWeekLow": 878.59,
+  "financialCurrency": "USD",
+  "forwardPE": 16.7718,
+  "freeCashflow": 2128619008,
+  "grossMargins": 0.257,
+  "industry": "Engineering & Construction",
+  "longName": "Comfort Systems USA, Inc.",
+  "marketCap": 39486492672,
+  "numberOfAnalystOpinions": 11,
+  "operatingCashflow": 3006919936,
+  "operatingMargins": 0.1678,
+  "payoutRatio": 0.0648,
+  "priceToBook": 11.8223,
+  "profitMargins": 0.1301,
+  "quickRatio": 1.105,
+  "recommendationKey": "strong_buy",
+  "returnOnAssets": 0.1688,
+  "returnOnEquity": 0.5861,
+  "revenueGrowth": 0.537,
+  "sector": "Industrials",
+  "targetMeanPrice": 1772.2727,
+  "totalCash": 2223799040,
+  "totalDebt": 374432992,
+  "trailingPE": 24.3767
+ },
+ "v": 2
+}
