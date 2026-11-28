@@ -69,4 +69,17 @@ with tempfile.TemporaryDirectory() as d:
     check("main: meno della metà scaricata → codice 1 e file precedente invariato", rc == 1 and prezzi_live.USCITA.read_text() == prima)
     check("main: nessun file temporaneo rimasto", not list(prezzi_live.USCITA.parent.glob("*.tmp")))
 
+# universo reale (senza rete, senza OLD_REPO): include i titoli «solo live» FTSE MIB, senza duplicati e senza toccare l'universo del backtest
+import os
+os.environ.pop("OLD_REPO", None); os.environ.pop("OLD_REPO_TOKEN", None)
+_reale = Path(prezzi_live.__file__)
+import importlib; importlib.reload(prezzi_live)
+u = prezzi_live.universo()
+extra = [r for r in prezzi_live._righe(ROOT / "data" / "universo_live_extra.txt")]
+check("universo: i 32 titoli FTSE MIB «solo live» sono nel giro", len(extra) == 32 and all(t.endswith(".MI") for t in extra) and set(extra) <= set(u))
+check("universo: nessun duplicato e ordinato", u == sorted(set(u)))
+check("universo: FTSEMIB.MI resta, ^STOXX50E e i futures restano fuori", "FTSEMIB.MI" in u and "^STOXX50E" not in u and "GC=F" not in u)
+check("universo del backtest NON alterato (nessun .MI di universo_live_extra in universo_indici.txt)",
+      not (set(extra) & set(prezzi_live._righe(ROOT / "data" / "universo_indici.txt"))))
+
 print("OK: verifica_prezzi_live")

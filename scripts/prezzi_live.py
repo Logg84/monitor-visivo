@@ -1,6 +1,7 @@
 """Giro leggero dei prezzi di giornata: nessuno screening, nessun segnale. Scrive site/data/prezzi_live.json.
 
-Universo = indici dello screening (data/universo_indici.txt) + titoli extra + watchlist del vecchio portale (se i secret ci sono).
+Universo = indici dello screening (data/universo_indici.txt) + titoli «solo live» (data/universo_live_extra.txt, es. FTSE MIB) + titoli extra
++ watchlist del vecchio portale (se i secret ci sono).
 Se meno della metà dei titoli viene scaricata, il file precedente NON viene toccato e il giro fallisce (si vede in Actions).
 """
 import datetime as dt
@@ -27,7 +28,8 @@ def _righe(p: Path) -> list[str]:
 
 
 def universo() -> list[str]:
-    tk = _righe(ROOT / "data" / "universo_indici.txt") + _righe(ROOT / "tickers_extra.txt")
+    tk = (_righe(ROOT / "data" / "universo_indici.txt") + _righe(ROOT / "data" / "universo_live_extra.txt")
+          + _righe(ROOT / "tickers_extra.txt"))
     repo, token = os.environ.get("OLD_REPO"), os.environ.get("OLD_REPO_TOKEN")
     if repo and token:
         try:

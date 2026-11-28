@@ -1,0 +1,35 @@
+# Titoli «solo prezzi live»: entrano nel giro leggero di prezzi_live.py e non in data/universo_indici.txt, che alimenta
+# il backtest range/retest (cambiarlo altererebbe i risultati dei backtest). Una riga per ticker; # per i commenti.
+# FTSE MIB (27/11/2026): i titoli dello screening del repo privato non ancora coperti dal giro live (restano FTSEMIB.MI e gli 8 .MI già in watchlist/extra).
+A2A.MI
+AMP.MI
+AVIO.MI
+AZM.MI
+BAMI.MI
+BMED.MI
+BMPS.MI
+BPE.MI
+BZU.MI
+ENEL.MI
+ENI.MI
+FBK.MI
+G.MI
+HER.MI
+IG.MI
+ISP.MI
+IVG.MI
+LDO.MI
+LTMC.MI
+MB.MI
+MONC.MI
+PRY.MI
+PST.MI
+RACE.MI
+SPM.MI
+SRG.MI
+STLAM.MI
+TEN.MI
+TIT.MI
+TRN.MI
+UCG.MI
+UNI.MI
