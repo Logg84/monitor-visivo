@@ -9,7 +9,7 @@ sys.path.insert(0, str(ROOT))
 
 import pandas as pd  # noqa: E402
 
-from basewatch import alert, detect, engine, io as bio, retest as rt  # noqa: E402
+from basewatch import alert, detect, engine, grafico_alert as gf, io as bio, retest as rt  # noqa: E402
 
 DATA = ROOT / "data"
 BARRE_GRAFICO = {"1W": 365, "1D": 780}   # ~7 anni di settimanali, ~3 di giornalieri
@@ -21,8 +21,20 @@ def main() -> int:
         bio.diagnostica_telegram()
         prova = alert.leggi_punteggi(["SMCI", "ARE", "ALB"])        # prova della lettura dei punteggi da D1
         print(f"Punteggi da D1: {len(prova)}/3 letti" + (f" (es. {next(iter(prova.items()))})" if prova else " (secret CF_* mancanti o database non raggiungibile)"))
-        ok = bio.invia_telegram("Basewatch: messaggio di prova. Se lo leggi, gli alert Telegram funzionano.\n"
-                                + alert.riga_punteggio(prova.get("SMCI"), pd.Timestamp.now(tz="UTC").date()))
+        testo_prova = ("🧪 PROVA (non è un avviso reale): se lo leggi gli alert Telegram funzionano.\n"
+                       + alert.riga_punteggio(prova.get("SMCI"), pd.Timestamp.now(tz="UTC").date()))
+        foto_prova = None
+        try:      # esempio di grafico e link come negli avvisi veri, su SMCI (range d'esempio = ultime 60 barre chiuse)
+            ok_g = detect.barre_chiuse_giornaliere(bio.scarica_giornalieri(["SMCI"], anni=3)["SMCI"], pd.Timestamp.now(tz="UTC"))
+            fin = ok_g["Close"].iloc[-60:-1]
+            esempio = {"ticker": "SMCI", "tf": "1D", "tipo": "uscita_sopra", "top": round(float(fin.max()), 2), "bottom": round(float(fin.min()), 2),
+                       "chiusura": round(float(ok_g["Close"].iloc[-1]), 2), "data": str(ok_g.index[-1])[:10], "inizio": str(fin.index[0])[:10]}
+            foto_prova = gf.grafico_png(esempio, ok_g)
+            testo_prova += "\n📈 Grafico su TradingView: " + gf.url_tv("SMCI", gf.carica_mappa_us())
+            print(f"Grafico di prova: {'creato' if foto_prova else 'NON creato'}")
+        except Exception as x:
+            print(f"⚠️ grafico di prova non creato: {type(x).__name__}: {x}")
+        ok = bio.invia_telegram(testo_prova, foto_prova)
         print(f"Telegram di prova: {'inviato' if ok else 'NON inviato (controlla i secret TELEGRAM_BOT_TOKEN e TELEGRAM_CHAT_ID e che il bot sia amministratore del canale)'}")
         return 0 if ok else 1
     if os.environ.get("TEST_EMAIL") == "true":      # prova di invio da Actions → Run workflow → test_email
@@ -139,10 +151,19 @@ def main() -> int:
     uscite = [e for e in uscite if e["ticker"] not in silenziosi]
     retest = [e for e in retest if e["ticker"] not in silenziosi]
     punteggi = alert.leggi_punteggi([e["ticker"] for e in avvisi])     # da D1; {} se non raggiungibile
-    testi = [alert.messaggio_unificato(e, punteggi.get(e["ticker"]), oggi) for e in avvisi]
+    mappa_us = gf.carica_mappa_us()
+    # Link TradingView SEMPRE nel messaggio (Telegram ed email); grafico a candele come immagine (28/11/2026, richiesta di Marco).
+    testi = [alert.messaggio_unificato(e, punteggi.get(e["ticker"]), oggi, link=gf.url_tv(e["ticker"], mappa_us)) for e in avvisi]
     for e, testo in zip(avvisi, testi):
-        ok = bio.invia_telegram(testo)
-        print(f"{e['tipo']} {e['ticker']} {e['tf']}: Telegram {'ok' if ok else 'NON inviato'} · punteggio {'sì' if e['ticker'] in punteggi else 'no'}")
+        foto = None
+        try:
+            giorn = chiuse.get(e["ticker"])
+            if giorn is not None and not giorn.empty:
+                foto = gf.grafico_png(e, giorn if e["tf"] == "1D" else detect.settimanali_chiuse(giorn, adesso))
+        except Exception as x:
+            print(f"⚠️ grafico non creato per {e['ticker']}: {type(x).__name__}: {x}")
+        ok = bio.invia_telegram(testo, foto)
+        print(f"{e['tipo']} {e['ticker']} {e['tf']}: Telegram {'ok' if ok else 'NON inviato'} · grafico {'sì' if foto else 'no'} · punteggio {'sì' if e['ticker'] in punteggi else 'no'}")
     if avvisi:
         ogg, corpo = engine.email_uscite(uscite, os.environ.get("SITO_URL", ""), testi)
         if retest:

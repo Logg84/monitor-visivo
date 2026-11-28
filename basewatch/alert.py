@@ -65,8 +65,9 @@ def riga_punteggio(p: dict | None, oggi: dt.date) -> str:
     return txt
 
 
-def messaggio_unificato(e: dict, p: dict | None, oggi: dt.date) -> str:
-    """Alert di uscita (o retest) con il punteggio. `e` come gli eventi di engine (+ tipo 'retest_tenuto')."""
+def messaggio_unificato(e: dict, p: dict | None, oggi: dt.date, link: str | None = None) -> str:
+    """Alert di uscita (o retest) con il punteggio e, se dato, il link al grafico TradingView (basewatch/grafico_alert.url_tv).
+    `e` come gli eventi di engine (+ tipo 'retest_tenuto')."""
     tf = {"1W": "settimanale", "1D": "giornaliero"}.get(e["tf"], e["tf"])
     if e["tipo"] == "retest_tenuto":
         testa = f"🔁 RETEST DEL LIVELLO ROTTO (tenuto)\n{e['ticker']} ({tf}) — chiusura {e['chiusura']} sopra il top {e['top']}, " \
@@ -78,6 +79,8 @@ def messaggio_unificato(e: dict, p: dict | None, oggi: dt.date) -> str:
     righe = [testa, riga_punteggio(p, oggi)]
     if e["tipo"] == "uscita_sopra":
         righe.append(NOTA_RETEST)
+    if link:
+        righe.append(f"📈 Grafico su TradingView: {link}")
     righe.append(AVVISO)
     return "\n".join(righe)
 

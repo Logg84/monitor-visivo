@@ -48,13 +48,27 @@ def scarica_giornalieri(tickers: list[str], anni: int = 20, blocco: int = 60) ->
     return out
 
 
-def invia_telegram(testo: str) -> bool:
+DIDASCALIA_MAX = 1024        # limite di Telegram per la didascalia di una foto
+
+
+def invia_telegram(testo: str, foto: bytes | None = None) -> bool:
+    """Invia il messaggio a ogni chat. Con `foto` (PNG) manda un'immagine con il testo come didascalia; se la foto non parte
+    (o la didascalia supera 1024 caratteri) l'alert arriva comunque come messaggio di testo: mai un avviso perso per il grafico."""
     token, chat = os.environ.get("TELEGRAM_BOT_TOKEN"), os.environ.get("TELEGRAM_CHAT_ID")
     if not token or not chat:
         return False
+    base = f"https://api.telegram.org/bot{token}"
     for chat_id in [c.strip() for c in chat.split(",") if c.strip()]:
         try:
-            r = requests.post(f"https://api.telegram.org/bot{token}/sendMessage",
+            if foto:
+                lunga = len(testo) > DIDASCALIA_MAX
+                dati = {"chat_id": chat_id} if lunga else {"chat_id": chat_id, "caption": testo}
+                r = requests.post(f"{base}/sendPhoto", data=dati, files={"photo": ("grafico.png", foto, "image/png")}, timeout=30)
+                if r.ok and not lunga:
+                    continue                       # foto + didascalia consegnate
+                if not r.ok:
+                    print(f"⚠️ Telegram foto {r.status_code}: {r.text[:200]}: ripiego sul solo testo")
+            r = requests.post(f"{base}/sendMessage",
                               json={"chat_id": chat_id, "text": testo,
                                     "disable_web_page_preview": True}, timeout=15)
             if not r.ok:
